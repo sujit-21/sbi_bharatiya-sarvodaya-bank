@@ -833,7 +833,7 @@ function renderSidebarMenu() {
   links.forEach(link => {
     const btn = document.createElement('button');
     btn.className = `menu-item ${state.activeTab === link.id ? 'active' : ''}`;
-    btn.innerHTML = `<span class="icon">${link.icon}</span> ${link.name}`;
+    btn.innerHTML = link.name;
     btn.addEventListener('click', () => switchTab(link.id));
     menu.appendChild(btn);
   });
