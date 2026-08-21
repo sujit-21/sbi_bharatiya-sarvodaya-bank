@@ -1,0 +1,12 @@
+{
+  "name": "customers-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --config vite.config.js .",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}

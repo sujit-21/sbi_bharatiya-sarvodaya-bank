@@ -1,0 +1,2094 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "userId": "NX@SHARMA01",
+      "email": "admin@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdukWAu1Rk4hD2S9nA5gZhxyevcp3ffRaa",
+      "role": "Super Admin",
+      "fullName": "Rajesh Sharma",
+      "dob": "1980-01-01",
+      "gender": "Male",
+      "mobileNumber": "+91 9820011223",
+      "address": "System HQ, Nariman Point, Mumbai",
+      "branchId": "b-main",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:02.950Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-08-19T05:50:06.331Z"
+    },
+    {
+      "id": "u-manager",
+      "userId": "NX@PATEL002",
+      "email": "manager@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduZlAl3QlE2RMphDB9JPIQgjW4DUpjM1e",
+      "role": "Branch Manager",
+      "fullName": "Priya Patel",
+      "dob": "1985-05-12",
+      "gender": "Female",
+      "mobileNumber": "+91 9811022334",
+      "address": "Connaught Place, New Delhi",
+      "branchId": "b-delhi",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.112Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-auditor",
+      "userId": "NX@VERMA003",
+      "email": "auditor@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduUQhCpfnsbbjqjaMlgkGCenvRl.DonYy",
+      "role": "Auditor",
+      "fullName": "Amit Verma",
+      "dob": "1983-09-18",
+      "gender": "Male",
+      "mobileNumber": "+91 9845033445",
+      "address": "MG Road, Bengaluru",
+      "branchId": "b-blr",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.273Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-teller",
+      "userId": "NX@REDDY004",
+      "email": "teller@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduXb1wEv10cW8uDcpKwTyOxCdQO2RPuqm",
+      "role": "Employee",
+      "fullName": "Sunita Reddy",
+      "dob": "1992-09-21",
+      "gender": "Female",
+      "mobileNumber": "+91 9840044556",
+      "address": "Mount Road, Anna Salai, Chennai",
+      "branchId": "b-chennai",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.441Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-08-19T05:50:06.559Z"
+    },
+    {
+      "id": "u-cashier",
+      "userId": "NX@SINGH005",
+      "email": "cashier@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduG0upK.alhXoCJIOAMJbKvMSwbDULHxO",
+      "role": "Employee",
+      "fullName": "Vikram Singh",
+      "dob": "1989-04-11",
+      "gender": "Male",
+      "mobileNumber": "+91 9830055667",
+      "address": "Park Street, Kolkata",
+      "branchId": "b-kolkata",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.608Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-mgr-pune",
+      "userId": "NX@DESH0006",
+      "email": "ananya.d@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduZlAl3QlE2RMphDB9JPIQgjW4DUpjM1e",
+      "role": "Branch Manager",
+      "fullName": "Ananya Deshmukh",
+      "dob": "1986-12-05",
+      "gender": "Female",
+      "mobileNumber": "+91 9822066778",
+      "address": "FC Road, Shivajinagar, Pune",
+      "branchId": "b-pune",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.770Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-mgr-hyd",
+      "userId": "NX@IYER0007",
+      "email": "suresh.i@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduZlAl3QlE2RMphDB9JPIQgjW4DUpjM1e",
+      "role": "Branch Manager",
+      "fullName": "Suresh Iyer",
+      "dob": "1984-07-24",
+      "gender": "Male",
+      "mobileNumber": "+91 9849077889",
+      "address": "Banjara Hills, Hyderabad",
+      "branchId": "b-hyd",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:03.931Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-teller-amd",
+      "userId": "NX@JOSHI008",
+      "email": "kavita.j@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BduXb1wEv10cW8uDcpKwTyOxCdQO2RPuqm",
+      "role": "Employee",
+      "fullName": "Kavita Joshi",
+      "dob": "1993-02-14",
+      "gender": "Female",
+      "mobileNumber": "+91 9825088990",
+      "address": "CG Road, Ahmedabad",
+      "branchId": "b-ahmedabad",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:04.092Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-comp-lko",
+      "userId": "NX@GUPTA009",
+      "email": "rahul.g@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu5/nOi7LSwab3L3tIT5tyZEx10qq8JD.",
+      "role": "Compliance Officer",
+      "fullName": "Rahul Gupta",
+      "dob": "1987-10-30",
+      "gender": "Male",
+      "mobileNumber": "+91 9839099001",
+      "address": "Hazratganj, Lucknow",
+      "branchId": "b-lucknow",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:04.252Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-loan-jai",
+      "userId": "NX@AGAR0010",
+      "email": "pooja.a@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdunj6OrifweSU4HCk4Mz/pDu/uL7W1tAe",
+      "role": "Loan Officer",
+      "fullName": "Pooja Agarwal",
+      "dob": "1991-08-16",
+      "gender": "Female",
+      "mobileNumber": "+91 9829011223",
+      "address": "MI Road, Jaipur",
+      "branchId": "b-jaipur",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:04.412Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-customer",
+      "userId": "NX@MEHTA001",
+      "email": "customer@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Aarav Mehta",
+      "dob": "1990-05-14",
+      "gender": "Male",
+      "mobileNumber": "+91 9820123456",
+      "address": "A-402 Green Acres, Andheri West, Mumbai",
+      "panNumber": "BPRPM1234A",
+      "sdhwo": "S/o Ramesh Mehta",
+      "branchId": "b-main",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5BduPpMQ5wENf3FAJfxBy1H0QFw4KfTUqdm",
+      "createdAt": "2026-08-19T05:50:04.572Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-08-19T05:50:06.427Z"
+    },
+    {
+      "id": "u-cust-2",
+      "userId": "NX@BANE0002",
+      "email": "diya.banerjee@yahoo.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Diya Banerjee",
+      "dob": "1992-08-22",
+      "gender": "Female",
+      "mobileNumber": "+91 9830234567",
+      "address": "12/1 Ballygunge Circular Rd, Kolkata",
+      "panNumber": "ADPBK5678B",
+      "sdhwo": "D/o Subhash Banerjee",
+      "branchId": "b-kolkata",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:04.734Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-3",
+      "userId": "NX@KULK0003",
+      "email": "rohan.kulkarni@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Rohan Kulkarni",
+      "dob": "1985-11-03",
+      "gender": "Male",
+      "mobileNumber": "+91 9822345678",
+      "address": "75 Prabhat Road, Erandwane, Pune",
+      "panNumber": "CFCPK9012C",
+      "sdhwo": "S/o Anand Kulkarni",
+      "branchId": "b-pune",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:04.894Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-4",
+      "userId": "NX@SWAM0004",
+      "email": "ananya.swami@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Ananya Swaminathan",
+      "dob": "1996-03-19",
+      "gender": "Female",
+      "mobileNumber": "+91 9840456789",
+      "address": "45 TTK Road, Alwarpet, Chennai",
+      "panNumber": "EGPSM3456D",
+      "sdhwo": "D/o V. Swaminathan",
+      "branchId": "b-chennai",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.055Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-5",
+      "userId": "NX@MALH0005",
+      "email": "kabir.malhotra@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Kabir Malhotra",
+      "dob": "1988-07-30",
+      "gender": "Male",
+      "mobileNumber": "+91 9811567890",
+      "address": "C-12 South Extension Part II, New Delhi",
+      "panNumber": "FGXPM7890E",
+      "sdhwo": "S/o Sunil Malhotra",
+      "branchId": "b-delhi",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.215Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-6",
+      "userId": "NX@NAIR0006",
+      "email": "sneha.nair@outlook.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Sneha Nair",
+      "dob": "1994-01-12",
+      "gender": "Female",
+      "mobileNumber": "+91 9845678901",
+      "address": "88 Indiranagar 100ft Road, Bengaluru",
+      "panNumber": "HKSPS1234F",
+      "sdhwo": "D/o K. T. Nair",
+      "branchId": "b-blr",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.376Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-7",
+      "userId": "NX@CHAW0007",
+      "email": "aditya.chawla@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Aditya Chawla",
+      "dob": "1983-09-05",
+      "gender": "Male",
+      "mobileNumber": "+91 9829789012",
+      "address": "21 C-Scheme, Ashok Nagar, Jaipur",
+      "panNumber": "JKRPC5678G",
+      "sdhwo": "S/o OP Chawla",
+      "branchId": "b-jaipur",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.537Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-8",
+      "userId": "NX@DESH0008",
+      "email": "meera.deshpande@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Meera Deshpande",
+      "dob": "1991-12-25",
+      "gender": "Female",
+      "mobileNumber": "+91 9825890123",
+      "address": "304 Satellite Plaza, Satellite, Ahmedabad",
+      "panNumber": "LMNPD9012H",
+      "sdhwo": "W/o Nitin Deshpande",
+      "branchId": "b-ahmedabad",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.696Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-9",
+      "userId": "NX@RAO00009",
+      "email": "siddharth.rao@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Siddharth Rao",
+      "dob": "1987-04-17",
+      "gender": "Male",
+      "mobileNumber": "+91 9849901234",
+      "address": "102 Jubilee Hills Checkpost, Hyderabad",
+      "panNumber": "PQRPR3456I",
+      "sdhwo": "S/o Narayana Rao",
+      "branchId": "b-hyd",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:05.865Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-cust-10",
+      "userId": "NX@SAXE0010",
+      "email": "ishita.saxena@gmail.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5BdunDH7zZb3RfYKJrRItcNf9FmYcTwxNXC",
+      "role": "Customer",
+      "fullName": "Ishita Saxena",
+      "dob": "1993-06-08",
+      "gender": "Female",
+      "mobileNumber": "+91 9839012345",
+      "address": "56 Gomti Nagar Scheme, Lucknow",
+      "panNumber": "RSTPS7890J",
+      "sdhwo": "D/o RK Saxena",
+      "branchId": "b-lucknow",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:06.032Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-merchant",
+      "userId": "NX@MERCH01",
+      "email": "merchant@bank.com",
+      "passwordHash": "$2a$10$KSDKZWzy.bToltNL0J5Bduod65D3jZhUh6XbUcwVdS6bMCpIMAsT.",
+      "role": "Merchant",
+      "fullName": "Rajesh Retail Traders",
+      "dob": "1988-11-30",
+      "gender": "Male",
+      "mobileNumber": "+91 9820099887",
+      "address": "404 Retail Market, Crawford Market, Mumbai",
+      "status": "active",
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$KSDKZWzy.bToltNL0J5Bdu6JyMNmsfuv.160KpnvsU48zUaBDv1V6",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    }
+  ],
+  "sessions": [
+    {
+      "id": "ses-42bfb3a5",
+      "userId": "u-admin",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3MTE4NjA2LCJleHAiOjE3ODc3MjM0MDZ9.CfjdLV5vMvsxwi57uvLOzyqgKnFoEWxAx2KcopmaGTQ",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-08-26T05:50:06.335Z",
+      "createdAt": "2026-08-19T05:50:06.335Z"
+    },
+    {
+      "id": "ses-445d7935",
+      "userId": "u-customer",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3MTE4NjA2LCJleHAiOjE3ODc3MjM0MDZ9.LdXFchIPl8hdGhkSu9V5rPuDEpjFdNBSriB7a9DVMAM",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-08-26T05:50:06.429Z",
+      "createdAt": "2026-08-19T05:50:06.429Z"
+    },
+    {
+      "id": "ses-ad5f3696",
+      "userId": "u-teller",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtdGVsbGVyIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4NzExODYwNiwiZXhwIjoxNzg3NzIzNDA2fQ.Yv_uva-6Npdq_44WPTy2nt3TrSJBhAYmQhWWtoc1Dbc",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-08-26T05:50:06.569Z",
+      "createdAt": "2026-08-19T05:50:06.569Z"
+    }
+  ],
+  "loginHistory": [
+    {
+      "id": "log-26d7eab1",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-19T05:50:06.336Z",
+      "createdAt": "2026-08-19T05:50:06.336Z"
+    },
+    {
+      "id": "log-76f50846",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-19T05:50:06.429Z",
+      "createdAt": "2026-08-19T05:50:06.429Z"
+    },
+    {
+      "id": "log-7d48adb5",
+      "userId": "u-teller",
+      "email": "teller@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-19T05:50:06.570Z",
+      "createdAt": "2026-08-19T05:50:06.570Z"
+    }
+  ],
+  "branches": [
+    {
+      "id": "b-main",
+      "name": "Mumbai Main HQ Branch",
+      "code": "MUM001",
+      "ifscCode": "NXSB000MUM1",
+      "micrCode": "400240001",
+      "address": "Nariman Point, Marine Drive, Mumbai, Maharashtra 400021",
+      "vaultBalance": 15000000,
+      "minVaultLimit": 2000000,
+      "maxVaultLimit": 50000000,
+      "cashInHand": 500000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-delhi",
+      "name": "Connaught Place Branch",
+      "code": "DEL001",
+      "ifscCode": "NXSB000DEL1",
+      "micrCode": "110240001",
+      "address": "Connaught Place, Inner Circle, New Delhi, Delhi 110001",
+      "vaultBalance": 12000000,
+      "minVaultLimit": 1500000,
+      "maxVaultLimit": 40000000,
+      "cashInHand": 400000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-blr",
+      "name": "MG Road Branch",
+      "code": "BLR001",
+      "ifscCode": "NXSB000BLR1",
+      "micrCode": "560240001",
+      "address": "MG Road, Brigade Junction, Bengaluru, Karnataka 560001",
+      "vaultBalance": 10000000,
+      "minVaultLimit": 1000000,
+      "maxVaultLimit": 35000000,
+      "cashInHand": 350000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-chennai",
+      "name": "Anna Salai Branch",
+      "code": "CHE001",
+      "ifscCode": "NXSB000CHE1",
+      "micrCode": "600240001",
+      "address": "Mount Road, Anna Salai, Chennai, Tamil Nadu 600002",
+      "vaultBalance": 8500000,
+      "minVaultLimit": 1000000,
+      "maxVaultLimit": 30000000,
+      "cashInHand": 300000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-kolkata",
+      "name": "Park Street Branch",
+      "code": "KOL001",
+      "ifscCode": "NXSB000KOL1",
+      "micrCode": "700240001",
+      "address": "Park Street, Chowringhee, Kolkata, West Bengal 700016",
+      "vaultBalance": 7500000,
+      "minVaultLimit": 800000,
+      "maxVaultLimit": 25000000,
+      "cashInHand": 250000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-hyd",
+      "name": "Banjara Hills Branch",
+      "code": "HYD001",
+      "ifscCode": "NXSB000HYD1",
+      "micrCode": "500240001",
+      "address": "Road No. 1, Banjara Hills, Hyderabad, Telangana 500034",
+      "vaultBalance": 9000000,
+      "minVaultLimit": 1000000,
+      "maxVaultLimit": 30000000,
+      "cashInHand": 300000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-ahmedabad",
+      "name": "CG Road Branch",
+      "code": "AMD001",
+      "ifscCode": "NXSB000AMD1",
+      "micrCode": "380240001",
+      "address": "CG Road, Navrangpura, Ahmedabad, Gujarat 380009",
+      "vaultBalance": 8000000,
+      "minVaultLimit": 900000,
+      "maxVaultLimit": 28000000,
+      "cashInHand": 280000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-pune",
+      "name": "FC Road Branch",
+      "code": "PUN001",
+      "ifscCode": "NXSB000PUN1",
+      "micrCode": "411240001",
+      "address": "FC Road, Shivajinagar, Pune, Maharashtra 411004",
+      "vaultBalance": 9500000,
+      "minVaultLimit": 1000000,
+      "maxVaultLimit": 32000000,
+      "cashInHand": 320000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-jaipur",
+      "name": "MI Road Branch",
+      "code": "JAI001",
+      "ifscCode": "NXSB000JAI1",
+      "micrCode": "302240001",
+      "address": "MI Road, Jayanti Market, Jaipur, Rajasthan 302001",
+      "vaultBalance": 6500000,
+      "minVaultLimit": 700000,
+      "maxVaultLimit": 20000000,
+      "cashInHand": 200000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    },
+    {
+      "id": "b-lucknow",
+      "name": "Hazratganj Branch",
+      "code": "LKO001",
+      "ifscCode": "NXSB000LKO1",
+      "micrCode": "226240001",
+      "address": "Hazratganj Main Market, Lucknow, Uttar Pradesh 226001",
+      "vaultBalance": 7000000,
+      "minVaultLimit": 750000,
+      "maxVaultLimit": 22000000,
+      "cashInHand": 220000,
+      "createdAt": "2026-08-19T05:50:02.779Z"
+    }
+  ],
+  "cashVaults": [
+    {
+      "id": "cv-main",
+      "branchId": "b-main",
+      "type": "main",
+      "balance": 15000000,
+      "lastReconciledAt": "2026-08-19T05:50:06.195Z"
+    }
+  ],
+  "cashPositions": [
+    {
+      "id": "cp-1",
+      "branchId": "b-main",
+      "tellerId": "u-teller",
+      "cashInHand": 55000,
+      "limit": 100000,
+      "status": "active",
+      "updatedAt": "2026-08-19T05:50:06.583Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc-cust-1",
+      "customerId": "u-customer",
+      "accountNumber": "1000987654",
+      "branchId": "b-main",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 155387.5,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.597Z"
+    },
+    {
+      "id": "acc-cust-2",
+      "customerId": "u-cust-2",
+      "accountNumber": "1000987655",
+      "branchId": "b-kolkata",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 285712.5,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.602Z"
+    },
+    {
+      "id": "acc-cust-3",
+      "customerId": "u-cust-3",
+      "accountNumber": "1000987656",
+      "branchId": "b-pune",
+      "type": "current",
+      "mopType": "Self",
+      "balance": 540000,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    },
+    {
+      "id": "acc-cust-4",
+      "customerId": "u-cust-4",
+      "accountNumber": "1000987657",
+      "branchId": "b-chennai",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 95237.5,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.608Z"
+    },
+    {
+      "id": "acc-cust-5",
+      "customerId": "u-cust-5",
+      "accountNumber": "1000987658",
+      "branchId": "b-delhi",
+      "type": "savings",
+      "mopType": "Either or Survivor",
+      "balance": 421050,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.614Z"
+    },
+    {
+      "id": "acc-cust-6",
+      "customerId": "u-cust-6",
+      "accountNumber": "1000987659",
+      "branchId": "b-blr",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 180450,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.621Z"
+    },
+    {
+      "id": "acc-cust-7",
+      "customerId": "u-cust-7",
+      "accountNumber": "1000987660",
+      "branchId": "b-jaipur",
+      "type": "current",
+      "mopType": "Self",
+      "balance": 890000,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    },
+    {
+      "id": "acc-cust-8",
+      "customerId": "u-cust-8",
+      "accountNumber": "1000987661",
+      "branchId": "b-ahmedabad",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 315787.5,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.627Z"
+    },
+    {
+      "id": "acc-cust-9",
+      "customerId": "u-cust-9",
+      "accountNumber": "1000987662",
+      "branchId": "b-hyd",
+      "type": "savings",
+      "mopType": "Either or Survivor",
+      "balance": 676687.5,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.633Z"
+    },
+    {
+      "id": "acc-cust-10",
+      "customerId": "u-cust-10",
+      "accountNumber": "1000987663",
+      "branchId": "b-lucknow",
+      "type": "savings",
+      "mopType": "Self",
+      "balance": 210525,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z",
+      "updatedAt": "2026-08-19T05:50:06.642Z"
+    },
+    {
+      "id": "acc-merch-1",
+      "customerId": "u-merchant",
+      "accountNumber": "2000123456",
+      "branchId": "b-main",
+      "type": "current",
+      "mopType": "Self",
+      "balance": 1000000,
+      "status": "active",
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "tra-4170b4cf",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-cust-1",
+      "amount": 5000,
+      "type": "deposit",
+      "category": "Cash Deposit",
+      "status": "completed",
+      "description": "Test Verification Deposit",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.582Z"
+    },
+    {
+      "id": "tra-d1d500f7",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-1",
+      "amount": 387.5,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.598Z"
+    },
+    {
+      "id": "tra-b9a52bfb",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-2",
+      "amount": 712.5,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.603Z"
+    },
+    {
+      "id": "tra-b20bf613",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-4",
+      "amount": 237.5,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.609Z"
+    },
+    {
+      "id": "tra-15db74bb",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-5",
+      "amount": 1050,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.615Z"
+    },
+    {
+      "id": "tra-bf592f81",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-6",
+      "amount": 450,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.621Z"
+    },
+    {
+      "id": "tra-de6147da",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-8",
+      "amount": 787.5,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.627Z"
+    },
+    {
+      "id": "tra-ebad71e3",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-9",
+      "amount": 1687.5,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.634Z"
+    },
+    {
+      "id": "tra-2f1f8c82",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-10",
+      "amount": 525,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-19T05:50:06.643Z"
+    },
+    {
+      "id": "tra-03066c46",
+      "fromAccountId": "acc-cust-1",
+      "toAccountId": "acc-merch-1",
+      "amount": 60000,
+      "type": "transfer",
+      "category": "Failed Trigger",
+      "status": "flagged",
+      "description": "Blocked: Fraud Risk Score too high (80). Fraud Test transfer",
+      "fraudScore": 80,
+      "reconciliationStatus": "failed",
+      "createdAt": "2026-08-19T05:50:06.744Z"
+    }
+  ],
+  "cards": [],
+  "loans": [],
+  "fixedDeposits": [],
+  "recurringDeposits": [],
+  "beneficiaries": [],
+  "nominees": [],
+  "tickets": [],
+  "grievances": [],
+  "notifications": [],
+  "auditLogs": [
+    {
+      "id": "aud-2d2542e9",
+      "userId": "u-customer",
+      "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
+      "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"reason\":\"Module access denied. Required one of: users, employees\",\"userRole\":\"Customer\"}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-19T05:50:06.453Z",
+      "createdAt": "2026-08-19T05:50:06.453Z"
+    },
+    {
+      "id": "aud-e3ae92ff",
+      "userId": "u-teller",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000987654\",\"amount\":5000,\"type\":\"deposit\",\"description\":\"Test Verification Deposit\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-19T05:50:06.588Z",
+      "createdAt": "2026-08-19T05:50:06.588Z"
+    },
+    {
+      "id": "aud-651fd87e",
+      "userId": "u-admin",
+      "action": "POST_/API/INTEREST/POST",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-19T05:50:06.649Z",
+      "createdAt": "2026-08-19T05:50:06.649Z"
+    }
+  ],
+  "treasuryTransfers": [],
+  "interestPostings": [
+    {
+      "id": "int-c83bc40c",
+      "accountId": "acc-cust-1",
+      "amount": 387.5,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.599Z"
+    },
+    {
+      "id": "int-2390253e",
+      "accountId": "acc-cust-2",
+      "amount": 712.5,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.604Z"
+    },
+    {
+      "id": "int-47305e19",
+      "accountId": "acc-cust-4",
+      "amount": 237.5,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.610Z"
+    },
+    {
+      "id": "int-8c835db1",
+      "accountId": "acc-cust-5",
+      "amount": 1050,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.616Z"
+    },
+    {
+      "id": "int-14105587",
+      "accountId": "acc-cust-6",
+      "amount": 450,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.622Z"
+    },
+    {
+      "id": "int-d30ed370",
+      "accountId": "acc-cust-8",
+      "amount": 787.5,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.628Z"
+    },
+    {
+      "id": "int-28bb217e",
+      "accountId": "acc-cust-9",
+      "amount": 1687.5,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.635Z"
+    },
+    {
+      "id": "int-ffae2e8e",
+      "accountId": "acc-cust-10",
+      "amount": 525,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-08-19T05:50:06.597Z",
+      "createdAt": "2026-08-19T05:50:06.644Z"
+    }
+  ],
+  "interestSchedules": [],
+  "generalLedger": [
+    {
+      "id": "gl-1010",
+      "code": "1010",
+      "name": "Cash in Vault",
+      "type": "asset",
+      "balance": 15000000
+    },
+    {
+      "id": "gl-1020",
+      "code": "1020",
+      "name": "Cash in Hand (Tellers)",
+      "type": "asset",
+      "balance": 55000,
+      "updatedAt": "2026-08-19T05:50:06.584Z"
+    },
+    {
+      "id": "gl-2010",
+      "code": "2010",
+      "name": "Customer Savings Deposits",
+      "type": "liability",
+      "balance": 160837.5,
+      "updatedAt": "2026-08-19T05:50:06.647Z"
+    },
+    {
+      "id": "gl-2020",
+      "code": "2020",
+      "name": "Merchant Current Deposits",
+      "type": "liability",
+      "balance": 1000000
+    },
+    {
+      "id": "gl-3010",
+      "code": "3010",
+      "name": "Share Capital",
+      "type": "equity",
+      "balance": 13900000
+    },
+    {
+      "id": "gl-4010",
+      "code": "4010",
+      "name": "Interest Revenue from Loans",
+      "type": "revenue",
+      "balance": 0
+    },
+    {
+      "id": "gl-5010",
+      "code": "5010",
+      "name": "Interest Expense on Savings",
+      "type": "expense",
+      "balance": 5837.5,
+      "updatedAt": "2026-08-19T05:50:06.645Z"
+    }
+  ],
+  "journalEntries": [
+    {
+      "id": "jou-36f4a067",
+      "date": "2026-08-19",
+      "description": "Deposit to Account 1000987654",
+      "status": "posted",
+      "createdBy": "u-teller",
+      "createdAt": "2026-08-19T05:50:06.583Z"
+    },
+    {
+      "id": "jou-598e7c1c",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987654",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.599Z"
+    },
+    {
+      "id": "jou-2b182a9f",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987655",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.605Z"
+    },
+    {
+      "id": "jou-a563a195",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987657",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.610Z"
+    },
+    {
+      "id": "jou-9a60be00",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987658",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.617Z"
+    },
+    {
+      "id": "jou-cda6ec11",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987659",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.623Z"
+    },
+    {
+      "id": "jou-f49ea325",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987661",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.629Z"
+    },
+    {
+      "id": "jou-d97052f7",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987662",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.636Z"
+    },
+    {
+      "id": "jou-953bd50a",
+      "date": "2026-08-19",
+      "description": "Savings Interest Posting for 1000987663",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-08-19T05:50:06.645Z"
+    }
+  ],
+  "journalLines": [
+    {
+      "id": "jou-96d2a309",
+      "journalEntryId": "jou-36f4a067",
+      "glCode": "1020",
+      "type": "debit",
+      "amount": 5000,
+      "createdAt": "2026-08-19T05:50:06.584Z"
+    },
+    {
+      "id": "jou-0ef5c7eb",
+      "journalEntryId": "jou-36f4a067",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 5000,
+      "createdAt": "2026-08-19T05:50:06.585Z"
+    },
+    {
+      "id": "jou-293f6956",
+      "journalEntryId": "jou-598e7c1c",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 387.5,
+      "createdAt": "2026-08-19T05:50:06.600Z"
+    },
+    {
+      "id": "jou-50675e75",
+      "journalEntryId": "jou-598e7c1c",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 387.5,
+      "createdAt": "2026-08-19T05:50:06.601Z"
+    },
+    {
+      "id": "jou-19075f59",
+      "journalEntryId": "jou-2b182a9f",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 712.5,
+      "createdAt": "2026-08-19T05:50:06.605Z"
+    },
+    {
+      "id": "jou-f9a7f6c8",
+      "journalEntryId": "jou-2b182a9f",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 712.5,
+      "createdAt": "2026-08-19T05:50:06.607Z"
+    },
+    {
+      "id": "jou-a9bf5563",
+      "journalEntryId": "jou-a563a195",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 237.5,
+      "createdAt": "2026-08-19T05:50:06.611Z"
+    },
+    {
+      "id": "jou-2a57f045",
+      "journalEntryId": "jou-a563a195",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 237.5,
+      "createdAt": "2026-08-19T05:50:06.613Z"
+    },
+    {
+      "id": "jou-24ba40b4",
+      "journalEntryId": "jou-9a60be00",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 1050,
+      "createdAt": "2026-08-19T05:50:06.618Z"
+    },
+    {
+      "id": "jou-bb4110b7",
+      "journalEntryId": "jou-9a60be00",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 1050,
+      "createdAt": "2026-08-19T05:50:06.619Z"
+    },
+    {
+      "id": "jou-090a809c",
+      "journalEntryId": "jou-cda6ec11",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 450,
+      "createdAt": "2026-08-19T05:50:06.624Z"
+    },
+    {
+      "id": "jou-0ad1bae1",
+      "journalEntryId": "jou-cda6ec11",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 450,
+      "createdAt": "2026-08-19T05:50:06.625Z"
+    },
+    {
+      "id": "jou-e3b0aefd",
+      "journalEntryId": "jou-f49ea325",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 787.5,
+      "createdAt": "2026-08-19T05:50:06.630Z"
+    },
+    {
+      "id": "jou-cf76fc21",
+      "journalEntryId": "jou-f49ea325",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 787.5,
+      "createdAt": "2026-08-19T05:50:06.632Z"
+    },
+    {
+      "id": "jou-246d98a9",
+      "journalEntryId": "jou-d97052f7",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 1687.5,
+      "createdAt": "2026-08-19T05:50:06.637Z"
+    },
+    {
+      "id": "jou-143766f0",
+      "journalEntryId": "jou-d97052f7",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 1687.5,
+      "createdAt": "2026-08-19T05:50:06.639Z"
+    },
+    {
+      "id": "jou-95487940",
+      "journalEntryId": "jou-953bd50a",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 525,
+      "createdAt": "2026-08-19T05:50:06.645Z"
+    },
+    {
+      "id": "jou-d6bd31aa",
+      "journalEntryId": "jou-953bd50a",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 525,
+      "createdAt": "2026-08-19T05:50:06.647Z"
+    }
+  ],
+  "trialBalances": [],
+  "financialStatements": [],
+  "crmLeads": [],
+  "crmCampaigns": [],
+  "customerScores": [],
+  "knowledgeBase": [],
+  "scheduledJobs": [],
+  "backups": [],
+  "systemMetrics": [],
+  "workflowDefinitions": [
+    {
+      "id": "wf-kyc",
+      "name": "KYC Verification Approval Flow",
+      "triggerType": "KYC",
+      "steps": [
+        "Employee review",
+        "Manager approval"
+      ],
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    },
+    {
+      "id": "wf-loan",
+      "name": "Loan Disbursement Workflow",
+      "triggerType": "Loans",
+      "steps": [
+        "Credit check analysis",
+        "Manager approval",
+        "Treasury allocation"
+      ],
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    },
+    {
+      "id": "wf-merchant",
+      "name": "Merchant Onboarding Validation",
+      "triggerType": "Merchant Requests",
+      "steps": [
+        "Document validation",
+        "Manager approval"
+      ],
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    }
+  ],
+  "workflowExecutions": [],
+  "documents": [],
+  "documentVersions": [],
+  "apiKeys": [],
+  "apiLogs": [],
+  "reconciliationLogs": [],
+  "settlements": [],
+  "roles": [
+    {
+      "id": "r-admin",
+      "name": "Super Admin",
+      "modules": [
+        "users",
+        "customer-registry",
+        "branches",
+        "ledger",
+        "developers",
+        "interest",
+        "disaster"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-manager",
+      "name": "Branch Manager",
+      "modules": [
+        "summary",
+        "approvals",
+        "employees",
+        "treasury",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-employee",
+      "name": "Employee",
+      "modules": [
+        "summary",
+        "customers",
+        "transactions",
+        "crm",
+        "tickets",
+        "dms"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-customer",
+      "name": "Customer",
+      "modules": [
+        "summary",
+        "transfers",
+        "beneficiaries",
+        "products",
+        "dms",
+        "assistant",
+        "settings"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-merchant",
+      "name": "Merchant",
+      "modules": [
+        "summary",
+        "qr",
+        "settlements",
+        "developers"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-auditor",
+      "name": "Auditor",
+      "modules": [
+        "summary",
+        "ledger",
+        "disaster"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-compliance",
+      "name": "Compliance Officer",
+      "modules": [
+        "summary",
+        "ledger",
+        "dms"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-treasury",
+      "name": "Treasury Officer",
+      "modules": [
+        "summary",
+        "treasury",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-loan",
+      "name": "Loan Officer",
+      "modules": [
+        "summary",
+        "approvals"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-support",
+      "name": "Customer Support Agent",
+      "modules": [
+        "summary",
+        "tickets"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-fraud",
+      "name": "Fraud Analyst",
+      "modules": [
+        "summary",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-sysadmin",
+      "name": "System Administrator",
+      "modules": [
+        "summary",
+        "disaster"
+      ],
+      "custom": false
+    }
+  ],
+  "permissions": [
+    {
+      "id": "p-create",
+      "action": "Create",
+      "description": "Permission to perform Create operations"
+    },
+    {
+      "id": "p-read",
+      "action": "Read",
+      "description": "Permission to perform Read operations"
+    },
+    {
+      "id": "p-update",
+      "action": "Update",
+      "description": "Permission to perform Update operations"
+    },
+    {
+      "id": "p-delete",
+      "action": "Delete",
+      "description": "Permission to perform Delete operations"
+    },
+    {
+      "id": "p-approve",
+      "action": "Approve",
+      "description": "Permission to perform Approve operations"
+    },
+    {
+      "id": "p-reject",
+      "action": "Reject",
+      "description": "Permission to perform Reject operations"
+    },
+    {
+      "id": "p-export",
+      "action": "Export",
+      "description": "Permission to perform Export operations"
+    },
+    {
+      "id": "p-import",
+      "action": "Import",
+      "description": "Permission to perform Import operations"
+    },
+    {
+      "id": "p-assign",
+      "action": "Assign",
+      "description": "Permission to perform Assign operations"
+    },
+    {
+      "id": "p-freeze",
+      "action": "Freeze",
+      "description": "Permission to perform Freeze operations"
+    },
+    {
+      "id": "p-unfreeze",
+      "action": "Unfreeze",
+      "description": "Permission to perform Unfreeze operations"
+    },
+    {
+      "id": "p-activate",
+      "action": "Activate",
+      "description": "Permission to perform Activate operations"
+    },
+    {
+      "id": "p-deactivate",
+      "action": "Deactivate",
+      "description": "Permission to perform Deactivate operations"
+    },
+    {
+      "id": "p-monitor",
+      "action": "Monitor",
+      "description": "Permission to perform Monitor operations"
+    }
+  ],
+  "rolePermissions": [
+    {
+      "id": "rp-admin-create",
+      "roleId": "r-admin",
+      "permissionId": "p-create",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-read",
+      "roleId": "r-admin",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-update",
+      "roleId": "r-admin",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-delete",
+      "roleId": "r-admin",
+      "permissionId": "p-delete",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-approve",
+      "roleId": "r-admin",
+      "permissionId": "p-approve",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-reject",
+      "roleId": "r-admin",
+      "permissionId": "p-reject",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-export",
+      "roleId": "r-admin",
+      "permissionId": "p-export",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-import",
+      "roleId": "r-admin",
+      "permissionId": "p-import",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-assign",
+      "roleId": "r-admin",
+      "permissionId": "p-assign",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-freeze",
+      "roleId": "r-admin",
+      "permissionId": "p-freeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-unfreeze",
+      "roleId": "r-admin",
+      "permissionId": "p-unfreeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-activate",
+      "roleId": "r-admin",
+      "permissionId": "p-activate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-deactivate",
+      "roleId": "r-admin",
+      "permissionId": "p-deactivate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-monitor",
+      "roleId": "r-admin",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-manager-create",
+      "roleId": "r-manager",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-read",
+      "roleId": "r-manager",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-update",
+      "roleId": "r-manager",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-delete",
+      "roleId": "r-manager",
+      "permissionId": "p-delete",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-approve",
+      "roleId": "r-manager",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-reject",
+      "roleId": "r-manager",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-export",
+      "roleId": "r-manager",
+      "permissionId": "p-export",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-import",
+      "roleId": "r-manager",
+      "permissionId": "p-import",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-assign",
+      "roleId": "r-manager",
+      "permissionId": "p-assign",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-freeze",
+      "roleId": "r-manager",
+      "permissionId": "p-freeze",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-unfreeze",
+      "roleId": "r-manager",
+      "permissionId": "p-unfreeze",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-activate",
+      "roleId": "r-manager",
+      "permissionId": "p-activate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-deactivate",
+      "roleId": "r-manager",
+      "permissionId": "p-deactivate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-monitor",
+      "roleId": "r-manager",
+      "permissionId": "p-monitor",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-create",
+      "roleId": "r-employee",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-read",
+      "roleId": "r-employee",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-update",
+      "roleId": "r-employee",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-deactivate",
+      "roleId": "r-employee",
+      "permissionId": "p-deactivate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-cust-create",
+      "roleId": "r-customer",
+      "permissionId": "p-create",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-create",
+      "roleId": "r-merchant",
+      "permissionId": "p-create",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-read",
+      "roleId": "r-customer",
+      "permissionId": "p-read",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-read",
+      "roleId": "r-merchant",
+      "permissionId": "p-read",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-update",
+      "roleId": "r-customer",
+      "permissionId": "p-update",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-update",
+      "roleId": "r-merchant",
+      "permissionId": "p-update",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-delete",
+      "roleId": "r-customer",
+      "permissionId": "p-delete",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-delete",
+      "roleId": "r-merchant",
+      "permissionId": "p-delete",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-auditor-read",
+      "roleId": "r-auditor",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-auditor-monitor",
+      "roleId": "r-auditor",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-compliance-read",
+      "roleId": "r-compliance",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-compliance-monitor",
+      "roleId": "r-compliance",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-treasury-read",
+      "roleId": "r-treasury",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-update",
+      "roleId": "r-treasury",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-approve",
+      "roleId": "r-treasury",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-reject",
+      "roleId": "r-treasury",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-read",
+      "roleId": "r-loan",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-create",
+      "roleId": "r-loan",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-update",
+      "roleId": "r-loan",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-approve",
+      "roleId": "r-loan",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-reject",
+      "roleId": "r-loan",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-read",
+      "roleId": "r-support",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-create",
+      "roleId": "r-support",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-update",
+      "roleId": "r-support",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-fraud-read",
+      "roleId": "r-fraud",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-fraud-update",
+      "roleId": "r-fraud",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-fraud-monitor",
+      "roleId": "r-fraud",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-create",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-create",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-read",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-update",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-delete",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-delete",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-approve",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-approve",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-reject",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-reject",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-export",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-export",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-import",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-import",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-assign",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-assign",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-freeze",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-freeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-unfreeze",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-unfreeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-activate",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-activate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-deactivate",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-deactivate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-monitor",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    }
+  ],
+  "userRoles": [
+    {
+      "id": "ur-1",
+      "userId": "u-admin",
+      "roleId": "r-admin"
+    },
+    {
+      "id": "ur-2",
+      "userId": "u-manager",
+      "roleId": "r-manager"
+    },
+    {
+      "id": "ur-3",
+      "userId": "u-teller",
+      "roleId": "r-employee"
+    },
+    {
+      "id": "ur-4",
+      "userId": "u-customer",
+      "roleId": "r-customer"
+    },
+    {
+      "id": "ur-5",
+      "userId": "u-merchant",
+      "roleId": "r-merchant"
+    }
+  ],
+  "branchAssignments": [
+    {
+      "id": "ba-2",
+      "userId": "u-manager",
+      "branchId": "b-main",
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    },
+    {
+      "id": "ba-3",
+      "userId": "u-teller",
+      "branchId": "b-main",
+      "createdAt": "2026-08-19T05:50:06.195Z"
+    }
+  ],
+  "departmentAssignments": [],
+  "fraudAlerts": [
+    {
+      "id": "frd-1786999759501",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-08-17T20:49:19.501Z",
+      "createdAt": "2026-08-17T20:49:19.501Z"
+    },
+    {
+      "id": "frd-1787077238770",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-08-18T18:20:38.770Z",
+      "createdAt": "2026-08-18T18:20:38.770Z"
+    },
+    {
+      "id": "frd-1787118588427",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-08-19T05:49:48.427Z",
+      "createdAt": "2026-08-19T05:49:48.427Z"
+    },
+    {
+      "id": "frd-1787118606743",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-08-19T05:50:06.743Z",
+      "createdAt": "2026-08-19T05:50:06.743Z"
+    }
+  ]
+}

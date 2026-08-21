@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharatiya Sarvodaya Bank (BSB) | Personal Retail NetBanking</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- GSAP Animation Library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <!-- jsPDF & AutoTable for Bank Statement PDF Downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <!-- Tailwind CSS v4 Engine -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- Custom Style Sheet -->
+  <link rel="stylesheet" href="style.css">
+  <script>
+    window.BSB_CONFIG = {
+      PORTAL_NAME: 'CUSTOMERS',
+      API_BASE: 'http://localhost:5003',
+      DEFAULT_ROLE: 'Customer'
+    };
+  </script>
+</head>
+<body class="light-theme">
+
+  <!-- Background Ambient Lights -->
+  <div class="ambient-glow glow-top-right"></div>
+  <div class="ambient-glow glow-bottom-left"></div>
+
+  <!-- Notification Banner -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- MAIN LOADING WRAPPER -->
+  <div id="app-loading" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <p style="font-weight: 700; color: #51061b; font-size: 0.95rem;">Connecting to Bharatiya Sarvodaya Bank Core Banking Server...</p>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. OFFICIAL BANK HOMEPAGE (LANDING VIEW)                                 -->
+  <!-- ========================================================================= -->
+  <div id="home-container" class="bank-homepage-wrapper">
+    <!-- Top Utility Header Bar (Deep Burgundy Maroon #51061b) -->
+    <header class="bank-top-utility-bar">
+      <div class="bank-segment-pills" id="bank-segment-pills-list">
+        <a class="bank-seg-pill active" id="seg-pill-personal" onclick="switchBankSegment('personal')">Personal</a>
+        <a class="bank-seg-pill" id="seg-pill-business" onclick="switchBankSegment('business')">Business</a>
+        <a class="bank-seg-pill" id="seg-pill-nri" onclick="switchBankSegment('nri')">NRI</a>
+        <a class="bank-seg-pill" id="seg-pill-corporate" onclick="switchBankSegment('corporate')">Corporate</a>
+        <a class="bank-seg-pill" id="seg-pill-agri" onclick="switchBankSegment('agri')">Agri</a>
+      </div>
+
+      <div class="bank-utility-tools">
+        <a class="bank-utility-link" onclick="showToast('Bharatiya Sarvodaya Bank - Founded in 1948, serving over 1.2 Crore Indians.', 'info')">About Us</a>
+        <a class="bank-utility-link">Eng ▾</a>
+        <a class="bank-utility-link" title="Branch & ATM Locator">📍</a>
+        <a class="bank-utility-link" title="WhatsApp Banking: +91 98200-SARVODAYA">💬</a>
+        <a class="bank-utility-link" title="Theme">☀️</a>
+        <a class="bank-utility-link" title="Dark Mode">🌙</a>
+        <a class="bank-utility-link" title="Accessibility Font">A</a>
+        <a class="bank-utility-link" title="Customer Alerts">🔔</a>
+      </div>
+    </header>
+
+    <!-- Main Navigation Header Bar -->
+    <div class="bank-main-header">
+      <!-- Bank Brand Logo -->
+      <div class="bank-brand-logo" onclick="showHomePage()">
+        <div class="bank-logo-icon">🏦</div>
+        <div class="bank-logo-text">
+          <span class="bank-logo-title">BHARATIYA SARVODAYA BANK</span>
+          <span class="bank-logo-sub">BANKING FOR EVERYONE , PROGRESS FOR ALL </span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="bank-search-bar">
+        <span class="bank-search-sparkle">✨</span>
+        <input type="text" class="bank-search-input" placeholder="What are you looking for today?" onkeydown="if(event.key==='Enter') showToast('Searching bank services for: ' + this.value, 'info')">
+        <button type="button" class="bank-search-mic" title="Voice Search">🎙️</button>
+      </div>
+
+      <!-- Header Actions & Login -->
+      <div class="bank-header-actions">
+        <div class="bank-help-links">
+          <a class="bank-help-link" onclick="showToast('Customer Support Helpline: 1800-SARVODAYA (Toll-Free)', 'info')">Support</a>
+          <span style="color: #f8dfc5;">|</span>
+          <a class="bank-help-link" onclick="showToast('Grievance Redressal Portal is active. Ref #GRV-2026', 'info')">Lodge a Complaint</a>
+        </div>
+
+        <button type="button" class="btn-open-account" onclick="showAuth(); showCustomerSignupForm();">
+          Open Digital A/C
+        </button>
+
+        <!-- Login Dropdown Button -->
+        <div class="bank-login-dropdown">
+          <button type="button" class="btn-bank-login" onclick="toggleLoginMenu(event)">
+            <span>🔒 Login</span>
+            <span style="font-size: 0.75rem;">▾</span>
+          </button>
+          <div id="bank-login-menu" class="bank-login-menu">
+            <a class="bank-login-item" onclick="showAuth()">
+              <span style="font-size: 1.1rem;">👤</span>
+              <div>
+                <div style="font-weight: 700;">Personal NetBanking</div>
+                <div style="font-size: 0.72rem; color: #783545;">Retail Savings, Current & Cards</div>
+              </div>
+            </a>
+            <a class="bank-login-item" onclick="showToast('Corporate NetBanking Engine active for Enterprise users.', 'info')">
+              <span style="font-size: 1.1rem;">🏢</span>
+              <div>
+                <div style="font-weight: 700;">Corporate NetBanking</div>
+                <div style="font-size: 0.72rem; color: #783545;">Bulk Payouts, Trade & CMS</div>
+              </div>
+            </a>
+            <div style="border-top: 1px solid #f8dfc5; margin: 4px 0;"></div>
+            <a class="bank-login-item" onclick="showAuth(); showCustomerSignupForm();">
+              <span style="font-size: 1.1rem;">📝</span>
+              <div>
+                <div style="font-weight: 700; color: #51061b;">Register / Activate</div>
+                <div style="font-size: 0.72rem; color: #783545;">New User Online Registration</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-Menu Navigation Bar -->
+    <nav class="bank-sub-nav">
+      <ul class="bank-nav-list" id="bank-sub-nav-list">
+        <li class="bank-nav-item" onclick="showToast('Explore Savings Deluxe, Salary & Digital accounts', 'info')">Accounts ▾</li>
+        <li class="bank-nav-item" onclick="showToast('High-Yield Fixed Deposits @ 7.85% p.a.', 'info')">Deposits ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Platinum Cashback & Travel Credit Cards', 'info')">Cards ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Multi-currency Forex Cards & Outward Remittance', 'info')">Forex ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Pre-approved Home & Personal Loans @ 8.40%', 'info')">Loans ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Mutual Funds, Sovereign Gold Bonds & NPS', 'info')">Investments ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Term Life & Comprehensive Health Insurance', 'info')">Insurance ▾</li>
+        <li class="bank-nav-item" onclick="showToast('Instant BBPS Utility Payments, UPI & Fastag', 'info')">Payments ▾</li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <div class="bank-nav-divider"></div>
+        <ul class="bank-nav-list">
+          <li class="bank-nav-item" style="color: #8c0e32; font-weight: 700;" onclick="showToast('Special 15% cashback at 5,000+ merchant partners!', 'success')">Offers & Rewards ▾</li>
+          <li class="bank-nav-item" onclick="showToast('Financial Literacy & Safe Banking Hub', 'info')">Learning Hub ▾</li>
+          <li class="bank-nav-item" style="color: #059669; font-weight: 700;" onclick="showToast('BSB AI Financial Assistant is live 24x7', 'info')">Bank Smart ▾</li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Promotional Banner Section -->
+    <section class="bank-hero-banner">
+      <div class="bank-hero-content">
+        <div>
+          <div class="hero-badge-pill" id="hero-badge-container">
+            <span id="hero-badge-text">🛡️ RBI REGULATED • ZERO BALANCE SAVINGS ACCOUNT</span>
+          </div>
+          <h1 class="hero-main-heading" id="hero-main-heading">
+            Experience Next-Gen Digital Banking with Bharatiya Sarvodaya Bank
+          </h1>
+          <p class="hero-sub-text" id="hero-sub-text">
+            Open a high-yield Digital Savings Account with up to <strong>7.25% p.a. interest</strong>, instant virtual debit card, zero maintenance charges, and free 24x7 IMPS/UPI transfers.
+          </p>
+
+          <div class="hero-features-list" id="hero-features-list">
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span>
+              <span>7.25% Interest Rate</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span>
+              <span>Zero Maintenance Fee</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span>
+              <span>5% Unlimited Cashback</span>
+            </div>
+            <div class="hero-feature-item">
+              <span class="hero-feature-icon">✓</span>
+              <span>₹5 Lakh DICGC Insurance</span>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <button type="button" class="btn-hero-primary" onclick="showAuth(); showCustomerSignupForm();">
+              Open Digital Account in 3 Mins →
+            </button>
+            <button type="button" class="btn-hero-secondary" onclick="showAuth()">
+              🔒 Login to NetBanking
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Promotional Rate Card -->
+        <div class="hero-promo-card">
+          <div id="promo-rate-header" style="font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #51061b; margin-bottom: 12px;">
+            SPECIAL MONSOON BANKING RATES 2026
+          </div>
+
+          <div id="promo-rates-container" style="display: flex; flex-direction: column; gap: 10px;">
+            <div class="promo-rate-box">
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #51061b;">Fixed Deposits (Senior Citizens)</div>
+                <div style="font-size: 0.72rem; color: #783545;">Tenure: 400 Days Special Scheme</div>
+              </div>
+              <div class="promo-rate-val">7.85%</div>
+            </div>
+
+            <div class="promo-rate-box">
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #51061b;">Savings Deluxe Account</div>
+                <div style="font-size: 0.72rem; color: #783545;">Daily balance compounding</div>
+              </div>
+              <div class="promo-rate-val">7.25%</div>
+            </div>
+
+            <div class="promo-rate-box">
+              <div>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #51061b;">Pre-Approved Home Loans</div>
+                <div style="font-size: 0.72rem; color: #783545;">Zero processing fee for women</div>
+              </div>
+              <div class="promo-rate-val">8.40%</div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 14px;">
+            <button type="button" onclick="showAuth()" style="width: 100%; padding: 10px; border-radius: 10px; border: none; background: linear-gradient(135deg, #51061b 0%, #6a0924 100%); color: #fff2e3; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 14px rgba(81,6,27,0.25);">
+              Access My Account Online →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Banking Services Grid -->
+    <section class="bank-services-container">
+      <div class="bank-services-grid">
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">⚡</div>
+          <div class="bank-service-title">Instant Fund Transfer</div>
+          <div class="bank-service-sub">IMPS, NEFT & RTGS with ₹0 surcharge</div>
+        </div>
+
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">💳</div>
+          <div class="bank-service-title">Cards & Cheques</div>
+          <div class="bank-service-sub">Instant PIN generation, limits & re-issuance</div>
+        </div>
+
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">💰</div>
+          <div class="bank-service-title">Term Deposits (FD/RD)</div>
+          <div class="bank-service-sub">Book high-interest deposits in 60 seconds</div>
+        </div>
+
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">🏠</div>
+          <div class="bank-service-title">Instant Loans</div>
+          <div class="bank-service-sub">Check pre-approved loan eligibility</div>
+        </div>
+
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">📄</div>
+          <div class="bank-service-title">Ledger Statements</div>
+          <div class="bank-service-sub">Download RBI compliant PDF ledger</div>
+        </div>
+
+        <div class="bank-service-card" onclick="showAuth()">
+          <div class="bank-service-icon">🛡️</div>
+          <div class="bank-service-title">SafeBank Controls</div>
+          <div class="bank-service-sub">Instantly freeze or lock card transactions</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Financial Calculators Section -->
+    <section class="bank-calculator-section">
+      <div style="text-align: center; margin-bottom: 28px;">
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #1f040b;">Smart Financial Planning Calculators</h2>
+        <p style="color: #783545; font-size: 0.9rem; margin-top: 4px;">Calculate exact returns and plan your financial future with BSB Bank.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px;">
+        <!-- Calculator 1: FD Returns -->
+        <div class="calc-card">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <span style="font-size: 1.4rem;">💰</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #51061b; margin: 0;">Fixed Deposit Returns Calculator</h3>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
+                <span>Deposit Amount (₹)</span>
+                <span id="fd-amt-val" style="color: #51061b; font-weight: 800;">₹1,00,000</span>
+              </div>
+              <input type="range" id="fd-amt-slider" min="10000" max="1000000" step="10000" value="100000" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
+                <span>Tenure (Months)</span>
+                <span id="fd-tenure-val" style="color: #51061b; font-weight: 800;">24 Months (7.35% APR)</span>
+              </div>
+              <input type="range" id="fd-tenure-slider" min="6" max="60" step="6" value="24" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
+            </div>
+
+            <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+              <div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: #783545; text-transform: uppercase;">Estimated Maturity Value</div>
+                <div id="fd-maturity-val" style="font-size: 1.35rem; font-weight: 900; color: #51061b; margin-top: 2px;">₹1,15,640.00</div>
+              </div>
+              <button type="button" onclick="showAuth()" style="padding: 8px 16px; border-radius: 8px; border: none; background: #51061b; color: #fff2e3; font-weight: 700; font-size: 0.8rem; cursor: pointer;">
+                Book FD →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculator 2: Loan EMI -->
+        <div class="calc-card">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+            <span style="font-size: 1.4rem;">🏠</span>
+            <h3 style="font-size: 1.15rem; font-weight: 800; color: #51061b; margin: 0;">Personal & Home Loan EMI Calculator</h3>
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
+                <span>Loan Amount (₹)</span>
+                <span id="emi-amt-val" style="color: #059669; font-weight: 800;">₹5,00,000</span>
+              </div>
+              <input type="range" id="emi-amt-slider" min="50000" max="5000000" step="50000" value="500000" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
+                <span>Tenure (Years)</span>
+                <span id="emi-tenure-val" style="color: #059669; font-weight: 800;">5 Years (@ 8.40% p.a.)</span>
+              </div>
+              <input type="range" id="emi-tenure-slider" min="1" max="25" step="1" value="5" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+              <div>
+                <div style="font-size: 0.75rem; font-weight: 700; color: #166534; text-transform: uppercase;">Monthly EMI Amount</div>
+                <div id="emi-monthly-val" style="font-size: 1.35rem; font-weight: 900; color: #059669; margin-top: 2px;">₹10,235.00 / mo</div>
+              </div>
+              <button type="button" onclick="showAuth()" style="padding: 8px 16px; border-radius: 8px; border: none; background: #059669; color: #fff; font-weight: 700; font-size: 0.8rem; cursor: pointer;">
+                Apply Loan →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust & Regulatory Assurance Banner -->
+    <div class="bank-trust-bar">
+      <div class="bank-trust-grid">
+        <div class="trust-item">
+          <span class="trust-icon">🏛️</span>
+          <div>
+            <div class="trust-title">Reserve Bank of India</div>
+            <div class="trust-desc">Fully Regulated & Compliant Scheduled Bank</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">🛡️</span>
+          <div>
+            <div class="trust-title">DICGC Insured</div>
+            <div class="trust-desc">Deposits protected up to ₹5,00,000 per user</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">🔒</span>
+          <div>
+            <div class="trust-title">256-Bit SSL Encryption</div>
+            <div class="trust-desc">ISO 27001:2022 Certified Bank Grade Security</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">📞</span>
+          <div>
+            <div class="trust-title">24x7 Customer Help</div>
+            <div class="trust-desc">1800-SARVODAYA (Toll Free Helpline)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comprehensive Bank Footer -->
+    <footer class="bank-official-footer">
+      <div class="footer-grid">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+            <span style="font-size: 1.3rem;">🏦</span>
+            <span style="color: #ffffff; font-weight: 900; font-size: 1.05rem;">BHARATIYA SARVODAYA BANK</span>
+          </div>
+          <p style="font-size: 0.8rem; line-height: 1.5; color: #f8dfc5; margin-bottom: 14px;">
+            Bharatiya Sarvodaya Bank is India's leading digital core banking ecosystem, providing retail, corporate, and SME banking services across all Indian states and Union Territories.
+          </p>
+          <div style="font-size: 0.75rem; color: #f8dfc5;">
+            Head Office: Sarvodaya Bhavan, Nariman Point, Mumbai - 400021
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Personal Banking</div>
+          <ul class="footer-link-list">
+            <li><a onclick="showAuth()">Savings Deluxe Account</a></li>
+            <li><a onclick="showAuth()">Salary Advantage</a></li>
+            <li><a onclick="showAuth()">Fixed & Recurring Deposits</a></li>
+            <li><a onclick="showAuth()">Platinum Credit Cards</a></li>
+            <li><a onclick="showAuth()">Debit Cards & ATM Services</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Loans & Advances</div>
+          <ul class="footer-link-list">
+            <li><a onclick="showAuth()">Home Loans @ 8.40%</a></li>
+            <li><a onclick="showAuth()">Instant Personal Loans</a></li>
+            <li><a onclick="showAuth()">Car & Auto Loans</a></li>
+            <li><a onclick="showAuth()">Education Loans</a></li>
+            <li><a onclick="showAuth()">Gold Loans & Overdrafts</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Customer Care & Support</div>
+          <ul class="footer-link-list">
+            <li><a onclick="showToast('Customer Care: 1800-SARVODAYA (Toll-Free)', 'info')">Toll Free: 1800-SARVODAYA</a></li>
+            <li><a onclick="showToast('Email: support@sarvodayabank.com', 'info')">support@sarvodayabank.com</a></li>
+            <li><a onclick="showToast('IFSC Code Registry loaded.', 'info')">IFSC Codes & Branch Directory</a></li>
+            <li><a onclick="showToast('Grievance Redressal Officer: Shri Anirudh Verma', 'info')">Banking Ombudsman Scheme</a></li>
+            <li><a onclick="showToast('Security Alert: Never share OTP, PIN or CVV with anyone.', 'warning')">Safe Banking Guidelines</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 Bharatiya Sarvodaya Bank Ltd. All Rights Reserved. | CIN: L65110MH1948PLC006890
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <a onclick="showToast('Privacy Policy active.', 'info')" style="color: #f8dfc5; text-decoration: none; cursor: pointer;">Privacy Policy</a>
+          <a onclick="showToast('Terms of Service active.', 'info')" style="color: #f8dfc5; text-decoration: none; cursor: pointer;">Terms & Conditions</a>
+          <a onclick="showToast('RBI Disclaimers.', 'info')" style="color: #f8dfc5; text-decoration: none; cursor: pointer;">Regulatory Disclaimers</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. NETBANKING LOGIN CARD (AUTH CONTAINER)                                -->
+  <!-- ========================================================================= -->
+  <div id="auth-container" class="auth-wrapper hidden">
+    <div class="auth-card" style="max-width: 460px; width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(81, 6, 27, 0.12); border: 1px solid #f8dfc5; background: #ffffff; padding: 24px; max-height: 92vh; overflow-y: auto;">
+      
+      <!-- Back to Bank Home Link -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #f8dfc5;">
+        <button type="button" onclick="showHomePage()" style="background: none; border: none; font-size: 0.84rem; font-weight: 700; color: #51061b; cursor: pointer; display: flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 6px; transition: background 0.2s;">
+          <span>← Back to Bank Home</span>
+        </button>
+      </div>
+
+      <div class="auth-header" id="auth-main-header">
+        <!-- Bank Branding Badge -->
+        <div class="logo-branding-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 12px 18px; border-radius: 14px; background: linear-gradient(135deg, #fef8f2 0%, #fff2e3 100%); border: 1px solid #f8dfc5; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 1.35rem; font-weight: 900; letter-spacing: 2.5px; color: #51061b;">BSB</span>
+            <span style="font-size: 0.65rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #51061b; color: #fff2e3; letter-spacing: 0.5px;">NETBANKING</span>
+          </div>
+          <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #51061b;">BHARATIYA SARVODAYA BANK</span>
+        </div>
+        <p style="font-size: 0.85rem; color: #51061b; margin: 4px 0 0 0; font-weight: 700;">Personal Retail NetBanking Login</p>
+      </div>
+
+
+      <!-- Auth Error & Success Alerts -->
+      <div id="auth-error" class="alert alert-danger hidden" style="margin-bottom: 14px; font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;"></div>
+      <div id="auth-success" class="alert alert-success hidden" style="margin-bottom: 14px; font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)" style="margin-top: 10px;">
+        <!-- User ID Field -->
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">Customer ID or Registered Email</label>
+          <div style="position: relative;">
+            <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #51061b; z-index: 10; pointer-events: none; line-height: 1;">👤</span>
+            <input type="text" id="login-email" required placeholder="Customer ID or Email" value="customer@bank.com" style="width: 100%; padding: 11px 14px 11px 38px; border-radius: 10px; border: 1px solid #f8dfc5; background: #fef8f2; font-size: 0.92rem; transition: all 0.2s;">
+          </div>
+        </div>
+
+        <!-- Password Field with Eye Toggle -->
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">NetBanking Password</label>
+          <div class="password-input-wrapper" style="position: relative;">
+            <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #51061b; z-index: 10; pointer-events: none; line-height: 1;">🔒</span>
+            <input type="password" id="login-password" required placeholder="••••••••" value="Customer123!" style="width: 100%; padding: 11px 42px 11px 38px; border-radius: 10px; border: 1px solid #f8dfc5; background: #fef8f2; font-size: 0.92rem; transition: all 0.2s;">
+            <!-- Eye Toggle Button -->
+            <button type="button" id="toggle-password-btn" class="password-toggle-btn" onclick="togglePasswordVisibility()" title="Toggle Password Visibility">
+              <span id="password-eye-icon" style="font-size: 1.1rem;">👁️</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Links Row -->
+        <div class="auth-options-row">
+          <label class="remember-me-label">
+            <input type="checkbox" id="remember-me" checked>
+            <span>Remember me</span>
+          </label>
+          
+          <div class="forgot-links-group">
+            <a href="javascript:void(0)" class="auth-link" onclick="openRecoveryModal('userid')">Forgot Customer ID?</a>
+            <span class="auth-link-divider">•</span>
+            <a href="javascript:void(0)" class="auth-link" onclick="openRecoveryModal('password')">Forgot Password?</a>
+          </div>
+        </div>
+
+        <!-- Sign In Button -->
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 13px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; background: linear-gradient(135deg, #51061b 0%, #6a0924 100%); border: none; color: #fff2e3; cursor: pointer; box-shadow: 0 4px 16px rgba(81, 6, 27, 0.35); transition: all 0.2s;">
+          Log In to NetBanking →
+        </button>
+
+        <div style="text-align: center; margin-top: 14px; font-size: 0.82rem; color: #783545;">
+          Don't have a NetBanking account? 
+          <a href="javascript:void(0)" onclick="showCustomerSignupForm()" style="color: #51061b; font-weight: 700; text-decoration: underline;">Open Digital Account</a>
+        </div>
+      </form>
+
+      <!-- Customer Registration Flow Pane (Hidden by default) -->
+      <div id="customer-signup-flow" class="hidden" style="margin-top: 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin: 0;">📝 Open Instant Digital Account</h3>
+          <button type="button" onclick="showLoginForm()" style="background: none; border: none; color: #783545; font-weight: 600; font-size: 0.78rem; cursor: pointer;">← Back to Login</button>
+        </div>
+        <form id="customer-register-form" onsubmit="handleCustomerRegister(event)">
+          <div style="display: flex; flex-direction: column; gap: 7px;">
+            <div>
+              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Full Name (As per Aadhaar/PAN)</label>
+              <input type="text" id="cust-name" required placeholder="Aarav Sharma" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+              <div>
+                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Date of Birth</label>
+                <input type="date" id="cust-dob" required value="1995-05-15" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+              </div>
+              <div>
+                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Gender</label>
+                <select id="cust-gender" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Email Address</label>
+              <input type="email" id="cust-email" required placeholder="name@example.com" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+            </div>
+            <div>
+              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Mobile Number</label>
+              <input type="text" id="cust-mobile" required placeholder="+91 9820123456" value="+91 9820123456" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+            </div>
+            <div>
+              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Residential Address</label>
+              <input type="text" id="cust-address" required placeholder="Flat 402, Mumbai" value="Bandra West, Mumbai" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
+              <div>
+                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Password</label>
+                <input type="password" id="cust-password" required value="Customer123!" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+              </div>
+              <div>
+                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Confirm Password</label>
+                <input type="password" id="cust-confirm" required value="Customer123!" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
+              </div>
+            </div>
+            <button type="submit" style="margin-top: 6px; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, #51061b 0%, #6a0924 100%); color: #fff2e3; font-weight: 800; font-size: 0.9rem; cursor: pointer; width: 100%; box-shadow: 0 4px 16px rgba(81,6,27,0.3); letter-spacing: 0.3px;">
+              Proceed to Instant Verification →
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- OTP Verification Pane (Hidden by default) -->
+      <div id="otp-verify-pane" class="hidden" style="margin-top: 10px;">
+        <h3 style="font-size: 1rem; font-weight: 800; color: #51061b; margin-bottom: 6px;">🔐 Enter Verification Codes</h3>
+        <p style="font-size: 0.78rem; color: #783545; margin-bottom: 12px;">Enter the secure OTP codes dispatched to your registered email and mobile.</p>
+        <form id="otp-submit-form" onsubmit="handleOtpVerify(event)">
+          <input type="hidden" id="otp-user-id">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600;">Email OTP</label>
+              <input type="text" id="otp-email-val" required placeholder="123456" value="123456" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
+              <span id="otp-email-hint" style="font-size: 0.72rem; color: #51061b;"></span>
+            </div>
+            <div id="mobile-otp-group">
+              <label style="font-size: 0.78rem; font-weight: 600;">Mobile SMS OTP</label>
+              <input type="text" id="otp-mobile-val" required placeholder="123456" value="123456" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
+              <span id="otp-mobile-hint" style="font-size: 0.72rem; color: #51061b;"></span>
+            </div>
+            <button type="submit" style="margin-top: 10px; padding: 11px; border-radius: 8px; border: none; background: #51061b; color: #fff2e3; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
+              Verify & Complete Registration →
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- KYC Submit Pane (Hidden by default) -->
+      <div id="kyc-submit-pane" class="hidden" style="margin-top: 10px;">
+        <h3 style="font-size: 1rem; font-weight: 800; color: #51061b; margin-bottom: 6px;">🪪 Instant KYC Verification</h3>
+        <p style="font-size: 0.78rem; color: #783545; margin-bottom: 12px;">Link your Aadhaar or PAN to activate full digital banking privileges.</p>
+        <form id="kyc-submit-form" onsubmit="handleKycSubmit(event)">
+          <input type="hidden" id="kyc-user-id">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600;">Document Type</label>
+              <select id="kyc-doc-type" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
+                <option value="aadhaar">Aadhaar Card (UIDAI Verified)</option>
+                <option value="pan">PAN Card (Income Tax Dept)</option>
+                <option value="passport">Indian Passport</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 0.78rem; font-weight: 600;">Document Number</label>
+              <input type="text" id="kyc-doc-number" required placeholder="XXXX-XXXX-XXXX" value="9876-5432-1098" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
+            </div>
+            <button type="submit" style="margin-top: 10px; padding: 11px; border-radius: 8px; border: none; background: #059669; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
+              Submit KYC & Go to Login →
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. FORGOT RECOVERY MODAL                                                 -->
+  <!-- ========================================================================= -->
+  <div id="recovery-modal" class="recovery-modal-overlay hidden">
+    <div class="recovery-modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f8dfc5;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="recovery-modal-icon" style="font-size: 1.2rem;">🔑</span>
+          <h3 id="recovery-modal-title" style="font-size: 1.1rem; font-weight: 700; color: #1f040b; margin: 0;">Account Recovery</h3>
+        </div>
+        <button type="button" onclick="closeRecoveryModal()" style="background: #fef8f2; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.9rem; cursor: pointer; color: #783545; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+
+      <!-- Recovery Navigation Tabs -->
+      <div style="display: flex; background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 10px; padding: 3px; margin-bottom: 18px;">
+        <button type="button" id="tab-recovery-userid" onclick="switchRecoveryTab('userid')" style="flex: 1; padding: 7px; border-radius: 8px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: #ffffff; color: #51061b; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+          Forgot Customer ID
+        </button>
+        <button type="button" id="tab-recovery-password" onclick="switchRecoveryTab('password')" style="flex: 1; padding: 7px; border-radius: 8px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: transparent; color: #783545;">
+          Forgot Password
+        </button>
+      </div>
+
+      <!-- PANE 1: FORGOT USER ID -->
+      <div id="pane-forgot-userid">
+        <p style="font-size: 0.82rem; color: #783545; margin-bottom: 14px; line-height: 1.4;">
+          Enter your registered mobile number or email address to retrieve your Customer ID.
+        </p>
+        <form onsubmit="handleForgotUserId(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Registered Mobile / Email</label>
+            <input type="text" id="forgot-id-email" required placeholder="customer@bank.com" value="customer@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.88rem;">
+          </div>
+          <div id="forgot-id-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #fef8f2; border: 1px solid #f8dfc5; font-size: 0.84rem; color: #51061b;"></div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <button type="button" onclick="closeRecoveryModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #f8dfc5; background: #ffffff; color: #783545; font-weight: 600; font-size: 0.82rem; cursor: pointer;">Cancel</button>
+            <button type="submit" style="padding: 8px 16px; border-radius: 8px; border: none; background: #51061b; color: #fff2e3; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Find My Customer ID →</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- PANE 2: FORGOT PASSWORD -->
+      <div id="pane-forgot-password" class="hidden">
+        <p style="font-size: 0.82rem; color: #783545; margin-bottom: 14px; line-height: 1.4;">
+          Enter your Customer ID or Email to receive an instant OTP verification reset code.
+        </p>
+        <form onsubmit="handleForgotPassword(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Customer ID or Email</label>
+            <input type="text" id="forgot-pass-user" required placeholder="customer@bank.com" value="customer@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.88rem;">
+          </div>
+          <div id="forgot-pass-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.84rem; color: #15803d;"></div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <button type="button" onclick="closeRecoveryModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #f8dfc5; background: #ffffff; color: #783545; font-weight: 600; font-size: 0.82rem; cursor: pointer;">Cancel</button>
+            <button type="submit" style="padding: 8px 16px; border-radius: 8px; border: none; background: #16a34a; color: #ffffff; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Reset NetBanking Password →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 4. LOGGED-IN CUSTOMER WORKSPACE (DASHBOARD CONTAINER)                     -->
+  <!-- ========================================================================= -->
+  <div id="dashboard-container" class="dashboard-wrapper hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header" style="height: 68px; min-height: 68px; padding: 0 12px; border-bottom: 1px solid #f8dfc5; display: flex; align-items: center; box-sizing: border-box;">
+        <div class="sidebar-brand" style="padding: 6px 12px; background: linear-gradient(135deg, #fef8f2 0%, #fff2e3 100%); border-radius: 10px; border: 1px solid #f8dfc5; display: flex; flex-direction: column; gap: 2px; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 1.05rem; font-weight: 900; letter-spacing: 2.5px; color: #51061b;">BSB</span>
+            <span style="font-size: 0.62rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #51061b; color: #fff2e3; letter-spacing: 0.5px;">NETBANKING</span>
+          </div>
+          <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #51061b; white-space: nowrap;">BHARATIYA SARVODAYA BANK</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu" id="sidebar-menu-list">
+        <!-- Rendered dynamically by app.js -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline-danger btn-block" onclick="triggerLogout()">
+          Sign Out NetBanking
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Content -->
+    <main class="main-content">
+      <!-- Modern Styled Top Navbar -->
+      <header class="top-bar" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #f8dfc5; height: 68px; min-height: 68px; padding: 0 28px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(81, 6, 27, 0.03); box-sizing: border-box;">
+        <div class="top-left" style="display: flex; align-items: center; gap: 14px;">
+          <h1 id="page-title" style="margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; color: #1f040b;">Retail NetBanking</h1>
+          <button type="button" onclick="showHomePage()" style="padding: 5px 12px; border-radius: 6px; border: 1px solid #f8dfc5; background: #fff2e3; color: #51061b; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+            Bank Home
+          </button>
+        </div>
+
+        <div class="top-right" style="display: flex; align-items: center; gap: 16px;">
+          <div class="branch-indicator" id="manager-branch-indicator" style="background: #fff2e3; color: #51061b; font-weight: 700; padding: 7px 14px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">Branch: Global Headquarters</div>
+        </div>
+      </header>
+
+      <!-- Dashboard Workspace Target Area -->
+      <div class="workspace-area" id="workspace-target">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- App System Footer -->
+      <footer class="app-system-footer">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span style="color: #1f040b; font-weight: 800;">© 2026 Bharatiya Sarvodaya Bank (BSB)</span>
+          <span style="color: #f8dfc5;">|</span>
+          <span style="color: #783545;">BANKING FOR EVERYONE , PROGRESS FOR ALL</span>
+          <span style="color: #f8dfc5;">|</span>
+          <span style="color: #059669; font-weight: 700; display: flex; align-items: center; gap: 4px;">🛡️ RBI Regulated & ISO 27001 Certified</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="color: #51061b; font-weight: 700;">🔒 256-Bit SSL Encrypted</span>
+          <span style="color: #783545;">Security Status: <strong style="color: #059669;">Protected 🟢</strong></span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Custom Native App JS -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "ag10-banking",
+  "version": "1.0.0",
+  "description": "Enterprise Banking Ecosystem Simulator (3 Independent Portals with Tailwind CSS v4)",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "hq:backend": "node headquarter/backend/server.js",
+    "hq:frontend": "node headquarter/frontend/server.js",
+    "branch:backend": "node branches_and_employees/backend/server.js",
+    "branch:frontend": "node branches_and_employees/frontend/server.js",
+    "customer:backend": "node customers/backend/server.js",
+    "customer:frontend": "node customers/frontend/server.js",
+    "test": "node verify.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.2.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.2.0",
+    "multer": "^1.4.5-lts.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^4.0.0",
+    "vite": "^5.2.0"
+  }
+}

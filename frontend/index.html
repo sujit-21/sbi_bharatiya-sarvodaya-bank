@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bharatiya Sarvodaya Bank (BSB)</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- GSAP Animation Library CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <!-- jsPDF & AutoTable for Bank Statement PDF Downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <!-- Tailwind CSS v4 Browser Engine -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- Custom Style Sheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-theme">
+
+  <!-- Background Ambient Lights -->
+  <div class="ambient-glow glow-top-right"></div>
+  <div class="ambient-glow glow-bottom-left"></div>
+
+  <!-- Notification Banner -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- MAIN LOADING WRAPPER -->
+  <div id="app-loading" class="loading-overlay hidden">
+    <div class="spinner"></div>
+    <p>Connecting to Core Banking System...</p>
+  </div>
+
+  <!-- ================= AUTH CONTAINER ================= -->
+  <div id="auth-container" class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <!-- Bank Branding Badge -->
+        <div class="logo-branding-container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 10px 18px; border-radius: 12px; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border: 1px solid #fed7aa; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 1.4rem; font-weight: 900; letter-spacing: 3px; background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">BSB</span>
+          </div>
+          <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: #7c2d12;">BHARATIYA SARVODAYA BANK</span>
+        </div>
+        <p style="font-size: 0.85rem; color: #64748b; margin: 4px 0 0 0; font-weight: 500;">Secure Single Sign-On Access</p>
+      </div>
+
+      <!-- Auth Error & Success Alerts -->
+      <div id="auth-error" class="alert alert-danger hidden" style="margin-bottom: 14px; font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;"></div>
+      <div id="auth-success" class="alert alert-success hidden" style="margin-bottom: 14px; font-size: 0.82rem; padding: 10px 14px; border-radius: 8px;"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)" style="margin-top: 10px;">
+        <!-- Email / User ID Field -->
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Email Address or User ID</label>
+          <div style="position: relative;">
+            <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #94a3b8; z-index: 10; pointer-events: none; line-height: 1;">👤</span>
+            <input type="text" id="login-email" required placeholder="Email Address or User ID" value="admin@bank.com" style="width: 100%; padding: 11px 14px 11px 38px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 0.92rem; transition: all 0.2s;">
+          </div>
+        </div>
+
+        <!-- Password Field with Eye Toggle -->
+        <div class="form-group" style="margin-bottom: 14px;">
+          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Password</label>
+          <div class="password-input-wrapper" style="position: relative;">
+            <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #94a3b8; z-index: 10; pointer-events: none; line-height: 1;">🔒</span>
+            <input type="password" id="login-password" required placeholder="••••••••" value="Admin123!" style="width: 100%; padding: 11px 42px 11px 38px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 0.92rem; transition: all 0.2s;">
+            <!-- Eye Toggle Button -->
+            <button type="button" id="toggle-password-btn" class="password-toggle-btn" onclick="togglePasswordVisibility()" title="Toggle Password Visibility">
+              <span id="password-eye-icon" style="font-size: 1.1rem;">👁️</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Links Row -->
+        <div class="auth-options-row">
+          <label class="remember-me-label">
+            <input type="checkbox" id="remember-me" checked>
+            <span>Remember me</span>
+          </label>
+          
+          <div class="forgot-links-group">
+            <a href="javascript:void(0)" class="auth-link" onclick="openRecoveryModal('userid')">Forgot User ID?</a>
+            <span class="auth-link-divider">•</span>
+            <a href="javascript:void(0)" class="auth-link" onclick="openRecoveryModal('password')">Forgot Password?</a>
+          </div>
+        </div>
+
+        <!-- Sign In Button -->
+        <button type="submit" class="btn btn-primary btn-block" style="padding: 13px; border-radius: 10px; font-weight: 700; font-size: 0.95rem; background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); border: none; color: #ffffff; cursor: pointer; box-shadow: 0 4px 14px rgba(30, 64, 175, 0.3); transition: all 0.2s;">
+          Sign In to BSB Portal →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= FORGOT RECOVERY MODAL ================= -->
+  <div id="recovery-modal" class="recovery-modal-overlay hidden">
+    <div class="recovery-modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span id="recovery-modal-icon" style="font-size: 1.2rem;">🔑</span>
+          <h3 id="recovery-modal-title" style="font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0;">Account Recovery</h3>
+        </div>
+        <button type="button" onclick="closeRecoveryModal()" style="background: #f1f5f9; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 0.9rem; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center;">✕</button>
+      </div>
+
+      <!-- Recovery Navigation Tabs -->
+      <div style="display: flex; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 3px; margin-bottom: 18px;">
+        <button type="button" id="tab-recovery-userid" onclick="switchRecoveryTab('userid')" style="flex: 1; padding: 7px; border-radius: 8px; border: none; font-size: 0.8rem; font-weight: 700; cursor: pointer; background: #ffffff; color: #1d4ed8; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+          Forgot User ID
+        </button>
+        <button type="button" id="tab-recovery-password" onclick="switchRecoveryTab('password')" style="flex: 1; padding: 7px; border-radius: 8px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: transparent; color: #64748b;">
+          Forgot Password
+        </button>
+      </div>
+
+      <!-- PANE 1: FORGOT USER ID -->
+      <div id="pane-forgot-userid">
+        <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 14px; line-height: 1.4;">
+          Enter your registered email address or mobile number to retrieve your User ID.
+        </p>
+        <form onsubmit="handleForgotUserId(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">Registered Email Address</label>
+            <input type="email" id="forgot-id-email" required placeholder="user@bank.com" value="admin@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+          </div>
+          <div id="forgot-id-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #eff6ff; border: 1px solid #bfdbfe; font-size: 0.84rem; color: #1d4ed8;"></div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <button type="button" onclick="closeRecoveryModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background: #ffffff; color: #475569; font-weight: 600; font-size: 0.82rem; cursor: pointer;">Cancel</button>
+            <button type="submit" style="padding: 8px 16px; border-radius: 8px; border: none; background: #2563eb; color: #ffffff; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Find My User ID →</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- PANE 2: FORGOT PASSWORD -->
+      <div id="pane-forgot-password" class="hidden">
+        <p style="font-size: 0.82rem; color: #64748b; margin-bottom: 14px; line-height: 1.4;">
+          Enter your User ID or Email to receive an instant verification reset authorization.
+        </p>
+        <form onsubmit="handleForgotPassword(event)">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">User ID or Email</label>
+            <input type="text" id="forgot-pass-user" required placeholder="admin@bank.com" value="admin@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+          </div>
+          <div id="forgot-pass-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.84rem; color: #15803d;"></div>
+          <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <button type="button" onclick="closeRecoveryModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid #cbd5e1; background: #ffffff; color: #475569; font-weight: 600; font-size: 0.82rem; cursor: pointer;">Cancel</button>
+            <button type="submit" style="padding: 8px 16px; border-radius: 8px; border: none; background: #16a34a; color: #ffffff; font-weight: 700; font-size: 0.82rem; cursor: pointer;">Reset Security Password →</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DASHBOARD CONTAINER ================= -->
+  <div id="dashboard-container" class="dashboard-wrapper hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header" style="height: 68px; min-height: 68px; padding: 0 12px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; box-sizing: border-box;">
+        <div class="sidebar-brand" style="padding: 6px 12px; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-radius: 10px; border: 1px solid #fed7aa; display: flex; flex-direction: column; gap: 2px; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 1.05rem; font-weight: 900; letter-spacing: 2.5px; color: #ea580c;">BSB</span>
+            <span style="font-size: 0.62rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #ffffff; color: #ea580c; border: 1px solid #ffedd5; letter-spacing: 0.5px; box-shadow: 0 1px 3px rgba(234,88,12,0.1);">BANK</span>
+          </div>
+          <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #7c2d12; white-space: nowrap;">BHARATIYA SARVODAYA BANK</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu" id="sidebar-menu-list">
+        <!-- Rendered dynamically by app.js -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn btn-outline-danger btn-block" onclick="triggerLogout()">
+          <span class="icon">⏻</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Content -->
+    <main class="main-content">
+      <!-- Modern Styled Top Navbar -->
+      <header class="top-bar" style="background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; height: 68px; min-height: 68px; padding: 0 28px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.03); box-sizing: border-box;">
+        <div class="top-left" style="display: flex; align-items: center; gap: 14px;">
+          <h1 id="page-title" style="margin: 0; font-size: 1.4rem; font-weight: 800; letter-spacing: -0.3px; color: #0f172a;">BSB CBS Dashboard</h1>
+        </div>
+
+        <div class="top-right" style="display: flex; align-items: center; gap: 16px;">
+          <div style="position: relative; display: flex; align-items: center;">
+            <span style="position: absolute; left: 10px; color: #94a3b8; font-size: 0.85rem;">🔍</span>
+            <input type="text" placeholder="Search accounts, customers..." style="padding: 7px 12px 7px 32px; border-radius: 20px; border: 1px solid #e2e8f0; font-size: 0.82rem; outline: none; background: #f8fafc; width: 220px; transition: all 0.2s;" />
+          </div>
+          <div class="branch-indicator" id="manager-branch-indicator" style="background: linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(99,102,241,0.08) 100%); color: #1e40af; font-weight: 700; padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(37,99,235,0.2); font-size: 0.85rem;">Branch: Global Headquarters</div>
+        </div>
+      </header>
+
+      <!-- Dashboard Workspace Target Area -->
+      <div class="workspace-area" id="workspace-target">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- App System Footer -->
+      <footer class="app-system-footer">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <span style="color: #0f172a; font-weight: 800;">© 2026 Bharatiya Sarvodaya Bank (BSB)</span>
+          <span style="color: #cbd5e1;">|</span>
+          <span>Enterprise Core Banking Solution</span>
+          <span style="color: #cbd5e1;">|</span>
+          <span style="color: #059669; font-weight: 700; display: flex; align-items: center; gap: 4px;">🛡️ RBI Regulated & ISO 27001 Certified</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="color: #2563eb; font-weight: 700;">🔒 256-Bit SSL Encrypted</span>
+          <span style="color: #475569;">System Status: <strong style="color: #059669;">Operational 🟢</strong></span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- EDIT USER MODAL -->
+  <div id="edit-user-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>✏️ Edit User Details</h2>
+        <button type="button" class="btn-close" onclick="closeEditUserModal()">✕</button>
+      </div>
+      <form id="edit-user-form" onsubmit="handleEditUserSubmit(event)">
+        <input type="hidden" id="edit-user-id">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" id="edit-user-fullname" required>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="edit-user-email" required>
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select id="edit-user-role" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+              <option value="Super Admin">Super Admin</option>
+              <option value="Branch Manager">Branch Manager</option>
+              <option value="Employee">Employee</option>
+              <option value="Customer">Customer</option>
+              <option value="Merchant">Merchant</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Assigned Branch</label>
+            <select id="edit-user-branch" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Account Status</label>
+            <select id="edit-user-status" required style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="closeEditUserModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- BRANCH TRANSFER MODAL -->
+  <div id="transfer-branch-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>🔁 Transfer Staff/Manager Branch</h2>
+        <button type="button" class="btn-close" onclick="closeTransferBranchModal()">✕</button>
+      </div>
+      <form id="transfer-branch-form" onsubmit="handleTransferBranchSubmit(event)">
+        <input type="hidden" id="transfer-user-id">
+        <div class="modal-body">
+          <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color);">
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Target User:</div>
+            <div style="font-weight: 700; font-size: 1.05rem;" id="transfer-user-name">Loading...</div>
+            <div style="font-size: 0.8rem; color: var(--accent-primary);" id="transfer-user-role-badge">Branch Manager</div>
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label>Select Destination Branch</label>
+            <select id="transfer-target-branch" required style="width: 100%; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 6px; font-weight: 600;">
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-sm" onclick="closeTransferBranchModal()">Cancel</button>
+          <button type="submit" class="btn btn-info btn-sm">Confirm Branch Transfer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Custom Native App JS -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1384 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "email": "admin@bank.com",
+      "passwordHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.Q7XRvfCuqNNJxSVq9A8TxEvGkwBDi2u",
+      "role": "Super Admin",
+      "fullName": "Chief Operations Administrator",
+      "dob": "1980-01-01",
+      "gender": "Male",
+      "mobileNumber": "+15550100",
+      "address": "System Headquarters",
+      "status": "active",
+      "twoFactorSecret": "JBSWY3DPEHPK3PXP",
+      "twoFactorEnabled": true,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.bnb53dtgf9mgHKD9BZs4wvDbG.DEkXa",
+      "createdAt": "2026-06-02T19:20:56.309Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-06-02T19:20:57.800Z"
+    },
+    {
+      "id": "u-manager",
+      "email": "manager@bank.com",
+      "passwordHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.9s9pP4KLW06MRIRe4W2wQXStwYpe24u",
+      "role": "Branch Manager",
+      "fullName": "Jane Miller",
+      "dob": "1985-05-12",
+      "gender": "Female",
+      "mobileNumber": "+15550101",
+      "address": "128 Main St, Queens, NY",
+      "branchId": "b-main",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.YX42F.XU9wPaB.ZM5ctFN681h.7/KTC",
+      "createdAt": "2026-06-02T19:20:56.629Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    },
+    {
+      "id": "u-teller",
+      "email": "teller@bank.com",
+      "passwordHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.LxT7YaySrbvhs1/RCshpjCtWM./xTeC",
+      "role": "Employee",
+      "fullName": "Robert Davis",
+      "dob": "1992-09-21",
+      "gender": "Male",
+      "mobileNumber": "+15550102",
+      "address": "456 Oak Ave, Brooklyn, NY",
+      "branchId": "b-main",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.hX5XsKdyrbnsXFdjFZvQqe2KSmyhdk2",
+      "createdAt": "2026-06-02T19:20:56.955Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-06-02T19:20:58.129Z"
+    },
+    {
+      "id": "u-customer",
+      "email": "customer@bank.com",
+      "passwordHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.mK2emxoi7mBWGfIRwxWhAVuD3tJNPqq",
+      "role": "Customer",
+      "fullName": "Alice Johnson",
+      "dob": "1990-07-15",
+      "gender": "Female",
+      "mobileNumber": "+15550103",
+      "address": "789 Pine Rd, Manhattan, NY",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.A.DrFE7Oh.ZYdb2YTM9G7G3tMLF526y",
+      "createdAt": "2026-06-02T19:20:57.192Z",
+      "forcePasswordChange": false,
+      "tempPassword": null,
+      "updatedAt": "2026-06-02T19:20:57.990Z"
+    },
+    {
+      "id": "u-merchant",
+      "email": "merchant@bank.com",
+      "passwordHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.PdWHbsu99QU1yNp1FMci6d.eell2ZcS",
+      "role": "Merchant",
+      "fullName": "Bob Smith",
+      "dob": "1988-11-30",
+      "gender": "Male",
+      "mobileNumber": "+15550104",
+      "address": "404 Retail Way, Soho, NY",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$NzRdQqLqhftCTnXUnvF/A.zZNKS3/ET7ZwX6cJ41p6P8zEzGRkt5C",
+      "createdAt": "2026-06-02T19:20:57.453Z",
+      "forcePasswordChange": false,
+      "tempPassword": null
+    }
+  ],
+  "sessions": [
+    {
+      "id": "ses-2fe2ca80",
+      "userId": "u-admin",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzgwNDI4MDU3LCJleHAiOjE3ODEwMzI4NTd9.6BnoROXUmoVyZ8IuC2bPa28pwegW8OpJtbpIc2JtJ6k",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:20:57.807Z",
+      "createdAt": "2026-06-02T19:20:57.807Z"
+    },
+    {
+      "id": "ses-15b44abb",
+      "userId": "u-customer",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzgwNDI4MDU3LCJleHAiOjE3ODEwMzI4NTd9.cVRrYbpR8IoZR5EBg5saIWBg8L5DXqA8mP0x8B7JKOc",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:20:57.993Z",
+      "createdAt": "2026-06-02T19:20:57.993Z"
+    },
+    {
+      "id": "ses-6774c76e",
+      "userId": "u-teller",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtdGVsbGVyIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4MDQyODA1OCwiZXhwIjoxNzgxMDMyODU4fQ.uiCPfB6YHy-1cxVJG-xDGJsLQdymJwm5VA2wP19JLcc",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:20:58.131Z",
+      "createdAt": "2026-06-02T19:20:58.131Z"
+    }
+  ],
+  "loginHistory": [
+    {
+      "id": "log-da1dce72",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:20:57.818Z",
+      "createdAt": "2026-06-02T19:20:57.818Z"
+    },
+    {
+      "id": "log-c23bec13",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:20:57.994Z",
+      "createdAt": "2026-06-02T19:20:57.994Z"
+    },
+    {
+      "id": "log-a76b5d64",
+      "userId": "u-teller",
+      "email": "teller@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:20:58.132Z",
+      "createdAt": "2026-06-02T19:20:58.132Z"
+    }
+  ],
+  "branches": [
+    {
+      "id": "b-main",
+      "name": "Global HQ Branch",
+      "code": "HQ001",
+      "address": "100 Financial District, New York, NY",
+      "vaultBalance": 15000000,
+      "minVaultLimit": 2000000,
+      "maxVaultLimit": 50000000,
+      "cashInHand": 500000,
+      "createdAt": "2026-06-02T19:20:55.903Z"
+    }
+  ],
+  "cashVaults": [
+    {
+      "id": "cv-main",
+      "branchId": "b-main",
+      "type": "main",
+      "balance": 15000000,
+      "lastReconciledAt": "2026-06-02T19:20:55.905Z"
+    }
+  ],
+  "cashPositions": [
+    {
+      "id": "cp-1",
+      "branchId": "b-main",
+      "tellerId": "u-teller",
+      "cashInHand": 55000,
+      "limit": 100000,
+      "status": "active",
+      "updatedAt": "2026-06-02T19:20:58.138Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc-cust-1",
+      "customerId": "u-customer",
+      "accountNumber": "1000987654",
+      "branchId": "b-main",
+      "type": "savings",
+      "balance": 30075,
+      "status": "active",
+      "createdAt": "2026-06-02T19:20:57.454Z",
+      "updatedAt": "2026-06-02T19:20:58.151Z"
+    },
+    {
+      "id": "acc-merch-1",
+      "customerId": "u-merchant",
+      "accountNumber": "2000123456",
+      "branchId": "b-main",
+      "type": "current",
+      "balance": 100000,
+      "status": "active",
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "tra-1434554c",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-cust-1",
+      "amount": 5000,
+      "type": "deposit",
+      "category": "Cash Deposit",
+      "status": "completed",
+      "description": "Test Verification Deposit",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-06-02T19:20:58.137Z"
+    },
+    {
+      "id": "tra-dde7b4c3",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-1",
+      "amount": 75,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-06-02T19:20:58.153Z"
+    },
+    {
+      "id": "tra-02861a00",
+      "fromAccountId": "acc-cust-1",
+      "toAccountId": "acc-merch-1",
+      "amount": 60000,
+      "type": "transfer",
+      "category": "Failed Trigger",
+      "status": "flagged",
+      "description": "Blocked: Fraud Risk Score too high (80). Fraud Test transfer",
+      "fraudScore": 80,
+      "reconciliationStatus": "failed",
+      "createdAt": "2026-06-02T19:20:58.339Z"
+    }
+  ],
+  "cards": [],
+  "loans": [],
+  "fixedDeposits": [],
+  "recurringDeposits": [],
+  "beneficiaries": [],
+  "nominees": [],
+  "tickets": [],
+  "grievances": [],
+  "notifications": [],
+  "auditLogs": [
+    {
+      "id": "aud-5dfdff1f",
+      "userId": "u-customer",
+      "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
+      "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"reason\":\"Module access denied. Required one of: users, employees\",\"userRole\":\"Customer\"}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:20:58.006Z",
+      "createdAt": "2026-06-02T19:20:58.006Z"
+    },
+    {
+      "id": "aud-e7a4e5e6",
+      "userId": "u-teller",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000987654\",\"amount\":5000,\"type\":\"deposit\",\"description\":\"Test Verification Deposit\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:20:58.145Z",
+      "createdAt": "2026-06-02T19:20:58.145Z"
+    },
+    {
+      "id": "aud-14bd1fc5",
+      "userId": "u-admin",
+      "action": "POST_/API/INTEREST/POST",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:20:58.162Z",
+      "createdAt": "2026-06-02T19:20:58.162Z"
+    }
+  ],
+  "treasuryTransfers": [],
+  "interestPostings": [
+    {
+      "id": "int-330862c9",
+      "accountId": "acc-cust-1",
+      "amount": 75,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-06-02T19:20:58.151Z",
+      "createdAt": "2026-06-02T19:20:58.154Z"
+    }
+  ],
+  "interestSchedules": [],
+  "generalLedger": [
+    {
+      "id": "gl-1010",
+      "code": "1010",
+      "name": "Cash in Vault",
+      "type": "asset",
+      "balance": 15000000
+    },
+    {
+      "id": "gl-1020",
+      "code": "1020",
+      "name": "Cash in Hand (Tellers)",
+      "type": "asset",
+      "balance": 55000,
+      "updatedAt": "2026-06-02T19:20:58.140Z"
+    },
+    {
+      "id": "gl-2010",
+      "code": "2010",
+      "name": "Customer Savings Deposits",
+      "type": "liability",
+      "balance": 30075,
+      "updatedAt": "2026-06-02T19:20:58.158Z"
+    },
+    {
+      "id": "gl-2020",
+      "code": "2020",
+      "name": "Merchant Current Deposits",
+      "type": "liability",
+      "balance": 100000
+    },
+    {
+      "id": "gl-3010",
+      "code": "3010",
+      "name": "Share Capital",
+      "type": "equity",
+      "balance": 14925000
+    },
+    {
+      "id": "gl-4010",
+      "code": "4010",
+      "name": "Interest Revenue from Loans",
+      "type": "revenue",
+      "balance": 0
+    },
+    {
+      "id": "gl-5010",
+      "code": "5010",
+      "name": "Interest Expense on Savings",
+      "type": "expense",
+      "balance": 75,
+      "updatedAt": "2026-06-02T19:20:58.156Z"
+    }
+  ],
+  "journalEntries": [
+    {
+      "id": "jou-00168a4b",
+      "date": "2026-06-02",
+      "description": "Deposit to Account 1000987654",
+      "status": "posted",
+      "createdBy": "u-teller",
+      "createdAt": "2026-06-02T19:20:58.139Z"
+    },
+    {
+      "id": "jou-9b9e764f",
+      "date": "2026-06-02",
+      "description": "Savings Interest Posting for 1000987654",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-06-02T19:20:58.155Z"
+    }
+  ],
+  "journalLines": [
+    {
+      "id": "jou-1147cbb2",
+      "journalEntryId": "jou-00168a4b",
+      "glCode": "1020",
+      "type": "debit",
+      "amount": 5000,
+      "createdAt": "2026-06-02T19:20:58.140Z"
+    },
+    {
+      "id": "jou-958d7d59",
+      "journalEntryId": "jou-00168a4b",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 5000,
+      "createdAt": "2026-06-02T19:20:58.142Z"
+    },
+    {
+      "id": "jou-901bc7c7",
+      "journalEntryId": "jou-9b9e764f",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 75,
+      "createdAt": "2026-06-02T19:20:58.156Z"
+    },
+    {
+      "id": "jou-b24b79de",
+      "journalEntryId": "jou-9b9e764f",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 75,
+      "createdAt": "2026-06-02T19:20:58.158Z"
+    }
+  ],
+  "trialBalances": [],
+  "financialStatements": [],
+  "crmLeads": [
+    {
+      "id": "l-1",
+      "name": "John Doe",
+      "email": "johndoe@gmail.com",
+      "mobile": "+15559876",
+      "status": "qualified",
+      "source": "Web Referral",
+      "assignedTo": "u-teller",
+      "productInterest": "Home Loan",
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    },
+    {
+      "id": "l-2",
+      "name": "Sarah Connor",
+      "email": "sconnor@future.net",
+      "mobile": "+15554321",
+      "status": "new",
+      "source": "Email Campaign",
+      "assignedTo": "u-teller",
+      "productInterest": "Credit Card",
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "crmCampaigns": [
+    {
+      "id": "c-1",
+      "name": "Summer Savings Promo",
+      "type": "email",
+      "budget": 5000,
+      "revenue": 12000,
+      "leadsGenerated": 140,
+      "status": "active",
+      "startDate": "2026-06-01"
+    },
+    {
+      "id": "c-2",
+      "name": "Merchant QR Onboarding Drive",
+      "type": "sms",
+      "budget": 2000,
+      "revenue": 8500,
+      "leadsGenerated": 64,
+      "status": "active",
+      "startDate": "2026-05-15"
+    }
+  ],
+  "customerScores": [
+    {
+      "id": "cs-1",
+      "customerId": "u-customer",
+      "churnProbability": 0.12,
+      "creditScore": 780,
+      "customerValueScore": 88,
+      "recommendations": [
+        "Pre-approved Auto Loan at 4.5%",
+        "Platinum Credit Card Upgrade"
+      ],
+      "lastUpdated": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "kb-1",
+      "title": "How to open a Savings Account",
+      "content": "To open a Savings Account, sign up as a customer, verify your email and phone, submit valid KYC (Aadhaar or PAN Card), and wait for approval from our branch manager. Once approved, you can fund your account immediately.",
+      "category": "Accounts",
+      "views": 45,
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    },
+    {
+      "id": "kb-2",
+      "title": "Understanding Fixed Deposit (FD) and Rates",
+      "content": "Our Fixed Deposits offer competitive interest rates. Customers can open an FD with a minimum principal of $1,000. Interest is calculated using simple or compound interest and is automatically posted at maturity or on a quarterly schedule. Auto-renewal is supported.",
+      "category": "Loans",
+      "views": 32,
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    },
+    {
+      "id": "kb-3",
+      "title": "Merchant Payment Settlements & QR Codes",
+      "content": "Merchants can generate static or dynamic QR codes from their dashboard. Customer payments are credited to the merchant account. Settlements are executed at EOD (End of Day) processing, transferring all pending receipts to the merchant primary balance.",
+      "category": "Merchant Services",
+      "views": 88,
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "scheduledJobs": [
+    {
+      "id": "job-1",
+      "name": "Dormancy Check",
+      "cronExpression": "0 0 * * *",
+      "type": "dormancy",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-06-03T19:20:57.454Z"
+    },
+    {
+      "id": "job-2",
+      "name": "Interest Accrual & Posting",
+      "cronExpression": "0 0 1 * *",
+      "type": "interest",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-07-02T19:20:57.454Z"
+    },
+    {
+      "id": "job-3",
+      "name": "EOD Settlement Automation",
+      "cronExpression": "0 18 * * *",
+      "type": "statement",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-06-03T07:20:57.454Z"
+    }
+  ],
+  "backups": [],
+  "systemMetrics": [],
+  "workflowDefinitions": [
+    {
+      "id": "wf-kyc",
+      "name": "KYC Verification Approval Flow",
+      "triggerType": "KYC",
+      "steps": [
+        "Employee review",
+        "Manager approval"
+      ],
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    },
+    {
+      "id": "wf-loan",
+      "name": "Loan Disbursement Workflow",
+      "triggerType": "Loans",
+      "steps": [
+        "Credit check analysis",
+        "Manager approval",
+        "Treasury allocation"
+      ],
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    },
+    {
+      "id": "wf-merchant",
+      "name": "Merchant Onboarding Validation",
+      "triggerType": "Merchant Requests",
+      "steps": [
+        "Document validation",
+        "Manager approval"
+      ],
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "workflowExecutions": [],
+  "documents": [
+    {
+      "id": "doc-merch-1",
+      "userId": "u-merchant",
+      "title": "Merchant PAN Card",
+      "category": "merchant_doc",
+      "fileName": "pan_card.pdf",
+      "status": "approved",
+      "version": 1,
+      "createdAt": "2026-06-02T19:20:57.454Z"
+    }
+  ],
+  "documentVersions": [],
+  "apiKeys": [],
+  "apiLogs": [],
+  "reconciliationLogs": [],
+  "settlements": [],
+  "fraudAlerts": [
+    {
+      "id": "frd-1780426354073",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "high",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:52:34.073Z",
+      "createdAt": "2026-06-02T18:52:34.073Z"
+    },
+    {
+      "id": "frd-1780426391561",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:53:11.561Z",
+      "createdAt": "2026-06-02T18:53:11.561Z"
+    },
+    {
+      "id": "frd-1780426424090",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:53:44.090Z",
+      "createdAt": "2026-06-02T18:53:44.090Z"
+    },
+    {
+      "id": "frd-1780426705575",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:58:25.575Z",
+      "createdAt": "2026-06-02T18:58:25.575Z"
+    },
+    {
+      "id": "frd-1780427048182",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:04:08.182Z",
+      "createdAt": "2026-06-02T19:04:08.182Z"
+    },
+    {
+      "id": "frd-1780427208451",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:06:48.451Z",
+      "createdAt": "2026-06-02T19:06:48.451Z"
+    },
+    {
+      "id": "frd-1780428013274",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:20:13.275Z",
+      "createdAt": "2026-06-02T19:20:13.275Z"
+    },
+    {
+      "id": "frd-1780428034599",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:20:34.599Z",
+      "createdAt": "2026-06-02T19:20:34.599Z"
+    },
+    {
+      "id": "frd-1780428058337",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:20:58.337Z",
+      "createdAt": "2026-06-02T19:20:58.337Z"
+    }
+  ],
+  "roles": [
+    {
+      "id": "r-admin",
+      "name": "Super Admin",
+      "modules": [
+        "users",
+        "ledger",
+        "developers",
+        "interest",
+        "metrics",
+        "disaster"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-manager",
+      "name": "Branch Manager",
+      "modules": [
+        "summary",
+        "approvals",
+        "employees",
+        "treasury",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-employee",
+      "name": "Employee",
+      "modules": [
+        "summary",
+        "customers",
+        "transactions",
+        "crm",
+        "tickets",
+        "dms"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-customer",
+      "name": "Customer",
+      "modules": [
+        "summary",
+        "transfers",
+        "beneficiaries",
+        "products",
+        "dms",
+        "assistant",
+        "settings"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-merchant",
+      "name": "Merchant",
+      "modules": [
+        "summary",
+        "qr",
+        "settlements",
+        "developers"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-auditor",
+      "name": "Auditor",
+      "modules": [
+        "summary",
+        "ledger",
+        "disaster"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-compliance",
+      "name": "Compliance Officer",
+      "modules": [
+        "summary",
+        "ledger",
+        "dms"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-treasury",
+      "name": "Treasury Officer",
+      "modules": [
+        "summary",
+        "treasury",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-loan",
+      "name": "Loan Officer",
+      "modules": [
+        "summary",
+        "approvals"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-support",
+      "name": "Customer Support Agent",
+      "modules": [
+        "summary",
+        "tickets"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-fraud",
+      "name": "Fraud Analyst",
+      "modules": [
+        "summary",
+        "ledger"
+      ],
+      "custom": false
+    },
+    {
+      "id": "r-sysadmin",
+      "name": "System Administrator",
+      "modules": [
+        "summary",
+        "metrics",
+        "disaster"
+      ],
+      "custom": false
+    }
+  ],
+  "permissions": [
+    {
+      "id": "p-create",
+      "action": "Create",
+      "description": "Permission to perform Create operations"
+    },
+    {
+      "id": "p-read",
+      "action": "Read",
+      "description": "Permission to perform Read operations"
+    },
+    {
+      "id": "p-update",
+      "action": "Update",
+      "description": "Permission to perform Update operations"
+    },
+    {
+      "id": "p-delete",
+      "action": "Delete",
+      "description": "Permission to perform Delete operations"
+    },
+    {
+      "id": "p-approve",
+      "action": "Approve",
+      "description": "Permission to perform Approve operations"
+    },
+    {
+      "id": "p-reject",
+      "action": "Reject",
+      "description": "Permission to perform Reject operations"
+    },
+    {
+      "id": "p-export",
+      "action": "Export",
+      "description": "Permission to perform Export operations"
+    },
+    {
+      "id": "p-import",
+      "action": "Import",
+      "description": "Permission to perform Import operations"
+    },
+    {
+      "id": "p-assign",
+      "action": "Assign",
+      "description": "Permission to perform Assign operations"
+    },
+    {
+      "id": "p-freeze",
+      "action": "Freeze",
+      "description": "Permission to perform Freeze operations"
+    },
+    {
+      "id": "p-unfreeze",
+      "action": "Unfreeze",
+      "description": "Permission to perform Unfreeze operations"
+    },
+    {
+      "id": "p-activate",
+      "action": "Activate",
+      "description": "Permission to perform Activate operations"
+    },
+    {
+      "id": "p-deactivate",
+      "action": "Deactivate",
+      "description": "Permission to perform Deactivate operations"
+    },
+    {
+      "id": "p-monitor",
+      "action": "Monitor",
+      "description": "Permission to perform Monitor operations"
+    }
+  ],
+  "rolePermissions": [
+    {
+      "id": "rp-admin-create",
+      "roleId": "r-admin",
+      "permissionId": "p-create",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-read",
+      "roleId": "r-admin",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-update",
+      "roleId": "r-admin",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-delete",
+      "roleId": "r-admin",
+      "permissionId": "p-delete",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-approve",
+      "roleId": "r-admin",
+      "permissionId": "p-approve",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-reject",
+      "roleId": "r-admin",
+      "permissionId": "p-reject",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-export",
+      "roleId": "r-admin",
+      "permissionId": "p-export",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-import",
+      "roleId": "r-admin",
+      "permissionId": "p-import",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-assign",
+      "roleId": "r-admin",
+      "permissionId": "p-assign",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-freeze",
+      "roleId": "r-admin",
+      "permissionId": "p-freeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-unfreeze",
+      "roleId": "r-admin",
+      "permissionId": "p-unfreeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-activate",
+      "roleId": "r-admin",
+      "permissionId": "p-activate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-deactivate",
+      "roleId": "r-admin",
+      "permissionId": "p-deactivate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-admin-monitor",
+      "roleId": "r-admin",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-manager-create",
+      "roleId": "r-manager",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-read",
+      "roleId": "r-manager",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-update",
+      "roleId": "r-manager",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-delete",
+      "roleId": "r-manager",
+      "permissionId": "p-delete",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-approve",
+      "roleId": "r-manager",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-reject",
+      "roleId": "r-manager",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-export",
+      "roleId": "r-manager",
+      "permissionId": "p-export",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-import",
+      "roleId": "r-manager",
+      "permissionId": "p-import",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-assign",
+      "roleId": "r-manager",
+      "permissionId": "p-assign",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-freeze",
+      "roleId": "r-manager",
+      "permissionId": "p-freeze",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-unfreeze",
+      "roleId": "r-manager",
+      "permissionId": "p-unfreeze",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-activate",
+      "roleId": "r-manager",
+      "permissionId": "p-activate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-deactivate",
+      "roleId": "r-manager",
+      "permissionId": "p-deactivate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-manager-monitor",
+      "roleId": "r-manager",
+      "permissionId": "p-monitor",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-create",
+      "roleId": "r-employee",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-read",
+      "roleId": "r-employee",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-update",
+      "roleId": "r-employee",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-teller-deactivate",
+      "roleId": "r-employee",
+      "permissionId": "p-deactivate",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-cust-create",
+      "roleId": "r-customer",
+      "permissionId": "p-create",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-create",
+      "roleId": "r-merchant",
+      "permissionId": "p-create",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-read",
+      "roleId": "r-customer",
+      "permissionId": "p-read",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-read",
+      "roleId": "r-merchant",
+      "permissionId": "p-read",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-update",
+      "roleId": "r-customer",
+      "permissionId": "p-update",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-update",
+      "roleId": "r-merchant",
+      "permissionId": "p-update",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-cust-delete",
+      "roleId": "r-customer",
+      "permissionId": "p-delete",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-merch-delete",
+      "roleId": "r-merchant",
+      "permissionId": "p-delete",
+      "scope": "Own Records"
+    },
+    {
+      "id": "rp-auditor-read",
+      "roleId": "r-auditor",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-auditor-monitor",
+      "roleId": "r-auditor",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-compliance-read",
+      "roleId": "r-compliance",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-compliance-monitor",
+      "roleId": "r-compliance",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-treasury-read",
+      "roleId": "r-treasury",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-update",
+      "roleId": "r-treasury",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-approve",
+      "roleId": "r-treasury",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-treasury-reject",
+      "roleId": "r-treasury",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-read",
+      "roleId": "r-loan",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-create",
+      "roleId": "r-loan",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-update",
+      "roleId": "r-loan",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-approve",
+      "roleId": "r-loan",
+      "permissionId": "p-approve",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-loan-reject",
+      "roleId": "r-loan",
+      "permissionId": "p-reject",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-read",
+      "roleId": "r-support",
+      "permissionId": "p-read",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-create",
+      "roleId": "r-support",
+      "permissionId": "p-create",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-support-update",
+      "roleId": "r-support",
+      "permissionId": "p-update",
+      "scope": "Branch"
+    },
+    {
+      "id": "rp-fraud-read",
+      "roleId": "r-fraud",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-fraud-update",
+      "roleId": "r-fraud",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-fraud-monitor",
+      "roleId": "r-fraud",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-create",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-create",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-read",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-read",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-update",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-update",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-delete",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-delete",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-approve",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-approve",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-reject",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-reject",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-export",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-export",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-import",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-import",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-assign",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-assign",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-freeze",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-freeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-unfreeze",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-unfreeze",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-activate",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-activate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-deactivate",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-deactivate",
+      "scope": "Global"
+    },
+    {
+      "id": "rp-sysadmin-monitor",
+      "roleId": "r-sysadmin",
+      "permissionId": "p-monitor",
+      "scope": "Global"
+    }
+  ],
+  "userRoles": [
+    {
+      "id": "ur-1",
+      "userId": "u-admin",
+      "roleId": "r-admin"
+    },
+    {
+      "id": "ur-2",
+      "userId": "u-manager",
+      "roleId": "r-manager"
+    },
+    {
+      "id": "ur-3",
+      "userId": "u-teller",
+      "roleId": "r-employee"
+    },
+    {
+      "id": "ur-4",
+      "userId": "u-customer",
+      "roleId": "r-customer"
+    },
+    {
+      "id": "ur-5",
+      "userId": "u-merchant",
+      "roleId": "r-merchant"
+    }
+  ],
+  "branchAssignments": [
+    {
+      "id": "ba-1",
+      "userId": "u-manager",
+      "branchId": "b-main"
+    },
+    {
+      "id": "ba-2",
+      "userId": "u-teller",
+      "branchId": "b-main"
+    }
+  ],
+  "departmentAssignments": []
+}

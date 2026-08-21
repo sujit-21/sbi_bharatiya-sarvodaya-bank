@@ -1,0 +1,660 @@
+{
+  "users": [
+    {
+      "id": "u-admin",
+      "email": "admin@bank.com",
+      "passwordHash": "$2a$10$UmB7D7LvllHogqtuh8incO390ljpn/hmm11ivxC.YvB2SDe.KUiBW",
+      "role": "Super Admin",
+      "fullName": "Chief Operations Administrator",
+      "dob": "1980-01-01",
+      "gender": "Male",
+      "mobileNumber": "+15550100",
+      "address": "System Headquarters",
+      "status": "active",
+      "twoFactorSecret": "JBSWY3DPEHPK3PXP",
+      "twoFactorEnabled": true,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$UmB7D7LvllHogqtuh8incOT1dA7IlLge5p8v./ePG1Fn58XyPzrIe",
+      "createdAt": "2026-06-02T19:06:46.541Z",
+      "updatedAt": "2026-06-02T19:06:47.978Z"
+    },
+    {
+      "id": "u-manager",
+      "email": "manager@bank.com",
+      "passwordHash": "$2a$10$UmB7D7LvllHogqtuh8incO0.R/T6we53Y8ZA9JlGvnOenBWDdH0dy",
+      "role": "Branch Manager",
+      "fullName": "Jane Miller",
+      "dob": "1985-05-12",
+      "gender": "Female",
+      "mobileNumber": "+15550101",
+      "address": "128 Main St, Queens, NY",
+      "branchId": "b-main",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$UmB7D7LvllHogqtuh8incOKj3SXnjkjcE/qEW.1185JfdZe.dDHnS",
+      "createdAt": "2026-06-02T19:06:46.813Z"
+    },
+    {
+      "id": "u-teller",
+      "email": "teller@bank.com",
+      "passwordHash": "$2a$10$UmB7D7LvllHogqtuh8incOkH8INcRMy/c6iwuqMuEUphZmKnfxpP6",
+      "role": "Employee",
+      "fullName": "Robert Davis",
+      "dob": "1992-09-21",
+      "gender": "Male",
+      "mobileNumber": "+15550102",
+      "address": "456 Oak Ave, Brooklyn, NY",
+      "branchId": "b-main",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$UmB7D7LvllHogqtuh8incORX7ZS9CivgX9ISIgo8FJ44Cm.j9t962",
+      "createdAt": "2026-06-02T19:06:47.091Z",
+      "updatedAt": "2026-06-02T19:06:48.290Z"
+    },
+    {
+      "id": "u-customer",
+      "email": "customer@bank.com",
+      "passwordHash": "$2a$10$UmB7D7LvllHogqtuh8incOU7RwwW0IgQsa4Q9gn.uN1EEvRrsLebq",
+      "role": "Customer",
+      "fullName": "Alice Johnson",
+      "dob": "1990-07-15",
+      "gender": "Female",
+      "mobileNumber": "+15550103",
+      "address": "789 Pine Rd, Manhattan, NY",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$UmB7D7LvllHogqtuh8incOtn/UUVs77oz5.4Q2hD9zCacN5nRf906",
+      "createdAt": "2026-06-02T19:06:47.372Z",
+      "updatedAt": "2026-06-02T19:06:48.154Z"
+    },
+    {
+      "id": "u-merchant",
+      "email": "merchant@bank.com",
+      "passwordHash": "$2a$10$UmB7D7LvllHogqtuh8incOFI9/YJUqEEi0og7A1kzbHoR1mL0Dt9S",
+      "role": "Merchant",
+      "fullName": "Bob Smith",
+      "dob": "1988-11-30",
+      "gender": "Male",
+      "mobileNumber": "+15550104",
+      "address": "404 Retail Way, Soho, NY",
+      "status": "active",
+      "twoFactorSecret": null,
+      "twoFactorEnabled": false,
+      "failedLogins": 0,
+      "lockedUntil": null,
+      "transactionPinHash": "$2a$10$UmB7D7LvllHogqtuh8incOKd4GeyasNmJRSMz3m1XmYfWUoltKMMW",
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "ses-5cc8d399",
+      "userId": "u-admin",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzgwNDI3MjA3LCJleHAiOjE3ODEwMzIwMDd9.8CwDslzZ7DgNXjGDYP4H_6nTMIXEBFIWA7b4VXnozho",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:06:47.984Z",
+      "createdAt": "2026-06-02T19:06:47.984Z"
+    },
+    {
+      "id": "ses-edf9f74f",
+      "userId": "u-customer",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzgwNDI3MjA4LCJleHAiOjE3ODEwMzIwMDh9._Lf6eqdTU77l_gtB_73ZlxRf5yCYVFmDGoD9-ywc650",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:06:48.156Z",
+      "createdAt": "2026-06-02T19:06:48.156Z"
+    },
+    {
+      "id": "ses-4efae662",
+      "userId": "u-teller",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtdGVsbGVyIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4MDQyNzIwOCwiZXhwIjoxNzgxMDMyMDA4fQ.D4f52BB5FA60jbZuA6PbaMj3zyuv-TO7ialERIRVCVo",
+      "deviceId": "test-runner-id",
+      "deviceName": "Browser Session",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "active": true,
+      "expiresAt": "2026-06-09T19:06:48.292Z",
+      "createdAt": "2026-06-02T19:06:48.292Z"
+    }
+  ],
+  "loginHistory": [
+    {
+      "id": "log-acd6a96e",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:06:47.985Z",
+      "createdAt": "2026-06-02T19:06:47.985Z"
+    },
+    {
+      "id": "log-ae0d82da",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:06:48.157Z",
+      "createdAt": "2026-06-02T19:06:48.157Z"
+    },
+    {
+      "id": "log-f257802d",
+      "userId": "u-teller",
+      "email": "teller@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "unknown",
+      "deviceFingerprint": "unknown",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-06-02T19:06:48.293Z",
+      "createdAt": "2026-06-02T19:06:48.293Z"
+    }
+  ],
+  "branches": [
+    {
+      "id": "b-main",
+      "name": "Global HQ Branch",
+      "code": "HQ001",
+      "address": "100 Financial District, New York, NY",
+      "vaultBalance": 15000000,
+      "minVaultLimit": 2000000,
+      "maxVaultLimit": 50000000,
+      "cashInHand": 500000,
+      "createdAt": "2026-06-02T19:06:46.189Z"
+    }
+  ],
+  "cashVaults": [
+    {
+      "id": "cv-main",
+      "branchId": "b-main",
+      "type": "main",
+      "balance": 15000000,
+      "lastReconciledAt": "2026-06-02T19:06:46.191Z"
+    }
+  ],
+  "cashPositions": [
+    {
+      "id": "cp-1",
+      "branchId": "b-main",
+      "tellerId": "u-teller",
+      "cashInHand": 55000,
+      "limit": 100000,
+      "status": "active",
+      "updatedAt": "2026-06-02T19:06:48.302Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc-cust-1",
+      "customerId": "u-customer",
+      "accountNumber": "1000987654",
+      "branchId": "b-main",
+      "type": "savings",
+      "balance": 30075,
+      "status": "active",
+      "createdAt": "2026-06-02T19:06:47.642Z",
+      "updatedAt": "2026-06-02T19:06:48.313Z"
+    },
+    {
+      "id": "acc-merch-1",
+      "customerId": "u-merchant",
+      "accountNumber": "2000123456",
+      "branchId": "b-main",
+      "type": "current",
+      "balance": 100000,
+      "status": "active",
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "tra-1b43903d",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-cust-1",
+      "amount": 5000,
+      "type": "deposit",
+      "category": "Cash Deposit",
+      "status": "completed",
+      "description": "Test Verification Deposit",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-06-02T19:06:48.301Z"
+    },
+    {
+      "id": "tra-d96f7ff2",
+      "fromAccountId": "SYSTEM",
+      "toAccountId": "acc-cust-1",
+      "amount": 75,
+      "type": "deposit",
+      "category": "Interest Credited",
+      "status": "completed",
+      "description": "Monthly Savings Interest Credited",
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-06-02T19:06:48.314Z"
+    },
+    {
+      "id": "tra-46a7380a",
+      "fromAccountId": "acc-cust-1",
+      "toAccountId": "acc-merch-1",
+      "amount": 60000,
+      "type": "transfer",
+      "category": "Failed Trigger",
+      "status": "flagged",
+      "description": "Blocked: Fraud Risk Score too high (80). Fraud Test transfer",
+      "fraudScore": 80,
+      "reconciliationStatus": "failed",
+      "createdAt": "2026-06-02T19:06:48.452Z"
+    }
+  ],
+  "cards": [],
+  "loans": [],
+  "fixedDeposits": [],
+  "recurringDeposits": [],
+  "beneficiaries": [],
+  "nominees": [],
+  "tickets": [],
+  "grievances": [],
+  "notifications": [],
+  "auditLogs": [
+    {
+      "id": "aud-22ad95a6",
+      "userId": "u-customer",
+      "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
+      "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"requiredRoles\":[\"Super Admin\",\"Branch Manager\"],\"userRole\":\"Customer\"}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:06:48.164Z",
+      "createdAt": "2026-06-02T19:06:48.164Z"
+    },
+    {
+      "id": "aud-85276a9a",
+      "userId": "u-teller",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000987654\",\"amount\":5000,\"type\":\"deposit\",\"description\":\"Test Verification Deposit\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:06:48.308Z",
+      "createdAt": "2026-06-02T19:06:48.308Z"
+    },
+    {
+      "id": "aud-b995343e",
+      "userId": "u-admin",
+      "action": "POST_/API/INTEREST/POST",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-06-02T19:06:48.320Z",
+      "createdAt": "2026-06-02T19:06:48.320Z"
+    }
+  ],
+  "treasuryTransfers": [],
+  "interestPostings": [
+    {
+      "id": "int-b63ef4f4",
+      "accountId": "acc-cust-1",
+      "amount": 75,
+      "type": "savings",
+      "period": "Monthly Accrual",
+      "postedAt": "2026-06-02T19:06:48.313Z",
+      "createdAt": "2026-06-02T19:06:48.315Z"
+    }
+  ],
+  "interestSchedules": [],
+  "generalLedger": [
+    {
+      "id": "gl-1010",
+      "code": "1010",
+      "name": "Cash in Vault",
+      "type": "asset",
+      "balance": 15000000
+    },
+    {
+      "id": "gl-1020",
+      "code": "1020",
+      "name": "Cash in Hand (Tellers)",
+      "type": "asset",
+      "balance": 55000,
+      "updatedAt": "2026-06-02T19:06:48.304Z"
+    },
+    {
+      "id": "gl-2010",
+      "code": "2010",
+      "name": "Customer Savings Deposits",
+      "type": "liability",
+      "balance": 30075,
+      "updatedAt": "2026-06-02T19:06:48.318Z"
+    },
+    {
+      "id": "gl-2020",
+      "code": "2020",
+      "name": "Merchant Current Deposits",
+      "type": "liability",
+      "balance": 100000
+    },
+    {
+      "id": "gl-3010",
+      "code": "3010",
+      "name": "Share Capital",
+      "type": "equity",
+      "balance": 14925000
+    },
+    {
+      "id": "gl-4010",
+      "code": "4010",
+      "name": "Interest Revenue from Loans",
+      "type": "revenue",
+      "balance": 0
+    },
+    {
+      "id": "gl-5010",
+      "code": "5010",
+      "name": "Interest Expense on Savings",
+      "type": "expense",
+      "balance": 75,
+      "updatedAt": "2026-06-02T19:06:48.316Z"
+    }
+  ],
+  "journalEntries": [
+    {
+      "id": "jou-21425537",
+      "date": "2026-06-02",
+      "description": "Deposit to Account 1000987654",
+      "status": "posted",
+      "createdBy": "u-teller",
+      "createdAt": "2026-06-02T19:06:48.303Z"
+    },
+    {
+      "id": "jou-d3a4a937",
+      "date": "2026-06-02",
+      "description": "Savings Interest Posting for 1000987654",
+      "status": "posted",
+      "createdBy": "u-admin",
+      "createdAt": "2026-06-02T19:06:48.316Z"
+    }
+  ],
+  "journalLines": [
+    {
+      "id": "jou-9989d7ad",
+      "journalEntryId": "jou-21425537",
+      "glCode": "1020",
+      "type": "debit",
+      "amount": 5000,
+      "createdAt": "2026-06-02T19:06:48.304Z"
+    },
+    {
+      "id": "jou-cd1fc142",
+      "journalEntryId": "jou-21425537",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 5000,
+      "createdAt": "2026-06-02T19:06:48.306Z"
+    },
+    {
+      "id": "jou-29e9ffb5",
+      "journalEntryId": "jou-d3a4a937",
+      "glCode": "5010",
+      "type": "debit",
+      "amount": 75,
+      "createdAt": "2026-06-02T19:06:48.316Z"
+    },
+    {
+      "id": "jou-5565c749",
+      "journalEntryId": "jou-d3a4a937",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 75,
+      "createdAt": "2026-06-02T19:06:48.318Z"
+    }
+  ],
+  "trialBalances": [],
+  "financialStatements": [],
+  "crmLeads": [
+    {
+      "id": "l-1",
+      "name": "John Doe",
+      "email": "johndoe@gmail.com",
+      "mobile": "+15559876",
+      "status": "qualified",
+      "source": "Web Referral",
+      "assignedTo": "u-teller",
+      "productInterest": "Home Loan",
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    },
+    {
+      "id": "l-2",
+      "name": "Sarah Connor",
+      "email": "sconnor@future.net",
+      "mobile": "+15554321",
+      "status": "new",
+      "source": "Email Campaign",
+      "assignedTo": "u-teller",
+      "productInterest": "Credit Card",
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "crmCampaigns": [
+    {
+      "id": "c-1",
+      "name": "Summer Savings Promo",
+      "type": "email",
+      "budget": 5000,
+      "revenue": 12000,
+      "leadsGenerated": 140,
+      "status": "active",
+      "startDate": "2026-06-01"
+    },
+    {
+      "id": "c-2",
+      "name": "Merchant QR Onboarding Drive",
+      "type": "sms",
+      "budget": 2000,
+      "revenue": 8500,
+      "leadsGenerated": 64,
+      "status": "active",
+      "startDate": "2026-05-15"
+    }
+  ],
+  "customerScores": [
+    {
+      "id": "cs-1",
+      "customerId": "u-customer",
+      "churnProbability": 0.12,
+      "creditScore": 780,
+      "customerValueScore": 88,
+      "recommendations": [
+        "Pre-approved Auto Loan at 4.5%",
+        "Platinum Credit Card Upgrade"
+      ],
+      "lastUpdated": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "knowledgeBase": [
+    {
+      "id": "kb-1",
+      "title": "How to open a Savings Account",
+      "content": "To open a Savings Account, sign up as a customer, verify your email and phone, submit valid KYC (Aadhaar or PAN Card), and wait for approval from our branch manager. Once approved, you can fund your account immediately.",
+      "category": "Accounts",
+      "views": 45,
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    },
+    {
+      "id": "kb-2",
+      "title": "Understanding Fixed Deposit (FD) and Rates",
+      "content": "Our Fixed Deposits offer competitive interest rates. Customers can open an FD with a minimum principal of $1,000. Interest is calculated using simple or compound interest and is automatically posted at maturity or on a quarterly schedule. Auto-renewal is supported.",
+      "category": "Loans",
+      "views": 32,
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    },
+    {
+      "id": "kb-3",
+      "title": "Merchant Payment Settlements & QR Codes",
+      "content": "Merchants can generate static or dynamic QR codes from their dashboard. Customer payments are credited to the merchant account. Settlements are executed at EOD (End of Day) processing, transferring all pending receipts to the merchant primary balance.",
+      "category": "Merchant Services",
+      "views": 88,
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "scheduledJobs": [
+    {
+      "id": "job-1",
+      "name": "Dormancy Check",
+      "cronExpression": "0 0 * * *",
+      "type": "dormancy",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-06-03T19:06:47.642Z"
+    },
+    {
+      "id": "job-2",
+      "name": "Interest Accrual & Posting",
+      "cronExpression": "0 0 1 * *",
+      "type": "interest",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-07-02T19:06:47.642Z"
+    },
+    {
+      "id": "job-3",
+      "name": "EOD Settlement Automation",
+      "cronExpression": "0 18 * * *",
+      "type": "statement",
+      "status": "idle",
+      "lastRun": null,
+      "nextRun": "2026-06-03T07:06:47.642Z"
+    }
+  ],
+  "backups": [],
+  "systemMetrics": [],
+  "workflowDefinitions": [
+    {
+      "id": "wf-kyc",
+      "name": "KYC Verification Approval Flow",
+      "triggerType": "KYC",
+      "steps": [
+        "Employee review",
+        "Manager approval"
+      ],
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    },
+    {
+      "id": "wf-loan",
+      "name": "Loan Disbursement Workflow",
+      "triggerType": "Loans",
+      "steps": [
+        "Credit check analysis",
+        "Manager approval",
+        "Treasury allocation"
+      ],
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    },
+    {
+      "id": "wf-merchant",
+      "name": "Merchant Onboarding Validation",
+      "triggerType": "Merchant Requests",
+      "steps": [
+        "Document validation",
+        "Manager approval"
+      ],
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "workflowExecutions": [],
+  "documents": [
+    {
+      "id": "doc-merch-1",
+      "userId": "u-merchant",
+      "title": "Merchant PAN Card",
+      "category": "merchant_doc",
+      "fileName": "pan_card.pdf",
+      "status": "approved",
+      "version": 1,
+      "createdAt": "2026-06-02T19:06:47.642Z"
+    }
+  ],
+  "documentVersions": [],
+  "apiKeys": [],
+  "apiLogs": [],
+  "reconciliationLogs": [],
+  "settlements": [],
+  "fraudAlerts": [
+    {
+      "id": "frd-1780426354073",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "high",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:52:34.073Z",
+      "createdAt": "2026-06-02T18:52:34.073Z"
+    },
+    {
+      "id": "frd-1780426391561",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:53:11.561Z",
+      "createdAt": "2026-06-02T18:53:11.561Z"
+    },
+    {
+      "id": "frd-1780426424090",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:53:44.090Z",
+      "createdAt": "2026-06-02T18:53:44.090Z"
+    },
+    {
+      "id": "frd-1780426705575",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T18:58:25.575Z",
+      "createdAt": "2026-06-02T18:58:25.575Z"
+    },
+    {
+      "id": "frd-1780427048182",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:04:08.182Z",
+      "createdAt": "2026-06-02T19:04:08.182Z"
+    },
+    {
+      "id": "frd-1780427208451",
+      "userId": "u-customer",
+      "type": "Suspicious Transaction Activity",
+      "severity": "critical",
+      "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
+      "status": "pending",
+      "timestamp": "2026-06-02T19:06:48.451Z",
+      "createdAt": "2026-06-02T19:06:48.451Z"
+    }
+  ]
+}

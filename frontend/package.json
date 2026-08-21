@@ -1,0 +1,9 @@
+{
+  "name": "ag10-banking-frontend",
+  "version": "1.0.0",
+  "description": "Enterprise Banking Ecosystem Simulator Frontend Portal",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js"
+  }
+}
