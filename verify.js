@@ -139,6 +139,51 @@ async function runTests() {
       passed = false;
     }
 
+    // Test 3B: Verify Strict Portal Separation Enforcement
+    console.log('\n[TEST 3B] Verifying Strict Portal Separation (Admin cannot login to Customer page & vice-versa)...');
+    
+    // Attempt 1: Admin attempts to log into Customer portal endpoint
+    const adminOnCustPortal = await makeRequest('/customer/login', 'POST', {
+      email: 'admin@bank.com',
+      password: 'Admin123!',
+      portal: 'customer',
+      deviceId: 'test-runner-id'
+    });
+    if (adminOnCustPortal.status === 403) {
+      console.log('✅ Admin blocked from Customer portal login (403 Forbidden).');
+    } else {
+      console.log('❌ Admin was incorrectly allowed on Customer portal!', adminOnCustPortal);
+      passed = false;
+    }
+
+    // Attempt 2: Customer attempts to log into Headquarter portal endpoint
+    const custOnHqPortal = await makeRequest('/admin/login', 'POST', {
+      email: 'customer@bank.com',
+      password: 'Customer123!',
+      portal: 'headquarter',
+      deviceId: 'test-runner-id'
+    });
+    if (custOnHqPortal.status === 403) {
+      console.log('✅ Customer blocked from Headquarter portal login (403 Forbidden).');
+    } else {
+      console.log('❌ Customer was incorrectly allowed on Headquarter portal!', custOnHqPortal);
+      passed = false;
+    }
+
+    // Attempt 3: Customer attempts to log into Branch / Employee portal endpoint
+    const custOnBranchPortal = await makeRequest('/employee/login', 'POST', {
+      email: 'customer@bank.com',
+      password: 'Customer123!',
+      portal: 'branch',
+      deviceId: 'test-runner-id'
+    });
+    if (custOnBranchPortal.status === 403) {
+      console.log('✅ Customer blocked from Branch / Employee portal login (403 Forbidden).');
+    } else {
+      console.log('❌ Customer was incorrectly allowed on Branch portal!', custOnBranchPortal);
+      passed = false;
+    }
+
     // Test 4: Role-Based Route Protection (RBAC)
     console.log('\n[TEST 4] Verifying RBAC protection...');
     // Customer attempts to read Admin users list

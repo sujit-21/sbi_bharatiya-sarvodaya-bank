@@ -166,22 +166,22 @@
   <div id="dashboard-container" class="dashboard-wrapper hidden">
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
-      <div class="sidebar-header" style="height: 68px; min-height: 68px; padding: 0 12px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; box-sizing: border-box;">
-        <div class="sidebar-brand" style="padding: 6px 12px; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-radius: 10px; border: 1px solid #fed7aa; display: flex; flex-direction: column; gap: 2px; width: 100%;">
-          <div style="display: flex; align-items: center; gap: 6px;">
-            <span style="font-size: 1.05rem; font-weight: 900; letter-spacing: 2.5px; color: #ea580c;">BSB</span>
-            <span style="font-size: 0.62rem; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: #ffffff; color: #ea580c; border: 1px solid #ffedd5; letter-spacing: 0.5px; box-shadow: 0 1px 3px rgba(234,88,12,0.1);">BRANCH</span>
+      <div class="sidebar-header" style="height: 60px; min-height: 60px; padding: 0 8px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; box-sizing: border-box;">
+        <div class="sidebar-brand" style="padding: 5px 8px; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-radius: 8px; border: 1px solid #fed7aa; display: flex; flex-direction: column; gap: 1px; width: 100%;">
+          <div style="display: flex; align-items: center; gap: 5px;">
+            <span style="font-size: 0.92rem; font-weight: 900; letter-spacing: 2px; color: #ea580c;">SBI</span>
+            <span style="font-size: 0.55rem; font-weight: 800; padding: 1px 5px; border-radius: 4px; background: #ffffff; color: #ea580c; border: 1px solid #ffedd5; letter-spacing: 0.5px; box-shadow: 0 1px 3px rgba(234,88,12,0.1);">BRANCH</span>
           </div>
-          <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: #7c2d12; white-space: nowrap;">BHARATIYA SARVODAYA BANK</span>
+          <span style="font-size: 0.56rem; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase; color: #7c2d12; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">BHARATIYA SARVODAYA BANK</span>
         </div>
       </div>
 
-      <nav className="sidebar-menu" id="sidebar-menu-list">
+      <nav class="sidebar-menu" id="sidebar-menu-list">
         <!-- Rendered dynamically by app.js -->
       </nav>
 
       <div class="sidebar-footer">
-        <button class="btn btn-outline-danger btn-block" onclick="triggerLogout()">
+        <button class="btn btn-outline-danger btn-block" onclick="triggerLogout()" style="font-size: 0.78rem; padding: 7px 10px; border-radius: 6px; font-weight: 700;">
           Sign Out Terminal
         </button>
       </div>
@@ -196,7 +196,10 @@
         </div>
 
         <div class="top-right" style="display: flex; align-items: center; gap: 16px;">
-          <div className="branch-indicator" id="manager-branch-indicator" style="background: linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(5,150,105,0.1) 100%); color: #047857; font-weight: 700; padding: 7px 14px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.3); font-size: 0.85rem;">Branch: Connaught Place (DEL001)</div>
+          <div class="branch-indicator" id="manager-branch-indicator" style="background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(5,150,105,0.08) 100%); color: #065f46; font-weight: 700; padding: 5px 14px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.3); font-size: 0.8rem; text-align: right; line-height: 1.35;">
+            <div style="font-weight: 800; color: #047857; font-size: 0.8rem;">Branch : Connaught Place Branch</div>
+            <div style="font-weight: 600; color: #065f46; font-size: 0.74rem;">Manager : Priya Patel</div>
+          </div>
         </div>
       </header>
 
@@ -208,7 +211,7 @@
       <!-- App System Footer -->
       <footer class="app-system-footer">
         <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-          <span style="color: #0f172a; font-weight: 800;">© 2026 Bharatiya Sarvodaya Bank (BSB)</span>
+          <span style="color: #0f172a; font-weight: 800;">© 2026 Bharatiya Sarvodaya Bank (SBI)</span>
           <span style="color: #cbd5e1;">|</span>
           <span>Branch CBS Staff Terminal</span>
           <span style="color: #cbd5e1;">|</span>

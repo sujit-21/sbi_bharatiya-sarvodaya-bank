@@ -15,6 +15,8 @@ const authRoutes = require(path.join(rootBackend, 'routes/auth'));
 const apiRoutes = require(path.join(rootBackend, 'routes/api'));
 const systemController = require(path.join(rootBackend, 'controllers/systemController'));
 const authController = require(path.join(rootBackend, 'controllers/authController'));
+const dashboardController = require(path.join(rootBackend, 'controllers/dashboardController'));
+const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
 
 const app = express();
 const PORT = process.env.PORT || 5003;
@@ -29,6 +31,12 @@ app.use('/api/', apiLimiter);
 app.use('/api/', csrfProtection);
 app.use('/api/', auditLogger);
 
+// Enforce Customer Portal Context
+app.use((req, res, next) => {
+  req.portalType = 'customer';
+  next();
+});
+
 // System Health checks
 app.get('/api/health', systemController.getHealth);
 app.get('/api/status', systemController.getStatus);
@@ -40,6 +48,10 @@ app.post('/api/customer/login', (req, res, next) => {
   next();
 }, authController.login);
 app.post('/api/customer/signup', authController.customerSignup);
+
+// Account Transactions History Endpoint
+app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
+app.get('/api/dashboard/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 
 app.use('/api/auth', authRoutes);
 app.use('/api', apiRoutes);

@@ -234,6 +234,74 @@ function updateAccountStatus(req, res) {
   return res.status(200).json({ message: `Account status updated to ${status}.` });
 }
 
+function getAccountTransactions(req, res) {
+  try {
+    const { accountNumber } = req.params;
+    const account = db.findOne('accounts', a => a.accountNumber === accountNumber || a.id === accountNumber);
+    if (!account) {
+      return res.status(404).json({ message: 'Account not found.' });
+    }
+
+    const customer = db.findOne('users', u => u.id === account.customerId || u.userId === account.customerId);
+    const branch = db.findOne('branches', b => b.id === account.branchId) || { name: 'Connaught Place Branch', code: 'DEL001', ifscCode: 'BSB0000DEL1', micrCode: '110024001' };
+
+    const allTx = db.find('transactions');
+    const matchedTx = allTx.filter(t => 
+      t.fromAccountId === account.id || 
+      t.toAccountId === account.id || 
+      t.fromAccountId === account.accountNumber || 
+      t.toAccountId === account.accountNumber ||
+      t.fromAccountNumber === account.accountNumber || 
+      t.toAccountNumber === account.accountNumber
+    ).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+    // Map formatted transactions
+    const transactions = matchedTx.map(t => {
+      const isDebit = t.fromAccountId === account.id || t.fromAccountId === account.accountNumber || t.type === 'withdrawal';
+      return {
+        id: t.id,
+        date: t.createdAt || new Date().toISOString(),
+        type: t.type,
+        category: t.category || (isDebit ? 'Withdrawal / Transfer' : 'Deposit / Credit'),
+        description: t.description || (isDebit ? `Debit Transfer to ${t.toAccountId || 'Beneficiary'}` : `Credit from ${t.fromAccountId || 'Cash Counter'}`),
+        amount: parseFloat(t.amount) || 0,
+        direction: isDebit ? 'DR' : 'CR',
+        status: t.status || 'completed',
+        referenceNumber: t.id || 'TXN-' + Math.random().toString(36).substr(2, 9).toUpperCase()
+      };
+    });
+
+    return res.status(200).json({
+      account: {
+        id: account.id,
+        accountNumber: account.accountNumber,
+        type: account.type,
+        balance: account.balance,
+        mopType: account.mopType || 'Self',
+        status: account.status,
+        branchName: branch.name,
+        branchCode: branch.code,
+        ifscCode: branch.ifscCode || 'BSB0000DEL1',
+        micrCode: branch.micrCode || '110024001'
+      },
+      customer: customer ? {
+        id: customer.id,
+        userId: customer.userId,
+        fullName: customer.fullName,
+        email: customer.email,
+        mobileNumber: customer.mobileNumber,
+        panNumber: customer.panNumber,
+        address: customer.address
+      } : null,
+      transactions,
+      totalCount: transactions.length
+    });
+  } catch (err) {
+    console.error('Failed to get account transactions', err);
+    return res.status(500).json({ message: 'Error retrieving transaction history.', error: err.message });
+  }
+}
+
 // 4. Core CBS Transactions (Deposit, Withdraw, Transfer with Fraud Risk Evaluation & GL postings)
 function postTransaction(req, res) {
   const { fromAccountNumber, toAccountNumber, amount, type, category, description, pin } = req.body;
@@ -406,6 +474,8 @@ function postTransaction(req, res) {
         category: category || 'Account Transfer',
         status: 'completed',
         description: description || 'Digital Funds Transfer',
+        ifsc: req.body.ifsc || undefined,
+        micr: req.body.micr || undefined,
         fraudScore: fraudCheck.score,
         reconciliationStatus: 'reconciled'
       });
@@ -441,8 +511,18 @@ function postTransaction(req, res) {
       return res.status(400).json({ message: 'Invalid transaction type.' });
     }
 
+    const finalAcc = targetAcc || sourceAcc;
+    const finalBalance = finalAcc ? (db.findOne('accounts', a => a.id === finalAcc.id)?.balance ?? finalAcc.balance) : 0;
+    const generatedTxnId = 'TXN-' + (type === 'deposit' ? 'DEP-' : type === 'withdrawal' ? 'WTH-' : 'TRF-') + Date.now().toString().slice(-6);
+
     return res.status(201).json({
       message: 'Transaction completed successfully.',
+      transactionId: generatedTxnId,
+      type,
+      amount: parseFloat(amount),
+      newBalance: finalBalance,
+      accountNumber: finalAcc ? finalAcc.accountNumber : undefined,
+      timestamp: nowStr,
       riskScore: fraudCheck.score,
       riskLevel: fraudCheck.severity
     });
@@ -509,21 +589,30 @@ function processCardApproval(req, res) {
 
 // 6. Loans, Fixed Deposits, and Recurring Deposits creation API
 function applyLoan(req, res) {
-  const { amount, termMonths, loanType } = req.body;
+  const { amount, termMonths, loanType, purpose, employmentType, cibilScore } = req.body;
   const customerId = req.user.id;
 
   if (!amount || !termMonths || !loanType) {
     return res.status(400).json({ message: 'Amount, term duration, and type are required.' });
   }
 
-  // Calculate APR rate based on term (mock rules)
-  const interestRate = loanType === 'home' ? 6.5 : loanType === 'car' ? 7.8 : 11.5;
+  // Calculate APR rate based on type
+  let interestRate = 10.5;
+  if (loanType === 'home' || loanType === 'Home Loan') interestRate = 8.40;
+  else if (loanType === 'car' || loanType === 'Auto / Car Loan') interestRate = 8.75;
+  else if (loanType === 'personal' || loanType === 'Personal Loan') interestRate = 10.50;
+  else if (loanType === 'education' || loanType === 'Education Loan') interestRate = 8.50;
+  else if (loanType === 'gold' || loanType === 'Gold Loan') interestRate = 8.90;
+  else if (loanType === 'sme' || loanType === 'SME Business Loan') interestRate = 9.25;
+  else if (loanType === 'fd_loan' || loanType === 'Loan Against FD') interestRate = 8.10;
+  else if (loanType === 'ev_green' || loanType === 'Green EV Loan') interestRate = 8.15;
+
   const principal = parseFloat(amount);
+  const n = parseInt(termMonths);
 
   // EMI calculation (P * r * (1+r)^n / ((1+r)^n - 1))
   const monthlyRate = interestRate / 12 / 100;
-  const n = parseInt(termMonths);
-  const emi = principal * monthlyRate * Math.pow(1 + monthlyRate, n) / (Math.pow(1 + monthlyRate, n) - 1);
+  const emi = (monthlyRate === 0) ? (principal / n) : (principal * monthlyRate * Math.pow(1 + monthlyRate, n) / (Math.pow(1 + monthlyRate, n) - 1));
 
   const loan = db.insert('loans', {
     customerId,
@@ -532,6 +621,9 @@ function applyLoan(req, res) {
     termMonths: n,
     status: 'pending',
     type: loanType,
+    purpose: purpose || 'General Capital Requirement',
+    employmentType: employmentType || 'Salaried',
+    cibilScore: cibilScore || 785,
     monthlyInstallment: parseFloat(emi.toFixed(2)),
     remainingBalance: principal,
     nextPaymentDate: new Date(Date.now() + 30 * 24 * 3600 * 1000).toISOString()
@@ -546,15 +638,16 @@ function applyLoan(req, res) {
       entityType: 'Loans',
       currentStepIndex: 1, // Manager Approval step
       status: 'pending',
-      history: [{ step: 'Credit Evaluation Completed', actor: 'system', timestamp: new Date().toISOString() }]
+      history: [{ step: 'Credit Evaluation Completed (CIBIL: 785)', actor: 'system', timestamp: new Date().toISOString() }]
     });
   }
 
   return res.status(201).json({ message: 'Loan application submitted for approval.', loan });
 }
 
+// 6. Fixed Deposit Placement API
 function applyFD(req, res) {
-  const { principalAmount, termMonths, autoRenewal } = req.body;
+  const { principalAmount, termMonths, autoRenewal, scheme, payoutFrequency } = req.body;
   const customerId = req.user.id;
 
   if (!principalAmount || !termMonths) {
@@ -562,9 +655,22 @@ function applyFD(req, res) {
   }
 
   const amt = parseFloat(principalAmount);
-  // Interest rate tiering based on duration
   const term = parseInt(termMonths);
-  const rate = term >= 24 ? 7.5 : term >= 12 ? 6.8 : 5.5;
+
+  // Interest rate calculation based on tenure & scheme
+  let rate = 6.80;
+  if (term <= 1) rate = 3.50;
+  else if (term <= 6) rate = 5.75;
+  else if (term <= 12) rate = 6.80;
+  else if (term <= 24) rate = 7.10;
+  else if (term <= 36) rate = 7.00;
+  else if (term <= 60) rate = 6.75;
+  else rate = 6.50;
+
+  // Senior citizen boost
+  if (scheme && scheme.toLowerCase().includes('senior')) {
+    rate += 0.50;
+  }
 
   const savingsAcc = db.findOne('accounts', a => a.customerId === customerId && a.type === 'savings');
   if (!savingsAcc || savingsAcc.balance < amt) {
@@ -579,8 +685,10 @@ function applyFD(req, res) {
     principalAmount: amt,
     interestRate: rate,
     termMonths: term,
+    scheme: scheme || 'Standard Term Deposit',
+    payoutFrequency: payoutFrequency || 'Cumulative on Maturity',
     status: 'active', // FDs are instantly active if funded from savings
-    maturityAmount: 0.00,
+    maturityAmount: parseFloat((amt * Math.pow(1 + (rate/400), (term/3))).toFixed(2)),
     maturityDate: new Date(Date.now() + term * 30 * 24 * 3600 * 1000).toISOString(),
     autoRenewal: autoRenewal === true
   });
@@ -1091,5 +1199,6 @@ module.exports = {
   getBranches,
   createBranch,
   updateBranch,
-  deleteBranch
+  deleteBranch,
+  getAccountTransactions
 };

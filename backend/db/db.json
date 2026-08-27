@@ -19,7 +19,7 @@
       "createdAt": "2026-08-19T22:56:52.659Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-20T18:14:32.779Z",
+      "updatedAt": "2026-08-21T10:51:35.931Z",
       "branchName": "Mumbai Main HQ Branch"
     },
     {
@@ -221,7 +221,7 @@
       "createdAt": "2026-08-19T22:56:52.739Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-20T17:59:23.787Z"
+      "updatedAt": "2026-08-27T10:53:55.305Z"
     },
     {
       "id": "u-del-02",
@@ -2025,7 +2025,7 @@
       "createdAt": "2026-08-19T22:56:53.542Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-21T10:08:11.070Z"
+      "updatedAt": "2026-08-21T10:53:16.524Z"
     },
     {
       "id": "u-cust-2",
@@ -2362,30 +2362,6 @@
       "createdAt": "2026-08-20T06:58:36.822Z"
     },
     {
-      "id": "ses-317a7ef3",
-      "userId": "u-manager",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtbWFuYWdlciIsImRldmljZUlkIjoiZGV2LWRlc2t0b3Atd2luIiwiaWF0IjoxNzg3MjQ4NzYzLCJleHAiOjE3ODc4NTM1NjN9.hq0ezElJcTKDaIdifcLcIYSgm8e6aZ4HnFb-E6kuu-c",
-      "deviceId": "dev-desktop-win",
-      "deviceName": "Windows Workstation",
-      "ipAddress": "::1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-      "active": true,
-      "expiresAt": "2026-08-27T17:59:23.789Z",
-      "createdAt": "2026-08-20T17:59:23.790Z"
-    },
-    {
-      "id": "ses-02bfb60a",
-      "userId": "u-admin",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6ImRldi1kZXNrdG9wLXdpbiIsImlhdCI6MTc4NzI0OTY3MiwiZXhwIjoxNzg3ODU0NDcyfQ.tvFFnQWUifDPJK8-zEvwOYe9OqCwHsCx3dUmiG0QeA4",
-      "deviceId": "dev-desktop-win",
-      "deviceName": "Windows Workstation",
-      "ipAddress": "::1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
-      "active": true,
-      "expiresAt": "2026-08-27T18:14:32.786Z",
-      "createdAt": "2026-08-20T18:14:32.787Z"
-    },
-    {
       "id": "ses-65003331",
       "userId": "u-cust-5",
       "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdC01IiwiZGV2aWNlSWQiOiJkZXYtZGVza3RvcC13aW4iLCJpYXQiOjE3ODcyNTU2NDYsImV4cCI6MTc4Nzg2MDQ0Nn0.vdWWFkDKPmqzhlRt45Klmb2VjKnbeq0cXcoj_PoGfoU",
@@ -2399,16 +2375,29 @@
       "updatedAt": "2026-08-20T19:54:06.872Z"
     },
     {
-      "id": "ses-5e6d6ff9",
+      "id": "ses-a2109ff4",
       "userId": "u-customer",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6ImRldi1kZXNrdG9wLXdpbiIsImlhdCI6MTc4NzMwNjg5MSwiZXhwIjoxNzg3OTExNjkxfQ.nRSq3AKTHbZ7OTmVw3-NZACdOYsPukpoVsI0v5GqGM0",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6ImRldi1kZXNrdG9wLXdpbiIsImlhdCI6MTc4NzMwOTU5NiwiZXhwIjoxNzg3OTE0Mzk2fQ.atqSLV2_J5IzFFt_wKg8wWE1ATt_tGCbdWoPTtSoDdc",
       "deviceId": "dev-desktop-win",
       "deviceName": "Windows Workstation",
       "ipAddress": "::1",
       "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
       "active": true,
-      "expiresAt": "2026-08-28T10:08:11.076Z",
-      "createdAt": "2026-08-21T10:08:11.076Z"
+      "expiresAt": "2026-08-28T10:53:16.531Z",
+      "createdAt": "2026-08-21T10:53:16.531Z"
+    },
+    {
+      "id": "ses-83bd8b6a",
+      "userId": "u-manager",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtbWFuYWdlciIsImRldmljZUlkIjoiZGV2LWRlc2t0b3Atd2luIiwiaWF0IjoxNzg3ODI5MTIzLCJleHAiOjE3ODg0MzM5MjN9.sXtCtNc-3FvHkwKQz-ZvZ50Ej5ERTDCYRrq6UbFZYn4",
+      "deviceId": "dev-desktop-win",
+      "deviceName": "Windows Workstation",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "active": true,
+      "expiresAt": "2026-09-03T11:12:03.362Z",
+      "createdAt": "2026-08-27T10:53:55.313Z",
+      "updatedAt": "2026-08-27T11:12:03.362Z"
     }
   ],
   "loginHistory": [
@@ -4859,6 +4848,558 @@
       "failureReason": null,
       "timestamp": "2026-08-21T10:08:11.078Z",
       "createdAt": "2026-08-21T10:08:11.078Z"
+    },
+    {
+      "id": "log-6fee1131",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:47:36.110Z",
+      "createdAt": "2026-08-21T10:47:36.110Z"
+    },
+    {
+      "id": "log-7d63a5f2",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:47:36.219Z",
+      "createdAt": "2026-08-21T10:47:36.219Z"
+    },
+    {
+      "id": "log-fa4a54f2",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:51:13.610Z",
+      "createdAt": "2026-08-21T10:51:13.610Z"
+    },
+    {
+      "id": "log-4f22cc87",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:51:13.719Z",
+      "createdAt": "2026-08-21T10:51:13.719Z"
+    },
+    {
+      "id": "log-9e58f7fb",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:51:35.835Z",
+      "createdAt": "2026-08-21T10:51:35.835Z"
+    },
+    {
+      "id": "log-cafdb719",
+      "userId": "u-admin",
+      "email": "admin@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:51:35.943Z",
+      "createdAt": "2026-08-21T10:51:35.943Z"
+    },
+    {
+      "id": "log-a485b396",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:52:12.754Z",
+      "createdAt": "2026-08-21T10:52:12.754Z"
+    },
+    {
+      "id": "log-11e88aa9",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:52:12.856Z",
+      "createdAt": "2026-08-21T10:52:12.856Z"
+    },
+    {
+      "id": "log-4a40a978",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:53:16.423Z",
+      "createdAt": "2026-08-21T10:53:16.424Z"
+    },
+    {
+      "id": "log-69f0a267",
+      "userId": "u-customer",
+      "email": "customer@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-21T10:53:16.534Z",
+      "createdAt": "2026-08-21T10:53:16.534Z"
+    },
+    {
+      "id": "log-1a6a51d1",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T04:30:15.024Z",
+      "createdAt": "2026-08-27T04:30:15.024Z"
+    },
+    {
+      "id": "log-d9821400",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T04:30:15.300Z",
+      "createdAt": "2026-08-27T04:30:15.300Z"
+    },
+    {
+      "id": "log-2c8ae542",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T05:00:18.485Z",
+      "createdAt": "2026-08-27T05:00:18.485Z"
+    },
+    {
+      "id": "log-3bf0a29c",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T05:00:18.721Z",
+      "createdAt": "2026-08-27T05:00:18.722Z"
+    },
+    {
+      "id": "log-84471518",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T06:48:10.607Z",
+      "createdAt": "2026-08-27T06:48:10.607Z"
+    },
+    {
+      "id": "log-fddb6265",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T06:48:10.866Z",
+      "createdAt": "2026-08-27T06:48:10.866Z"
+    },
+    {
+      "id": "log-42317e8c",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T06:52:50.300Z",
+      "createdAt": "2026-08-27T06:52:50.300Z"
+    },
+    {
+      "id": "log-ed57c821",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T06:52:50.541Z",
+      "createdAt": "2026-08-27T06:52:50.541Z"
+    },
+    {
+      "id": "log-bffb27ac",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:06:14.672Z",
+      "createdAt": "2026-08-27T07:06:14.672Z"
+    },
+    {
+      "id": "log-eb1076c1",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:06:14.883Z",
+      "createdAt": "2026-08-27T07:06:14.883Z"
+    },
+    {
+      "id": "log-39677ed1",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:10:39.265Z",
+      "createdAt": "2026-08-27T07:10:39.265Z"
+    },
+    {
+      "id": "log-8db2a8b9",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:10:39.473Z",
+      "createdAt": "2026-08-27T07:10:39.473Z"
+    },
+    {
+      "id": "log-3e93d1bd",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:27:07.588Z",
+      "createdAt": "2026-08-27T07:27:07.588Z"
+    },
+    {
+      "id": "log-b831be7b",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:27:07.689Z",
+      "createdAt": "2026-08-27T07:27:07.689Z"
+    },
+    {
+      "id": "log-8c0fdf5b",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:28:38.502Z",
+      "createdAt": "2026-08-27T07:28:38.502Z"
+    },
+    {
+      "id": "log-2eadbb7b",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:28:38.610Z",
+      "createdAt": "2026-08-27T07:28:38.610Z"
+    },
+    {
+      "id": "log-f06125a4",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:32:56.547Z",
+      "createdAt": "2026-08-27T07:32:56.547Z"
+    },
+    {
+      "id": "log-dc66e871",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:32:56.650Z",
+      "createdAt": "2026-08-27T07:32:56.650Z"
+    },
+    {
+      "id": "log-5d3f61a9",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:33:04.506Z",
+      "createdAt": "2026-08-27T07:33:04.506Z"
+    },
+    {
+      "id": "log-7789a660",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:33:04.610Z",
+      "createdAt": "2026-08-27T07:33:04.610Z"
+    },
+    {
+      "id": "log-bf4b2444",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:33:42.257Z",
+      "createdAt": "2026-08-27T07:33:42.257Z"
+    },
+    {
+      "id": "log-a7ba25db",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T07:33:42.360Z",
+      "createdAt": "2026-08-27T07:33:42.360Z"
+    },
+    {
+      "id": "log-a65a71e4",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T08:48:52.110Z",
+      "createdAt": "2026-08-27T08:48:52.110Z"
+    },
+    {
+      "id": "log-6f96b6ff",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T08:48:52.219Z",
+      "createdAt": "2026-08-27T08:48:52.219Z"
+    },
+    {
+      "id": "log-69032d36",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T09:04:43.647Z",
+      "createdAt": "2026-08-27T09:04:43.647Z"
+    },
+    {
+      "id": "log-753cd925",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T09:04:43.752Z",
+      "createdAt": "2026-08-27T09:04:43.752Z"
+    },
+    {
+      "id": "log-925844c4",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T09:39:16.696Z",
+      "createdAt": "2026-08-27T09:39:16.696Z"
+    },
+    {
+      "id": "log-19dc054e",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T09:39:16.803Z",
+      "createdAt": "2026-08-27T09:39:16.803Z"
+    },
+    {
+      "id": "log-69fc7770",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:03:34.976Z",
+      "createdAt": "2026-08-27T10:03:34.976Z"
+    },
+    {
+      "id": "log-509114be",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:03:35.190Z",
+      "createdAt": "2026-08-27T10:03:35.190Z"
+    },
+    {
+      "id": "log-e5014a04",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:30:46.931Z",
+      "createdAt": "2026-08-27T10:30:46.931Z"
+    },
+    {
+      "id": "log-dfaff222",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:30:47.241Z",
+      "createdAt": "2026-08-27T10:30:47.241Z"
+    },
+    {
+      "id": "log-06756555",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:35:07.137Z",
+      "createdAt": "2026-08-27T10:35:07.137Z"
+    },
+    {
+      "id": "log-5118d390",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:35:07.379Z",
+      "createdAt": "2026-08-27T10:35:07.379Z"
+    },
+    {
+      "id": "log-7fb39cff",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:53:55.058Z",
+      "createdAt": "2026-08-27T10:53:55.058Z"
+    },
+    {
+      "id": "log-0a5b7dda",
+      "userId": "u-manager",
+      "email": "manager@bank.com",
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "deviceFingerprint": "win_x64_chrome",
+      "status": "success",
+      "failureReason": null,
+      "timestamp": "2026-08-27T10:53:55.316Z",
+      "createdAt": "2026-08-27T10:53:55.316Z"
     }
   ],
   "branches": [
@@ -5069,10 +5610,10 @@
       "branchId": "b-delhi",
       "type": "savings",
       "mopType": "Either or Survivor",
-      "balance": 421050,
+      "balance": 427550,
       "status": "active",
       "createdAt": "2026-08-19T22:56:55.148Z",
-      "updatedAt": "2026-08-19T22:56:55.540Z"
+      "updatedAt": "2026-08-27T10:58:45.245Z"
     },
     {
       "id": "acc-cust-6",
@@ -5164,7 +5705,8 @@
       "mopType": "Self",
       "balance": 10000,
       "status": "active",
-      "createdAt": "2026-08-20T17:33:48.811Z"
+      "createdAt": "2026-08-20T17:33:48.811Z",
+      "updatedAt": "2026-08-27T11:12:03.376Z"
     }
   ],
   "transactions": [
@@ -5315,6 +5857,71 @@
       "status": "completed",
       "postedAt": "2026-08-20T17:33:48.813Z",
       "createdAt": "2026-08-20T17:33:48.813Z"
+    },
+    {
+      "id": "tra-0b17eb16",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-cust-5",
+      "amount": 5000,
+      "type": "deposit",
+      "category": "Counter Cash Deposit",
+      "status": "completed",
+      "description": "Branch Counter Cash Deposit (Self)",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-27T10:31:26.035Z"
+    },
+    {
+      "id": "tra-6f72f93d",
+      "fromAccountId": "acc-cust-5",
+      "toAccountId": "CASH",
+      "amount": 1000,
+      "type": "withdrawal",
+      "category": "Counter Cash Withdrawal",
+      "status": "completed",
+      "description": "Counter Cash Withdrawal [Counter Slip #SLIP-86451]",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-27T10:32:38.229Z"
+    },
+    {
+      "id": "tra-ec7043ba",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-cust-5",
+      "amount": 2500,
+      "type": "deposit",
+      "category": "Counter Cash Deposit",
+      "status": "completed",
+      "description": "Branch Counter Cash Deposit (Self)",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-27T10:58:45.374Z"
+    },
+    {
+      "id": "tra-a2ab64e1",
+      "fromAccountId": "acc-c9296c9e",
+      "toAccountId": "CASH",
+      "amount": 500,
+      "type": "withdrawal",
+      "category": "Counter Cash Withdrawal",
+      "status": "completed",
+      "description": "Counter Cash Withdrawal [Counter Slip #SLIP-25731]",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-27T11:06:28.738Z"
+    },
+    {
+      "id": "tra-8d64c7f3",
+      "fromAccountId": "CASH",
+      "toAccountId": "acc-c9296c9e",
+      "amount": 500,
+      "type": "deposit",
+      "category": "Counter Cash Deposit",
+      "status": "completed",
+      "description": "Branch Counter Cash Deposit (Self)",
+      "fraudScore": 5,
+      "reconciliationStatus": "reconciled",
+      "createdAt": "2026-08-27T11:12:03.379Z"
     }
   ],
   "cards": [],
@@ -8072,6 +8679,564 @@
       "ipAddress": "::1",
       "timestamp": "2026-08-21T10:08:11.082Z",
       "createdAt": "2026-08-21T10:08:11.082Z"
+    },
+    {
+      "id": "aud-92ced855",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:40:07.563Z",
+      "createdAt": "2026-08-21T10:40:07.563Z"
+    },
+    {
+      "id": "aud-df891cf9",
+      "userId": "u-customer",
+      "action": "POST_/API/AUTH/LOGOUT",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:40:34.287Z",
+      "createdAt": "2026-08-21T10:40:34.287Z"
+    },
+    {
+      "id": "aud-93e0073a",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"admin@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:47:36.113Z",
+      "createdAt": "2026-08-21T10:47:36.113Z"
+    },
+    {
+      "id": "aud-d5f1601a",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"admin@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:47:36.223Z",
+      "createdAt": "2026-08-21T10:47:36.223Z"
+    },
+    {
+      "id": "aud-24e4d97b",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:51:13.614Z",
+      "createdAt": "2026-08-21T10:51:13.614Z"
+    },
+    {
+      "id": "aud-f9d29e0c",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:51:13.723Z",
+      "createdAt": "2026-08-21T10:51:13.723Z"
+    },
+    {
+      "id": "aud-d778ba1d",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"admin@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:51:35.838Z",
+      "createdAt": "2026-08-21T10:51:35.838Z"
+    },
+    {
+      "id": "aud-9337fc91",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"admin@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:51:35.945Z",
+      "createdAt": "2026-08-21T10:51:35.945Z"
+    },
+    {
+      "id": "aud-43812e1f",
+      "userId": "u-admin",
+      "action": "POST_/API/AUTH/LOGOUT",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:51:56.940Z",
+      "createdAt": "2026-08-21T10:51:56.940Z"
+    },
+    {
+      "id": "aud-2e9753bc",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:52:12.756Z",
+      "createdAt": "2026-08-21T10:52:12.756Z"
+    },
+    {
+      "id": "aud-a626635e",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:52:12.861Z",
+      "createdAt": "2026-08-21T10:52:12.861Z"
+    },
+    {
+      "id": "aud-37634f1c",
+      "userId": "u-customer",
+      "action": "POST_/API/AUTH/LOGOUT",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:53:06.771Z",
+      "createdAt": "2026-08-21T10:53:06.771Z"
+    },
+    {
+      "id": "aud-a1de5a24",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:53:16.427Z",
+      "createdAt": "2026-08-21T10:53:16.427Z"
+    },
+    {
+      "id": "aud-c5b03763",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"customer@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-21T10:53:16.536Z",
+      "createdAt": "2026-08-21T10:53:16.536Z"
+    },
+    {
+      "id": "aud-46f45a69",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T04:30:15.031Z",
+      "createdAt": "2026-08-27T04:30:15.031Z"
+    },
+    {
+      "id": "aud-ee2f01bc",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T04:30:15.317Z",
+      "createdAt": "2026-08-27T04:30:15.317Z"
+    },
+    {
+      "id": "aud-8c4d5da4",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T05:00:18.492Z",
+      "createdAt": "2026-08-27T05:00:18.492Z"
+    },
+    {
+      "id": "aud-33763b9e",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T05:00:18.734Z",
+      "createdAt": "2026-08-27T05:00:18.734Z"
+    },
+    {
+      "id": "aud-e97e3b89",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T06:48:10.613Z",
+      "createdAt": "2026-08-27T06:48:10.613Z"
+    },
+    {
+      "id": "aud-e824c120",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T06:48:10.875Z",
+      "createdAt": "2026-08-27T06:48:10.875Z"
+    },
+    {
+      "id": "aud-87261544",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T06:52:50.307Z",
+      "createdAt": "2026-08-27T06:52:50.307Z"
+    },
+    {
+      "id": "aud-47028070",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T06:52:50.547Z",
+      "createdAt": "2026-08-27T06:52:50.547Z"
+    },
+    {
+      "id": "aud-912f561d",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:06:14.677Z",
+      "createdAt": "2026-08-27T07:06:14.677Z"
+    },
+    {
+      "id": "aud-1a32c484",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:06:14.890Z",
+      "createdAt": "2026-08-27T07:06:14.890Z"
+    },
+    {
+      "id": "aud-7bfdd28d",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:10:39.271Z",
+      "createdAt": "2026-08-27T07:10:39.271Z"
+    },
+    {
+      "id": "aud-b22d306b",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:10:39.481Z",
+      "createdAt": "2026-08-27T07:10:39.481Z"
+    },
+    {
+      "id": "aud-8b18f0ff",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:26:37.794Z",
+      "createdAt": "2026-08-27T07:26:37.794Z"
+    },
+    {
+      "id": "aud-c16fa967",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:27:07.590Z",
+      "createdAt": "2026-08-27T07:27:07.590Z"
+    },
+    {
+      "id": "aud-90994d1c",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:27:07.693Z",
+      "createdAt": "2026-08-27T07:27:07.693Z"
+    },
+    {
+      "id": "aud-bfdf4d94",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:28:38.506Z",
+      "createdAt": "2026-08-27T07:28:38.506Z"
+    },
+    {
+      "id": "aud-14c57eb5",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:28:38.613Z",
+      "createdAt": "2026-08-27T07:28:38.613Z"
+    },
+    {
+      "id": "aud-927e0d07",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:32:56.550Z",
+      "createdAt": "2026-08-27T07:32:56.550Z"
+    },
+    {
+      "id": "aud-16a226c5",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:32:56.653Z",
+      "createdAt": "2026-08-27T07:32:56.653Z"
+    },
+    {
+      "id": "aud-09401e20",
+      "userId": "u-manager",
+      "action": "POST_/API/AUTH/LOGOUT",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:32:59.986Z",
+      "createdAt": "2026-08-27T07:32:59.986Z"
+    },
+    {
+      "id": "aud-ce9e75e1",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:33:04.510Z",
+      "createdAt": "2026-08-27T07:33:04.510Z"
+    },
+    {
+      "id": "aud-95f21f67",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:33:04.613Z",
+      "createdAt": "2026-08-27T07:33:04.613Z"
+    },
+    {
+      "id": "aud-c4f96692",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:33:42.260Z",
+      "createdAt": "2026-08-27T07:33:42.260Z"
+    },
+    {
+      "id": "aud-a3431cbe",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T07:33:42.363Z",
+      "createdAt": "2026-08-27T07:33:42.363Z"
+    },
+    {
+      "id": "aud-488572fe",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T08:36:57.790Z",
+      "createdAt": "2026-08-27T08:36:57.790Z"
+    },
+    {
+      "id": "aud-94232f03",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T08:48:52.114Z",
+      "createdAt": "2026-08-27T08:48:52.114Z"
+    },
+    {
+      "id": "aud-e9de2f89",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T08:48:52.223Z",
+      "createdAt": "2026-08-27T08:48:52.223Z"
+    },
+    {
+      "id": "aud-8bd6ccbb",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:03:55.713Z",
+      "createdAt": "2026-08-27T09:03:55.713Z"
+    },
+    {
+      "id": "aud-8ee650fa",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:04:43.650Z",
+      "createdAt": "2026-08-27T09:04:43.650Z"
+    },
+    {
+      "id": "aud-0c11d5ff",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:04:43.755Z",
+      "createdAt": "2026-08-27T09:04:43.755Z"
+    },
+    {
+      "id": "aud-30117b6b",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:31:15.216Z",
+      "createdAt": "2026-08-27T09:31:15.216Z"
+    },
+    {
+      "id": "aud-34079eb6",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:39:16.699Z",
+      "createdAt": "2026-08-27T09:39:16.699Z"
+    },
+    {
+      "id": "aud-8a916179",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:39:16.806Z",
+      "createdAt": "2026-08-27T09:39:16.806Z"
+    },
+    {
+      "id": "aud-83c90cc5",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T09:57:16.638Z",
+      "createdAt": "2026-08-27T09:57:16.638Z"
+    },
+    {
+      "id": "aud-15d7c701",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:03:34.982Z",
+      "createdAt": "2026-08-27T10:03:34.982Z"
+    },
+    {
+      "id": "aud-9605c2ae",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:03:35.196Z",
+      "createdAt": "2026-08-27T10:03:35.197Z"
+    },
+    {
+      "id": "aud-ea442583",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:30:46.937Z",
+      "createdAt": "2026-08-27T10:30:46.937Z"
+    },
+    {
+      "id": "aud-3304ba21",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:30:47.261Z",
+      "createdAt": "2026-08-27T10:30:47.261Z"
+    },
+    {
+      "id": "aud-d37d3901",
+      "userId": "u-manager",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000987658\",\"amount\":5000,\"type\":\"deposit\",\"category\":\"Counter Cash Deposit\",\"description\":\"Branch Counter Cash Deposit (Self)\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:31:26.080Z",
+      "createdAt": "2026-08-27T10:31:26.081Z"
+    },
+    {
+      "id": "aud-c2f05afa",
+      "userId": "u-manager",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"fromAccountNumber\":\"1000987658\",\"amount\":1000,\"type\":\"withdrawal\",\"category\":\"Counter Cash Withdrawal\",\"description\":\"Counter Cash Withdrawal [Counter Slip #SLIP-86451]\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:32:38.274Z",
+      "createdAt": "2026-08-27T10:32:38.274Z"
+    },
+    {
+      "id": "aud-ce2cd4c7",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:35:07.145Z",
+      "createdAt": "2026-08-27T10:35:07.145Z"
+    },
+    {
+      "id": "aud-b95eeea4",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:35:07.391Z",
+      "createdAt": "2026-08-27T10:35:07.391Z"
+    },
+    {
+      "id": "aud-a0eb428f",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:53:55.063Z",
+      "createdAt": "2026-08-27T10:53:55.063Z"
+    },
+    {
+      "id": "aud-ecaad7ce",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/LOGIN",
+      "details": "{\"body\":{\"email\":\"manager@bank.com\",\"password\":\"***\",\"portal\":\"branch\",\"deviceId\":\"dev-desktop-win\",\"deviceName\":\"Windows Workstation\",\"fingerprint\":\"win_x64_chrome\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:53:55.321Z",
+      "createdAt": "2026-08-27T10:53:55.321Z"
+    },
+    {
+      "id": "aud-653038fe",
+      "userId": "u-manager",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000987658\",\"amount\":2500,\"type\":\"deposit\",\"category\":\"Counter Cash Deposit\",\"description\":\"Branch Counter Cash Deposit (Self)\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T10:58:45.435Z",
+      "createdAt": "2026-08-27T10:58:45.436Z"
+    },
+    {
+      "id": "aud-f9c3cb20",
+      "userId": "u-manager",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"fromAccountNumber\":\"1000882550\",\"amount\":500,\"type\":\"withdrawal\",\"category\":\"Counter Cash Withdrawal\",\"description\":\"Counter Cash Withdrawal [Counter Slip #SLIP-25731]\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T11:06:28.773Z",
+      "createdAt": "2026-08-27T11:06:28.773Z"
+    },
+    {
+      "id": "aud-72bca9b3",
+      "userId": "anonymous",
+      "action": "POST_/API/AUTH/REFRESH",
+      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T11:12:03.367Z",
+      "createdAt": "2026-08-27T11:12:03.367Z"
+    },
+    {
+      "id": "aud-d8b50e8b",
+      "userId": "u-manager",
+      "action": "POST_/API/DASHBOARD/TRANSACTIONS",
+      "details": "{\"body\":{\"toAccountNumber\":\"1000882550\",\"amount\":500,\"type\":\"deposit\",\"category\":\"Counter Cash Deposit\",\"description\":\"Branch Counter Cash Deposit (Self)\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
+      "ipAddress": "::1",
+      "timestamp": "2026-08-27T11:12:03.402Z",
+      "createdAt": "2026-08-27T11:12:03.402Z"
     }
   ],
   "treasuryTransfers": [],
@@ -8156,7 +9321,8 @@
       "code": "1010",
       "name": "Cash in Vault",
       "type": "asset",
-      "balance": 15000000
+      "balance": 15006500,
+      "updatedAt": "2026-08-27T11:12:03.386Z"
     },
     {
       "id": "gl-1020",
@@ -8171,15 +9337,16 @@
       "code": "2010",
       "name": "Customer Savings Deposits",
       "type": "liability",
-      "balance": 160837.5,
-      "updatedAt": "2026-08-19T22:56:55.574Z"
+      "balance": 167337.5,
+      "updatedAt": "2026-08-27T10:58:45.412Z"
     },
     {
       "id": "gl-2020",
       "code": "2020",
       "name": "Merchant Current Deposits",
       "type": "liability",
-      "balance": 1000000
+      "balance": 1000000,
+      "updatedAt": "2026-08-27T11:12:03.394Z"
     },
     {
       "id": "gl-3010",
@@ -8276,6 +9443,46 @@
       "status": "posted",
       "createdBy": "u-admin",
       "createdAt": "2026-08-19T22:56:55.572Z"
+    },
+    {
+      "id": "jou-90684812",
+      "date": "2026-08-27",
+      "description": "Deposit to Account 1000987658",
+      "status": "posted",
+      "createdBy": "u-manager",
+      "createdAt": "2026-08-27T10:31:26.044Z"
+    },
+    {
+      "id": "jou-b0fe08d2",
+      "date": "2026-08-27",
+      "description": "Withdrawal from Account 1000987658",
+      "status": "posted",
+      "createdBy": "u-manager",
+      "createdAt": "2026-08-27T10:32:38.236Z"
+    },
+    {
+      "id": "jou-0ae29005",
+      "date": "2026-08-27",
+      "description": "Deposit to Account 1000987658",
+      "status": "posted",
+      "createdBy": "u-manager",
+      "createdAt": "2026-08-27T10:58:45.382Z"
+    },
+    {
+      "id": "jou-129a1221",
+      "date": "2026-08-27",
+      "description": "Withdrawal from Account 1000882550",
+      "status": "posted",
+      "createdBy": "u-manager",
+      "createdAt": "2026-08-27T11:06:28.742Z"
+    },
+    {
+      "id": "jou-e85f13b2",
+      "date": "2026-08-27",
+      "description": "Deposit to Account 1000882550",
+      "status": "posted",
+      "createdBy": "u-manager",
+      "createdAt": "2026-08-27T11:12:03.382Z"
     }
   ],
   "journalLines": [
@@ -8422,6 +9629,86 @@
       "type": "credit",
       "amount": 525,
       "createdAt": "2026-08-19T22:56:55.574Z"
+    },
+    {
+      "id": "jou-b160970a",
+      "journalEntryId": "jou-90684812",
+      "glCode": "1010",
+      "type": "debit",
+      "amount": 5000,
+      "createdAt": "2026-08-27T10:31:26.052Z"
+    },
+    {
+      "id": "jou-487fd3a1",
+      "journalEntryId": "jou-90684812",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 5000,
+      "createdAt": "2026-08-27T10:31:26.068Z"
+    },
+    {
+      "id": "jou-d33d6784",
+      "journalEntryId": "jou-b0fe08d2",
+      "glCode": "2010",
+      "type": "debit",
+      "amount": 1000,
+      "createdAt": "2026-08-27T10:32:38.246Z"
+    },
+    {
+      "id": "jou-47eef1e1",
+      "journalEntryId": "jou-b0fe08d2",
+      "glCode": "1010",
+      "type": "credit",
+      "amount": 1000,
+      "createdAt": "2026-08-27T10:32:38.261Z"
+    },
+    {
+      "id": "jou-65906377",
+      "journalEntryId": "jou-0ae29005",
+      "glCode": "1010",
+      "type": "debit",
+      "amount": 2500,
+      "createdAt": "2026-08-27T10:58:45.392Z"
+    },
+    {
+      "id": "jou-6a2899e8",
+      "journalEntryId": "jou-0ae29005",
+      "glCode": "2010",
+      "type": "credit",
+      "amount": 2500,
+      "createdAt": "2026-08-27T10:58:45.412Z"
+    },
+    {
+      "id": "jou-223abef7",
+      "journalEntryId": "jou-129a1221",
+      "glCode": "2020",
+      "type": "debit",
+      "amount": 500,
+      "createdAt": "2026-08-27T11:06:28.749Z"
+    },
+    {
+      "id": "jou-e18b74dc",
+      "journalEntryId": "jou-129a1221",
+      "glCode": "1010",
+      "type": "credit",
+      "amount": 500,
+      "createdAt": "2026-08-27T11:06:28.760Z"
+    },
+    {
+      "id": "jou-b726f011",
+      "journalEntryId": "jou-e85f13b2",
+      "glCode": "1010",
+      "type": "debit",
+      "amount": 500,
+      "createdAt": "2026-08-27T11:12:03.386Z"
+    },
+    {
+      "id": "jou-a6815c20",
+      "journalEntryId": "jou-e85f13b2",
+      "glCode": "2020",
+      "type": "credit",
+      "amount": 500,
+      "createdAt": "2026-08-27T11:12:03.394Z"
     }
   ],
   "trialBalances": [],
@@ -8455,9 +9742,9 @@
         "Pre-Approved Visa Signature Credit Card with 2% cashback",
         "Special Low-Interest Personal Loan offer at 9.9% fixed"
       ],
-      "lastUpdated": "2026-08-21T10:11:49.542Z",
+      "lastUpdated": "2026-08-21T10:52:21.028Z",
       "createdAt": "2026-08-21T10:08:19.677Z",
-      "updatedAt": "2026-08-21T10:11:49.542Z"
+      "updatedAt": "2026-08-21T10:52:21.028Z"
     }
   ],
   "knowledgeBase": [],

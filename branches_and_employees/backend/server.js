@@ -17,6 +17,8 @@ const kycRoutes = require(path.join(rootBackend, 'routes/kycRoutes'));
 const reportRoutes = require(path.join(rootBackend, 'routes/reportRoutes'));
 const systemController = require(path.join(rootBackend, 'controllers/systemController'));
 const authController = require(path.join(rootBackend, 'controllers/authController'));
+const dashboardController = require(path.join(rootBackend, 'controllers/dashboardController'));
+const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
 
 const app = express();
 const PORT = process.env.PORT || 5002;
@@ -31,6 +33,12 @@ app.use('/api/', apiLimiter);
 app.use('/api/', csrfProtection);
 app.use('/api/', auditLogger);
 
+// Enforce Branch & Employee Portal Context
+app.use((req, res, next) => {
+  req.portalType = 'branch';
+  next();
+});
+
 // System Health checks
 app.get('/api/health', systemController.getHealth);
 app.get('/api/status', systemController.getStatus);
@@ -42,6 +50,10 @@ app.post('/api/employee/login', (req, res, next) => {
   if (!req.body.role) req.body.role = 'Employee';
   next();
 }, authController.login);
+
+// Account Transactions History Endpoint
+app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
+app.get('/api/dashboard/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/kyc', kycRoutes);

@@ -14,6 +14,16 @@ try {
 }
 
 const rootFrontend = path.resolve(__dirname, '../../frontend');
+const rootBackend = path.resolve(__dirname, '../../backend');
+const dashboardController = require(path.join(rootBackend, 'controllers/dashboardController'));
+const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Direct CBS Account Transactions API Route
+app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
+app.get('/api/dashboard/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 
 // Proxy API requests directly to Branch Backend Engine (5002)
 app.use(['/api', '/admin', '/manager', '/employee', '/customer', '/customers', '/merchant'], (req, res) => {

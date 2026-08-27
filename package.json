@@ -5,13 +5,13 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "node backend/server.js",
-    "hq:backend": "node headquarter/backend/server.js",
-    "hq:frontend": "node headquarter/frontend/server.js",
-    "branch:backend": "node branches_and_employees/backend/server.js",
-    "branch:frontend": "node branches_and_employees/frontend/server.js",
-    "customer:backend": "node customers/backend/server.js",
-    "customer:frontend": "node customers/frontend/server.js",
+    "dev": "nodemon backend/server.js",
+    "hq:backend": "nodemon headquarter/backend/server.js",
+    "hq:frontend": "nodemon headquarter/frontend/server.js",
+    "branch:backend": "nodemon branches_and_employees/backend/server.js",
+    "branch:frontend": "nodemon branches_and_employees/frontend/server.js",
+    "customer:backend": "nodemon customers/backend/server.js",
+    "customer:frontend": "nodemon customers/frontend/server.js",
     "test": "node verify.js"
   },
   "dependencies": {
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "nodemon": "^3.1.14",
     "tailwindcss": "^4.0.0",
     "vite": "^5.2.0"
   }

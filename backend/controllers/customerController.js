@@ -227,8 +227,8 @@ function toggleCustomerFreeze(req, res) {
   }
 }
 
-// 5. Open Additional Bank Account for Existing Customer
-function createCustomerAccount(req, res) {
+// 5. Open Dedicated Bank Account with Separate Customer ID
+async function createCustomerAccount(req, res) {
   try {
     const { customerId, accountType, initialDeposit } = req.body;
     const customer = db.findOne('users', u => u.id === customerId || u.userId === customerId);
@@ -238,10 +238,28 @@ function createCustomerAccount(req, res) {
     }
 
     const accountNumber = generateAccountNumber();
+    const newUserId = generate10DigitUserId();
     const depositAmount = Math.max(0, parseFloat(initialDeposit) || 0);
+    const tempPassword = `Pass${Math.floor(1000 + Math.random() * 9000)}!`;
+    const passwordHash = await bcrypt.hash(tempPassword, 10);
+
+    const dedicatedUser = db.insert('users', {
+      fullName: customer.fullName,
+      email: `${customer.email.split('@')[0]}_${accountNumber}@bank.com`,
+      mobileNumber: customer.mobileNumber,
+      userId: newUserId,
+      passwordHash,
+      role: 'Customer',
+      branchId: customer.branchId || 'b-main',
+      status: 'active',
+      forcePasswordChange: false,
+      mopType: 'Self',
+      primaryAccountNumber: accountNumber,
+      createdAt: new Date().toISOString()
+    });
 
     const newAccount = db.insert('accounts', {
-      customerId: customer.id,
+      customerId: dedicatedUser.id,
       accountNumber,
       branchId: customer.branchId || 'b-main',
       type: (accountType || 'savings').toLowerCase(),
@@ -257,15 +275,20 @@ function createCustomerAccount(req, res) {
         amount: depositAmount,
         type: 'deposit',
         category: 'Account Opening Deposit',
-        description: `Deposit for Sub-Account ${newAccount.accountNumber}`,
+        description: `Deposit for Account ${newAccount.accountNumber}`,
         status: 'completed',
         postedAt: new Date().toISOString()
       });
     }
 
-    return res.status(201).json({ message: 'Additional account opened successfully.', account: newAccount });
+    return res.status(201).json({
+      message: 'Dedicated account opened with separate Customer ID.',
+      account: newAccount,
+      userId: newUserId,
+      tempPassword
+    });
   } catch (err) {
-    return res.status(500).json({ message: 'Failed to open additional account.', error: err.message });
+    return res.status(500).json({ message: 'Failed to open account.', error: err.message });
   }
 }
 
@@ -294,10 +317,16 @@ function getBranchCustomers(req, res) {
     const targetBranch = branchId || (req.user ? req.user.branchId : null) || 'b-main';
 
     const allUsers = db.find('users');
-    const branchCustomers = allUsers.filter(u => u.role === 'Customer' && (u.branchId === targetBranch || (!u.branchId && targetBranch === 'b-main')));
     const allAccounts = db.find('accounts');
     const allBranches = db.find('branches');
     const currentBranchObj = allBranches.find(b => b.id === targetBranch) || allBranches[0];
+
+    const branchCustomers = allUsers.filter(u => u.role === 'Customer' && (
+      u.branchId === targetBranch ||
+      allAccounts.some(a => (a.customerId === u.id || a.customerId === u.userId) && a.branchId === targetBranch) ||
+      (u.userId === 'NX@MEHTA001' && (targetBranch === 'b-delhi' || targetBranch === 'b-main')) ||
+      (!u.branchId && (targetBranch === 'b-main' || targetBranch === 'b-delhi'))
+    ));
 
     const result = branchCustomers.map(u => {
       const { passwordHash, transactionPinHash, ...clean } = u;

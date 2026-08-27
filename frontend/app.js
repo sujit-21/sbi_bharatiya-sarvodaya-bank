@@ -233,7 +233,7 @@ function showMerchantSignupForm() {
 }
 
 // API Fetch Helper
-async function apiCall(endpoint, method = 'GET', body = null) {
+async function apiCall(endpoint, method = 'GET', body = null, suppressToast = false) {
   const loadingEl = document.getElementById('app-loading');
   if (loadingEl) loadingEl.classList.remove('hidden');
 
@@ -267,18 +267,22 @@ async function apiCall(endpoint, method = 'GET', body = null) {
       if (data.code === 'TOKEN_EXPIRED') {
         const refreshed = await attemptTokenRefresh();
         if (refreshed) {
-          return apiCall(endpoint, method, body);
+          return apiCall(endpoint, method, body, suppressToast);
         }
       }
       triggerLogout();
-      showToast(data.message || 'Session expired or invalidated. Please sign in again.', 'warning');
+      if (!suppressToast) {
+        showToast(data.message || 'Session expired or invalidated. Please sign in again.', 'warning');
+      }
       const err = new Error('Session invalid or expired. Please sign in again.');
       err.isAuthError = true;
       throw err;
     }
 
     if (response.status === 403) {
-      showToast(data.message || 'Access Denied: Insufficient permissions for this action.', 'danger');
+      if (!suppressToast) {
+        showToast(data.message || 'Access Denied: Insufficient permissions for this action.', 'danger');
+      }
       const err = new Error(data.message || 'Access Denied: Insufficient permissions.');
       err.isAuthError = true;
       throw err;
@@ -290,7 +294,7 @@ async function apiCall(endpoint, method = 'GET', body = null) {
 
     return data;
   } catch (err) {
-    if (!err.isAuthError) {
+    if (!err.isAuthError && !suppressToast) {
       showToast(err.message, 'danger');
     }
     throw err;
@@ -800,11 +804,42 @@ function showDashboard() {
   if (roleEl) roleEl.innerText = displayRole;
   if (avatarEl) avatarEl.innerText = initials;
 
-  // Set Branch Indicator dynamically
+  // Set Branch / Customer Indicator dynamically (Branch : Branch Name / Role : User Name)
   const branchIndicator = document.getElementById('manager-branch-indicator');
   if (branchIndicator) {
-    const branchName = state.user?.branchName || (state.user?.branchId === 'b-main' ? 'Global Headquarters' : (state.user?.branchId || 'Global Headquarters'));
-    branchIndicator.innerText = `Branch: ${branchName}`;
+    const fullName = state.user?.fullName || userName || 'User';
+    if (state.user?.role === 'Customer') {
+      branchIndicator.innerText = `Customer : ${fullName}`;
+    } else {
+      const branchMap = {
+        'b-main': 'Mumbai Main HQ Branch',
+        'b-delhi': 'Connaught Place Branch',
+        'b-blr': 'MG Road Branch',
+        'b-kol': 'Park Street Branch',
+        'b-hyd': 'Banjara Hills Branch',
+        'b-chen': 'Anna Salai Branch',
+        'b-pune': 'Shivaji Nagar Branch',
+        'b-ahmed': 'Ashram Road Branch',
+        'b-jaipur': 'MI Road Branch',
+        'b-lucknow': 'Hazratganj Branch'
+      };
+      const bId = state.user?.branchId;
+      const branchName = (state.user?.branchName && !state.user.branchName.startsWith('b-')) 
+        ? state.user.branchName 
+        : (branchMap[bId] || (bId === 'b-main' ? 'Mumbai Main HQ Branch' : (bId || 'Connaught Place Branch')));
+      
+      const roleLower = (state.user?.role || '').toLowerCase();
+      let roleLabel = 'Employee';
+      if (roleLower.includes('manager')) roleLabel = 'Manager';
+      else if (roleLower.includes('super admin') || roleLower.includes('admin')) roleLabel = 'Admin';
+      else if (roleLower.includes('auditor')) roleLabel = 'Auditor';
+      else if (roleLower.includes('officer')) roleLabel = 'Officer';
+
+      branchIndicator.innerHTML = `
+        <div style="font-weight: 800; font-size: 0.82rem; line-height: 1.25;">Branch : ${branchName}</div>
+        <div style="font-weight: 600; font-size: 0.76rem; margin-top: 2px; line-height: 1.25;">${roleLabel} : ${fullName}</div>
+      `;
+    }
   }
 
   // Load appropriate navigation menu based on user role
@@ -877,6 +912,7 @@ function switchTab(tabId) {
 function getRoleLinks() {
   const allAvailableLinks = [
     { id: 'summary', name: 'Core Summary', icon: '🏦' },
+    { id: 'deposit-withdraw', name: 'Deposits & Withdrawals', icon: '💳' },
     { id: 'profile', name: 'My Profile', icon: '👤' },
     { id: 'apply-services', name: 'Apply (Cards & Cheques)', icon: '💳' },
     { id: 'statements', name: 'Account Statements', icon: '📄' },
@@ -893,12 +929,11 @@ function getRoleLinks() {
     { id: 'employees', name: 'Branch Tellers', icon: '👥' },
     { id: 'treasury', name: 'Vault & Cash', icon: '💰' },
     { id: 'customers', name: 'Accounts Assistance', icon: '👥' },
-    { id: 'transactions', name: 'Assist Transaction', icon: '💵' },
+    { id: 'transactions', name: 'Deposits & Withdrawals', icon: '💵' },
     { id: 'crm', name: 'Leads & Sales', icon: '🎯' },
     { id: 'tickets', name: 'Customer Tickets', icon: '🎫' },
     { id: 'dms', name: 'Document Vault', icon: '📁' },
     { id: 'transfers', name: 'Send Money', icon: '💸' },
-    { id: 'beneficiaries', name: 'Contacts / Nominees', icon: '👥' },
     { id: 'products', name: 'Apply Loans/FD', icon: '🌱' },
     { id: 'assistant', name: 'AI Financial Agent', icon: '🤖' },
     { id: 'settings', name: 'Security Controls', icon: '⚙️' },
@@ -924,16 +959,17 @@ function getRoleLinks() {
       if (!userModules.includes('customer-registry')) userModules.push('customer-registry');
     }
     if (normRole === 'Branch Manager') {
+      if (!userModules.includes('deposit-withdraw')) userModules.splice(1, 0, 'deposit-withdraw');
       if (!userModules.includes('branch-customers')) userModules.push('branch-customers');
       const idx = userModules.indexOf('customer-registry');
       if (idx !== -1) userModules.splice(idx, 1);
     }
     if (normRole === 'Employee') {
+      if (!userModules.includes('deposit-withdraw')) userModules.splice(1, 0, 'deposit-withdraw');
       if (!userModules.includes('customer-onboarding')) userModules.push('customer-onboarding');
+      if (!userModules.includes('branch-customers')) userModules.push('branch-customers');
       const idx = userModules.indexOf('customer-registry');
       if (idx !== -1) userModules.splice(idx, 1);
-      const branchCustIdx = userModules.indexOf('branch-customers');
-      if (branchCustIdx !== -1) userModules.splice(branchCustIdx, 1);
       const accAssistIdx = userModules.indexOf('customers');
       if (accAssistIdx !== -1) userModules.splice(accAssistIdx, 1);
     }
@@ -950,15 +986,15 @@ function getRoleLinks() {
   // Fallback to static rules based on normalized role
   if (normRole === 'Super Admin') {
     return allAvailableLinks.filter(link => 
-      ['summary', 'branch-customers', 'users', 'customer-registry', 'role-manager', 'branches', 'ledger', 'developers', 'interest', 'disaster'].includes(link.id)
+      ['summary', 'deposit-withdraw', 'branch-customers', 'users', 'customer-registry', 'role-manager', 'branches', 'ledger', 'developers', 'interest', 'disaster'].includes(link.id)
     );
   } else if (normRole === 'Branch Manager') {
     return allAvailableLinks.filter(link => 
-      ['summary', 'branch-customers', 'users', 'kyc', 'approvals', 'employees', 'treasury', 'ledger'].includes(link.id)
+      ['summary', 'deposit-withdraw', 'branch-customers', 'users', 'kyc', 'approvals', 'employees', 'treasury', 'ledger'].includes(link.id)
     );
   } else if (normRole === 'Employee') {
     return allAvailableLinks.filter(link => 
-      ['summary', 'customer-onboarding', 'transactions', 'crm', 'tickets', 'dms'].includes(link.id)
+      ['summary', 'deposit-withdraw', 'branch-customers', 'customer-onboarding', 'crm', 'tickets', 'dms'].includes(link.id)
     );
   } else if (normRole === 'Customer') {
     return allAvailableLinks.filter(link => 
@@ -970,7 +1006,7 @@ function getRoleLinks() {
     );
   }
 
-  return allAvailableLinks.filter(link => ['summary'].includes(link.id));
+  return allAvailableLinks.filter(link => ['summary', 'deposit-withdraw'].includes(link.id));
 }
 
 // Centralized workspace GSAP transitions
@@ -1062,6 +1098,10 @@ async function renderWorkspace(tabId) {
 // ==========================================
 async function renderAdmin(tab, container) {
   try {
+    if (tab === 'deposit-withdraw' || tab === 'transactions') {
+      await renderDepositWithdrawWorkspace(container);
+      return;
+    }
     if (tab === 'branch-customers') {
       await renderBranchCustomersView(container);
       return;
@@ -2826,6 +2866,10 @@ async function triggerInterestPosting() {
 // ==========================================
 async function renderManager(tab, container) {
   try {
+    if (tab === 'deposit-withdraw' || tab === 'transactions') {
+      await renderDepositWithdrawWorkspace(container);
+      return;
+    }
     if (tab === 'branch-customers') {
       await renderBranchCustomersView(container);
       return;
@@ -2833,45 +2877,51 @@ async function renderManager(tab, container) {
     if (tab === 'summary') {
       const data = await apiCall('/api/dashboard/summary');
       container.innerHTML = `
-        <div class="card">
-          <h2>Branch Metrics: ${data.branch.name}</h2>
-          <div class="stats-grid mt-2">
-            <div class="stat-card">
-              <h3>Vault Balance</h3>
-              <div class="stat-val text-info">₹${data.branch.vaultBalance.toFixed(2)}</div>
-              <div class="stat-desc">Safety thresholds: Min ₹${data.branch.minVaultLimit} / Max ₹${data.branch.maxVaultLimit}</div>
+        <div class="card" style="padding: 14px 18px; border-radius: 10px; margin-bottom: 14px;">
+          <h2 style="font-size: 1.05rem; font-weight: 800; margin: 0 0 10px 0; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+            🏦 Branch Metrics: ${data.branch.name}
+          </h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div style="background: rgba(37, 99, 235, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(37, 99, 235, 0.15);">
+              <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Vault Balance</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #1e40af; margin-top: 3px;">₹${(data.branch.vaultBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+              <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Min ₹${(data.branch.minVaultLimit || 0).toLocaleString('en-IN')} / Max ₹${(data.branch.maxVaultLimit || 0).toLocaleString('en-IN')}</div>
             </div>
-            <div class="stat-card">
-              <h3>Cash in Hand</h3>
-              <div class="stat-val">₹${data.branch.cashInHand.toFixed(2)}</div>
-              <div class="stat-desc">Distributed cash inside teller drawers</div>
+            <div style="background: rgba(16, 185, 129, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.15);">
+              <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Cash in Hand</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #047857; margin-top: 3px;">₹${(data.branch.cashInHand || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+              <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Distributed inside teller drawers</div>
             </div>
-            <div class="stat-card">
-              <h3>Active Tellers</h3>
-              <div class="stat-val">${data.employees.length}</div>
-              <div class="stat-desc">Seeded branch employee agents</div>
+            <div style="background: rgba(99, 102, 241, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.15);">
+              <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Active Tellers</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #4338ca; margin-top: 3px;">${data.employees.length}</div>
+              <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Assigned branch personnel</div>
             </div>
           </div>
         </div>
 
-        <div class="dashboard-grid">
-          <div class="card">
-            <h3>Approval Worklist Queue</h3>
-            <div id="manager-approvals-list">Loading workflows...</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <div class="card" style="padding: 14px 18px; border-radius: 10px;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 10px 0; color: #0f172a;">Approval Worklist Queue</h3>
+            <div id="manager-approvals-list" style="font-size: 0.82rem;">Loading workflows...</div>
           </div>
-          <div class="card">
-            <h3>Teller Drawer Allocations</h3>
-            <div class="table-wrapper">
-              <table>
+          <div class="card" style="padding: 14px 18px; border-radius: 10px;">
+            <h3 style="font-size: 0.95rem; font-weight: 700; margin: 0 0 10px 0; color: #0f172a;">Teller Drawer Allocations</h3>
+            <div class="table-wrapper" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.8rem;">
                 <thead>
-                  <tr><th>Teller</th><th>Drawer Cash</th><th>Status</th></tr>
+                  <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                    <th style="padding: 8px 10px; font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; text-align: left;">Teller</th>
+                    <th style="padding: 8px 10px; font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; text-align: left;">Drawer Cash</th>
+                    <th style="padding: 8px 10px; font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; text-align: left;">Status</th>
+                  </tr>
                 </thead>
                 <tbody>
                   ${data.tellerPositions.map(cp => `
-                    <tr>
-                      <td><code>${cp.tellerId}</code></td>
-                      <td><b>₹${cp.cashInHand}</b></td>
-                      <td><span class="status-badge ${cp.status === 'active' ? 'active' : 'rejected'}">${cp.status}</span></td>
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                      <td style="padding: 8px 10px;"><code style="font-size: 0.75rem; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">${cp.tellerId}</code></td>
+                      <td style="padding: 8px 10px; font-weight: 700; color: #0f172a;">₹${(parseFloat(cp.cashInHand) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td style="padding: 8px 10px;"><span class="status-badge ${cp.status === 'active' ? 'active' : 'rejected'}" style="font-size: 0.72rem; padding: 2px 8px;">${cp.status}</span></td>
                     </tr>
                   `).join('')}
                 </tbody>
@@ -3168,6 +3218,14 @@ async function handleEODSubmit(e) {
 // ==========================================
 async function renderEmployee(tab, container) {
   try {
+    if (tab === 'deposit-withdraw' || tab === 'transactions') {
+      await renderDepositWithdrawWorkspace(container);
+      return;
+    }
+    if (tab === 'branch-customers') {
+      await renderBranchCustomersView(container);
+      return;
+    }
     const summary = await apiCall('/api/dashboard/summary');
     if (tab === 'summary') {
       container.innerHTML = `
@@ -3527,30 +3585,1046 @@ window.resetTellerOnboardForm = function() {
   if (formCard) formCard.style.display = 'block';
 };
 
-async function handleTellerTransaction(e) {
+// ==========================================
+// RENDER DEPOSITS & WITHDRAWALS COUNTER TERMINAL
+// ==========================================
+window._counterDailyTransactions = window._counterDailyTransactions || [];
+window._counterSelectedCustomer = null;
+window._counterSelectedAccount = null;
+window._counterCustomersList = [];
+window._counterMode = 'deposit'; // 'deposit' | 'withdraw'
+
+function numberToWordsIndian(amount) {
+  const num = Math.floor(Math.abs(Number(amount) || 0));
+  if (num === 0) return 'Zero Rupees Only';
+  const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  
+  function convertSection(n) {
+    if (n < 20) return units[n];
+    if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + units[n % 10] : '');
+    return units[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + convertSection(n % 100) : '');
+  }
+
+  let words = '';
+  const crore = Math.floor(num / 10000000);
+  let rem = num % 10000000;
+  const lakh = Math.floor(rem / 100000);
+  rem = rem % 100000;
+  const thousand = Math.floor(rem / 1000);
+  rem = rem % 1000;
+
+  if (crore > 0) words += convertSection(crore) + ' Crore ';
+  if (lakh > 0) words += convertSection(lakh) + ' Lakh ';
+  if (thousand > 0) words += convertSection(thousand) + ' Thousand ';
+  if (rem > 0) words += convertSection(rem) + ' ';
+
+  return words.trim() + ' Rupees Only';
+}
+
+async function renderDepositWithdrawWorkspace(container) {
+  try {
+    const activeBranchId = state.selectedBranchId || state.user?.branchId || 'b-delhi';
+    
+    // Fetch Branch Customers and Treasury/Summary concurrently
+    const [custRes, summaryRes] = await Promise.all([
+      apiCall(`/api/branches/${activeBranchId}/customers`, 'GET', null, true)
+        .catch(() => apiCall('/api/branch-customers', 'GET', null, true))
+        .catch(() => ({ customers: [] })),
+      apiCall('/api/dashboard/summary', 'GET', null, true)
+        .catch(() => ({ branch: { name: 'Connaught Place Branch', id: 'b-delhi' }, position: { cashInHand: 25000, limit: 100000 } }))
+    ]);
+
+    const customers = custRes.customers || [];
+    window._counterCustomersList = customers;
+
+    // Set default selected customer & account if not set or not in current list
+    if (!window._counterSelectedCustomer && customers.length > 0) {
+      window._counterSelectedCustomer = customers[0];
+      window._counterSelectedAccount = (customers[0].accounts && customers[0].accounts[0]) || {
+        accountNumber: customers[0].accountNumber || 'ACC-1001',
+        balance: customers[0].totalBalance || customers[0].balance || 0,
+        type: 'SAVINGS'
+      };
+    }
+
+    const selCust = window._counterSelectedCustomer || {};
+    const selAcc = window._counterSelectedAccount || {};
+    const branchInfo = summaryRes.branch || { name: 'Connaught Place Branch', id: activeBranchId };
+    const drawerCash = summaryRes.position ? parseFloat(summaryRes.position.cashInHand || 0) : 25000;
+
+    // Compute Today's counter session totals
+    const totalDeposited = window._counterDailyTransactions
+      .filter(t => t.type === 'deposit')
+      .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+    const totalWithdrawn = window._counterDailyTransactions
+      .filter(t => t.type === 'withdrawal')
+      .reduce((sum, t) => sum + (parseFloat(t.amount) || 0), 0);
+    const depCount = window._counterDailyTransactions.filter(t => t.type === 'deposit').length;
+    const wthCount = window._counterDailyTransactions.filter(t => t.type === 'withdrawal').length;
+
+    container.innerHTML = `
+      <div style="display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 1200px; margin: 0 auto;">
+        
+        <!-- Header Banner & Cash Position Stats (4 Compact Cards) -->
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #ffffff; padding: 14px 18px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.15);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; justify-content: center; font-size: 1.2rem;">
+                💳
+              </div>
+              <div>
+                <h2 style="margin: 0; font-size: 1.1rem; font-weight: 800; color: #ffffff; letter-spacing: 0.3px;">
+                  Customer Cash Counter: Deposits & Withdrawals Terminal
+                </h2>
+                <p style="margin: 2px 0 0 0; font-size: 0.74rem; color: #94a3b8;">
+                  Branch CBS Teller Desk &bull; <strong>${branchInfo.name}</strong> (${branchInfo.id}) &bull; Teller: <strong>${state.user?.fullName || state.user?.name || 'Authorized Teller'}</strong>
+                </p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.72rem; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); padding: 3px 8px; border-radius: 20px; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                ● CBS REALTIME VAULT LINKED
+              </span>
+            </div>
+          </div>
+
+          <!-- 4 Stats Cards -->
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
+            <div style="background: rgba(255,255,255,0.06); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+              <span style="font-size: 0.64rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Teller Drawer Cash</span>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #38bdf8; margin-top: 2px;">
+                ₹${drawerCash.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div style="background: rgba(16,185,129,0.08); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(16,185,129,0.2);">
+              <span style="font-size: 0.64rem; color: #a7f3d0; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Today's Deposits (CR)</span>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #34d399; margin-top: 2px;">
+                ₹${totalDeposited.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                <span style="font-size: 0.68rem; font-weight: 600; color: #6ee7b7; margin-left: 4px;">(${depCount} txns)</span>
+              </div>
+            </div>
+            <div style="background: rgba(239,68,68,0.08); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(239,68,68,0.2);">
+              <span style="font-size: 0.64rem; color: #fca5a5; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Today's Withdrawals (DR)</span>
+              <div style="font-size: 1.15rem; font-weight: 900; color: #f87171; margin-top: 2px;">
+                ₹${totalWithdrawn.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                <span style="font-size: 0.68rem; font-weight: 600; color: #fca5a5; margin-left: 4px;">(${wthCount} txns)</span>
+              </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+              <span style="font-size: 0.64rem; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Branch Node / Code</span>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #f1f5f9; margin-top: 4px; font-family: monospace;">
+                BSB0000DEL1 &bull; 110024001
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Counter Work Area: 2 Columns (Left: Verified Account Snapshot, Right: Dual Operations Terminal) -->
+        <div style="display: grid; grid-template-columns: 360px 1fr; gap: 14px; align-items: start;">
+          
+          <!-- LEFT COLUMN: Live Verified Customer & Account Snapshot Card -->
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            
+            <div class="card" style="padding: 16px; border-radius: 12px; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+                <span style="font-size: 0.72rem; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 0.4px;">
+                  🛡️ CBS Account Verification
+                </span>
+                <span id="snap-status-badge" style="font-size: 0.68rem; background: ${selAcc.accountNumber ? '#dcfce7' : '#fef3c7'}; color: ${selAcc.accountNumber ? '#16a34a' : '#d97706'}; font-weight: 800; padding: 2px 8px; border-radius: 12px; border: 1px solid ${selAcc.accountNumber ? '#bbf7d0' : '#fde68a'};">
+                  ${selAcc.accountNumber ? '● CBS VERIFIED ACTIVE' : '⚠️ AWAITING ACCOUNT NO'}
+                </span>
+              </div>
+
+              <div style="margin-bottom: 12px;">
+                <div style="font-size: 1rem; font-weight: 800; color: #0f172a;" id="snap-cust-name">
+                  ${selCust.fullName || 'Enter Account Number'}
+                </div>
+                <div style="font-size: 0.74rem; color: #64748b; margin-top: 2px;">
+                  Customer ID: <code style="color: #0284c7; font-weight: 700;" id="snap-cust-id">${selCust.userId || selCust.id || '-'}</code> &bull; Mobile: <span id="snap-cust-mobile">${selCust.mobileNumber || selCust.phone || '-'}</span>
+                </div>
+              </div>
+
+              <!-- Prominent Available Balance Card -->
+              <div style="background: linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(5,150,105,0.08) 100%); border: 1px solid rgba(16,185,129,0.25); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px;">
+                <span style="font-size: 0.65rem; font-weight: 700; color: #047857; text-transform: uppercase; letter-spacing: 0.4px;">
+                  Available CBS Balance
+                </span>
+                <div style="font-size: 1.45rem; font-weight: 900; color: #047857; margin-top: 2px;" id="snap-acc-balance">
+                  ₹${(parseFloat(selAcc.balance || selCust.totalBalance || selCust.balance || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                </div>
+              </div>
+
+              <div style="font-size: 0.76rem; display: flex; flex-direction: column; gap: 6px; color: #475569;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Account Number:</span>
+                  <strong style="font-family: monospace; color: #1d4ed8; font-size: 0.82rem;" id="snap-acc-no">${selAcc.accountNumber || selCust.accountNumber || '-'}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Account Type:</span>
+                  <strong id="snap-acc-type">${(selAcc.type || 'SAVINGS').toUpperCase()} ACCOUNT</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Mode of Operation:</span>
+                  <strong id="snap-acc-mop">${selAcc.mopType || selCust.mopType || 'Self'}</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span>Branch IFSC:</span>
+                  <strong style="font-family: monospace;" id="snap-acc-ifsc">${selAcc.ifscCode || 'BSB0000DEL1'}</strong>
+                </div>
+              </div>
+
+              <div style="margin-top: 14px; border-top: 1px solid #f1f5f9; padding-top: 12px;">
+                <button 
+                  type="button" 
+                  onclick="openAccountTransactionHistory(document.getElementById('snap-acc-no').innerText, document.getElementById('snap-cust-id').innerText)" 
+                  style="width: 100%; padding: 7px 10px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;"
+                >
+                  📜 View Account Statement & Ledger
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Dual Operations Terminal (Deposit vs Withdrawal) -->
+          <div class="card" style="padding: 16px 20px; border-radius: 12px; border: 1px solid #e2e8f0; background: #ffffff;">
+            
+            <!-- Terminal Mode Toggle Bar -->
+            <div style="display: flex; gap: 10px; margin-bottom: 16px; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px;">
+              <button 
+                type="button" 
+                id="counter-tab-deposit-btn" 
+                onclick="switchCounterTab('deposit')" 
+                style="flex: 1; padding: 10px 14px; font-size: 0.86rem; font-weight: 800; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; background: #10b981; color: #ffffff; box-shadow: 0 2px 6px rgba(16,185,129,0.3); transition: all 0.2s;"
+              >
+                📥 1. Cash Deposit (Credit)
+              </button>
+              <button 
+                type="button" 
+                id="counter-tab-withdraw-btn" 
+                onclick="switchCounterTab('withdraw')" 
+                style="flex: 1; padding: 10px 14px; font-size: 0.86rem; font-weight: 800; border-radius: 8px; border: 1px solid #cbd5e1; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; background: #f8fafc; color: #475569; transition: all 0.2s;"
+              >
+                📤 2. Cash Withdrawal (Debit)
+              </button>
+            </div>
+
+            <!-- TAB 1: CASH DEPOSIT FORM -->
+            <div id="counter-deposit-pane">
+              <form id="counter-deposit-form" onsubmit="handleCounterDepositSubmit(event)">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">
+                      Target Customer Account Number *
+                    </label>
+                    <div style="position: relative;">
+                      <input 
+                        type="text" 
+                        id="dep-target-account" 
+                        value="${selAcc.accountNumber || selCust.accountNumber || '1000987658'}" 
+                        oninput="handleCounterAccountLookup(this.value, 'deposit')" 
+                        onblur="handleCounterAccountLookup(this.value, 'deposit')" 
+                        placeholder="Enter Account Number (e.g. 1000987658)..." 
+                        required 
+                        style="width: 100%; padding: 8px 12px; font-size: 0.9rem; font-family: monospace; font-weight: 800; background: #ffffff; border: 1.5px solid #0284c7; border-radius: 6px; color: #1e40af; outline: none;"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Deposit Amount (₹) *</label>
+                    <input 
+                      type="number" 
+                      id="dep-amount" 
+                      required 
+                      min="1" 
+                      step="1" 
+                      placeholder="Enter deposit amount..." 
+                      style="width: 100%; padding: 8px 12px; font-size: 0.95rem; font-weight: 800; color: #047857; border: 1.5px solid #cbd5e1; border-radius: 6px; background: #ffffff;"
+                    />
+                  </div>
+                </div>
+
+                <!-- Quick Amount Presets -->
+                <div style="margin-bottom: 12px; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; display: block;">Quick Amount Presets:</span>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 500, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹500</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 1000, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹1,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 2000, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹2,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 5000, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹5,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 10000, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹10,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 50000, true)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹50,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('dep-amount', 0, false)" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 4px; cursor: pointer;">Clear</button>
+                  </div>
+                </div>
+
+                <!-- Denomination Breakdown Accordion Button -->
+                <div style="margin-bottom: 12px;">
+                  <button 
+                    type="button" 
+                    onclick="toggleDenominationDrawer()" 
+                    style="padding: 5px 10px; font-size: 0.72rem; font-weight: 700; border-radius: 6px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; cursor: pointer; display: flex; align-items: center; gap: 6px;"
+                  >
+                    🧮 Cash Denominations Breakdown (Optional Helper)
+                  </button>
+                  <div id="denom-drawer" style="display: none; margin-top: 8px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; font-size: 0.72rem;">
+                      <div>
+                        <span>₹2000 notes:</span>
+                        <input type="number" min="0" id="denom-2000" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹500 notes:</span>
+                        <input type="number" min="0" id="denom-500" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹200 notes:</span>
+                        <input type="number" min="0" id="denom-200" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹100 notes:</span>
+                        <input type="number" min="0" id="denom-100" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹50 notes:</span>
+                        <input type="number" min="0" id="denom-50" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹20 notes:</span>
+                        <input type="number" min="0" id="denom-20" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div>
+                        <span>₹10 notes:</span>
+                        <input type="number" min="0" id="denom-10" oninput="updateDenominationTotal()" style="width: 100%; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+                        <span style="font-weight: 700; color: #047857;">Calculated: <span id="denom-total-display">₹0</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Depositor Relation</label>
+                    <select id="dep-depositor-type" style="width: 100%; padding: 7px 10px; font-size: 0.78rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;">
+                      <option value="Self">Self (Account Holder)</option>
+                      <option value="Representative">Representative / Bearer</option>
+                      <option value="Family Member">Family Member</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Particulars / Remarks</label>
+                    <input 
+                      type="text" 
+                      id="dep-narrative" 
+                      value="Branch Counter Cash Deposit" 
+                      style="width: 100%; padding: 7px 10px; font-size: 0.78rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;"
+                    />
+                  </div>
+                </div>
+
+                <button 
+                  type="submit" 
+                  id="btn-submit-deposit" 
+                  style="width: 100%; padding: 11px 16px; font-size: 0.92rem; font-weight: 800; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(16,185,129,0.25);"
+                >
+                  📥 Execute & Post Cash Deposit (Credit Account)
+                </button>
+              </form>
+            </div>
+
+            <!-- TAB 2: CASH WITHDRAWAL FORM -->
+            <div id="counter-withdraw-pane" style="display: none;">
+              <form id="counter-withdraw-form" onsubmit="handleCounterWithdrawSubmit(event)">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">
+                      Source Customer Account Number *
+                    </label>
+                    <div style="position: relative;">
+                      <input 
+                        type="text" 
+                        id="wth-source-account" 
+                        value="${selAcc.accountNumber || selCust.accountNumber || '1000987658'}" 
+                        oninput="handleCounterAccountLookup(this.value, 'withdraw')" 
+                        onblur="handleCounterAccountLookup(this.value, 'withdraw')" 
+                        placeholder="Enter Account Number (e.g. 1000987658)..." 
+                        required 
+                        style="width: 100%; padding: 8px 12px; font-size: 0.9rem; font-family: monospace; font-weight: 800; background: #ffffff; border: 1.5px solid #ef4444; border-radius: 6px; color: #b91c1c; outline: none;"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Withdrawal Amount (₹) *</label>
+                    <input 
+                      type="number" 
+                      id="wth-amount" 
+                      required 
+                      min="1" 
+                      step="1" 
+                      oninput="checkWithdrawalSufficiency()" 
+                      placeholder="Enter withdrawal amount..." 
+                      style="width: 100%; padding: 8px 12px; font-size: 0.95rem; font-weight: 800; color: #b91c1c; border: 1.5px solid #cbd5e1; border-radius: 6px; background: #ffffff;"
+                    />
+                  </div>
+                </div>
+
+                <!-- Real-time Balance Sufficiency Indicator -->
+                <div id="wth-sufficiency-box" style="margin-bottom: 12px; padding: 8px 12px; border-radius: 8px; font-size: 0.74rem; font-weight: 700; display: none;">
+                </div>
+
+                <!-- Quick Amount Presets -->
+                <div style="margin-bottom: 12px; background: #f8fafc; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                  <span style="font-size: 0.68rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; display: block;">Quick Amount Presets:</span>
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 500, true); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹500</button>
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 1000, true); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹1,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 2000, true); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹2,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 5000, true); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹5,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 10000, true); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 4px; cursor: pointer;">+₹10,000</button>
+                    <button type="button" onclick="setCounterAmountPreset('wth-amount', 0, false); checkWithdrawalSufficiency();" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; border-radius: 4px; cursor: pointer;">Clear</button>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Withdrawal Instrument</label>
+                    <select id="wth-instrument" style="width: 100%; padding: 7px 10px; font-size: 0.78rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;">
+                      <option value="Counter Slip">Counter Withdrawal Slip</option>
+                      <option value="Self Cheque">Self Cheque</option>
+                      <option value="ATM Debit Voucher">ATM / Debit Voucher</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: block; margin-bottom: 4px;">Slip / Token / Cheque Ref No</label>
+                    <input 
+                      type="text" 
+                      id="wth-slip-no" 
+                      value="SLIP-${Date.now().toString().slice(-5)}" 
+                      style="width: 100%; padding: 7px 10px; font-size: 0.78rem; font-family: monospace; border: 1px solid #cbd5e1; border-radius: 6px; background: #ffffff;"
+                    />
+                  </div>
+                </div>
+
+                <div style="margin-bottom: 14px; background: #f8fafc; padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                  <label style="font-size: 0.74rem; font-weight: 700; color: #334155; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <input type="checkbox" id="wth-verify-check" required checked style="cursor: pointer; width: 15px; height: 15px;" />
+                    <span>Customer Photo ID & Signature physically verified by Branch Teller</span>
+                  </label>
+                </div>
+
+                <button 
+                  type="submit" 
+                  id="btn-submit-withdraw" 
+                  style="width: 100%; padding: 11px 16px; font-size: 0.92rem; font-weight: 800; background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); color: #ffffff; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(239,68,68,0.25);"
+                >
+                  📤 Authorize & Disburse Cash (Debit Account)
+                </button>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BOTTOM SECTION: Today's Counter Transactions Journal -->
+        <div class="card" style="padding: 16px 20px; border-radius: 12px; border: 1px solid #e2e8f0; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h3 style="margin: 0; font-size: 0.95rem; font-weight: 800; color: #0f172a;">
+                📋 Today's Counter Transactions Journal (Session Log)
+              </h3>
+              <span style="font-size: 0.72rem; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 12px; font-weight: 700;">
+                ${window._counterDailyTransactions.length} Recorded
+              </span>
+            </div>
+            <span style="font-size: 0.72rem; color: #64748b;">
+              CBS Double-Entry Audited Real-Time Postings
+            </span>
+          </div>
+
+          <div class="table-wrapper" style="max-height: 280px; overflow-y: auto; border: 1px solid #f1f5f9; border-radius: 6px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.74rem;">
+              <thead style="position: sticky; top: 0; background: #f8fafc; z-index: 2;">
+                <tr style="border-bottom: 1px solid #e2e8f0; text-align: left;">
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase;">TIME</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase;">TXN REF ID</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase;">CUSTOMER / ACCOUNT</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase;">TYPE</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase; text-align: right;">AMOUNT</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase; text-align: right;">CLOSING BALANCE</th>
+                  <th style="padding: 6px 8px; font-weight: 700; color: #475569; text-transform: uppercase; text-align: center;">COUNTER SLIP</th>
+                </tr>
+              </thead>
+              <tbody id="counter-journal-tbody">
+                ${window._counterDailyTransactions.length === 0 ? `
+                  <tr>
+                    <td colspan="7" style="padding: 16px; text-align: center; color: #94a3b8; font-weight: 600;">
+                      No cash counter deposits or withdrawals processed in this session yet.
+                    </td>
+                  </tr>
+                ` : window._counterDailyTransactions.map(t => {
+                  const isDep = t.type === 'deposit';
+                  return `
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                      <td style="padding: 6px 8px; color: #475569; white-space: nowrap;">${t.timeStr}</td>
+                      <td style="padding: 6px 8px; white-space: nowrap;"><code style="font-size: 0.7rem; color: #0284c7; background: #f0f9ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #bae6fd;">${t.transactionId}</code></td>
+                      <td style="padding: 6px 8px;">
+                        <div style="font-weight: 700; color: #0f172a;">${t.customerName}</div>
+                        <div style="font-family: monospace; font-size: 0.7rem; color: #64748b;">${t.accountNumber}</div>
+                      </td>
+                      <td style="padding: 6px 8px; white-space: nowrap;">
+                        <span style="background: ${isDep ? '#dcfce7' : '#fee2e2'}; color: ${isDep ? '#15803d' : '#b91c1c'}; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.68rem;">
+                          ${isDep ? '📥 DEPOSIT (CR)' : '📤 WITHDRAWAL (DR)'}
+                        </span>
+                      </td>
+                      <td style="padding: 6px 8px; text-align: right; font-weight: 800; color: ${isDep ? '#047857' : '#b91c1c'}; white-space: nowrap;">
+                        ${isDep ? '+' : '-'}₹${parseFloat(t.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td style="padding: 6px 8px; text-align: right; font-weight: 700; color: #0f172a; white-space: nowrap;">
+                        ₹${parseFloat(t.newBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td style="padding: 6px 8px; text-align: center; white-space: nowrap;">
+                        <button 
+                          type="button" 
+                          onclick='showCounterSlipModal(${JSON.stringify(t)})' 
+                          style="padding: 3px 8px; font-size: 0.7rem; font-weight: 700; border-radius: 4px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; cursor: pointer;"
+                        >
+                          🖨️ Print Slip
+                        </button>
+                      </td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+  } catch (err) {
+    console.error('Failed to render deposit/withdraw terminal:', err);
+    container.innerHTML = `<div class="card" style="padding: 20px;"><h3 style="color: var(--danger-color);">Terminal Initialization Failed</h3><p>${err.message || 'Unable to connect to branch core counter.'}</p></div>`;
+  }
+}
+
+// -------------------------------------------------------------
+// Interactive Helper Functions for Deposits & Withdrawals
+// -------------------------------------------------------------
+
+window.handleCounterAccountLookup = function(accNoInput, activeMode) {
+  const accNo = (accNoInput || '').trim();
+  const badgeEl = document.getElementById('snap-status-badge');
+  const nameEl = document.getElementById('snap-cust-name');
+  const idEl = document.getElementById('snap-cust-id');
+  const mobEl = document.getElementById('snap-cust-mobile');
+  const balEl = document.getElementById('snap-acc-balance');
+  const noEl = document.getElementById('snap-acc-no');
+  const typeEl = document.getElementById('snap-acc-type');
+  const mopEl = document.getElementById('snap-acc-mop');
+  const ifscEl = document.getElementById('snap-acc-ifsc');
+
+  if (!accNo) {
+    if (badgeEl) {
+      badgeEl.innerText = '⚠️ AWAITING ACCOUNT NO';
+      badgeEl.style.background = '#fef3c7';
+      badgeEl.style.color = '#d97706';
+      badgeEl.style.borderColor = '#fde68a';
+    }
+    if (nameEl) nameEl.innerText = 'Enter Account Number';
+    if (idEl) idEl.innerText = '-';
+    if (mobEl) mobEl.innerText = '-';
+    if (balEl) balEl.innerText = '₹0.00';
+    if (noEl) noEl.innerText = '-';
+    if (typeEl) typeEl.innerText = 'SAVINGS ACCOUNT';
+    if (mopEl) mopEl.innerText = 'Self';
+    window._counterSelectedCustomer = null;
+    window._counterSelectedAccount = null;
+    checkWithdrawalSufficiency();
+    return;
+  }
+
+  // Look up in loaded customers registry
+  let matchedCust = null;
+  let matchedAcc = null;
+  const list = window._counterCustomersList || [];
+
+  for (const c of list) {
+    if (c.accounts && Array.isArray(c.accounts)) {
+      const a = c.accounts.find(acc => acc.accountNumber && acc.accountNumber.toString().trim() === accNo);
+      if (a) {
+        matchedCust = c;
+        matchedAcc = a;
+        break;
+      }
+    }
+    if (c.accountNumber && c.accountNumber.toString().trim() === accNo) {
+      matchedCust = c;
+      matchedAcc = (c.accounts && c.accounts[0]) || {
+        accountNumber: c.accountNumber,
+        balance: c.totalBalance || c.balance || 0,
+        type: 'SAVINGS'
+      };
+      break;
+    }
+    if (c.userId && c.userId.toString().trim() === accNo) {
+      matchedCust = c;
+      matchedAcc = (c.accounts && c.accounts[0]) || {
+        accountNumber: c.accountNumber || c.userId,
+        balance: c.totalBalance || c.balance || 0,
+        type: 'SAVINGS'
+      };
+      break;
+    }
+  }
+
+  if (matchedCust && matchedAcc) {
+    window._counterSelectedCustomer = matchedCust;
+    window._counterSelectedAccount = matchedAcc;
+
+    if (badgeEl) {
+      badgeEl.innerText = '● CBS VERIFIED ACTIVE';
+      badgeEl.style.background = '#dcfce7';
+      badgeEl.style.color = '#16a34a';
+      badgeEl.style.borderColor = '#bbf7d0';
+    }
+    if (nameEl) nameEl.innerText = matchedCust.fullName || 'Verified Customer';
+    if (idEl) idEl.innerText = matchedCust.userId || matchedCust.id || '-';
+    if (mobEl) mobEl.innerText = matchedCust.mobileNumber || matchedCust.phone || '9876543210';
+    if (balEl) balEl.innerText = `₹${(parseFloat(matchedAcc.balance || matchedCust.totalBalance || matchedCust.balance || 0)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+    if (noEl) noEl.innerText = matchedAcc.accountNumber || accNo;
+    if (typeEl) typeEl.innerText = `${(matchedAcc.type || 'SAVINGS').toUpperCase()} ACCOUNT`;
+    if (mopEl) mopEl.innerText = matchedAcc.mopType || matchedCust.mopType || 'Self';
+    if (ifscEl) ifscEl.innerText = matchedAcc.ifscCode || 'BSB0000DEL1';
+
+    // Synchronize both input fields if one was typed in
+    if (activeMode === 'deposit') {
+      const wthAcc = document.getElementById('wth-source-account');
+      if (wthAcc && wthAcc.value !== accNo) wthAcc.value = accNo;
+    } else if (activeMode === 'withdraw') {
+      const depAcc = document.getElementById('dep-target-account');
+      if (depAcc && depAcc.value !== accNo) depAcc.value = accNo;
+    }
+
+    checkWithdrawalSufficiency();
+  } else {
+    // If not found in local branch cache, display searching/unverified state
+    if (badgeEl) {
+      badgeEl.innerText = '⚠️ ACCOUNT NOT IN REGISTRY';
+      badgeEl.style.background = '#fee2e2';
+      badgeEl.style.color = '#dc2626';
+      badgeEl.style.borderColor = '#fca5a5';
+    }
+    if (nameEl) nameEl.innerText = 'Account Not Found in CBS';
+    if (idEl) idEl.innerText = '-';
+    if (mobEl) mobEl.innerText = '-';
+    if (balEl) balEl.innerText = '₹0.00';
+    if (noEl) noEl.innerText = accNo;
+    window._counterSelectedCustomer = null;
+    window._counterSelectedAccount = { accountNumber: accNo, balance: 0 };
+    checkWithdrawalSufficiency();
+  }
+};
+
+window.switchCounterTab = function(mode) {
+  window._counterMode = mode;
+  const depBtn = document.getElementById('counter-tab-deposit-btn');
+  const wthBtn = document.getElementById('counter-tab-withdraw-btn');
+  const depPane = document.getElementById('counter-deposit-pane');
+  const wthPane = document.getElementById('counter-withdraw-pane');
+
+  if (mode === 'deposit') {
+    if (depBtn) {
+      depBtn.style.background = '#10b981';
+      depBtn.style.color = '#ffffff';
+      depBtn.style.border = 'none';
+      depBtn.style.boxShadow = '0 2px 6px rgba(16,185,129,0.3)';
+    }
+    if (wthBtn) {
+      wthBtn.style.background = '#f8fafc';
+      wthBtn.style.color = '#475569';
+      wthBtn.style.border = '1px solid #cbd5e1';
+      wthBtn.style.boxShadow = 'none';
+    }
+    if (depPane) depPane.style.display = 'block';
+    if (wthPane) wthPane.style.display = 'none';
+  } else {
+    if (wthBtn) {
+      wthBtn.style.background = '#ef4444';
+      wthBtn.style.color = '#ffffff';
+      wthBtn.style.border = 'none';
+      wthBtn.style.boxShadow = '0 2px 6px rgba(239,68,68,0.3)';
+    }
+    if (depBtn) {
+      depBtn.style.background = '#f8fafc';
+      depBtn.style.color = '#475569';
+      depBtn.style.border = '1px solid #cbd5e1';
+      depBtn.style.boxShadow = 'none';
+    }
+    if (depPane) depPane.style.display = 'none';
+    if (wthPane) wthPane.style.display = 'block';
+    checkWithdrawalSufficiency();
+  }
+};
+
+window.setCounterAmountPreset = function(inputId, val, isAdd) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  if (!isAdd || val === 0) {
+    el.value = val === 0 ? '' : val;
+  } else {
+    const cur = parseFloat(el.value || 0);
+    el.value = cur + val;
+  }
+};
+
+window.toggleDenominationDrawer = function() {
+  const el = document.getElementById('denom-drawer');
+  if (el) {
+    el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  }
+};
+
+window.updateDenominationTotal = function() {
+  const n2000 = (parseInt(document.getElementById('denom-2000')?.value) || 0) * 2000;
+  const n500 = (parseInt(document.getElementById('denom-500')?.value) || 0) * 500;
+  const n200 = (parseInt(document.getElementById('denom-200')?.value) || 0) * 200;
+  const n100 = (parseInt(document.getElementById('denom-100')?.value) || 0) * 100;
+  const n50 = (parseInt(document.getElementById('denom-50')?.value) || 0) * 50;
+  const n20 = (parseInt(document.getElementById('denom-20')?.value) || 0) * 20;
+  const n10 = (parseInt(document.getElementById('denom-10')?.value) || 0) * 10;
+  
+  const total = n2000 + n500 + n200 + n100 + n50 + n20 + n10;
+  const disp = document.getElementById('denom-total-display');
+  if (disp) disp.innerText = `₹${total.toLocaleString('en-IN')}`;
+  
+  const amtEl = document.getElementById('dep-amount');
+  if (amtEl && total > 0) amtEl.value = total;
+};
+
+window.checkWithdrawalSufficiency = function() {
+  const amtEl = document.getElementById('wth-amount');
+  const box = document.getElementById('wth-sufficiency-box');
+  const btn = document.getElementById('btn-submit-withdraw');
+  if (!amtEl || !box) return;
+
+  const amount = parseFloat(amtEl.value || 0);
+  const selAcc = window._counterSelectedAccount || {};
+  const currentBalance = parseFloat(selAcc.balance || 0);
+
+  if (amount <= 0) {
+    box.style.display = 'none';
+    if (btn) btn.disabled = false;
+    return;
+  }
+
+  box.style.display = 'block';
+  if (amount > currentBalance) {
+    box.style.background = '#fef2f2';
+    box.style.border = '1px solid #fecaca';
+    box.style.color = '#b91c1c';
+    box.innerHTML = `⚠️ <b>Insufficient Funds!</b> Requested: ₹${amount.toLocaleString('en-IN')} &bull; Available: ₹${currentBalance.toLocaleString('en-IN')} &bull; Shortage: <b>₹${(amount - currentBalance).toLocaleString('en-IN')}</b>`;
+    if (btn) {
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'not-allowed';
+    }
+  } else {
+    box.style.background = '#f0fdf4';
+    box.style.border = '1px solid #bbf7d0';
+    box.style.color = '#15803d';
+    box.innerHTML = `✓ <b>Sufficient Balance Verified:</b> Current: ₹${currentBalance.toLocaleString('en-IN')} &bull; Remaining after withdrawal: <b>₹${(currentBalance - amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</b>`;
+    if (btn) {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+    }
+  }
+};
+
+window.handleCounterDepositSubmit = async function(e) {
   e.preventDefault();
-  const type = document.getElementById('tt-type').value;
-  const acc = document.getElementById('tt-account').value;
-  const amount = parseFloat(document.getElementById('tt-amount').value);
-  const desc = document.getElementById('tt-desc').value;
+  const accNo = document.getElementById('dep-target-account').value;
+  const amount = parseFloat(document.getElementById('dep-amount').value);
+  const narrative = document.getElementById('dep-narrative').value || 'Counter Cash Deposit';
+  const depType = document.getElementById('dep-depositor-type').value;
+
+  if (!amount || amount <= 0) {
+    showToast('Please enter a valid deposit amount.', 'warning');
+    return;
+  }
+
+  const submitBtn = document.getElementById('btn-submit-deposit');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Processing Deposit...';
+  }
 
   try {
     const payload = {
+      toAccountNumber: accNo,
       amount,
-      type,
-      description: desc
+      type: 'deposit',
+      category: 'Counter Cash Deposit',
+      description: `${narrative} (${depType})`
     };
-    if (type === 'deposit') {
-      payload.toAccountNumber = acc;
-    } else {
-      payload.fromAccountNumber = acc;
-    }
 
     const res = await apiCall('/api/dashboard/transactions', 'POST', payload);
-    showToast(res.message, 'success');
-    switchTab('summary');
-  } catch(e){}
-}
+    showToast(`Cash deposit of ₹${amount.toLocaleString('en-IN')} completed successfully.`, 'success');
+
+    // Update session daily records
+    const cust = window._counterSelectedCustomer || {};
+    const slipData = {
+      transactionId: res.transactionId || `TXN-DEP-${Date.now().toString().slice(-6)}`,
+      type: 'deposit',
+      amount,
+      newBalance: res.newBalance !== undefined ? res.newBalance : ((window._counterSelectedAccount?.balance || 0) + amount),
+      accountNumber: accNo,
+      customerName: cust.fullName || 'Customer',
+      customerId: cust.userId || cust.id || '',
+      tellerName: state.user?.fullName || state.user?.name || 'Teller',
+      timeStr: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      dateStr: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      branchName: 'Connaught Place Branch',
+      ifscCode: 'BSB0000DEL1'
+    };
+
+    window._counterDailyTransactions.unshift(slipData);
+    if (window._counterSelectedAccount) {
+      window._counterSelectedAccount.balance = slipData.newBalance;
+    }
+
+    // Show Printable Receipt Modal
+    showCounterSlipModal(slipData);
+
+    // Refresh workspace view
+    const container = document.getElementById('workspace-target');
+    if (container) renderDepositWithdrawWorkspace(container);
+
+  } catch (err) {
+    showToast(err.message || 'Counter cash deposit failed.', 'danger');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerText = '📥 Execute & Post Cash Deposit (Credit Account)';
+    }
+  }
+};
+
+window.handleCounterWithdrawSubmit = async function(e) {
+  e.preventDefault();
+  const accNo = document.getElementById('wth-source-account').value;
+  const amount = parseFloat(document.getElementById('wth-amount').value);
+  const instrument = document.getElementById('wth-instrument').value;
+  const slipNo = document.getElementById('wth-slip-no').value || 'SLIP-001';
+
+  if (!amount || amount <= 0) {
+    showToast('Please enter a valid withdrawal amount.', 'warning');
+    return;
+  }
+
+  const submitBtn = document.getElementById('btn-submit-withdraw');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Disbursing Cash...';
+  }
+
+  try {
+    const payload = {
+      fromAccountNumber: accNo,
+      amount,
+      type: 'withdrawal',
+      category: 'Counter Cash Withdrawal',
+      description: `Counter Cash Withdrawal [${instrument} #${slipNo}]`
+    };
+
+    const res = await apiCall('/api/dashboard/transactions', 'POST', payload);
+    showToast(`Cash withdrawal of ₹${amount.toLocaleString('en-IN')} disbursed successfully.`, 'success');
+
+    const cust = window._counterSelectedCustomer || {};
+    const slipData = {
+      transactionId: res.transactionId || `TXN-WTH-${Date.now().toString().slice(-6)}`,
+      type: 'withdrawal',
+      amount,
+      newBalance: res.newBalance !== undefined ? res.newBalance : Math.max(0, (window._counterSelectedAccount?.balance || 0) - amount),
+      accountNumber: accNo,
+      customerName: cust.fullName || 'Customer',
+      customerId: cust.userId || cust.id || '',
+      tellerName: state.user?.fullName || state.user?.name || 'Teller',
+      timeStr: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      dateStr: new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+      branchName: 'Connaught Place Branch',
+      ifscCode: 'BSB0000DEL1',
+      instrument: `${instrument} #${slipNo}`
+    };
+
+    window._counterDailyTransactions.unshift(slipData);
+    if (window._counterSelectedAccount) {
+      window._counterSelectedAccount.balance = slipData.newBalance;
+    }
+
+    // Show Printable Receipt Modal
+    showCounterSlipModal(slipData);
+
+    // Refresh workspace view
+    const container = document.getElementById('workspace-target');
+    if (container) renderDepositWithdrawWorkspace(container);
+
+  } catch (err) {
+    showToast(err.message || 'Counter cash withdrawal failed.', 'danger');
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerText = '📤 Authorize & Disburse Cash (Debit Account)';
+    }
+  }
+};
+
+window.showCounterSlipModal = function(slip) {
+  const isDep = slip.type === 'deposit';
+  const amountWords = numberToWordsIndian(slip.amount);
+
+  const modalHtml = `
+    <div id="counter-slip-modal-overlay" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(4px);" onclick="if(event.target===this) closeCounterSlipModal()">
+      <div style="background: #ffffff; width: 95%; max-width: 520px; border-radius: 12px; padding: 20px 24px; color: #0f172a; box-shadow: 0 20px 45px rgba(0,0,0,0.35); position: relative; font-family: 'Space Grotesk', system-ui, sans-serif;">
+        
+        <!-- Printable Bank Receipt Container -->
+        <div id="printable-teller-slip" style="border: 2px dashed #cbd5e1; padding: 16px; border-radius: 8px; background: #ffffff;">
+          
+          <!-- Receipt Header -->
+          <div style="text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 8px; margin-bottom: 10px;">
+            <div style="font-size: 1.1rem; font-weight: 900; letter-spacing: 1px; color: #0f172a;">
+              BHARATIYA SARVODAYA BANK (SBI)
+            </div>
+            <div style="font-size: 0.72rem; color: #475569; font-weight: 600;">
+              ${slip.branchName || 'Connaught Place Branch'} &bull; IFSC: ${slip.ifscCode || 'BSB0000DEL1'}
+            </div>
+            <div style="margin-top: 6px; display: inline-block; background: ${isDep ? '#dcfce7' : '#fee2e2'}; color: ${isDep ? '#15803d' : '#b91c1c'}; font-size: 0.76rem; font-weight: 800; padding: 3px 12px; border-radius: 4px; text-transform: uppercase;">
+              ${isDep ? '📥 OFFICIAL CASH DEPOSIT SLIP' : '📤 OFFICIAL CASH WITHDRAWAL SLIP'}
+            </div>
+          </div>
+
+          <!-- Receipt Key Metadata -->
+          <div style="font-size: 0.74rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #64748b;">Txn Reference ID:</span>
+              <strong style="font-family: monospace; color: #0284c7;">${slip.transactionId}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #64748b;">Date & Time:</span>
+              <strong>${slip.dateStr || new Date().toLocaleDateString('en-IN')} ${slip.timeStr || new Date().toLocaleTimeString()}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #64748b;">Customer Name:</span>
+              <strong>${slip.customerName || 'Account Holder'}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #64748b;">Account Number:</span>
+              <strong style="font-family: monospace; color: #1d4ed8;">${slip.accountNumber}</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: #64748b;">Cashier / Teller:</span>
+              <strong>${slip.tellerName}</strong>
+            </div>
+            ${slip.instrument ? `
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: #64748b;">Instrument / Slip:</span>
+                <strong style="font-family: monospace;">${slip.instrument}</strong>
+              </div>
+            ` : ''}
+          </div>
+
+          <!-- Amount Banner -->
+          <div style="background: ${isDep ? '#f0fdf4' : '#fef2f2'}; border: 1px solid ${isDep ? '#bbf7d0' : '#fecaca'}; border-radius: 6px; padding: 8px 12px; margin-bottom: 10px; text-align: center;">
+            <span style="font-size: 0.68rem; font-weight: 700; color: ${isDep ? '#15803d' : '#b91c1c'}; text-transform: uppercase;">
+              Transaction Amount
+            </span>
+            <div style="font-size: 1.35rem; font-weight: 900; color: ${isDep ? '#15803d' : '#b91c1c'}; margin-top: 1px;">
+              ₹${parseFloat(slip.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+            </div>
+            <div style="font-size: 0.7rem; font-weight: 700; color: #475569; margin-top: 2px;">
+              (${amountWords})
+            </div>
+          </div>
+
+          <!-- Closing Balance -->
+          <div style="font-size: 0.74rem; display: flex; justify-content: space-between; background: #f8fafc; padding: 6px 10px; border-radius: 4px; margin-bottom: 12px; border: 1px solid #e2e8f0;">
+            <span style="color: #475569; font-weight: 600;">Available Account Balance:</span>
+            <strong style="color: #047857; font-weight: 800;">₹${parseFloat(slip.newBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</strong>
+          </div>
+
+          <!-- Signature Lines -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 24px; padding-top: 10px; border-top: 1px dashed #cbd5e1; font-size: 0.68rem; color: #475569;">
+            <div style="text-align: center;">
+              <div style="height: 20px;"></div>
+              <div>______________________</div>
+              <div style="font-weight: 700; margin-top: 2px;">Customer / Depositor</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-weight: 800; color: #0284c7;">BSB TELLER CASH SEAL</div>
+              <div>______________________</div>
+              <div style="font-weight: 700; margin-top: 2px;">Authorized Cashier Seal</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; gap: 10px;">
+          <button 
+            type="button" 
+            onclick="closeCounterSlipModal()" 
+            class="btn btn-secondary" 
+            style="padding: 7px 16px; font-size: 0.76rem; font-weight: 600; cursor: pointer;"
+          >
+            Close Window
+          </button>
+          <button 
+            type="button" 
+            onclick="printCounterSlip()" 
+            style="padding: 7px 18px; font-size: 0.76rem; font-weight: 800; background: #047857; color: #ffffff; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px;"
+          >
+            🖨️ Print Slip / Receipt
+          </button>
+        </div>
+
+      </div>
+    </div>
+  `;
+
+  const existing = document.getElementById('counter-slip-modal-overlay');
+  if (existing) existing.remove();
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+};
+
+window.closeCounterSlipModal = function() {
+  const modal = document.getElementById('counter-slip-modal-overlay');
+  if (modal) modal.remove();
+};
+
+window.printCounterSlip = function() {
+  const printContents = document.getElementById('printable-teller-slip')?.innerHTML;
+  if (!printContents) return;
+
+  const win = window.open('', '', 'height=650,width=500');
+  win.document.write('<html><head><title>Bharatiya Sarvodaya Bank - Counter Receipt</title>');
+  win.document.write('<style>body{font-family: sans-serif; padding: 20px; font-size: 12px;} @media print { button { display:none; } }</style>');
+  win.document.write('</head><body>');
+  win.document.write(printContents);
+  win.document.write('</body></html>');
+  win.document.close();
+  win.focus();
+  setTimeout(() => {
+    win.print();
+    win.close();
+  }, 400);
+};
 
 function openCreateLeadModal() {
   const name = prompt('Lead Name:');
@@ -3592,19 +4666,21 @@ async function renderCustomer(tab, container) {
     } else if (tab === 'statements') {
       await renderCustomerStatements(container, sum);
     } else if (tab === 'summary') {
+      const primaryAcc = (sum.accounts && sum.accounts.length > 0)
+        ? sum.accounts[0]
+        : { type: 'savings', balance: 0, accountNumber: '1000987654', status: 'active' };
+
       container.innerHTML = `
         <div class="stats-grid">
-          ${sum.accounts.map(acc => `
-            <div class="stat-card">
-              <h3>${acc.type.toUpperCase()} ACCOUNT</h3>
-              <div class="stat-val text-success">₹${acc.balance.toFixed(2)}</div>
-              <div class="stat-desc">Account No: ${acc.accountNumber} | status: ${acc.status}</div>
-            </div>
-          `).join('')}
           <div class="stat-card">
-            <h3>Active Credit Cards</h3>
-            <div class="stat-val" style="font-size:1.4rem;">
-              ${sum.cards.length === 0 ? 'No cards issued' : `${sum.cards.length} Cards`}
+            <h3>${(primaryAcc.type || 'SAVINGS').toUpperCase()} ACCOUNT</h3>
+            <div class="stat-val text-success">₹${Number(primaryAcc.balance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            <div class="stat-desc">Account No: <b style="color: #1e3a8a;">${primaryAcc.accountNumber}</b> | Status: <span style="color: #16a34a; font-weight: 700;">● ${(primaryAcc.status || 'active').toUpperCase()}</span></div>
+          </div>
+          <div class="stat-card">
+            <h3>ACTIVE CREDIT CARDS</h3>
+            <div class="stat-val" style="font-size: 1.15rem; font-weight: 700; color: #1e293b;">
+              ${sum.cards.length === 0 ? '<span style="color: #94a3b8; font-weight: 500; font-size: 0.95rem;">No cards issued</span>' : `${sum.cards.length} Active Card${sum.cards.length > 1 ? 's' : ''}`}
             </div>
             <div class="stat-desc">Debit or Credit limits status</div>
           </div>
@@ -3612,19 +4688,26 @@ async function renderCustomer(tab, container) {
 
         <div class="dashboard-grid">
           <div class="card">
-            <h3>Recent Account Transactions</h3>
-            <div class="table-wrapper">
-              <table>
-                <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th></tr></thead>
+            <h3 style="margin-bottom: 12px; font-size: 0.92rem; font-weight: 800; color: #1e293b;">Recent Account Transactions</h3>
+            <div class="table-wrapper" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
+                <thead>
+                  <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                    <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; text-align: left; text-transform: uppercase;">Date</th>
+                    <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; text-align: left; text-transform: uppercase;">Type</th>
+                    <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; text-align: left; text-transform: uppercase;">Category</th>
+                    <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; text-align: right; text-transform: uppercase;">Amount</th>
+                  </tr>
+                </thead>
                 <tbody>
-                  ${sum.recentTransactions.length === 0 ? `<tr><td colspan="4" class="text-center">No transactions recorded.</td></tr>` : ''}
-                  ${sum.recentTransactions.map(t => `
-                    <tr>
-                      <td>${new Date(t.createdAt).toLocaleDateString()}</td>
-                      <td><b>${t.type.toUpperCase()}</b></td>
-                      <td>${t.category}</td>
-                      <td><b class="${t.type === 'deposit' ? 'text-success' : 'text-danger'}">
-                        ${t.type === 'deposit' ? '+' : '-'}₹${t.amount}
+                  ${sum.recentTransactions.length === 0 ? `<tr><td colspan="4" class="text-center" style="padding: 14px; color: #94a3b8;">No transactions recorded.</td></tr>` : ''}
+                  ${sum.recentTransactions.slice(0, 10).map(t => `
+                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                      <td style="padding: 7px 10px; color: #475569;">${new Date(t.createdAt || t.postedAt || t.date || Date.now()).toLocaleDateString('en-IN')}</td>
+                      <td style="padding: 7px 10px;"><b>${(t.type || 'DEPOSIT').toUpperCase()}</b></td>
+                      <td style="padding: 7px 10px; color: #334155;">${t.category || t.description || 'General Banking'}</td>
+                      <td style="padding: 7px 10px; text-align: right;"><b style="color: ${t.type === 'deposit' ? '#16a34a' : '#dc2626'};">
+                        ${t.type === 'deposit' ? '+' : '-'}₹${Number(t.amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                       </b></td>
                     </tr>
                   `).join('')}
@@ -3656,114 +4739,255 @@ async function renderCustomer(tab, container) {
         </div>
       `;
     } else if (tab === 'transfers') {
+      const primaryAcc = (sum.accounts && sum.accounts.length > 0) ? sum.accounts[0] : { accountNumber: '1000987654', type: 'savings', balance: 155387.50 };
       container.innerHTML = `
-        <div class="card">
-          <h3>Send Funds Transfer</h3>
-          <form id="transfer-form" style="display:flex; flex-direction:column; gap:16px; margin-top:20px;">
+        <div class="card" style="max-width: 620px; margin: 0 auto; padding: 16px 20px; border: 1px solid #e2e8f0; border-radius: 10px;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin: 0 0 12px 0;">Send Funds Transfer</h3>
+          <form id="transfer-form" style="display: flex; flex-direction: column; gap: 10px;">
             <div class="form-group">
-              <label>Select My Debiting Account</label>
-              <select id="tf-from">
-                ${sum.accounts.map(a => `<option value="${a.accountNumber}">${a.type.toUpperCase()} (${a.accountNumber}) - Balance: ₹${a.balance}</option>`).join('')}
-              </select>
+              <label>Debiting Account (Fixed Primary Account)</label>
+              <div style="padding: 7px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; font-weight: 700; color: #1e293b;">
+                <span>${(primaryAcc.type || 'Savings').toUpperCase()} - ${primaryAcc.accountNumber}</span>
+                <span style="color: #15803d; font-size: 0.78rem; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1px 7px; border-radius: 4px;">Available Balance: ₹${(parseFloat(primaryAcc.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <input type="hidden" id="tf-from" value="${primaryAcc.accountNumber}">
             </div>
-            <div class="form-group">
-              <label>Select Beneficiary / Payee</label>
-              <select id="tf-to-select" onchange="handleBeneficiarySelect(this)">
-                <option value="">-- Or enter account below --</option>
-                ${sum.beneficiaries.map(b => `<option value="${b.accountNumber}">${b.name} (${b.bankName} - ${b.accountNumber})</option>`).join('')}
-              </select>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label>Destination Account Number</label>
+                <input type="text" id="tf-to" required placeholder="Type payee account number">
+              </div>
+              <div class="form-group">
+                <label>Destination IFSC Code</label>
+                <input type="text" id="tf-ifsc" required placeholder="e.g. SBIN0001001 / BSB0001001" style="text-transform: uppercase;">
+              </div>
             </div>
-            <div class="form-group">
-              <label>Destination Account Number</label>
-              <input type="text" id="tf-to" required placeholder="Type payee account number">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label>Amount to Send (₹)</label>
+                <input type="number" id="tf-amount" required placeholder="500" min="1" step="any">
+              </div>
+              <div class="form-group">
+                <label>MICR Code (9-Digit Branch Code)</label>
+                <input type="text" id="tf-micr" placeholder="e.g. 110002001" maxlength="9">
+              </div>
             </div>
-            <div class="form-group">
-              <label>Amount to Send (₹)</label>
-              <input type="number" id="tf-amount" required placeholder="500">
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="form-group">
+                <label>Reference Narrative</label>
+                <input type="text" id="tf-desc" placeholder="Rent payment, groceries">
+              </div>
+              <div class="form-group">
+                <label>6-Digit Transaction PIN</label>
+                <div style="position: relative; display: flex; align-items: center;">
+                  <input type="password" id="tf-pin" required placeholder="••••••" maxlength="6" style="width: 100%; padding-right: 32px;">
+                  <button type="button" onclick="togglePinVisibility('tf-pin', this)" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #783545; padding: 2px; display: flex; align-items: center; justify-content: center;" title="Toggle PIN visibility">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="form-group">
-              <label>Reference Narrative</label>
-              <input type="text" id="tf-desc" placeholder="Rent payment, groceries">
-            </div>
-            <div class="form-group">
-              <label>6-Digit Transaction PIN</label>
-              <input type="password" id="tf-pin" required placeholder="••••••" maxlength="6">
-            </div>
-            <button type="submit" class="btn btn-primary">Authorize Transfer</button>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 6px; padding: 7px 20px; align-self: flex-start; background: #51061b; color: #fff;">Authorize Transfer</button>
           </form>
         </div>
       `;
       document.getElementById('transfer-form').addEventListener('submit', handleCustomerTransfer);
-    } else if (tab === 'beneficiaries') {
+    } else if (tab === 'products') {
+      const primaryAcc = (sum.accounts && sum.accounts.length > 0) ? sum.accounts[0] : { accountNumber: '1000987654', balance: 155387.50, type: 'Savings' };
       container.innerHTML = `
-        <div class="dashboard-grid">
-          <div class="card">
-            <h3>Registered Beneficiaries</h3>
-            <div class="table-wrapper">
-              <table>
-                <thead><tr><th>Name</th><th>Account No</th><th>Bank</th><th>Action</th></tr></thead>
-                <tbody>
-                  ${sum.beneficiaries.length === 0 ? `<tr><td colspan="4" class="text-center">No contacts saved.</td></tr>` : ''}
-                  ${sum.beneficiaries.map(b => `
-                    <tr>
-                      <td><b>${b.name}</b></td>
-                      <td><code>${b.accountNumber}</code></td>
-                      <td>${b.bankName}</td>
-                      <td><button class="btn btn-outline-danger btn-sm" onclick="deleteBeneficiary('${b.id}')">Remove</button></td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
+        <!-- CIBIL CREDIT BUREAU SECTION -->
+        <div class="card" style="margin-bottom: 16px; border: 1px solid #f8dfc5; border-radius: 10px; background: #ffffff; padding: 14px 18px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid #f8dfc5; padding-bottom: 10px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-weight: 900; font-size: 1rem; color: #0284c7; letter-spacing: 0.5px; border: 1.5px solid #0284c7; padding: 2px 8px; border-radius: 4px;">CIBIL™</span>
+              <div>
+                <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin: 0;">TransUnion CIBIL™ Credit Bureau Report</h3>
+                <p style="font-size: 0.74rem; color: #783545; margin: 0;">Official RBI-Authorized Consumer Credit Bureau Assessment</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 0.72rem; color: #15803d; font-weight: 700; background: #dcfce7; padding: 3px 8px; border-radius: 4px; border: 1px solid #86efac;">Verified Prime Record</span>
+              <button type="button" id="btn-refresh-cibil" onclick="refreshCibilScore()" class="btn btn-outline-primary" style="font-size: 0.74rem; font-weight: 700; padding: 4px 10px; border-radius: 6px; color: #51061b; border-color: #f8dfc5;">
+                Refresh Bureau Score
+              </button>
             </div>
           </div>
-          <div class="card">
-            <h3>Add Beneficiary Payee</h3>
-            <form id="add-ben-form" style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
-              <div class="form-group"><label>Payee Name</label><input type="text" id="ab-name" required placeholder="John Miller"></div>
-              <div class="form-group"><label>Account Number</label><input type="text" id="ab-acc" required placeholder="1000123456"></div>
-              <div class="form-group"><label>Bank Name</label><input type="text" id="ab-bank" value="Bharatiya Sarvodaya Bank"></div>
-              <button type="submit" class="btn btn-primary">Save Payee</button>
-            </form>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 46px; height: 46px; border-radius: 50%; background: #15803d; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 900; box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);">
+                785
+              </div>
+              <div>
+                <div style="font-size: 0.68rem; font-weight: 700; color: #783545; text-transform: uppercase;">CIBIL Score</div>
+                <div id="cibil-score-val" style="font-size: 0.88rem; font-weight: 800; color: #15803d;">785 / 900 (Excellent)</div>
+                <div style="font-size: 0.65rem; color: #475569;">Prime Tier • Very Low Risk</div>
+              </div>
+            </div>
+
+            <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 0.68rem; font-weight: 700; color: #783545; text-transform: uppercase;">Pre-Approved Loan Eligibility</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #51061b;">₹25,00,000</div>
+              <div style="font-size: 0.65rem; color: #15803d; font-weight: 600;">Instant Digital Sanction Available</div>
+            </div>
+
+            <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 0.68rem; font-weight: 700; color: #783545; text-transform: uppercase;">Repayment Track Record</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #15803d;">100% On-Time</div>
+              <div style="font-size: 0.65rem; color: #475569;">0 Overdue / 0 Delinquencies</div>
+            </div>
+
+            <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 8px; padding: 10px 12px;">
+              <div style="font-size: 0.68rem; font-weight: 700; color: #783545; text-transform: uppercase;">Credit Utilization Ratio</div>
+              <div style="font-size: 0.92rem; font-weight: 800; color: #0284c7;">18% (Optimal)</div>
+              <div style="font-size: 0.65rem; color: #475569;">Well below 30% benchmark</div>
+            </div>
           </div>
         </div>
-      `;
-      document.getElementById('add-ben-form').addEventListener('submit', handleAddBeneficiary);
-    } else if (tab === 'products') {
-      container.innerHTML = `
+
         <div class="dashboard-grid">
-          <div class="card">
-            <h3>Open Fixed Deposit (FD)</h3>
-            <p class="text-secondary" style="margin-bottom:12px;">Invest savings into high-yield certificates. Interest compiles quarterly.</p>
-            <form id="fd-form" style="display:flex; flex-direction:column; gap:12px;">
-              <div class="form-group"><label>Principal Placement Amount (₹)</label><input type="number" id="fd-amount" required placeholder="5000"></div>
+          <!-- OPEN FIXED DEPOSIT CARD -->
+          <div class="card" style="border: 1px solid #f8dfc5; border-radius: 10px; background: #ffffff; padding: 14px 18px;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 2px;">Open Fixed Deposit (FD)</h3>
+            <p class="text-secondary" style="font-size: 0.76rem; color: #783545; margin-bottom: 12px;">Invest savings into high-yield certificates. Interest compiles quarterly.</p>
+            
+            <form id="fd-form" style="display:flex; flex-direction:column; gap:10px;">
               <div class="form-group">
-                <label>Term Duration</label>
-                <select id="fd-term">
-                  <option value="12">12 Months (6.8% APR)</option>
-                  <option value="24">24 Months (7.5% APR)</option>
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Select Debiting Account</label>
+                <select id="fd-acc" required style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="${primaryAcc.accountNumber}">${(primaryAcc.type || 'Savings').toUpperCase()} - ${primaryAcc.accountNumber} (Balance: ₹${(parseFloat(primaryAcc.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })})</option>
                 </select>
               </div>
+
               <div class="form-group">
-                <label><input type="checkbox" id="fd-auto" checked> Auto Renewal on Maturity</label>
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Fixed Deposit Scheme / Product</label>
+                <select id="fd-scheme" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="Standard Term Deposit">Standard Term Deposit (General Public - 7.10% p.a.)</option>
+                  <option value="Senior Citizen Special Deposit">Senior Citizen Special Deposit (7.60% p.a. • +0.50% Extra)</option>
+                  <option value="Tax Saving Term Deposit">Tax Saving Term Deposit (5 Years Lock-in • Sec 80C Benefit - 7.25% p.a.)</option>
+                  <option value="Monthly Income Scheme (MIS)">Monthly Income Scheme / MIS (7.15% p.a. • Monthly Interest Credit)</option>
+                  <option value="BSB Green Earth Sustainable Deposit">BSB Green Earth Sustainable Term Deposit (7.35% p.a.)</option>
+                  <option value="Short-Term Flexi Liquid Deposit">Short-Term Flexi Liquid Deposit (6.50% p.a. • Instant Liquidity)</option>
+                </select>
               </div>
-              <button type="submit" class="btn btn-primary">Confirm Placement</button>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Term Duration / Tenure</label>
+                <select id="fd-term" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="1">7 Days to 45 Days (3.50% APR)</option>
+                  <option value="3">46 Days to 179 Days (4.75% APR)</option>
+                  <option value="6">180 Days to 210 Days (5.75% APR)</option>
+                  <option value="9">211 Days to 364 Days (6.00% APR)</option>
+                  <option value="12" selected>12 Months (1 Year - 6.80% APR)</option>
+                  <option value="13">400 Days Special Amrit Kalash (7.10% APR)</option>
+                  <option value="24">24 Months (2 Years - 7.00% APR)</option>
+                  <option value="36">36 Months (3 Years - 6.75% APR)</option>
+                  <option value="60">60 Months (5 Years - 6.50% APR)</option>
+                  <option value="120">120 Months (10 Years - 6.50% APR)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Interest Payout Frequency</label>
+                <select id="fd-payout" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="Cumulative on Maturity">Cumulative Reinvestment on Maturity (Compounded Quarterly)</option>
+                  <option value="Monthly Payout">Monthly Interest Payout (Credited to Savings Account)</option>
+                  <option value="Quarterly Payout">Quarterly Interest Payout (Credited to Savings Account)</option>
+                  <option value="Half-Yearly Payout">Half-Yearly Interest Payout (Credited to Savings Account)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Principal Placement Amount (₹)</label>
+                <input type="number" id="fd-amount" required placeholder="5000" value="5000" min="1000" step="500" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Maturity & Renewal Instruction</label>
+                <select id="fd-auto" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="both" selected>Auto-Renew Principal & Interest on Maturity</option>
+                  <option value="principal">Auto-Renew Principal Only (Credit Interest to Savings)</option>
+                  <option value="none">Credit Principal & Interest to Savings (Do Not Renew)</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+                Confirm Placement
+              </button>
             </form>
           </div>
 
-          <div class="card">
-            <h3>Apply for Credit / Personal Loan</h3>
-            <form id="loan-form" style="display:flex; flex-direction:column; gap:12px;">
-              <div class="form-group"><label>Loan Capital Amount Requested (₹)</label><input type="number" id="ln-amount" required placeholder="15000"></div>
+          <!-- APPLY FOR CREDIT / PERSONAL LOAN CARD -->
+          <div class="card" style="border: 1px solid #f8dfc5; border-radius: 10px; background: #ffffff; padding: 14px 18px;">
+            <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 2px;">Apply for Credit / Personal Loan</h3>
+            <p class="text-secondary" style="font-size: 0.76rem; color: #783545; margin-bottom: 12px;">Fast-track paperless loan processing backed by instant CIBIL appraisal.</p>
+
+            <form id="loan-form" style="display:flex; flex-direction:column; gap:10px;">
               <div class="form-group">
-                <label>Loan Type Interest rate</label>
-                <select id="ln-type">
-                  <option value="home">Home Loan (6.5% APR)</option>
-                  <option value="car">Car Loan (7.8% APR)</option>
-                  <option value="personal">Personal Loan (11.5% APR)</option>
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Loan Product & Interest Rate</label>
+                <select id="ln-type" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="home">Home Loan / Housing Mortgage (8.40% APR • Up to 30 Years)</option>
+                  <option value="personal">Personal Express Loan (10.50% APR • Instant Disbursal)</option>
+                  <option value="car">Auto / Car Loan (8.75% APR • Up to 84 Months)</option>
+                  <option value="education">Education / Scholar Loan (8.50% APR • Moratorium Period)</option>
+                  <option value="gold">Gold Loan / Sovereign Pledge (8.90% APR • Same-Day Approval)</option>
+                  <option value="sme">SME / Business Growth Loan (9.25% APR • Collateral-Free)</option>
+                  <option value="fd_loan">Loan Against Fixed Deposit (8.10% APR • 1% above FD Rate)</option>
+                  <option value="ev_green">Green Solar & EV Vehicle Loan (8.15% APR • Concessional)</option>
                 </select>
               </div>
-              <div class="form-group"><label>Term Duration (Months)</label><input type="number" id="ln-months" value="36" required></div>
-              <button type="submit" class="btn btn-success">Submit Application</button>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Term Duration / Tenure</label>
+                <select id="ln-months" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="6">6 Months (0.5 Year)</option>
+                  <option value="12">12 Months (1 Year)</option>
+                  <option value="24">24 Months (2 Years)</option>
+                  <option value="36" selected>36 Months (3 Years)</option>
+                  <option value="48">48 Months (4 Years)</option>
+                  <option value="60">60 Months (5 Years)</option>
+                  <option value="84">84 Months (7 Years - Auto/Personal)</option>
+                  <option value="120">120 Months (10 Years)</option>
+                  <option value="180">180 Months (15 Years - Home Loan)</option>
+                  <option value="240">240 Months (20 Years - Home Loan)</option>
+                  <option value="360">360 Months (30 Years - Home Loan)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Loan Purpose / Requirement</label>
+                <select id="ln-purpose" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="Property Purchase / Construction">Property Purchase / Construction</option>
+                  <option value="Home Renovation & Modernization">Home Renovation & Modernization</option>
+                  <option value="Debt Consolidation & Card Payoff">Debt Consolidation & Card Payoff</option>
+                  <option value="Medical Emergency & Hospitalization">Medical Emergency & Hospitalization</option>
+                  <option value="Higher Education Tuition">Higher Education Tuition & Study Abroad</option>
+                  <option value="Vehicle Purchase">Vehicle Purchase (Car / Bike / EV)</option>
+                  <option value="Business Expansion">Business Expansion & Working Capital</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Employment Status</label>
+                <select id="ln-emp" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                  <option value="Salaried">Salaried (Corporate / Govt / PSU)</option>
+                  <option value="Self-Employed Professional">Self-Employed Professional (Doctor / CA / Lawyer)</option>
+                  <option value="Business Owner / MSME">Business Owner / MSME Proprietor</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Loan Capital Amount Requested (₹)</label>
+                <input type="number" id="ln-amount" required placeholder="15000" value="15000" min="5000" step="5000" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+              </div>
+
+              <button type="submit" class="btn btn-success" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #15803d; color: #ffffff; border: none; margin-top: 4px; cursor: pointer;">
+                Submit Application
+              </button>
             </form>
           </div>
         </div>
@@ -3877,6 +5101,8 @@ async function handleCustomerTransfer(e) {
   e.preventDefault();
   const fromNum = document.getElementById('tf-from').value;
   const toNum = document.getElementById('tf-to').value;
+  const ifsc = document.getElementById('tf-ifsc')?.value || '';
+  const micr = document.getElementById('tf-micr')?.value || '';
   const amount = parseFloat(document.getElementById('tf-amount').value);
   const desc = document.getElementById('tf-desc').value;
   const pin = document.getElementById('tf-pin').value;
@@ -3885,6 +5111,8 @@ async function handleCustomerTransfer(e) {
     const res = await apiCall('/api/dashboard/transactions', 'POST', {
       fromAccountNumber: fromNum,
       toAccountNumber: toNum,
+      ifsc,
+      micr,
       amount,
       type: 'transfer',
       description: desc,
@@ -3894,6 +5122,18 @@ async function handleCustomerTransfer(e) {
     switchTab('summary');
   } catch(e){}
 }
+
+window.togglePinVisibility = function(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>`;
+  } else {
+    input.type = 'password';
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`;
+  }
+};
 
 async function handleAddBeneficiary(e) {
   e.preventDefault();
@@ -3917,15 +5157,32 @@ async function deleteBeneficiary(id) {
   }
 }
 
+window.refreshCibilScore = function() {
+  const btn = document.getElementById('btn-refresh-cibil');
+  if (btn) {
+    btn.innerText = 'Connecting CIBIL...';
+    btn.disabled = true;
+  }
+  setTimeout(() => {
+    if (btn) {
+      btn.innerText = 'Refreshed Just Now';
+      btn.disabled = false;
+    }
+    showToast('TransUnion CIBIL Score updated live: 785 / 900 (Prime Grade)', 'success');
+  }, 600);
+};
+
 async function handleFDPlacement(e) {
   e.preventDefault();
   const principalAmount = document.getElementById('fd-amount').value;
   const termMonths = document.getElementById('fd-term').value;
-  const autoRenewal = document.getElementById('fd-auto').checked;
+  const scheme = document.getElementById('fd-scheme')?.value || 'Standard Term Deposit';
+  const payoutFrequency = document.getElementById('fd-payout')?.value || 'Cumulative on Maturity';
+  const autoRenewal = document.getElementById('fd-auto')?.value !== 'none';
 
   try {
-    await apiCall('/api/dashboard/fds/apply', 'POST', { principalAmount, termMonths, autoRenewal });
-    showToast('Fixed Deposit placement funded and processed.', 'success');
+    await apiCall('/api/dashboard/fds/apply', 'POST', { principalAmount, termMonths, autoRenewal, scheme, payoutFrequency });
+    showToast('Fixed Deposit placement funded and processed successfully.', 'success');
     switchTab('summary');
   } catch(e){}
 }
@@ -3935,10 +5192,12 @@ async function handleLoanSubmit(e) {
   const amount = document.getElementById('ln-amount').value;
   const loanType = document.getElementById('ln-type').value;
   const termMonths = document.getElementById('ln-months').value;
+  const purpose = document.getElementById('ln-purpose')?.value || 'General Requirement';
+  const employmentType = document.getElementById('ln-emp')?.value || 'Salaried';
 
   try {
-    await apiCall('/api/dashboard/loans/apply', 'POST', { amount, loanType, termMonths });
-    showToast('Loan request registered. Awaiting Manager Credit check approvals.', 'success');
+    await apiCall('/api/dashboard/loans/apply', 'POST', { amount, loanType, termMonths, purpose, employmentType, cibilScore: 785 });
+    showToast('Loan request registered. Instant CIBIL appraisal approved for Credit Disbursal.', 'success');
     switchTab('summary');
   } catch(e){}
 }
@@ -3978,7 +5237,7 @@ async function renderCustomerProfile(container, sum) {
     }
   } catch(e) {}
 
-  const primaryAcc = (sum.accounts && sum.accounts[0]) || { accountNumber: '1000987654', balance: 50000, type: 'Savings Deluxe', status: 'active' };
+  const primaryAcc = (sum.accounts && sum.accounts[0]) || { accountNumber: '1000987654', balance: 50000, type: 'Savings', status: 'active' };
   const initials = (user.fullName || 'Customer User').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   const branchName = user.branchId === 'b-kolkata' ? 'Kolkata Park Street Branch (IFSC: BSB0007001)' :
                      user.branchId === 'b-mumbai' ? 'Mumbai Fort Branch (IFSC: BSB0002001)' :
@@ -3992,205 +5251,196 @@ async function renderCustomerProfile(container, sum) {
   const sdhwo = user.sdhwo || 'S/o Ramesh Mehta';
 
   container.innerHTML = `
-    <!-- Top Profile Banner -->
-    <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%); border: 1px solid #e9d5ff; padding: 24px; margin-bottom: 20px; border-radius: 18px; box-shadow: 0 10px 25px rgba(124, 58, 237, 0.06);">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-        <div style="display: flex; align-items: center; gap: 18px;">
-          <div style="width: 68px; height: 68px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);">
+    <!-- Top Profile Summary Banner (Compact) -->
+    <div class="card" style="background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 38px; height: 38px; border-radius: 50%; background: #1e3a8a; color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 0.92rem; font-weight: 800;">
             ${initials}
           </div>
           <div>
-            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 4px;">
-              <h2 style="font-size: 1.4rem; font-weight: 800; color: #1e1b4b; margin: 0;">${user.fullName || 'Aarav Mehta'}</h2>
-              <span class="status-badge active" style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; font-weight: 700; font-size: 0.72rem;">Verified Customer 🟢</span>
-              <span class="status-badge frozen" style="background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; font-weight: 700; font-size: 0.72rem;">KYC Tier-3 Full KYC 🛡️</span>
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-bottom: 2px;">
+              <h2 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin: 0;">${user.fullName || 'Aarav Mehta'}</h2>
+              <span style="background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; font-weight: 700; font-size: 0.68rem; padding: 1px 6px; border-radius: 4px;">Verified Customer</span>
+              <span style="background: #f8fafc; color: #1e3a8a; border: 1px solid #e2e8f0; font-weight: 700; font-size: 0.68rem; padding: 1px 6px; border-radius: 4px;">KYC Tier-3 Full KYC</span>
             </div>
-            <p style="color: #6b7280; font-size: 0.85rem; margin: 0;">
-              Resident Individual Account • Customer ID: <strong style="color: #4c1d95;">${customerId}</strong>
+            <p style="color: #64748b; font-size: 0.76rem; margin: 0;">
+              Resident Individual Account • Customer ID: <strong style="color: #1e3a8a;">${customerId}</strong>
             </p>
           </div>
         </div>
         <div style="text-align: right;">
-          <div style="font-size: 0.75rem; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px;">Primary Balance</div>
-          <div style="font-size: 1.5rem; font-weight: 900; color: #059669;">₹${(primaryAcc.balance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
-          <div style="font-size: 0.75rem; color: #6b7280;">A/C: ${primaryAcc.accountNumber}</div>
+          <div style="font-size: 0.68rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px;">Primary Balance</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #15803d; font-family: monospace;">₹${(primaryAcc.balance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+          <div style="font-size: 0.7rem; color: #64748b;">A/C: ${primaryAcc.accountNumber}</div>
         </div>
       </div>
 
-      <!-- Read Only Compliance Notice Banner -->
-      <div style="margin-top: 18px; padding: 10px 14px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #6b21a8;">
-        <span style="font-size: 1rem;">🔒</span>
-        <span><strong>Official Read-Only Banking Record:</strong> Profile details are synchronized with core banking records (RBI / KYC Regulations). For name, mobile number, or address updates, please visit your home branch with valid ID.</span>
+      <!-- Compliance Notice Banner -->
+      <div style="margin-top: 10px; padding: 6px 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 0.72rem; color: #475569; line-height: 1.4;">
+        <strong>Official Read-Only Banking Record:</strong> Profile details are synchronized with core banking records (RBI / KYC Regulations). For name, mobile number, or address updates, please visit your home branch with valid ID.
       </div>
     </div>
 
-    <!-- 4 Section Profile Grid -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 20px;">
+    <!-- 4 Section Dropdowns (Accordion List) -->
+    <div style="display: flex; flex-direction: column; gap: 8px;">
       
-      <!-- Section 1: Core Banking & Account Identification -->
-      <div class="card" style="padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
-          <span style="font-size: 1.2rem;">🏦</span>
-          <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #1e1b4b;">Banking Identification (Read-Only)</h3>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+      <!-- Dropdown 1: Banking Identification (Read-Only) -->
+      <details open style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);">
+        <summary style="padding: 9px 14px; font-size: 0.82rem; font-weight: 700; color: #1e293b; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid #e2e8f0; list-style: none;">
+          <span>Banking Identification (Read-Only)</span>
+          <span style="font-size: 0.7rem; color: #64748b;">▼</span>
+        </summary>
+        <div style="padding: 10px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px; font-size: 0.78rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Customer ID</span>
             <div style="display: flex; align-items: center; gap: 6px;">
-              <code style="background: #f8fafc; padding: 3px 8px; border-radius: 6px; border: 1px solid #e2e8f0; font-weight: 700; color: #1e1b4b;">${customerId}</code>
-              <button type="button" onclick="navigator.clipboard.writeText('${customerId}'); showToast('Customer ID copied!', 'success');" style="background: none; border: none; cursor: pointer; color: #7c3aed; font-size: 0.85rem;" title="Copy ID">📋</button>
+              <code style="background: #f8fafc; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; font-weight: 700; color: #1e293b;">${customerId}</code>
+              <button type="button" onclick="navigator.clipboard.writeText('${customerId}'); showToast('Customer ID copied!', 'success');" style="background: none; border: none; cursor: pointer; color: #1e3a8a; font-size: 0.72rem; font-weight: 700;" title="Copy ID">Copy</button>
             </div>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Primary Account Number</span>
             <div style="display: flex; align-items: center; gap: 6px;">
-              <code style="background: #f8fafc; padding: 3px 8px; border-radius: 6px; border: 1px solid #e2e8f0; font-weight: 700; color: #1e1b4b;">${primaryAcc.accountNumber}</code>
-              <button type="button" onclick="navigator.clipboard.writeText('${primaryAcc.accountNumber}'); showToast('Account Number copied!', 'success');" style="background: none; border: none; cursor: pointer; color: #7c3aed; font-size: 0.85rem;" title="Copy Account Number">📋</button>
+              <code style="background: #f8fafc; padding: 2px 6px; border-radius: 4px; border: 1px solid #e2e8f0; font-weight: 700; color: #1e293b;">${primaryAcc.accountNumber}</code>
+              <button type="button" onclick="navigator.clipboard.writeText('${primaryAcc.accountNumber}'); showToast('Account Number copied!', 'success');" style="background: none; border: none; cursor: pointer; color: #1e3a8a; font-size: 0.72rem; font-weight: 700;" title="Copy Account Number">Copy</button>
             </div>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Account Scheme</span>
-            <span style="font-weight: 600; color: #1e1b4b;">${primaryAcc.type ? primaryAcc.type.toUpperCase() : 'SAVINGS DELUXE'}</span>
+            <span style="font-weight: 700; color: #1e293b;">${primaryAcc.type ? primaryAcc.type.toUpperCase() : 'SAVINGS'}</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Assigned Home Branch</span>
-            <span style="font-weight: 600; color: #1e1b4b; text-align: right; max-width: 60%;">${branchName}</span>
+            <span style="font-weight: 600; color: #1e293b; text-align: right;">${branchName}</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Account Status</span>
-            <span style="font-weight: 700; color: #059669;">Active & Unrestricted 🟢</span>
+            <span style="font-weight: 700; color: #16a34a;">Active & Unrestricted</span>
           </div>
 
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #64748b;">Base Currency</span>
-            <span style="font-weight: 600; color: #1e1b4b;">Indian Rupee (INR - ₹)</span>
+            <span style="font-weight: 600; color: #1e293b;">Indian Rupee (INR - ₹)</span>
           </div>
         </div>
-      </div>
+      </details>
 
-      <!-- Section 2: Contact Details -->
-      <div class="card" style="padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
-          <span style="font-size: 1.2rem;">📞</span>
-          <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #1e1b4b;">Contact Information (Read-Only)</h3>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+      <!-- Dropdown 2: Contact Information (Read-Only) -->
+      <details open style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);">
+        <summary style="padding: 9px 14px; font-size: 0.82rem; font-weight: 700; color: #1e293b; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid #e2e8f0; list-style: none;">
+          <span>Contact Information (Read-Only)</span>
+          <span style="font-size: 0.7rem; color: #64748b;">▼</span>
+        </summary>
+        <div style="padding: 10px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px; font-size: 0.78rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Registered Email</span>
-            <span style="font-weight: 600; color: #1e1b4b; display: flex; align-items: center; gap: 4px;">
-              ${user.email || 'customer@bank.com'} <span style="color: #059669; font-size: 0.78rem;">[Verified ✅]</span>
-            </span>
+            <span style="font-weight: 600; color: #1e293b;">${user.email || 'customer@bank.com'} <span style="color: #16a34a; font-size: 0.72rem; font-weight: 700;">[Verified]</span></span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Registered Mobile</span>
-            <span style="font-weight: 600; color: #1e1b4b; display: flex; align-items: center; gap: 4px;">
-              ${phone} <span style="color: #059669; font-size: 0.78rem;">[Verified ✅]</span>
-            </span>
+            <span style="font-weight: 600; color: #1e293b;">${phone} <span style="color: #16a34a; font-size: 0.72rem; font-weight: 700;">[Verified]</span></span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Communication Address</span>
-            <span style="font-weight: 600; color: #1e1b4b; text-align: right; max-width: 60%;">${address}</span>
+            <span style="font-weight: 600; color: #1e293b; text-align: right;">${address}</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Permanent Address</span>
-            <span style="font-weight: 600; color: #1e1b4b; text-align: right; max-width: 60%;">${address}</span>
+            <span style="font-weight: 600; color: #1e293b; text-align: right;">${address}</span>
           </div>
 
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #64748b;">Alert Channel</span>
-            <span style="font-weight: 600; color: #7c3aed;">SMS & Email Alerts Active</span>
+            <span style="font-weight: 600; color: #1e3a8a;">SMS & Email Alerts Active</span>
           </div>
         </div>
-      </div>
+      </details>
 
-      <!-- Section 3: Government KYC & Identity Details -->
-      <div class="card" style="padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
-          <span style="font-size: 1.2rem;">🪪</span>
-          <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #1e1b4b;">Government ID & KYC Records</h3>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+      <!-- Dropdown 3: Government ID & KYC Records -->
+      <details open style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);">
+        <summary style="padding: 9px 14px; font-size: 0.82rem; font-weight: 700; color: #1e293b; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid #e2e8f0; list-style: none;">
+          <span>Government ID & KYC Records</span>
+          <span style="font-size: 0.7rem; color: #64748b;">▼</span>
+        </summary>
+        <div style="padding: 10px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px; font-size: 0.78rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">PAN Card Record</span>
-            <span style="font-weight: 700; color: #1e1b4b; letter-spacing: 0.5px;">
-              ${panMasked} <span style="color: #059669; font-size: 0.78rem;">[Linked ✅]</span>
-            </span>
+            <span style="font-weight: 700; color: #1e293b;">${panMasked} <span style="color: #16a34a; font-size: 0.72rem; font-weight: 700;">[Linked]</span></span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Aadhaar / UIDAI Reference</span>
-            <span style="font-weight: 700; color: #1e1b4b;">
-              XXXX-XXXX-8921 <span style="color: #059669; font-size: 0.78rem;">[Biometric Verified ✅]</span>
-            </span>
+            <span style="font-weight: 700; color: #1e293b;">XXXX-XXXX-8921 <span style="color: #16a34a; font-size: 0.72rem; font-weight: 700;">[Biometric Verified]</span></span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Date of Birth</span>
-            <span style="font-weight: 600; color: #1e1b4b;">${dob}</span>
+            <span style="font-weight: 600; color: #1e293b;">${dob}</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Gender</span>
-            <span style="font-weight: 600; color: #1e1b4b;">${gender}</span>
+            <span style="font-weight: 600; color: #1e293b;">${gender}</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Father's / Spouse Name</span>
-            <span style="font-weight: 600; color: #1e1b4b;">${sdhwo}</span>
+            <span style="font-weight: 600; color: #1e293b;">${sdhwo}</span>
           </div>
 
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #64748b;">Citizenship</span>
-            <span style="font-weight: 600; color: #1e1b4b;">Indian (Resident) 🇮🇳</span>
+            <span style="font-weight: 600; color: #1e293b;">Indian (Resident)</span>
           </div>
         </div>
-      </div>
+      </details>
 
-      <!-- Section 4: Security, Nominee & Limits Summary -->
-      <div class="card" style="padding: 22px; border-radius: 16px; border: 1px solid #e2e8f0;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #f1f5f9;">
-          <span style="font-size: 1.2rem;">🛡️</span>
-          <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; color: #1e1b4b;">Nominee, Limits & Security</h3>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+      <!-- Dropdown 4: Nominee, Limits & Security -->
+      <details open style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);">
+        <summary style="padding: 9px 14px; font-size: 0.82rem; font-weight: 700; color: #1e293b; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; border-bottom: 1px solid #e2e8f0; list-style: none;">
+          <span>Nominee, Limits & Security</span>
+          <span style="font-size: 0.7rem; color: #64748b;">▼</span>
+        </summary>
+        <div style="padding: 10px 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px; font-size: 0.78rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Registered Nominee</span>
-            <span style="font-weight: 700; color: #1e1b4b;">Pooja Mehta (Spouse) - 100%</span>
+            <span style="font-weight: 700; color: #1e293b;">Pooja Mehta (Spouse) - 100%</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Daily NEFT / RTGS / IMPS Limit</span>
-            <span style="font-weight: 700; color: #059669;">₹5,00,000 / day</span>
+            <span style="font-weight: 700; color: #16a34a;">₹5,00,000 / day</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Daily ATM Cash Limit</span>
-            <span style="font-weight: 700; color: #059669;">₹1,00,000 / day</span>
+            <span style="font-weight: 700; color: #16a34a;">₹1,00,000 / day</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">Two-Factor Authentication (2FA)</span>
-            <span style="font-weight: 700; color: #059669;">Active (SMS + PIN) 🛡️</span>
+            <span style="font-weight: 700; color: #16a34a;">Active (SMS + PIN)</span>
           </div>
 
-          <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px dashed #f1f5f9;">
+          <div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: 1px dashed #e2e8f0;">
             <span style="color: #64748b;">NetBanking Encryption</span>
-            <span style="font-weight: 600; color: #1e1b4b;">256-Bit TLS v1.3</span>
+            <span style="font-weight: 600; color: #1e293b;">256-Bit TLS v1.3</span>
           </div>
 
           <div style="display: flex; justify-content: space-between;">
             <span style="color: #64748b;">Security Risk Rating</span>
-            <span style="font-weight: 700; color: #059669;">Low / Protected 🟢</span>
+            <span style="font-weight: 700; color: #16a34a;">Low / Protected</span>
           </div>
         </div>
-      </div>
+      </details>
 
     </div>
   `;
@@ -4201,8 +5451,10 @@ async function renderCustomerProfile(container, sum) {
 // ==========================================
 async function renderCustomerApplyServices(container, sum) {
   let user = state.user || {};
-  const accounts = sum.accounts || [];
-  const primaryAcc = accounts[0] || { accountNumber: '1000987654', balance: 50000, type: 'Savings' };
+  const accounts = (sum.accounts && sum.accounts.length > 0) ? [sum.accounts[0]] : [
+    { accountNumber: '1000987654', balance: 155387.50, type: 'Savings' }
+  ];
+  const primaryAcc = accounts[0];
 
   // Load customer submitted applications from localStorage
   const storageKey = `cust_applications_${user.userId || user.id || 'default'}`;
@@ -4241,57 +5493,57 @@ async function renderCustomerApplyServices(container, sum) {
   } catch(e) {}
 
   container.innerHTML = `
-    <!-- Top Header & Tabs -->
-    <div style="margin-bottom: 24px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+    <!-- Top Header & Tabs (Compact, No Emojis) -->
+    <div style="margin-bottom: 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
         <div>
-          <h2 style="font-size: 1.35rem; font-weight: 800; color: #1e1b4b; margin: 0 0 4px 0;">💳 Apply for Banking Services & Cards</h2>
-          <p style="color: #6b7280; font-size: 0.85rem; margin: 0;">Instantly apply for Debit Cards, Credit Cards, Cheque Books, Demand Drafts and UPI channels.</p>
+          <h2 style="font-size: 1.05rem; font-weight: 800; color: #51061b; margin: 0 0 2px 0;">Apply for Banking Services & Cards</h2>
+          <p style="color: #783545; font-size: 0.76rem; margin: 0;">Instantly apply for Debit Cards, Credit Cards, Cheque Books, Demand Drafts and UPI channels.</p>
         </div>
-        <button type="button" onclick="switchApplyServiceSubTab('track')" class="btn btn-outline-primary" style="font-weight: 700; padding: 8px 16px; border-radius: 10px;">
-          📦 View My Applications (${apps.length})
+        <button type="button" onclick="switchApplyServiceSubTab('track')" class="btn btn-outline-primary" style="font-weight: 700; padding: 6px 12px; font-size: 0.76rem; border-radius: 6px; color: #51061b; border-color: #f8dfc5;">
+          View My Applications (${apps.length})
         </button>
       </div>
 
       <!-- Sub-Tab Navigation Bar -->
-      <div style="display: flex; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 4px; gap: 4px; overflow-x: auto;">
-        <button type="button" id="subtab-btn-debit" class="btn subtab-btn active" onclick="switchApplyServiceSubTab('debit')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 0.85rem; border: none; background: #7c3aed; color: #ffffff; cursor: pointer; white-space: nowrap;">
-          💳 Apply Debit Card
+      <div style="display: flex; background: #ffffff; border: 1px solid #f8dfc5; border-radius: 8px; padding: 3px; gap: 3px; overflow-x: auto;">
+        <button type="button" id="subtab-btn-debit" class="btn subtab-btn active" onclick="switchApplyServiceSubTab('debit')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 700; font-size: 0.78rem; border: none; background: #51061b; color: #fff2e3; cursor: pointer; white-space: nowrap;">
+          Apply Debit Card
         </button>
-        <button type="button" id="subtab-btn-credit" class="btn subtab-btn" onclick="switchApplyServiceSubTab('credit')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; border: none; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap;">
-          💎 Apply Credit Card
+        <button type="button" id="subtab-btn-credit" class="btn subtab-btn" onclick="switchApplyServiceSubTab('credit')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: 0.78rem; border: none; background: transparent; color: #783545; cursor: pointer; white-space: nowrap;">
+          Apply Credit Card
         </button>
-        <button type="button" id="subtab-btn-cheque" class="btn subtab-btn" onclick="switchApplyServiceSubTab('cheque')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; border: none; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap;">
-          📑 Request Cheque Book
+        <button type="button" id="subtab-btn-cheque" class="btn subtab-btn" onclick="switchApplyServiceSubTab('cheque')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: 0.78rem; border: none; background: transparent; color: #783545; cursor: pointer; white-space: nowrap;">
+          Request Cheque Book
         </button>
-        <button type="button" id="subtab-btn-upi" class="btn subtab-btn" onclick="switchApplyServiceSubTab('upi')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; border: none; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap;">
-          📱 UPI & Channels
+        <button type="button" id="subtab-btn-upi" class="btn subtab-btn" onclick="switchApplyServiceSubTab('upi')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: 0.78rem; border: none; background: transparent; color: #783545; cursor: pointer; white-space: nowrap;">
+          UPI & Channels
         </button>
-        <button type="button" id="subtab-btn-dd" class="btn subtab-btn" onclick="switchApplyServiceSubTab('dd')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; border: none; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap;">
-          📜 Demand Draft (DD)
+        <button type="button" id="subtab-btn-dd" class="btn subtab-btn" onclick="switchApplyServiceSubTab('dd')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: 0.78rem; border: none; background: transparent; color: #783545; cursor: pointer; white-space: nowrap;">
+          Demand Draft (DD)
         </button>
-        <button type="button" id="subtab-btn-track" class="btn subtab-btn" onclick="switchApplyServiceSubTab('track')" style="flex: 1; padding: 10px 14px; border-radius: 10px; font-weight: 600; font-size: 0.85rem; border: none; background: transparent; color: #64748b; cursor: pointer; white-space: nowrap;">
-          📦 Track Requests (${apps.length})
+        <button type="button" id="subtab-btn-track" class="btn subtab-btn" onclick="switchApplyServiceSubTab('track')" style="flex: 1; padding: 6px 10px; border-radius: 6px; font-weight: 600; font-size: 0.78rem; border: none; background: transparent; color: #783545; cursor: pointer; white-space: nowrap;">
+          Track Requests (${apps.length})
         </button>
       </div>
     </div>
 
     <!-- PANE 1: DEBIT CARD APPLICATION -->
     <div id="pane-service-debit" class="service-pane">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;">
-        <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0;">
-          <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin-bottom: 16px;">💳 New Debit Card Application</h3>
-          <form onsubmit="handleApplyDebitCard(event)" style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;">
+        <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;">
+          <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 12px;">New Debit Card Application</h3>
+          <form onsubmit="handleApplyDebitCard(event)" style="display: flex; flex-direction: column; gap: 10px;">
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Select Linked Bank Account</label>
-              <select id="dc-acc" required style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
-                ${accounts.map(a => `<option value="${a.accountNumber}">${a.type.toUpperCase()} - ${a.accountNumber} (Balance: ₹${a.balance})</option>`).join('')}
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Select Linked Bank Account</label>
+              <select id="dc-acc" required style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+                ${accounts.map(a => `<option value="${a.accountNumber}">${(a.type || 'Savings').toUpperCase()} - ${a.accountNumber} (Balance: ₹${(parseFloat(a.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })})</option>`).join('')}
               </select>
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Choose Card Variant & Network</label>
-              <select id="dc-type" onchange="updateDebitCardPreview(this.value)" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Choose Card Variant & Network</label>
+              <select id="dc-type" onchange="updateDebitCardPreview(this.value)" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
                 <option value="RuPay Platinum">RuPay Platinum Contactless (Free • ₹50,000/day ATM)</option>
                 <option value="Visa Platinum International">Visa Platinum International (Lounge Access • ₹1,00,000/day ATM)</option>
                 <option value="Mastercard World">Mastercard World Contactless (Zero Forex • ₹2,00,000/day ATM)</option>
@@ -4300,54 +5552,54 @@ async function renderCustomerApplyServices(container, sum) {
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Cardholder Name (Embossed on Card)</label>
-              <input type="text" id="dc-name" required value="${user.fullName || 'Aarav Mehta'}" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Cardholder Name (Embossed on Card)</label>
+              <input type="text" id="dc-name" required value="${user.fullName || 'Aarav Mehta'}" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Dispatch Delivery Address</label>
-              <input type="text" id="dc-address" required value="${user.address || '124, Sarvodaya Enclave, New Delhi, 110017'}" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Dispatch Delivery Address</label>
+              <input type="text" id="dc-address" required value="${user.address || '124, Sarvodaya Enclave, New Delhi, 110017'}" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
             </div>
 
-            <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-              <input type="checkbox" id="dc-intl" checked style="accent-color: #7c3aed; width: 16px; height: 16px;">
-              <label for="dc-intl" style="font-size: 0.82rem; color: #475569; cursor: pointer;">Enable Online E-Commerce & Domestic Tap-to-Pay (NFC)</label>
+            <div class="form-group" style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+              <input type="checkbox" id="dc-intl" checked style="accent-color: #51061b; width: 14px; height: 14px;">
+              <label for="dc-intl" style="font-size: 0.75rem; color: #783545; cursor: pointer;">Enable Online E-Commerce & Domestic Tap-to-Pay (NFC)</label>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="padding: 12px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%); margin-top: 6px;">
-              ⚡ Submit Debit Card Request
+            <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+              Submit Debit Card Request
             </button>
           </form>
         </div>
 
-        <!-- Live Visual Card Preview -->
-        <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-          <div style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Live Card Mockup</div>
-          <div id="debit-card-preview-box" class="atm-card" style="width: 100%; max-width: 340px; height: 200px; background: linear-gradient(135deg, #1e1b4b 0%, #4c1d95 60%, #7c3aed 100%); border-radius: 16px; padding: 18px; color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 15px 30px rgba(76, 29, 149, 0.35); position: relative; overflow: hidden;">
+        <!-- Live Visual Realistic Card Preview -->
+        <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #ffffff;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: #783545; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Live Card Mockup</div>
+          <div id="debit-card-preview-box" class="atm-card" style="width: 100%; max-width: 290px; height: 165px; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0369a1 100%); border: 1px solid #38bdf8; border-radius: 12px; padding: 14px 16px; color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4); position: relative; overflow: hidden;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; color: #fed7aa;">BHARATIYA SARVODAYA BANK</span>
-              <span id="preview-card-network" style="font-size: 0.8rem; font-weight: 800; background: #ffffff; color: #7c3aed; padding: 2px 6px; border-radius: 4px;">RUPAY</span>
+              <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: #fed7aa;">BHARATIYA SARVODAYA BANK</span>
+              <span id="preview-card-network" style="font-size: 0.68rem; font-weight: 800; background: #ffffff; color: #1e3a8a; padding: 1px 5px; border-radius: 3px;">RUPAY</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-              <div style="width: 36px; height: 28px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 6px;"></div>
-              <span style="font-size: 1.1rem;">📶</span>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+              <div style="width: 30px; height: 22px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 4px; border: 1px solid #d97706;"></div>
+              <div style="font-size: 0.75rem; color: #cbd5e1; font-weight: 600;">CONTACTLESS</div>
             </div>
-            <div style="font-family: 'Space Grotesk', monospace; font-size: 1.1rem; letter-spacing: 2px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+            <div style="font-family: 'Space Grotesk', monospace; font-size: 0.98rem; letter-spacing: 1.8px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
               4532 •••• •••• 9812
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.68rem;">
               <div>
-                <div style="font-size: 0.62rem; color: #cbd5e1; text-transform: uppercase;">Cardholder</div>
+                <div style="font-size: 0.55rem; color: #cbd5e1; text-transform: uppercase;">Cardholder</div>
                 <div id="preview-holder-name" style="font-weight: 700; text-transform: uppercase;">${user.fullName || 'Aarav Mehta'}</div>
               </div>
               <div style="text-align: right;">
-                <div style="font-size: 0.62rem; color: #cbd5e1; text-transform: uppercase;">Valid Thru</div>
+                <div style="font-size: 0.55rem; color: #cbd5e1; text-transform: uppercase;">Valid Thru</div>
                 <div style="font-weight: 700;">08/31</div>
               </div>
             </div>
           </div>
-          <div style="margin-top: 16px; font-size: 0.8rem; color: #059669; font-weight: 600; text-align: center;">
-            ✓ Instant Green PIN Generation via SMS upon delivery
+          <div style="margin-top: 12px; font-size: 0.72rem; color: #15803d; font-weight: 600; text-align: center;">
+            Instant Green PIN Generation via SMS upon delivery
           </div>
         </div>
       </div>
@@ -4355,27 +5607,28 @@ async function renderCustomerApplyServices(container, sum) {
 
     <!-- PANE 2: CREDIT CARD APPLICATION -->
     <div id="pane-service-credit" class="service-pane hidden">
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px;">
-        <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0;">
-          <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin-bottom: 16px;">💎 Apply for Pre-Approved Credit Card</h3>
-          <form onsubmit="handleApplyCreditCard(event)" style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px;">
+        <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;">
+          <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 12px;">Apply for Pre-Approved Credit Card</h3>
+          <form onsubmit="handleApplyCreditCard(event)" style="display: flex; flex-direction: column; gap: 10px;">
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Select Credit Card Variant</label>
-              <select id="cc-variant" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Select Credit Card Variant</label>
+              <select id="cc-variant" onchange="updateCreditCardPreview(this.value)" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
                 <option value="BSB Millennia Cashback">BSB Millennia Cashback (5% Cashback on Amazon/Flipkart/Swiggy)</option>
                 <option value="BSB Regalia Gold">BSB Regalia Gold (4X Reward Points + Domestic Lounge Access)</option>
                 <option value="BSB Infinia Super-Premium">BSB Infinia Super-Premium (Unlimited Global Lounge + Golf Perks)</option>
+                <option value="SBI SimplySave Rewards">SBI / BSB SimplySave Rewards (10X Points on Dining & Movies)</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Desired Credit Limit (₹)</label>
-              <input type="number" id="cc-limit" required min="50000" max="1000000" step="10000" value="150000" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Desired Credit Limit (₹)</label>
+              <input type="number" id="cc-limit" required min="50000" max="1000000" step="10000" value="150000" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Employment Type</label>
-              <select id="cc-employment" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Employment Type</label>
+              <select id="cc-employment" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
                 <option value="Salaried">Salaried (Corporate / Govt)</option>
                 <option value="Self-Employed">Self-Employed / Business Owner</option>
                 <option value="Professional">Doctor / CA / Lawyer / Consultant</option>
@@ -4383,51 +5636,67 @@ async function renderCustomerApplyServices(container, sum) {
             </div>
 
             <div class="form-group">
-              <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Monthly Net Income (₹)</label>
-              <input type="number" id="cc-income" required placeholder="75000" value="85000" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+              <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Monthly Net Income (₹)</label>
+              <input type="number" id="cc-income" required placeholder="75000" value="85000" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
             </div>
 
-            <button type="submit" class="btn btn-primary" style="padding: 12px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #7c3aed 0%, #c026d3 100%); margin-top: 6px;">
-              ⚡ Check Eligibility & Apply
+            <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+              Check Eligibility & Apply
             </button>
           </form>
         </div>
 
-        <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #faf5ff 0%, #fdf4ff 100%);">
-          <h3 style="font-size: 1.1rem; font-weight: 800; color: #581c87; margin-bottom: 14px;">🎁 Card Benefits & Offers</h3>
-          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.85rem; color: #4c1d95;">
-            <li style="display: flex; align-items: flex-start; gap: 8px;">
-              <span>⭐</span> <span><strong>Welcome Bonus:</strong> 2,500 Reward Points on ₹10,000 spend within 30 days.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 8px;">
-              <span>☕</span> <span><strong>Dining Delights:</strong> Up to 20% discount across 4,000+ partner restaurants.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 8px;">
-              <span>✈️</span> <span><strong>Travel Shield:</strong> Complimentary ₹50 Lakhs Air Accident insurance cover.</span>
-            </li>
-            <li style="display: flex; align-items: flex-start; gap: 8px;">
-              <span>⛽</span> <span><strong>Fuel Surcharge Waiver:</strong> 1% fuel surcharge waiver across all Indian petrol pumps.</span>
-            </li>
-          </ul>
+        <!-- Live Realistic Credit Card Preview & Benefits -->
+        <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #ffffff;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: #783545; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Live Credit Card Mockup</div>
+          <div id="credit-card-preview-box" class="atm-card" style="width: 100%; max-width: 290px; height: 165px; background: linear-gradient(135deg, #2e1065 0%, #581c87 50%, #9333ea 100%); border: 1px solid #c084fc; border-radius: 12px; padding: 14px 16px; color: #ffffff; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 8px 24px rgba(88, 28, 135, 0.4); position: relative; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; color: #fed7aa;">BHARATIYA SARVODAYA BANK</span>
+              <span id="preview-cc-network" style="font-size: 0.62rem; font-weight: 800; background: #ffffff; color: #581c87; padding: 1px 5px; border-radius: 3px;">MILLENNIA CASHBACK</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+              <div style="width: 30px; height: 22px; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); border-radius: 4px; border: 1px solid #94a3b8;"></div>
+              <div style="font-size: 0.75rem; color: #cbd5e1; font-weight: 600;">CREDIT ELITE</div>
+            </div>
+            <div id="preview-cc-number" style="font-family: 'Space Grotesk', monospace; font-size: 0.98rem; letter-spacing: 1.8px; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">
+              5241 •••• •••• 7734
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; font-size: 0.68rem;">
+              <div>
+                <div style="font-size: 0.55rem; color: #cbd5e1; text-transform: uppercase;">Primary Holder</div>
+                <div style="font-weight: 700; text-transform: uppercase;">${user.fullName || 'Aarav Mehta'}</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-size: 0.55rem; color: #cbd5e1; text-transform: uppercase;">Valid Thru</div>
+                <div style="font-weight: 700;">12/30</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 12px; padding: 8px 12px; background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 6px; width: 100%; font-size: 0.72rem; color: #783545;">
+            <div><strong>Cardholder Privileges:</strong></div>
+            <div style="margin-top: 2px;">• 5% cashback on leading e-commerce portals</div>
+            <div>• Complimentary domestic airport lounge access</div>
+            <div>• 1% fuel surcharge waiver across India</div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- PANE 3: CHEQUE BOOK REQUEST -->
     <div id="pane-service-cheque" class="service-pane hidden">
-      <div style="max-width: 600px; margin: 0 auto;" class="card">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin-bottom: 16px;">📑 Order New Personal Cheque Book</h3>
-        <form onsubmit="handleRequestChequeBook(event)" style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="max-width: 520px; margin: 0 auto; padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;" class="card">
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 12px;">Order New Personal Cheque Book</h3>
+        <form onsubmit="handleRequestChequeBook(event)" style="display: flex; flex-direction: column; gap: 10px;">
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Select Account</label>
-            <select id="chq-acc" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
-              ${accounts.map(a => `<option value="${a.accountNumber}">${a.type.toUpperCase()} - ${a.accountNumber}</option>`).join('')}
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Select Account</label>
+            <select id="chq-acc" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
+              ${accounts.map(a => `<option value="${a.accountNumber}">${(a.type || 'Savings').toUpperCase()} - ${a.accountNumber}</option>`).join('')}
             </select>
           </div>
 
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Number of Cheque Leaves</label>
-            <select id="chq-leaves" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Number of Cheque Leaves</label>
+            <select id="chq-leaves" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
               <option value="25 Leaves">25 Leaves (Standard - Free)</option>
               <option value="50 Leaves">50 Leaves (₹75 + GST)</option>
               <option value="100 Leaves">100 Leaves (₹140 + GST)</option>
@@ -4435,19 +5704,19 @@ async function renderCustomerApplyServices(container, sum) {
           </div>
 
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Delivery Method</label>
-            <select id="chq-delivery" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Delivery Method</label>
+            <select id="chq-delivery" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
               <option value="Speed Post">Speed Post to Registered Residential Address</option>
               <option value="Branch Pickup">Collect in Person from Home Branch</option>
             </select>
           </div>
 
-          <div style="padding: 10px 14px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; font-size: 0.82rem; color: #6b21a8;">
-            📦 Delivered within 3-5 business days with live SMS tracking.
+          <div style="padding: 8px 12px; background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 6px; font-size: 0.72rem; color: #783545;">
+            Delivered within 3-5 business days with live SMS tracking.
           </div>
 
-          <button type="submit" class="btn btn-primary" style="padding: 12px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);">
-            ⚡ Submit Cheque Book Request
+          <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+            Submit Cheque Book Request
           </button>
         </form>
       </div>
@@ -4455,34 +5724,34 @@ async function renderCustomerApplyServices(container, sum) {
 
     <!-- PANE 4: UPI & PAYMENT CHANNELS -->
     <div id="pane-service-upi" class="service-pane hidden">
-      <div style="max-width: 600px; margin: 0 auto;" class="card">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin-bottom: 16px;">📱 UPI & Digital Payment Channels</h3>
-        <form onsubmit="handleSaveUpiSettings(event)" style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="max-width: 520px; margin: 0 auto; padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;" class="card">
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 12px;">UPI & Digital Payment Channels</h3>
+        <form onsubmit="handleSaveUpiSettings(event)" style="display: flex; flex-direction: column; gap: 12px;">
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Your Custom UPI VPA Handle</label>
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Your Custom UPI VPA Handle</label>
             <div style="display: flex; align-items: center;">
-              <input type="text" id="upi-vpa" required value="${(user.fullName || 'aarav').toLowerCase().replace(/\s+/g, '.')}" style="flex: 1; padding: 10px 12px; border-radius: 8px 0 0 8px; border: 1px solid #cbd5e1; border-right: none; font-size: 0.88rem;">
-              <span style="padding: 10px 14px; background: #ede9fe; border: 1px solid #cbd5e1; border-radius: 0 8px 8px 0; font-weight: 700; color: #6d28d9; font-size: 0.88rem;">@bsb</span>
+              <input type="text" id="upi-vpa" required value="${(user.fullName || 'aarav').toLowerCase().replace(/\s+/g, '.')}" style="flex: 1; padding: 6px 10px; border-radius: 6px 0 0 6px; border: 1px solid #cbd5e1; border-right: none; font-size: 0.78rem;">
+              <span style="padding: 6px 12px; background: #fef8f2; border: 1px solid #cbd5e1; border-radius: 0 6px 6px 0; font-weight: 700; color: #51061b; font-size: 0.78rem;">@bsb</span>
             </div>
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 12px; padding: 14px; background: #faf5ff; border-radius: 10px; border: 1px solid #e9d5ff;">
-            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.88rem;">
-              <span><strong>Contactless Tap-to-Pay (NFC)</strong><br><small style="color: #6b7280;">Allow wave & pay up to ₹5,000 without PIN</small></span>
-              <input type="checkbox" id="chan-nfc" checked style="accent-color: #7c3aed; width: 18px; height: 18px;">
+          <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; background: #fef8f2; border-radius: 8px; border: 1px solid #f8dfc5;">
+            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.78rem; color: #1e293b;">
+              <span><strong>Contactless Tap-to-Pay (NFC)</strong><br><small style="color: #783545;">Allow wave & pay up to ₹5,000 without PIN</small></span>
+              <input type="checkbox" id="chan-nfc" checked style="accent-color: #51061b; width: 15px; height: 15px;">
             </label>
-            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.88rem; border-top: 1px solid #f3e8ff; padding-top: 10px;">
-              <span><strong>International NetBanking & POS</strong><br><small style="color: #6b7280;">Allow global cross-border payments</small></span>
-              <input type="checkbox" id="chan-intl" style="accent-color: #7c3aed; width: 18px; height: 18px;">
+            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.78rem; color: #1e293b; border-top: 1px solid #f8dfc5; padding-top: 8px;">
+              <span><strong>International NetBanking & POS</strong><br><small style="color: #783545;">Allow global cross-border payments</small></span>
+              <input type="checkbox" id="chan-intl" style="accent-color: #51061b; width: 15px; height: 15px;">
             </label>
-            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.88rem; border-top: 1px solid #f3e8ff; padding-top: 10px;">
-              <span><strong>Instant UPI Auto-Pay Subscriptions</strong><br><small style="color: #6b7280;">Enable recurring OTT, utility, and bill mandates</small></span>
-              <input type="checkbox" id="chan-autopay" checked style="accent-color: #7c3aed; width: 18px; height: 18px;">
+            <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-size: 0.78rem; color: #1e293b; border-top: 1px solid #f8dfc5; padding-top: 8px;">
+              <span><strong>Instant UPI Auto-Pay Subscriptions</strong><br><small style="color: #783545;">Enable recurring OTT, utility, and bill mandates</small></span>
+              <input type="checkbox" id="chan-autopay" checked style="accent-color: #51061b; width: 15px; height: 15px;">
             </label>
           </div>
 
-          <button type="submit" class="btn btn-primary" style="padding: 12px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);">
-            💾 Save Payment Preferences
+          <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+            Save Payment Preferences
           </button>
         </form>
       </div>
@@ -4490,23 +5759,23 @@ async function renderCustomerApplyServices(container, sum) {
 
     <!-- PANE 5: DEMAND DRAFT (DD) -->
     <div id="pane-service-dd" class="service-pane hidden">
-      <div style="max-width: 600px; margin: 0 auto;" class="card">
-        <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin-bottom: 16px;">📜 Request Demand Draft (DD)</h3>
-        <form onsubmit="handleRequestDD(event)" style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="max-width: 520px; margin: 0 auto; padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;" class="card">
+        <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin-bottom: 12px;">Request Demand Draft (DD)</h3>
+        <form onsubmit="handleRequestDD(event)" style="display: flex; flex-direction: column; gap: 10px;">
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">In Favour Of (Beneficiary / Institution Name)</label>
-            <input type="text" id="dd-favour" required placeholder="e.g. University Admissions Office" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">In Favour Of (Beneficiary / Institution Name)</label>
+            <input type="text" id="dd-favour" required placeholder="e.g. University Admissions Office" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
           </div>
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">Payable At City</label>
-            <input type="text" id="dd-city" required placeholder="e.g. Mumbai / New Delhi" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">Payable At City</label>
+            <input type="text" id="dd-city" required placeholder="e.g. Mumbai / New Delhi" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
           </div>
           <div class="form-group">
-            <label style="font-size: 0.84rem; font-weight: 600; color: #334155; margin-bottom: 4px; display: block;">DD Amount (₹)</label>
-            <input type="number" id="dd-amount" required min="500" max="500000" placeholder="10000" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
+            <label style="font-size: 0.72rem; font-weight: 700; color: #783545; text-transform: uppercase; margin-bottom: 2px; display: block;">DD Amount (₹)</label>
+            <input type="number" id="dd-amount" required min="500" max="500000" placeholder="10000" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem;">
           </div>
-          <button type="submit" class="btn btn-primary" style="padding: 12px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%);">
-            ⚡ Authorize & Generate Demand Draft
+          <button type="submit" class="btn btn-primary" style="padding: 7px 18px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; margin-top: 4px; cursor: pointer;">
+            Authorize & Generate Demand Draft
           </button>
         </form>
       </div>
@@ -4514,34 +5783,34 @@ async function renderCustomerApplyServices(container, sum) {
 
     <!-- PANE 6: TRACK SUBMITTED APPLICATIONS -->
     <div id="pane-service-track" class="service-pane hidden">
-      <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin: 0;">📦 My Service Applications History</h3>
-          <span style="font-size: 0.82rem; font-weight: 700; color: #7c3aed;">Total Requests: ${apps.length}</span>
+      <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #f8dfc5; background: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <h3 style="font-size: 0.95rem; font-weight: 800; color: #51061b; margin: 0;">My Service Applications History</h3>
+          <span style="font-size: 0.76rem; font-weight: 700; color: #51061b;">Total Requests: ${apps.length}</span>
         </div>
 
-        <div class="table-wrapper">
-          <table>
+        <div class="table-wrapper" style="border: 1px solid #f8dfc5; border-radius: 8px; overflow: hidden;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
             <thead>
-              <tr>
-                <th>Reference ID</th>
-                <th>Service Type</th>
-                <th>Application Details</th>
-                <th>Date Applied</th>
-                <th>Status</th>
-                <th>Tracking Info</th>
+              <tr style="background: #fdf7ef; border-bottom: 1px solid #f8dfc5;">
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Reference ID</th>
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Service Type</th>
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Application Details</th>
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Date Applied</th>
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Status</th>
+                <th style="padding: 8px 10px; text-align: left; font-size: 0.7rem; color: #783545; text-transform: uppercase;">Tracking Info</th>
               </tr>
             </thead>
             <tbody>
-              ${apps.length === 0 ? `<tr><td colspan="6" class="text-center" style="padding: 24px; color: #64748b;">No applications submitted yet. Apply above!</td></tr>` : ''}
+              ${apps.length === 0 ? `<tr><td colspan="6" class="text-center" style="padding: 16px; color: #783545;">No applications submitted yet. Apply above!</td></tr>` : ''}
               ${apps.map(a => `
-                <tr>
-                  <td><code style="background: #faf5ff; border: 1px solid #e9d5ff; color: #6d28d9; padding: 3px 8px; border-radius: 6px; font-weight: 800;">${a.id}</code></td>
-                  <td><b>${a.type}</b></td>
-                  <td>${a.title}<br><small style="color: #64748b;">${a.details || ''}</small></td>
-                  <td>${a.date}</td>
-                  <td><span class="status-badge ${a.statusClass || 'active'}">${a.status}</span></td>
-                  <td><span style="font-family: monospace; font-size: 0.8rem; color: #0284c7;">${a.tracking || 'Processing'}</span></td>
+                <tr style="border-bottom: 1px solid #fef3e7;">
+                  <td style="padding: 7px 10px;"><code style="background: #fef8f2; border: 1px solid #f8dfc5; color: #51061b; padding: 2px 6px; border-radius: 4px; font-weight: 800;">${a.id}</code></td>
+                  <td style="padding: 7px 10px; color: #1e293b;"><b>${a.type}</b></td>
+                  <td style="padding: 7px 10px; color: #475569;">${a.title}<br><small style="color: #783545;">${a.details || ''}</small></td>
+                  <td style="padding: 7px 10px; color: #475569;">${a.date}</td>
+                  <td style="padding: 7px 10px;"><span class="status-badge ${a.statusClass || 'active'}">${a.status}</span></td>
+                  <td style="padding: 7px 10px;"><span style="font-family: monospace; font-size: 0.75rem; color: #0284c7;">${a.tracking || 'Processing'}</span></td>
                 </tr>
               `).join('')}
             </tbody>
@@ -4556,7 +5825,7 @@ window.switchApplyServiceSubTab = function(tabName) {
   document.querySelectorAll('.service-pane').forEach(p => p.classList.add('hidden'));
   document.querySelectorAll('.subtab-btn').forEach(btn => {
     btn.style.background = 'transparent';
-    btn.style.color = '#64748b';
+    btn.style.color = '#783545';
     btn.style.fontWeight = '600';
   });
 
@@ -4565,19 +5834,97 @@ window.switchApplyServiceSubTab = function(tabName) {
 
   if (pane) pane.classList.remove('hidden');
   if (btn) {
-    btn.style.background = '#7c3aed';
-    btn.style.color = '#ffffff';
+    btn.style.background = '#51061b';
+    btn.style.color = '#fff2e3';
     btn.style.fontWeight = '700';
   }
 };
 
 window.updateDebitCardPreview = function(val) {
+  const card = document.getElementById('debit-card-preview-box');
   const badge = document.getElementById('preview-card-network');
-  if (badge) {
-    if (val.includes('RuPay')) badge.innerText = 'RUPAY';
-    else if (val.includes('Visa')) badge.innerText = 'VISA';
-    else if (val.includes('Mastercard')) badge.innerText = 'MC';
-    else badge.innerText = 'TITANIUM';
+  if (!card) return;
+
+  if (val.includes('RuPay')) {
+    card.style.background = 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #0369a1 100%)';
+    card.style.border = '1px solid #38bdf8';
+    card.style.boxShadow = '0 8px 24px rgba(30, 58, 138, 0.4)';
+    if (badge) {
+      badge.innerText = 'RUPAY';
+      badge.style.background = '#ffffff';
+      badge.style.color = '#1e3a8a';
+    }
+  } else if (val.includes('Visa')) {
+    card.style.background = 'linear-gradient(135deg, #064e3b 0%, #047857 55%, #0f766e 100%)';
+    card.style.border = '1px solid #34d399';
+    card.style.boxShadow = '0 8px 24px rgba(4, 120, 87, 0.4)';
+    if (badge) {
+      badge.innerText = 'VISA';
+      badge.style.background = '#ffffff';
+      badge.style.color = '#047857';
+    }
+  } else if (val.includes('Mastercard')) {
+    card.style.background = 'linear-gradient(135deg, #18181b 0%, #27272a 55%, #7c2d12 100%)';
+    card.style.border = '1px solid #f97316';
+    card.style.boxShadow = '0 8px 24px rgba(124, 45, 18, 0.4)';
+    if (badge) {
+      badge.innerText = 'MASTERCARD';
+      badge.style.background = '#ffffff';
+      badge.style.color = '#c2410c';
+    }
+  } else if (val.includes('Signature')) {
+    card.style.background = 'linear-gradient(135deg, #000000 0%, #1c1917 60%, #44403c 100%)';
+    card.style.border = '1px solid #eab308';
+    card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.6)';
+    if (badge) {
+      badge.innerText = 'SIGNATURE';
+      badge.style.background = '#eab308';
+      badge.style.color = '#000000';
+    }
+  }
+};
+
+window.updateCreditCardPreview = function(val) {
+  const card = document.getElementById('credit-card-preview-box');
+  const badge = document.getElementById('preview-cc-network');
+  if (!card) return;
+
+  if (val.includes('Millennia')) {
+    card.style.background = 'linear-gradient(135deg, #2e1065 0%, #581c87 50%, #9333ea 100%)';
+    card.style.border = '1px solid #c084fc';
+    card.style.boxShadow = '0 8px 24px rgba(88, 28, 135, 0.4)';
+    if (badge) {
+      badge.innerText = 'MILLENNIA CASHBACK';
+      badge.style.background = '#ffffff';
+      badge.style.color = '#581c87';
+    }
+  } else if (val.includes('Regalia Gold')) {
+    card.style.background = 'linear-gradient(135deg, #451a03 0%, #78350f 50%, #b45309 100%)';
+    card.style.border = '1px solid #fde047';
+    card.style.boxShadow = '0 8px 24px rgba(180, 83, 9, 0.4)';
+    if (badge) {
+      badge.innerText = 'REGALIA GOLD';
+      badge.style.background = '#fef08a';
+      badge.style.color = '#78350f';
+    }
+  } else if (val.includes('Infinia')) {
+    card.style.background = 'linear-gradient(135deg, #09090b 0%, #18181b 60%, #27272a 100%)';
+    card.style.border = '1px solid #cbd5e1';
+    card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.65)';
+    if (badge) {
+      badge.innerText = 'INFINIA METAL';
+      badge.style.background = '#e2e8f0';
+      badge.style.color = '#09090b';
+    }
+  } else if (val.includes('SimplySave')) {
+    card.style.background = 'linear-gradient(135deg, #51061b 0%, #831843 50%, #9f1239 100%)';
+    card.style.border = '1px solid #f43f5e';
+    card.style.boxShadow = '0 8px 24px rgba(81, 6, 27, 0.4)';
+    if (badge) {
+      badge.innerText = 'SIMPLYSAVE';
+      badge.style.background = '#ffffff';
+      badge.style.color = '#51061b';
+    }
   }
 };
 
@@ -4892,7 +6239,7 @@ async function renderCustomerStatements(container, sum) {
 
   window._customerDashboardSummary = sum;
 
-  const accounts = (sum.accounts && sum.accounts.length > 0) ? sum.accounts : [
+  const accounts = (sum.accounts && sum.accounts.length > 0) ? [sum.accounts[0]] : [
     { id: 'acc-cust-1', accountNumber: '1000987654', balance: 155387.50, type: 'savings', status: 'active', createdAt: '2026-08-01T00:00:00Z' }
   ];
   const primaryAcc = accounts[0];
@@ -4900,7 +6247,7 @@ async function renderCustomerStatements(container, sum) {
 
   const dataset = computeStatementDataset(primaryAcc, allTx, 'month', 'all');
 
-  // Save current statement cache for PDF & CSV generation
+  // Save current statement cache for PDF generation
   window._currentStatementData = {
     user,
     account: primaryAcc,
@@ -4915,45 +6262,38 @@ async function renderCustomerStatements(container, sum) {
   };
 
   container.innerHTML = `
-    <!-- Top Statements Header -->
-    <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #faf5ff 100%); border: 1px solid #e9d5ff; padding: 24px; margin-bottom: 20px; border-radius: 18px; box-shadow: 0 10px 25px rgba(124, 58, 237, 0.06);">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+    <!-- Top Statements Header (Compact) -->
+    <div class="card" style="background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; margin-bottom: 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div>
-          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-            <span style="font-size: 1.5rem;">📄</span>
-            <h2 style="font-size: 1.35rem; font-weight: 800; color: #1e1b4b; margin: 0;">Official Account Statements</h2>
-            <span class="status-badge active" style="font-size: 0.72rem; font-weight: 700;">RBI Compliant 🛡️</span>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+            <h2 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin: 0;">Official Account Statements</h2>
+            <span style="background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; font-weight: 700; font-size: 0.68rem; padding: 1px 6px; border-radius: 4px;">RBI Compliant</span>
           </div>
-          <p style="color: #6b7280; font-size: 0.85rem; margin: 0;">
+          <p style="color: #64748b; font-size: 0.76rem; margin: 0;">
             Download and view detailed itemized ledger statement with opening deposit and running balance in official bank format.
           </p>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <button type="button" onclick="downloadCustomerStatementPDF()" class="btn btn-primary" style="padding: 10px 20px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #6366f1 0%, #7c3aed 100%); display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);">
-            <span style="font-size: 1.1rem;">📥</span> Download PDF Statement
-          </button>
-          <button type="button" onclick="window.print()" class="btn btn-outline-primary" style="padding: 10px 16px; border-radius: 10px; font-weight: 600;">
-            🖨️ Print
-          </button>
-          <button type="button" onclick="exportCustomerStatementCSV()" class="btn btn-outline-primary" style="padding: 10px 16px; border-radius: 10px; font-weight: 600;">
-            📊 CSV
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button type="button" onclick="downloadCustomerStatementPDF()" class="btn btn-primary" style="padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; background: #51061b; color: #fff2e3; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(81, 6, 27, 0.2);">
+            Download PDF Statement
           </button>
         </div>
       </div>
 
       <!-- Filter Controls Bar -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 20px; padding-top: 18px; border-top: 1px solid #f3e8ff;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
         <div>
-          <label style="font-size: 0.78rem; font-weight: 700; color: #4c1d95; text-transform: uppercase; margin-bottom: 4px; display: block;">Select Account</label>
-          <select id="stmt-acc-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 600;">
+          <label style="font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 3px; display: block;">Select Account</label>
+          <select id="stmt-acc-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 600; background: #fff;">
             ${accounts.map(a => `<option value="${a.accountNumber}">${(a.type || 'Savings').toUpperCase()} - ${a.accountNumber} (₹${(parseFloat(a.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })})</option>`).join('')}
           </select>
         </div>
 
         <div>
-          <label style="font-size: 0.78rem; font-weight: 700; color: #4c1d95; text-transform: uppercase; margin-bottom: 4px; display: block;">Statement Period</label>
-          <select id="stmt-period-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 600;">
+          <label style="font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 3px; display: block;">Statement Period</label>
+          <select id="stmt-period-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 600; background: #fff;">
             <option value="month" selected>Current Month (August 2026)</option>
             <option value="3months">Last 3 Months (Q3 2026)</option>
             <option value="6months">Last 6 Months</option>
@@ -4963,8 +6303,8 @@ async function renderCustomerStatements(container, sum) {
         </div>
 
         <div>
-          <label style="font-size: 0.78rem; font-weight: 700; color: #4c1d95; text-transform: uppercase; margin-bottom: 4px; display: block;">Transaction Type</label>
-          <select id="stmt-type-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.85rem; font-weight: 600;">
+          <label style="font-size: 0.72rem; font-weight: 700; color: #475569; text-transform: uppercase; margin-bottom: 3px; display: block;">Transaction Type</label>
+          <select id="stmt-type-select" onchange="filterCustomerStatement()" style="width: 100%; padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.78rem; font-weight: 600; background: #fff;">
             <option value="all" selected>All Transactions (Dr. & Cr.)</option>
             <option value="debit">Debits (Dr. / Withdrawals) Only</option>
             <option value="credit">Credits (Cr. / Deposits) Only</option>
@@ -4973,73 +6313,73 @@ async function renderCustomerStatements(container, sum) {
       </div>
     </div>
 
-    <!-- Financial Metrics Ribbon -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px;">
-      <div class="card" style="padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
-        <div style="font-size: 0.75rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Opening Balance</div>
-        <div id="stmt-metric-opening" style="font-size: 1.25rem; font-weight: 800; color: #1e1b4b; margin-top: 4px;">₹${dataset.openingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+    <!-- Financial Metrics Ribbon (Compact) -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 12px;">
+      <div class="card" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; background: #ffffff;">
+        <div style="font-size: 0.68rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Opening Balance</div>
+        <div id="stmt-metric-opening" style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin-top: 2px;">₹${dataset.openingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
       </div>
 
-      <div class="card" style="padding: 16px; border-radius: 12px; border: 1px solid #fee2e8; background: #fff5f5;">
-        <div style="font-size: 0.75rem; font-weight: 700; color: #dc2626; text-transform: uppercase;">Total Debits (Dr.)</div>
-        <div id="stmt-metric-dr" style="font-size: 1.25rem; font-weight: 800; color: #dc2626; margin-top: 4px;">-₹${dataset.totalDebits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+      <div class="card" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #fee2e8; background: #fff5f5;">
+        <div style="font-size: 0.68rem; font-weight: 700; color: #dc2626; text-transform: uppercase;">Total Debits (Dr.)</div>
+        <div id="stmt-metric-dr" style="font-size: 1.15rem; font-weight: 800; color: #dc2626; margin-top: 2px;">-₹${dataset.totalDebits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
       </div>
 
-      <div class="card" style="padding: 16px; border-radius: 12px; border: 1px solid #dcfce7; background: #f0fdf4;">
-        <div style="font-size: 0.75rem; font-weight: 700; color: #16a34a; text-transform: uppercase;">Total Credits (Cr.)</div>
-        <div id="stmt-metric-cr" style="font-size: 1.25rem; font-weight: 800; color: #16a34a; margin-top: 4px;">+₹${dataset.totalCredits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+      <div class="card" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #dcfce7; background: #f0fdf4;">
+        <div style="font-size: 0.68rem; font-weight: 700; color: #16a34a; text-transform: uppercase;">Total Credits (Cr.)</div>
+        <div id="stmt-metric-cr" style="font-size: 1.15rem; font-weight: 800; color: #16a34a; margin-top: 2px;">+₹${dataset.totalCredits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
       </div>
 
-      <div class="card" style="padding: 16px; border-radius: 12px; border: 1px solid #e9d5ff; background: #faf5ff;">
-        <div style="font-size: 0.75rem; font-weight: 700; color: #7c3aed; text-transform: uppercase;">Closing Balance</div>
-        <div id="stmt-metric-closing" style="font-size: 1.25rem; font-weight: 900; color: #059669; margin-top: 4px;">₹${dataset.closingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+      <div class="card" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; background: #f8fafc;">
+        <div style="font-size: 0.68rem; font-weight: 700; color: #1e293b; text-transform: uppercase;">Closing Balance</div>
+        <div id="stmt-metric-closing" style="font-size: 1.15rem; font-weight: 900; color: #15803d; margin-top: 2px;">₹${dataset.closingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
       </div>
     </div>
 
-    <!-- Live Statement Table in exact requested format: Date | Particulars | Dr. | Cr. | Balance -->
-    <div class="card" style="padding: 24px; border-radius: 18px; border: 1px solid #e2e8f0;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+    <!-- Live Statement Table in requested format: Date | Particulars | Dr. | Cr. | Balance -->
+    <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #e2e8f0; background: #ffffff;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e1b4b; margin: 0;">Account Statement Ledger</h3>
-          <span id="stmt-count-label" style="font-size: 0.8rem; color: #64748b;">(Showing ${dataset.displayRows.length} entries including Opening Balance)</span>
+          <h3 style="font-size: 0.92rem; font-weight: 800; color: #1e293b; margin: 0;">Account Statement Ledger</h3>
+          <span id="stmt-count-label" style="font-size: 0.72rem; color: #64748b;">(Showing ${dataset.displayRows.length} entries including Opening Balance)</span>
         </div>
-        <div style="font-size: 0.82rem; font-weight: 600; color: #6b21a8;">
+        <div style="font-size: 0.72rem; font-weight: 600; color: #64748b;">
           Format: <code>Date | Particulars | Dr. | Cr. | Balance</code>
         </div>
       </div>
 
-      <div class="table-wrapper">
-        <table id="customer-statement-table" style="width: 100%; border-collapse: collapse;">
+      <div class="table-wrapper" style="border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
+        <table id="customer-statement-table" style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
           <thead>
-            <tr style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
-              <th style="padding: 12px 14px; text-align: left; font-weight: 800; font-size: 0.84rem; color: #1e1b4b; width: 15%;">Date</th>
-              <th style="padding: 12px 14px; text-align: left; font-weight: 800; font-size: 0.84rem; color: #1e1b4b; width: 45%;">Particulars</th>
-              <th style="padding: 12px 14px; text-align: right; font-weight: 800; font-size: 0.84rem; color: #dc2626; width: 13%;">Dr. (₹)</th>
-              <th style="padding: 12px 14px; text-align: right; font-weight: 800; font-size: 0.84rem; color: #059669; width: 13%;">Cr. (₹)</th>
-              <th style="padding: 12px 14px; text-align: right; font-weight: 800; font-size: 0.84rem; color: #1e1b4b; width: 14%;">Balance (₹)</th>
+            <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+              <th style="padding: 8px 10px; text-align: left; font-weight: 700; font-size: 0.7rem; color: #475569; width: 15%; text-transform: uppercase;">Date</th>
+              <th style="padding: 8px 10px; text-align: left; font-weight: 700; font-size: 0.7rem; color: #475569; width: 45%; text-transform: uppercase;">Particulars</th>
+              <th style="padding: 8px 10px; text-align: right; font-weight: 700; font-size: 0.7rem; color: #dc2626; width: 13%; text-transform: uppercase;">Dr. (₹)</th>
+              <th style="padding: 8px 10px; text-align: right; font-weight: 700; font-size: 0.7rem; color: #16a34a; width: 13%; text-transform: uppercase;">Cr. (₹)</th>
+              <th style="padding: 8px 10px; text-align: right; font-weight: 700; font-size: 0.7rem; color: #1e293b; width: 14%; text-transform: uppercase;">Balance (₹)</th>
             </tr>
           </thead>
           <tbody id="customer-statement-tbody">
             ${dataset.displayRows.map(r => `
-              <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s; ${r.isOpening ? 'background: #fdfcff; font-weight: 600;' : ''}">
-                <td style="padding: 12px 14px; font-weight: 600; color: #334155; font-size: 0.88rem;">${r.date}</td>
-                <td style="padding: 12px 14px; color: #1e1b4b; font-size: 0.88rem;">
+              <tr style="border-bottom: 1px solid #f1f5f9; ${r.isOpening ? 'background: #fdfcff; font-weight: 600;' : ''}">
+                <td style="padding: 7px 10px; color: #475569;">${r.date}</td>
+                <td style="padding: 7px 10px; color: #1e293b;">
                   <strong>${r.particulars}</strong>
-                  ${r.isOpening ? '<span class="status-badge active" style="font-size:0.65rem; margin-left:8px; padding:2px 6px;">Opening Bal</span>' : ''}
+                  ${r.isOpening ? '<span style="font-size:0.62rem; margin-left:6px; padding:1px 5px; background:#f0fdf4; color:#16a34a; border-radius:4px; font-weight:700;">Opening Bal</span>' : ''}
                 </td>
-                <td style="padding: 12px 14px; text-align: right; font-weight: 700; color: #dc2626; font-size: 0.88rem;">${r.dr || '-'}</td>
-                <td style="padding: 12px 14px; text-align: right; font-weight: 700; color: #059669; font-size: 0.88rem;">${r.cr || '-'}</td>
-                <td style="padding: 12px 14px; text-align: right; font-weight: 800; color: #1e1b4b; font-size: 0.9rem;">${r.balance}</td>
+                <td style="padding: 7px 10px; text-align: right; font-weight: 700; color: #dc2626;">${r.dr || '-'}</td>
+                <td style="padding: 7px 10px; text-align: right; font-weight: 700; color: #16a34a;">${r.cr || '-'}</td>
+                <td style="padding: 7px 10px; text-align: right; font-weight: 800; color: #1e293b;">${r.balance}</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
       </div>
 
-      <div style="margin-top: 20px; padding: 12px 16px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.82rem; color: #6b21a8;">
-        <span>🔒 <strong>Bank Guarantee:</strong> This statement is authentic and recognized as valid financial proof.</span>
-        <button type="button" onclick="downloadCustomerStatementPDF()" style="background: none; border: none; font-weight: 700; color: #7c3aed; cursor: pointer; text-decoration: underline;">
-          📥 Download Official PDF Copy →
+      <div style="margin-top: 12px; padding: 8px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.72rem; color: #475569;">
+        <span><strong>Bank Guarantee:</strong> This statement is authentic and recognized as valid financial proof.</span>
+        <button type="button" onclick="downloadCustomerStatementPDF()" style="background: none; border: none; font-weight: 700; color: #51061b; cursor: pointer; text-decoration: underline;">
+          Download Official PDF Copy →
         </button>
       </div>
     </div>
@@ -5048,7 +6388,7 @@ async function renderCustomerStatements(container, sum) {
 
 window.filterCustomerStatement = function() {
   const sum = window._customerDashboardSummary || {};
-  const accounts = (sum.accounts && sum.accounts.length > 0) ? sum.accounts : [
+  const accounts = (sum.accounts && sum.accounts.length > 0) ? [sum.accounts[0]] : [
     { id: 'acc-cust-1', accountNumber: '1000987654', balance: 155387.50, type: 'savings', status: 'active', createdAt: '2026-08-01T00:00:00Z' }
   ];
   const allTx = sum.allTransactions || sum.recentTransactions || [];
@@ -5060,7 +6400,7 @@ window.filterCustomerStatement = function() {
   const currentAcc = accounts.find(a => a.accountNumber === selectedAccNo) || accounts[0];
   const dataset = computeStatementDataset(currentAcc, allTx, selectedPeriod, selectedType);
 
-  // Update cached statement data for PDF & CSV downloads
+  // Update cached statement data for PDF download
   window._currentStatementData = {
     user: state.user || {},
     account: currentAcc,
@@ -5091,15 +6431,15 @@ window.filterCustomerStatement = function() {
   const tbody = document.getElementById('customer-statement-tbody');
   if (tbody) {
     tbody.innerHTML = dataset.displayRows.map(r => `
-      <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s; ${r.isOpening ? 'background: #fdfcff; font-weight: 600;' : ''}">
-        <td style="padding: 12px 14px; font-weight: 600; color: #334155; font-size: 0.88rem;">${r.date}</td>
-        <td style="padding: 12px 14px; color: #1e1b4b; font-size: 0.88rem;">
+      <tr style="border-bottom: 1px solid #f1f5f9; ${r.isOpening ? 'background: #fdfcff; font-weight: 600;' : ''}">
+        <td style="padding: 7px 10px; color: #475569;">${r.date}</td>
+        <td style="padding: 7px 10px; color: #1e293b;">
           <strong>${r.particulars}</strong>
-          ${r.isOpening ? '<span class="status-badge active" style="font-size:0.65rem; margin-left:8px; padding:2px 6px;">Opening Bal</span>' : ''}
+          ${r.isOpening ? '<span style="font-size:0.62rem; margin-left:6px; padding:1px 5px; background:#f0fdf4; color:#16a34a; border-radius:4px; font-weight:700;">Opening Bal</span>' : ''}
         </td>
-        <td style="padding: 12px 14px; text-align: right; font-weight: 700; color: #dc2626; font-size: 0.88rem;">${r.dr || '-'}</td>
-        <td style="padding: 12px 14px; text-align: right; font-weight: 700; color: #059669; font-size: 0.88rem;">${r.cr || '-'}</td>
-        <td style="padding: 12px 14px; text-align: right; font-weight: 800; color: #1e1b4b; font-size: 0.9rem;">${r.balance}</td>
+        <td style="padding: 7px 10px; text-align: right; font-weight: 700; color: #dc2626;">${r.dr || '-'}</td>
+        <td style="padding: 7px 10px; text-align: right; font-weight: 700; color: #16a34a;">${r.cr || '-'}</td>
+        <td style="padding: 7px 10px; text-align: right; font-weight: 800; color: #1e293b;">${r.balance}</td>
       </tr>
     `).join('');
   }
@@ -5127,13 +6467,13 @@ window.downloadCustomerStatementPDF = function() {
 
     const user = data.user || {};
     const acc = data.account || {};
-    const branchName = user.branchId === 'b-kolkata' ? 'Kolkata Park Street Branch (IFSC: BSB0007001)' :
-                       user.branchId === 'b-mumbai' ? 'Mumbai Fort Branch (IFSC: BSB0002001)' :
-                       'New Delhi Connaught Place Branch (IFSC: BSB0001001)';
-    const ifsc = user.branchId === 'b-kolkata' ? 'BSB0007001' : user.branchId === 'b-mumbai' ? 'BSB0002001' : 'BSB0001001';
+    const rawBranch = user.branchId === 'b-kolkata' ? 'Kolkata Park Street Branch' :
+                      user.branchId === 'b-mumbai' ? 'Mumbai Fort Branch' :
+                      'New Delhi Connaught Place Branch';
+    const ifsc = user.branchId === 'b-kolkata' ? 'SBIN0007001' : user.branchId === 'b-mumbai' ? 'SBIN0002001' : 'SBIN0001001';
 
-    // 1. Decorative Bank Top Header Bar (Royal Purple / Dark Indigo)
-    doc.setFillColor(30, 27, 75); // #1e1b4b
+    // 1. Bank Top Header Bar (Deep Maroon #51061b: RGB [81, 6, 27])
+    doc.setFillColor(81, 6, 27);
     doc.rect(0, 0, 210, 26, 'F');
 
     doc.setTextColor(255, 255, 255);
@@ -5142,89 +6482,108 @@ window.downloadCustomerStatementPDF = function() {
     doc.text('BHARATIYA SARVODAYA BANK', 14, 11);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(216, 180, 254);
-    doc.text('CENTRAL RETAIL INTERNET BANKING DIVISION • RESERVE BANK OF INDIA (RBI) REGULATED', 14, 17);
-    doc.text('ISO 27001:2022 CERTIFIED SECURE BANKING SYSTEM', 14, 22);
+    doc.setFontSize(7.5);
+    doc.setTextColor(248, 223, 197); // Cream #f8dfc5
+    doc.text('CENTRAL RETAIL INTERNET BANKING DIVISION • RESERVE BANK OF INDIA (RBI) REGULATED', 14, 16.5);
+    doc.text('ISO 27001:2022 CERTIFIED SECURE BANKING SYSTEM', 14, 21.5);
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
     doc.setTextColor(255, 255, 255);
     doc.text('STATEMENT OF ACCOUNT', 196, 15, { align: 'right' });
 
-    // 2. Account & Customer Details Two Column Box
-    doc.setFillColor(250, 245, 255);
-    doc.setDrawColor(233, 213, 255);
-    doc.roundedRect(14, 30, 182, 38, 3, 3, 'FD');
+    // 2. Account & Customer Details Box (Cream background #fef8f2 with border #f8dfc5)
+    doc.setFillColor(254, 248, 242);
+    doc.setDrawColor(248, 223, 197);
+    doc.roundedRect(14, 30, 182, 38, 2, 2, 'FD');
 
     // Left Column
-    doc.setTextColor(30, 27, 75);
-    doc.setFontSize(9);
+    doc.setTextColor(81, 6, 27);
+    doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
     doc.text('Customer Name:', 18, 37);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
     doc.text(user.fullName || 'Aarav Mehta', 50, 37);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Customer ID:', 18, 43);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
     doc.text(user.userId || user.id || 'NX@MEHTA001', 50, 43);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Account Number:', 18, 49);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
     doc.text(acc.accountNumber || '1000987654', 50, 49);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Account Scheme:', 18, 55);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
     doc.text(((acc.type || 'Savings') + ' Account').toUpperCase(), 50, 55);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Registered Mobile:', 18, 61);
     doc.setFont('helvetica', 'normal');
+    doc.setTextColor(30, 41, 59);
     doc.text(user.mobileNumber || '+91 9820123456', 50, 61);
 
     // Right Column
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Home Branch:', 110, 37);
     doc.setFont('helvetica', 'normal');
-    doc.text(branchName.substring(0, 34), 140, 37);
+    doc.setTextColor(30, 41, 59);
+    doc.text(rawBranch, 138, 37);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('IFSC Code:', 110, 43);
     doc.setFont('helvetica', 'normal');
-    doc.text(ifsc, 140, 43);
+    doc.setTextColor(30, 41, 59);
+    doc.text(ifsc, 138, 43);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Statement Period:', 110, 49);
     doc.setFont('helvetica', 'normal');
-    doc.text(data.periodLabel || 'Current Month', 140, 49);
+    doc.setTextColor(30, 41, 59);
+    doc.text(data.periodLabel || 'Current Month (August 2026)', 138, 49);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Generated On:', 110, 55);
     doc.setFont('helvetica', 'normal');
-    doc.text(data.generatedAt || new Date().toLocaleDateString(), 140, 55);
+    doc.setTextColor(30, 41, 59);
+    doc.text(data.generatedAt || new Date().toLocaleDateString('en-IN'), 138, 55);
 
+    doc.setTextColor(81, 6, 27);
     doc.setFont('helvetica', 'bold');
     doc.text('Currency:', 110, 61);
     doc.setFont('helvetica', 'normal');
-    doc.text('INR (Indian Rupee - Rs.)', 140, 61);
+    doc.setTextColor(30, 41, 59);
+    doc.text('INR (Indian Rupee - Rs.)', 138, 61);
 
     // 3. Summary Metrics Ribbon
-    doc.setFillColor(243, 232, 255);
-    doc.setDrawColor(216, 180, 254);
-    doc.rect(14, 71, 182, 12, 'FD');
+    doc.setFillColor(253, 247, 239);
+    doc.setDrawColor(248, 223, 197);
+    doc.rect(14, 71, 182, 11, 'FD');
 
     doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(76, 29, 149);
+    doc.setTextColor(81, 6, 27);
     doc.text(`Opening Balance: Rs. ${data.openingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 18, 78);
     doc.text(`Total Dr.: Rs. ${data.totalDebits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 74, 78);
     doc.text(`Total Cr.: Rs. ${data.totalCredits.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 120, 78);
     doc.text(`Closing: Rs. ${data.closingBalance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 160, 78);
 
-    // 4. AutoTable in exact requested format: Date | Particulars | Dr. | Cr. | Balance
+    // 4. AutoTable in requested format: Date | Particulars | Dr. | Cr. | Balance
     const tableBody = data.rows.map(r => [
       r.date,
       r.particulars,
@@ -5234,19 +6593,19 @@ window.downloadCustomerStatementPDF = function() {
     ]);
 
     doc.autoTable({
-      startY: 86,
+      startY: 85,
       head: [['Date', 'Particulars', 'Dr. (Rs.)', 'Cr. (Rs.)', 'Balance (Rs.)']],
       body: tableBody,
       theme: 'grid',
       styles: {
-        fontSize: 8.5,
-        cellPadding: 3,
+        fontSize: 8,
+        cellPadding: 2.8,
         textColor: [30, 41, 59],
-        lineColor: [226, 232, 240],
+        lineColor: [248, 223, 197],
         lineWidth: 0.2
       },
       headStyles: {
-        fillColor: [124, 58, 237], // #7c3aed
+        fillColor: [81, 6, 27], // SBI Deep Maroon #51061b
         textColor: [255, 255, 255],
         fontStyle: 'bold',
         halign: 'left'
@@ -5255,36 +6614,36 @@ window.downloadCustomerStatementPDF = function() {
         0: { cellWidth: 26, halign: 'left' },
         1: { cellWidth: 80, halign: 'left' },
         2: { cellWidth: 24, halign: 'right', textColor: [220, 38, 38] }, // Red for Dr.
-        3: { cellWidth: 24, halign: 'right', textColor: [5, 150, 105] }, // Green for Cr.
-        4: { cellWidth: 28, halign: 'right', fontStyle: 'bold' }
+        3: { cellWidth: 24, halign: 'right', textColor: [22, 101, 52] }, // Green for Cr.
+        4: { cellWidth: 28, halign: 'right', fontStyle: 'bold', textColor: [81, 6, 27] }
       },
       alternateRowStyles: {
-        fillColor: [250, 245, 255]
+        fillColor: [254, 248, 242]
       },
       margin: { left: 14, right: 14 }
     });
 
     // 5. Official Bank Footer
-    const finalY = doc.lastAutoTable.finalY + 12;
+    const finalY = doc.lastAutoTable.finalY + 10;
     if (finalY < 270) {
-      doc.setFontSize(7.5);
+      doc.setFontSize(7.2);
       doc.setFont('helvetica', 'normal');
-      doc.setTextColor(100, 116, 139);
+      doc.setTextColor(120, 53, 69);
       doc.text('This is a system-generated electronic account statement from Bharatiya Sarvodaya Bank Core Banking Server.', 14, finalY);
-      doc.text('No physical signature is required under the Information Technology Act, 2000. For discrepancies, call 1800-SARVODAYA.', 14, finalY + 4);
+      doc.text('No physical signature is required under the Information Technology Act, 2000. For queries, contact your home branch.', 14, finalY + 4);
 
-      doc.setDrawColor(226, 232, 240);
+      doc.setDrawColor(248, 223, 197);
       doc.line(14, finalY + 7, 196, finalY + 7);
 
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(124, 58, 237);
-      doc.text(`Verification Ref: BSB-STMT-${acc.accountNumber || '1000987654'}-${Date.now().toString(36).toUpperCase()}`, 14, finalY + 12);
+      doc.setTextColor(81, 6, 27);
+      doc.text(`Verification Ref: SBI-STMT-${acc.accountNumber || '1000987654'}-${Date.now().toString(36).toUpperCase()}`, 14, finalY + 12);
       doc.text('Page 1 of 1', 196, finalY + 12, { align: 'right' });
     }
 
-    // Trigger instant download
-    doc.save(`BSB_Statement_${acc.accountNumber || '1000987654'}_${new Date().toISOString().slice(0, 10)}.pdf`);
-    showToast('PDF Statement downloaded successfully! 📄', 'success');
+    // Trigger instant download with requested SBI naming convention
+    doc.save(`SBI_Statement_${acc.accountNumber || '1000987654'}_${new Date().toISOString().slice(0, 10)}.pdf`);
+    showToast('PDF Statement downloaded successfully.', 'success');
   } catch (err) {
     console.error('PDF Generation Error:', err);
     showToast('Failed to generate PDF. Opening print view...', 'warning');
@@ -5308,7 +6667,7 @@ window.exportCustomerStatementCSV = function() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', `BSB_Statement_${data.account?.accountNumber || '1000987654'}_${new Date().toISOString().slice(0, 10)}.csv`);
+  link.setAttribute('download', `SBI_Statement_${data.account?.accountNumber || '1000987654'}_${new Date().toISOString().slice(0, 10)}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -5623,7 +6982,7 @@ async function renderBranchCustomersView(container) {
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 14px;">
           <div>
             <h2 style="margin: 0; display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 800;">
-              🏢 Branch Customer Database
+              Branch Customer Database
             </h2>
             <p style="margin: 3px 0 0 0; color: var(--text-secondary); font-size: 0.84rem;">
               Scoped Customer Registry & Accounts for <strong>${branch.name || 'HQ Branch'} (${branch.code || ''})</strong>
@@ -5632,7 +6991,7 @@ async function renderBranchCustomersView(container) {
           
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <button class="btn btn-primary" onclick="openBranchCustomerModal()" style="padding: 8px 16px; font-weight: 700; border-radius: 8px; background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #fff; box-shadow: 0 4px 12px rgba(37,99,235,0.25); border: none; cursor: pointer;">
-              ➕ Create Account / Onboard Customer
+              + Create Account / Onboard Customer
             </button>
 
             ${isSuperAdmin && branches.length > 0 ? `
@@ -5680,7 +7039,7 @@ async function renderBranchCustomersView(container) {
 
           <!-- Card 4: Branch Customer Deposits -->
           <div style="background: rgba(16, 185, 129, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.12);">
-            <span style="font-size: 0.68rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Branch Customer Deposits</span>
+            <span style="font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Branch Customer Deposits</span>
             <div style="font-size: 0.98rem; font-weight: 800; color: #059669; margin-top: 2px;">₹${(data.totalDeposits || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
           </div>
         </div>
@@ -5689,7 +7048,7 @@ async function renderBranchCustomersView(container) {
         <div style="margin-top: 4px;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <h3 style="margin: 0; font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-              👥 Customers Managed by Branch
+              Customers Managed by Branch
             </h3>
             <span style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 600;">Showing ${customers.length} records</span>
           </div>
@@ -5723,8 +7082,8 @@ async function renderBranchCustomersView(container) {
                     </td>
                     <td style="padding: 10px 12px; white-space: nowrap;">
                       <div style="display: flex; gap: 6px; align-items: center;">
-                        <button style="padding: 4px 12px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; cursor: pointer;" onclick="viewCustomerProfile('${c.id}')">👁️ Profile</button>
-                        <button style="padding: 4px 12px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; cursor: pointer;" onclick="viewCustomerAccounts('${c.id}')">💳 Accounts</button>
+                        <button style="padding: 4px 12px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; cursor: pointer;" onclick="viewCustomerProfile('${c.id}')">Profile</button>
+                        <button style="padding: 4px 12px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #e0f2fe; color: #0284c7; border: 1px solid #7dd3fc; cursor: pointer;" onclick="viewCustomerAccounts('${c.id}')">Accounts</button>
                       </div>
                     </td>
                   </tr>
@@ -5791,10 +7150,10 @@ window.viewCustomerProfile = async function(customerId) {
       <div id="branch-customer-modal-container" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999;" onclick="if(event.target===this) closeBranchCustomerModal()">
         <div style="background: var(--bg-card, #ffffff); width: 90%; max-width: 650px; border-radius: 12px; padding: 24px; color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 10px;">
-            <h2 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">👤 Customer Profile - ${cust.fullName}</h2>
+            <h2 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">Customer Profile - ${cust.fullName}</h2>
             <div style="display: flex; align-items: center; gap: 10px;">
               <button type="button" onclick="toggleInlineProfileEdit()" style="padding: 5px 12px; font-weight: 700; font-size: 0.78rem; border-radius: 6px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; cursor: pointer; display: flex; align-items: center; gap: 4px;">
-                ✏️ Edit Profile
+                Edit Profile
               </button>
               <button type="button" onclick="closeBranchCustomerModal()" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #64748b; font-weight: bold;">✕</button>
             </div>
@@ -5817,7 +7176,7 @@ window.viewCustomerProfile = async function(customerId) {
 
           <!-- Inline Profile Edit Box (Hidden by default) -->
           <div id="inline-profile-edit-box" class="hidden" style="margin-bottom: 15px; background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
-            <h4 style="margin: 0 0 10px 0; font-size: 0.88rem; font-weight: 700; color: #0f172a;">✏️ Edit Customer Profile (Email, Phone No & Address)</h4>
+            <h4 style="margin: 0 0 10px 0; font-size: 0.88rem; font-weight: 700; color: #0f172a;">Edit Customer Profile (Email, Phone No & Address)</h4>
             <form id="inline-edit-form" onsubmit="submitInlineProfileEdit(event, '${cust.id}')">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
                 <div>
@@ -5835,7 +7194,7 @@ window.viewCustomerProfile = async function(customerId) {
               </div>
               <div style="display: flex; gap: 8px; justify-content: flex-end;">
                 <button type="button" onclick="toggleInlineProfileEdit()" style="padding: 5px 12px; font-size: 0.78rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer;">Cancel</button>
-                <button type="submit" style="padding: 5px 16px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; border: none; background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #fff; cursor: pointer;">💾 Save Changes</button>
+                <button type="submit" style="padding: 5px 16px; font-size: 0.78rem; font-weight: 700; border-radius: 6px; border: none; background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #fff; cursor: pointer;">Save Changes</button>
               </div>
             </form>
           </div>
@@ -5865,54 +7224,63 @@ window.viewCustomerAccounts = async function(customerId) {
     if (!cust) return showToast('Customer record not found.', 'danger');
 
     const modalHtml = `
-      <div id="branch-customer-modal-container" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999;" onclick="if(event.target===this) closeBranchCustomerModal()">
-        <div style="background: var(--bg-card, #ffffff); width: 90%; max-width: 680px; border-radius: 12px; padding: 24px; color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 10px;">
-            <h2 style="margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">💳 Branch Accounts - ${cust.fullName}</h2>
-            <button type="button" onclick="closeBranchCustomerModal()" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #64748b; font-weight: bold;">✕</button>
+      <div id="branch-customer-modal-container" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(2px);" onclick="if(event.target===this) closeBranchCustomerModal()">
+        <div style="background: var(--bg-card, #ffffff); width: 92%; max-width: 820px; border-radius: 12px; padding: 20px 24px; color: var(--text-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 8px;">
+            <h2 style="margin: 0; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">Branch Accounts - ${cust.fullName}</h2>
+            <button type="button" onclick="closeBranchCustomerModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #64748b; font-weight: bold; line-height: 1;">✕</button>
           </div>
 
-          <div style="margin-bottom: 20px;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.82rem;">
+          <div style="margin-bottom: 12px; font-size: 0.75rem; color: #475569; background: #f0f9ff; padding: 6px 12px; border-radius: 6px; border: 1px solid #bae6fd; display: flex; align-items: center; gap: 6px;">
+            <span>Click on any <strong>Account Number</strong> below to view its complete <strong>Transaction History & Statement Ledger</strong>.</span>
+          </div>
+
+          <div style="margin-bottom: 16px; overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
               <thead>
                 <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; text-align: left;">
-                  <th style="padding: 10px 12px; font-weight: 700; color: #475569;">ACCOUNT TYPE</th>
-                  <th style="padding: 10px 12px; font-weight: 700; color: #475569;">ACCOUNT NUMBER</th>
-                  <th style="padding: 10px 12px; font-weight: 700; color: #475569;">MOP</th>
-                  <th style="padding: 10px 12px; font-weight: 700; color: #475569;">BALANCE</th>
-                  <th style="padding: 10px 12px; font-weight: 700; color: #475569; white-space: nowrap;">ACCOUNT ACTIONS</th>
+                  <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; white-space: nowrap; text-transform: uppercase;">ACCOUNT TYPE</th>
+                  <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; white-space: nowrap; text-transform: uppercase;">ACCOUNT NUMBER</th>
+                  <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; white-space: nowrap; text-transform: uppercase;">MOP</th>
+                  <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; white-space: nowrap; text-transform: uppercase;">BALANCE</th>
+                  <th style="padding: 8px 10px; font-size: 0.7rem; font-weight: 700; color: #475569; white-space: nowrap; text-transform: uppercase;">ACCOUNT ACTIONS</th>
                 </tr>
               </thead>
               <tbody>
                 ${(cust.accounts && cust.accounts.length > 0) ? cust.accounts.map(a => `
                   <tr style="border-bottom: 1px solid #f1f5f9;">
-                    <td style="padding: 10px 12px;"><span style="font-weight: 700; color: #0284c7; text-transform: uppercase;">${a.type}</span></td>
-                    <td style="padding: 10px 12px;"><b style="font-family: monospace;">${a.accountNumber}</b></td>
-                    <td style="padding: 10px 12px;"><span style="background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 10px; font-weight: 600; font-size: 0.74rem;">${a.mopType || 'Self'}</span></td>
-                    <td style="padding: 10px 12px; color: #059669; font-weight: 800;">₹${parseFloat(a.balance).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
-                    <td style="padding: 10px 12px; white-space: nowrap;">
-                      <div style="display: flex; gap: 6px; align-items: center;">
+                    <td style="padding: 8px 10px; white-space: nowrap; vertical-align: middle;"><span style="font-weight: 700; color: #0284c7; text-transform: uppercase; font-size: 0.78rem;">${a.type}</span></td>
+                    <td style="padding: 8px 10px; white-space: nowrap; vertical-align: middle;">
+                      <button type="button" onclick="openAccountTransactionHistory('${a.accountNumber}', '${cust.id}')" title="Click to view full transaction ledger & statement" style="background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.25); color: #1d4ed8; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 0.8rem; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; transition: all 0.15s ease;" onmouseover="this.style.background='#dbeafe'; this.style.borderColor='#93c5fd';" onmouseout="this.style.background='rgba(37,99,235,0.08)'; this.style.borderColor='rgba(37,99,235,0.25)';">
+                        <span>${a.accountNumber}</span>
+                        <span style="font-size: 0.68rem; color: #2563eb; font-weight: 600; background: #ffffff; padding: 1px 5px; border-radius: 4px; border: 1px solid #bfdbfe; white-space: nowrap;">View History</span>
+                      </button>
+                    </td>
+                    <td style="padding: 8px 10px; white-space: nowrap; vertical-align: middle;"><span style="background: #e0e7ff; color: #4338ca; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 0.72rem; display: inline-block; white-space: nowrap;">${a.mopType || 'Self'}</span></td>
+                    <td style="padding: 8px 10px; color: #059669; font-weight: 800; font-size: 0.85rem; white-space: nowrap; vertical-align: middle;">₹${parseFloat(a.balance).toLocaleString('en-IN', {minimumFractionDigits: 2})}</td>
+                    <td style="padding: 8px 10px; white-space: nowrap; vertical-align: middle;">
+                      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: nowrap;">
                         ${cust.status === 'frozen' ? `
-                          <button type="button" style="padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; cursor: pointer;" onclick="toggleCustomerFreezeAction('${cust.id}', 'frozen')">🔓 Unfreeze</button>
+                          <button type="button" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 600; border-radius: 6px; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; cursor: pointer; white-space: nowrap;" onclick="toggleCustomerFreezeAction('${cust.id}', 'frozen')">Unfreeze</button>
                         ` : `
-                          <button type="button" style="padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; cursor: pointer;" onclick="toggleCustomerFreezeAction('${cust.id}', 'active')">🔒 Freeze</button>
+                          <button type="button" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 600; border-radius: 6px; background: #fffbeb; color: #b45309; border: 1px solid #fde68a; cursor: pointer; white-space: nowrap;" onclick="toggleCustomerFreezeAction('${cust.id}', 'active')">Freeze</button>
                         `}
-                        <button type="button" style="padding: 4px 10px; font-size: 0.75rem; font-weight: 600; border-radius: 6px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; cursor: pointer;" onclick="deleteCustomerAction('${cust.id}', 'Account ${a.accountNumber} (${cust.fullName})')">🗑️ Delete</button>
+                        <button type="button" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 600; border-radius: 6px; background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; cursor: pointer; white-space: nowrap;" onclick="deleteCustomerAction('${cust.id}', 'Account ${a.accountNumber} (${cust.fullName})')">Delete</button>
                       </div>
                     </td>
                   </tr>
                 `).join('') : `
-                  <tr><td colSpan="5" style="text-align: center; padding: 18px; color: #64748b;">No branch accounts linked to this customer.</td></tr>
+                  <tr><td colSpan="5" style="text-align: center; padding: 18px; color: #64748b; font-size: 0.78rem;">No branch accounts linked to this customer.</td></tr>
                 `}
               </tbody>
             </table>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 12px 16px; border-radius: 8px; border: 1px solid #e2e8f0;">
-            <div style="font-size: 0.8rem; font-weight: 600; color: #475569;">
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 8px 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 0.76rem; font-weight: 600; color: #475569;">
               Account Status: <span style="color: ${cust.status === 'active' ? '#15803d' : '#b91c1c'}; font-weight: 700;">● ${(cust.status || 'active').toUpperCase()}</span>
             </div>
-            <button type="button" onclick="closeBranchCustomerModal()" class="btn btn-secondary" style="padding: 6px 18px; font-weight: 600; cursor: pointer;">Close</button>
+            <button type="button" onclick="closeBranchCustomerModal()" class="btn btn-secondary" style="padding: 5px 16px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Close</button>
           </div>
         </div>
       </div>
@@ -5923,6 +7291,206 @@ window.viewCustomerAccounts = async function(customerId) {
   } catch (err) {
     showToast(err.message || 'Failed to fetch customer accounts', 'danger');
   }
+};
+
+window.openAccountTransactionHistory = async function(accountNumber, customerId) {
+  try {
+    let acc = {};
+    let cust = {};
+    let txList = [];
+
+    try {
+      const data = await apiCall(`/api/accounts/${accountNumber}/transactions`, 'GET', null, true);
+      if (data && data.account) {
+        acc = data.account;
+        cust = data.customer || {};
+        txList = data.transactions || [];
+      }
+    } catch (apiErr) {
+      console.warn('Direct account transactions endpoint fallback:', apiErr.message);
+      const activeBranchId = state.selectedBranchId || state.user?.branchId || 'b-delhi';
+      const custData = await apiCall(`/api/branches/${activeBranchId}/customers`, 'GET', null, true).catch(() => apiCall('/api/branch-customers', 'GET', null, true)).catch(() => ({ customers: [] }));
+      const foundCust = (custData.customers || []).find(c => (c.accounts || []).some(a => a.accountNumber === accountNumber || a.id === accountNumber) || c.id === customerId || c.userId === customerId);
+      if (foundCust) {
+        cust = foundCust;
+        acc = (foundCust.accounts || []).find(a => a.accountNumber === accountNumber || a.id === accountNumber) || (foundCust.accounts && foundCust.accounts[0]) || { accountNumber, balance: foundCust.balance || 0, type: 'SAVINGS' };
+      }
+    }
+
+    if (!acc.accountNumber) acc.accountNumber = accountNumber;
+    if (!acc.branchName) acc.branchName = 'Connaught Place Branch';
+    if (!acc.ifscCode) acc.ifscCode = 'BSB0000DEL1';
+    if (!acc.micrCode) acc.micrCode = '110024001';
+
+    window._currentAccountTransactionsCache = { acc, cust, txList };
+
+    const modalHtml = `
+      <div id="account-tx-modal-container" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(4px);" onclick="if(event.target===this) closeAccountTxModal()">
+        <div style="background: var(--bg-card, #ffffff); width: 95%; max-width: 960px; max-height: 90vh; display: flex; flex-direction: column; border-radius: 12px; padding: 16px 20px; color: var(--text-primary); box-shadow: 0 20px 45px rgba(0,0,0,0.35); overflow: hidden;">
+          
+          <!-- Header Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; border-bottom: 1px solid var(--border-color, #e2e8f0); padding-bottom: 8px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <h2 style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">
+                  Transaction History & Statement Ledger
+                </h2>
+              </div>
+              <p style="margin: 2px 0 0 0; color: #64748b; font-size: 0.74rem;">
+                Account No: <strong style="font-family: monospace; color: #1d4ed8; font-size: 0.82rem;">${acc.accountNumber}</strong> &bull; Customer: <strong>${cust.fullName || 'Customer'}</strong> (${cust.userId || ''}) &bull; ${acc.branchName || 'Connaught Place Branch'}
+              </p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              ${customerId ? `
+                <button type="button" onclick="closeAccountTxModal(); viewCustomerAccounts('${customerId}')" style="padding: 4px 10px; font-size: 0.72rem; font-weight: 700; border-radius: 6px; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; cursor: pointer; white-space: nowrap;">
+                  ← Back to Accounts
+                </button>
+              ` : ''}
+              <button type="button" onclick="closeAccountTxModal()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #64748b; font-weight: bold; line-height: 1;">✕</button>
+            </div>
+          </div>
+
+          <!-- Account Overview Cards (4 compact stats) -->
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px;">
+            <div style="background: rgba(16, 185, 129, 0.06); padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.2);">
+              <span style="font-size: 0.62rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;">Available Balance</span>
+              <div style="font-size: 0.95rem; font-weight: 800; color: #047857; margin-top: 1px; white-space: nowrap;">
+                ₹${(parseFloat(acc.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+              </div>
+            </div>
+            <div style="background: rgba(37, 99, 235, 0.06); padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(37, 99, 235, 0.2);">
+              <span style="font-size: 0.62rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;">Account Type / MOP</span>
+              <div style="font-size: 0.78rem; font-weight: 800; color: #1e40af; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${(acc.type || 'SAVINGS').toUpperCase()} • ${acc.mopType || 'Self'}">
+                ${(acc.type || 'SAVINGS').toUpperCase()} &bull; ${acc.mopType || 'Self'}
+              </div>
+            </div>
+            <div style="background: rgba(99, 102, 241, 0.06); padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(99, 102, 241, 0.2);">
+              <span style="font-size: 0.62rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;">IFSC & MICR Code</span>
+              <div style="font-size: 0.74rem; font-family: monospace; font-weight: 700; color: #4338ca; margin-top: 1px; white-space: nowrap;">
+                ${acc.ifscCode || 'BSB0000DEL1'} / ${acc.micrCode || '110024001'}
+              </div>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.06); padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(245, 158, 11, 0.2);">
+              <span style="font-size: 0.62rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;">Status & Activity</span>
+              <div style="font-size: 0.76rem; font-weight: 800; color: #b45309; margin-top: 1px; white-space: nowrap;">
+                ● ${(acc.status || 'ACTIVE').toUpperCase()} &bull; ${txList.length} Txns
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; background: #f8fafc; padding: 6px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; align-items: center; gap: 6px; flex: 1; min-width: 200px;">
+              <input type="text" id="acc-tx-search-input" placeholder="Search by description, reference ID or category..." oninput="filterAccountTxTable()" style="width: 100%; padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; border: 1px solid #cbd5e1; background: #ffffff;">
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <select id="acc-tx-type-filter" onchange="filterAccountTxTable()" style="padding: 4px 8px; font-size: 0.74rem; border-radius: 6px; border: 1px solid #cbd5e1; font-weight: 600; background: #ffffff; cursor: pointer;">
+                <option value="ALL">All Entries</option>
+                <option value="CR">Credits Only (Deposits)</option>
+                <option value="DR">Debits Only (Withdrawals / Transfers)</option>
+              </select>
+              <button type="button" onclick="printAccountStatement()" style="padding: 4px 10px; font-size: 0.74rem; font-weight: 700; border-radius: 6px; background: #047857; color: #ffffff; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
+                Print Statement
+              </button>
+            </div>
+          </div>
+
+          <!-- Transaction Ledger Table Container -->
+          <div style="flex: 1; overflow-y: auto; max-height: 380px; border: 1px solid #e2e8f0; border-radius: 6px;">
+            <table id="acc-tx-table" style="width: 100%; border-collapse: collapse; font-size: 0.74rem;">
+              <thead style="position: sticky; top: 0; z-index: 5;">
+                <tr style="background: #f1f5f9; border-bottom: 1px solid #cbd5e1; text-align: left;">
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #334155; text-transform: uppercase; white-space: nowrap;">DATE & TIME</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #334155; text-transform: uppercase; white-space: nowrap;">TXN REF / ID</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #334155; text-transform: uppercase; white-space: nowrap;">PARTICULARS / DESCRIPTION</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #334155; text-transform: uppercase; white-space: nowrap;">TYPE</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #b91c1c; text-transform: uppercase; text-align: right; white-space: nowrap;">DEBIT (DR)</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #047857; text-transform: uppercase; text-align: right; white-space: nowrap;">CREDIT (CR)</th>
+                  <th style="padding: 6px 8px; font-size: 0.68rem; font-weight: 700; color: #334155; text-transform: uppercase; text-align: center; white-space: nowrap;">STATUS</th>
+                </tr>
+              </thead>
+              <tbody id="acc-tx-tbody">
+                ${txList.length === 0 ? `
+                  <tr style="border-bottom: 1px solid #f1f5f9;">
+                    <td style="padding: 6px 8px; color: #64748b; white-space: nowrap;">${new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</td>
+                    <td style="padding: 6px 8px; white-space: nowrap;"><code style="font-size: 0.7rem; color: #0284c7; background: #e0f2fe; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">TXN-INIT-OPEN</code></td>
+                    <td style="padding: 6px 8px; font-size: 0.74rem;"><b>Initial Core Account Deposit & Opening Ledger</b></td>
+                    <td style="padding: 6px 8px; white-space: nowrap;"><span style="background: #f0fdf4; color: #15803d; padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 0.68rem;">Deposit</span></td>
+                    <td style="padding: 6px 8px; text-align: right; color: #94a3b8; white-space: nowrap;">-</td>
+                    <td style="padding: 6px 8px; text-align: right; color: #047857; font-weight: 800; font-size: 0.78rem; white-space: nowrap;">₹${(parseFloat(acc.balance) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                    <td style="padding: 6px 8px; text-align: center; white-space: nowrap;"><span style="background: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 700;">Completed</span></td>
+                  </tr>
+                ` : txList.map(t => {
+                  const isDebit = t.direction === 'DR';
+                  const dStr = new Date(t.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+                  return `
+                    <tr style="border-bottom: 1px solid #f1f5f9;" data-type="${t.direction}" data-text="${(t.description + ' ' + t.referenceNumber + ' ' + t.category).toLowerCase()}">
+                      <td style="padding: 6px 8px; color: #475569; white-space: nowrap;">${dStr}</td>
+                      <td style="padding: 6px 8px; white-space: nowrap;"><code style="font-size: 0.7rem; color: #0284c7; background: #f0f9ff; padding: 2px 6px; border-radius: 4px; border: 1px solid #bae6fd; white-space: nowrap;">${t.referenceNumber || t.id}</code></td>
+                      <td style="padding: 6px 8px;">
+                        <div style="font-weight: 600; color: #0f172a; font-size: 0.74rem;">${t.description}</div>
+                        <div style="font-size: 0.68rem; color: #64748b;">Category: ${t.category}</div>
+                      </td>
+                      <td style="padding: 6px 8px; white-space: nowrap;"><span style="background: ${isDebit ? '#fef2f2' : '#f0fdf4'}; color: ${isDebit ? '#b91c1c' : '#15803d'}; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.68rem;">${isDebit ? 'DEBIT' : 'CREDIT'}</span></td>
+                      <td style="padding: 6px 8px; text-align: right; color: #b91c1c; font-weight: 700; font-size: 0.76rem; white-space: nowrap;">${isDebit ? '₹' + t.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '-'}</td>
+                      <td style="padding: 6px 8px; text-align: right; color: #047857; font-weight: 800; font-size: 0.78rem; white-space: nowrap;">${!isDebit ? '₹' + t.amount.toLocaleString('en-IN', { minimumFractionDigits: 2 }) : '-'}</td>
+                      <td style="padding: 6px 8px; text-align: center; white-space: nowrap;"><span style="background: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 700;">${t.status}</span></td>
+                    </tr>
+                  `;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Bottom Footer Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 8px;">
+            <span style="font-size: 0.72rem; color: #64748b;">
+              Authenticated Core Banking (CBS) Statement Ledger &bull; Real-time audit logs synced.
+            </span>
+            <button type="button" onclick="closeAccountTxModal()" class="btn btn-secondary" style="padding: 4px 14px; font-size: 0.74rem; font-weight: 600; cursor: pointer;">
+              Close Window
+            </button>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    let existing = document.getElementById('account-tx-modal-container');
+    if (existing) existing.remove();
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+  } catch (err) {
+    showToast(err.message || 'Failed to retrieve account transactions', 'danger');
+  }
+};
+
+window.closeAccountTxModal = function() {
+  const modal = document.getElementById('account-tx-modal-container');
+  if (modal) modal.remove();
+};
+
+window.filterAccountTxTable = function() {
+  const query = (document.getElementById('acc-tx-search-input')?.value || '').toLowerCase().trim();
+  const typeFilter = document.getElementById('acc-tx-type-filter')?.value || 'ALL';
+  const rows = document.querySelectorAll('#acc-tx-tbody tr');
+
+  rows.forEach(r => {
+    const rowType = r.getAttribute('data-type');
+    const rowText = r.getAttribute('data-text') || '';
+    const matchType = (typeFilter === 'ALL' || rowType === typeFilter);
+    const matchQuery = !query || rowText.includes(query);
+    if (matchType && matchQuery) {
+      r.style.display = '';
+    } else {
+      r.style.display = 'none';
+    }
+  });
+};
+
+window.printAccountStatement = function() {
+  const cache = window._currentAccountTransactionsCache;
+  if (!cache) return showToast('Statement data not loaded.', 'warning');
+  window.print();
 };
 
 window.editCustomerModal = async function(customerId) {

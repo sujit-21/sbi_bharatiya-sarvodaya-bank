@@ -17,6 +17,8 @@ const kycRoutes = require(path.join(rootBackend, 'routes/kycRoutes'));
 const reportRoutes = require(path.join(rootBackend, 'routes/reportRoutes'));
 const systemController = require(path.join(rootBackend, 'controllers/systemController'));
 const authController = require(path.join(rootBackend, 'controllers/authController'));
+const dashboardController = require(path.join(rootBackend, 'controllers/dashboardController'));
+const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -34,6 +36,12 @@ app.use('/api/', apiLimiter);
 app.use('/api/', csrfProtection);
 app.use('/api/', auditLogger);
 
+// Enforce Headquarter Portal Context
+app.use((req, res, next) => {
+  req.portalType = 'headquarter';
+  next();
+});
+
 // System Health checks
 app.get('/api/health', systemController.getHealth);
 app.get('/api/status', systemController.getStatus);
@@ -44,6 +52,10 @@ app.post('/api/hq/login', (req, res, next) => {
   req.body.role = 'Super Admin';
   next();
 }, authController.login);
+
+// Account Transactions History Endpoint
+app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
+app.get('/api/dashboard/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/kyc', kycRoutes);

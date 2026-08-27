@@ -4,8 +4,9 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
   const getRoleLinks = () => {
     const allAvailableLinks = [
       { id: 'summary', name: 'Core Summary', icon: '🏦' },
-      { id: 'customer-onboarding', name: 'Onboard Customer', icon: '👤' },
+      { id: 'deposit-withdraw', name: 'Deposits & Withdrawals', icon: '💳' },
       { id: 'branch-customers', name: 'Branch Customers', icon: '👥' },
+      { id: 'customer-onboarding', name: 'Onboard Customer', icon: '👤' },
       { id: 'users', name: 'User Registry', icon: '👥' },
       { id: 'kyc', name: 'KYC Compliance', icon: '🪪' },
       { id: 'role-manager', name: 'Role Manager', icon: '🛡️' },
@@ -18,7 +19,7 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
       { id: 'employees', name: 'Branch Tellers', icon: '👥' },
       { id: 'treasury', name: 'Vault & Cash', icon: '💰' },
       { id: 'customers', name: 'Accounts Assistance', icon: '👥' },
-      { id: 'transactions', name: 'Assist Transaction', icon: '💵' },
+      { id: 'transactions', name: 'Deposits & Withdrawals', icon: '💵' },
       { id: 'crm', name: 'Leads & Sales', icon: '🎯' },
       { id: 'tickets', name: 'Customer Tickets', icon: '🎫' },
       { id: 'dms', name: 'Document Vault', icon: '📁' },
@@ -40,16 +41,17 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
         if (!userMods.includes('customer-registry')) userMods.push('customer-registry');
       }
       if (role.includes('manager')) {
+        if (!userMods.includes('deposit-withdraw')) userMods.splice(1, 0, 'deposit-withdraw');
         if (!userMods.includes('branch-customers')) userMods.push('branch-customers');
         const custIdx = userMods.indexOf('customer-registry');
         if (custIdx !== -1) userMods.splice(custIdx, 1);
       }
       if (role.includes('employee') || role.includes('teller')) {
+        if (!userMods.includes('deposit-withdraw')) userMods.splice(1, 0, 'deposit-withdraw');
         if (!userMods.includes('customer-onboarding')) userMods.push('customer-onboarding');
+        if (!userMods.includes('branch-customers')) userMods.push('branch-customers');
         const custIdx = userMods.indexOf('customer-registry');
         if (custIdx !== -1) userMods.splice(custIdx, 1);
-        const branchCustIdx = userMods.indexOf('branch-customers');
-        if (branchCustIdx !== -1) userMods.splice(branchCustIdx, 1);
         const accAssistIdx = userMods.indexOf('customers');
         if (accAssistIdx !== -1) userMods.splice(accAssistIdx, 1);
       }
@@ -60,11 +62,11 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
     if (role.includes('super') || role.includes('admin')) {
       return allAvailableLinks; // Super Admin sees all features
     } else if (role.includes('manager')) {
-      // Branch Manager sees Branch Customers, NOT HQ Customer Registry
-      return allAvailableLinks.filter(l => ['summary', 'branch-customers', 'users', 'kyc', 'approvals', 'employees', 'treasury', 'ledger'].includes(l.id));
+      // Branch Manager sees Branch Customers, Deposits & Withdrawals, etc.
+      return allAvailableLinks.filter(l => ['summary', 'deposit-withdraw', 'branch-customers', 'users', 'kyc', 'approvals', 'employees', 'treasury', 'ledger'].includes(l.id));
     } else if (role.includes('employee') || role.includes('teller')) {
-      // Employee can Onboard Customers, but DOES NOT see full branch customer registry table or duplicate accounts assistance
-      return allAvailableLinks.filter(l => ['summary', 'customer-onboarding', 'transactions', 'crm', 'tickets', 'dms'].includes(l.id));
+      // Employee performs Deposits & Withdrawals, Customer Onboarding, CRM, etc.
+      return allAvailableLinks.filter(l => ['summary', 'deposit-withdraw', 'branch-customers', 'customer-onboarding', 'crm', 'tickets', 'dms'].includes(l.id));
     } else if (role.includes('customer')) {
       return allAvailableLinks.filter(l => ['summary', 'transfers', 'beneficiaries', 'products', 'assistant', 'settings'].includes(l.id));
     } else if (role.includes('merchant')) {
@@ -81,13 +83,13 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-header" style={{ height: '68px', minHeight: '68px', padding: '0 12px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
-        <div className="sidebar-brand" style={{ padding: '6px 12px', background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', borderRadius: '10px', border: '1px solid #fed7aa', display: 'flex', flexDirection: 'column', gap: '2px', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ fontSize: '1.05rem', fontWeight: 900, letterSpacing: '2.5px', color: '#ea580c' }}>BSB</span>
-            <span style={{ fontSize: '0.62rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#ffffff', color: '#ea580c', border: '1px solid #ffedd5', letterSpacing: '0.5px', boxShadow: '0 1px 3px rgba(234,88,12,0.1)' }}>BANK</span>
+      <div className="sidebar-header" style={{ height: '60px', minHeight: '60px', padding: '0 8px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
+        <div className="sidebar-brand" style={{ padding: '5px 8px', background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', borderRadius: '8px', border: '1px solid #fed7aa', display: 'flex', flexDirection: 'column', gap: '1px', width: '100%' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+            <span style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '2px', color: '#ea580c' }}>BSB</span>
+            <span style={{ fontSize: '0.55rem', fontWeight: 800, padding: '1px 5px', borderRadius: '4px', background: '#ffffff', color: '#ea580c', border: '1px solid #ffedd5', letterSpacing: '0.5px', boxShadow: '0 1px 3px rgba(234,88,12,0.1)' }}>BANK</span>
           </div>
-          <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.8px', textTransform: 'uppercase', color: '#7c2d12', whiteSpace: 'nowrap' }}>BHARATIYA SARVODAYA BANK</span>
+          <span style={{ fontSize: '0.56rem', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase', color: '#7c2d12', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>BHARATIYA SARVODAYA BANK</span>
         </div>
       </div>
 
@@ -103,8 +105,8 @@ export default function Sidebar({ user, activeTab, onTabSelect, onLogout }) {
         ))}
       </nav>
 
-      <div className="sidebar-footer" style={{ padding: '16px 20px', borderTop: '1px solid var(--border-color)' }}>
-        <button className="btn btn-outline-danger btn-block" onClick={onLogout}>
+      <div className="sidebar-footer" style={{ padding: '8px 10px', borderTop: '1px solid var(--border-color)' }}>
+        <button className="btn btn-outline-danger btn-block" onClick={onLogout} style={{ fontSize: '0.78rem', padding: '7px 10px', borderRadius: '6px', fontWeight: 700 }}>
           Sign Out
         </button>
       </div>

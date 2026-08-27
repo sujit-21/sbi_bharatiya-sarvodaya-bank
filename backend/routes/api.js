@@ -45,9 +45,22 @@ router.get('/branch-customers', authenticate, customer.getBranchCustomers);
 // 3. Accounts management
 router.get('/dashboard/accounts', authenticate, requirePermission('Read', ['users', 'employees', 'customers']), dashboard.getAccounts);
 router.put('/dashboard/accounts/status', authenticate, requirePermission('Update', ['users', 'employees']), dashboard.updateAccountStatus);
+router.get('/accounts/:accountNumber/transactions', authenticate, dashboard.getAccountTransactions);
+router.get('/dashboard/accounts/:accountNumber/transactions', authenticate, dashboard.getAccountTransactions);
 
 // 4. Core Banking (CBS) transactions
 router.post('/dashboard/transactions', authenticate, dashboard.postTransaction);
+router.post('/transactions', authenticate, dashboard.postTransaction);
+router.post('/transactions/deposit', authenticate, (req, res, next) => {
+  req.body.type = 'deposit';
+  if (!req.body.toAccountNumber && req.body.accountNumber) req.body.toAccountNumber = req.body.accountNumber;
+  dashboard.postTransaction(req, res, next);
+});
+router.post('/transactions/withdraw', authenticate, (req, res, next) => {
+  req.body.type = 'withdrawal';
+  if (!req.body.fromAccountNumber && req.body.accountNumber) req.body.fromAccountNumber = req.body.accountNumber;
+  dashboard.postTransaction(req, res, next);
+});
 
 // 5. Card requested/approved
 router.post('/dashboard/cards/request', authenticate, dashboard.requestCard);

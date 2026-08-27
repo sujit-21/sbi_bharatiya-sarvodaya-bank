@@ -348,7 +348,7 @@ class Database {
 
     // 3. Seed 10 Indian Customers (Customer Registry)
     const indianCustomers = [
-      { id: 'u-customer', userId: 'NX@MEHTA001', email: 'customer@bank.com', passwordHash: bcrypt.hashSync('Customer123!', salt), role: 'Customer', fullName: 'Aarav Mehta', dob: '1990-05-14', gender: 'Male', mobileNumber: '+91 9820123456', address: 'A-402 Green Acres, Andheri West, Mumbai', panNumber: 'BPRPM1234A', sdhwo: 'S/o Ramesh Mehta', branchId: 'b-main', status: 'active', failedLogins: 0, lockedUntil: null, transactionPinHash: bcrypt.hashSync('987654', salt), createdAt: new Date().toISOString() },
+      { id: 'u-customer', userId: 'NX@MEHTA001', email: 'customer@bank.com', passwordHash: bcrypt.hashSync('Customer123!', salt), role: 'Customer', fullName: 'Aarav Mehta', dob: '1990-05-14', gender: 'Male', mobileNumber: '+91 9820123456', address: '124, Sarvodaya Enclave, New Delhi, 110017', panNumber: 'BPRPM1234A', sdhwo: 'S/o Ramesh Mehta', branchId: 'b-delhi', status: 'active', failedLogins: 0, lockedUntil: null, transactionPinHash: bcrypt.hashSync('987654', salt), createdAt: new Date().toISOString() },
       { id: 'u-cust-2', userId: 'NX@BANE0002', email: 'diya.banerjee@yahoo.com', passwordHash: bcrypt.hashSync('Customer123!', salt), role: 'Customer', fullName: 'Diya Banerjee', dob: '1992-08-22', gender: 'Female', mobileNumber: '+91 9830234567', address: '12/1 Ballygunge Circular Rd, Kolkata', panNumber: 'ADPBK5678B', sdhwo: 'D/o Subhash Banerjee', branchId: 'b-kolkata', status: 'active', failedLogins: 0, lockedUntil: null, transactionPinHash: bcrypt.hashSync('123456', salt), createdAt: new Date().toISOString() },
       { id: 'u-cust-3', userId: 'NX@KULK0003', email: 'rohan.kulkarni@gmail.com', passwordHash: bcrypt.hashSync('Customer123!', salt), role: 'Customer', fullName: 'Rohan Kulkarni', dob: '1985-11-03', gender: 'Male', mobileNumber: '+91 9822345678', address: '75 Prabhat Road, Erandwane, Pune', panNumber: 'CFCPK9012C', sdhwo: 'S/o Anand Kulkarni', branchId: 'b-pune', status: 'active', failedLogins: 0, lockedUntil: null, transactionPinHash: bcrypt.hashSync('123456', salt), createdAt: new Date().toISOString() },
       { id: 'u-cust-4', userId: 'NX@SWAM0004', email: 'ananya.swami@gmail.com', passwordHash: bcrypt.hashSync('Customer123!', salt), role: 'Customer', fullName: 'Ananya Swaminathan', dob: '1996-03-19', gender: 'Female', mobileNumber: '+91 9840456789', address: '45 TTK Road, Alwarpet, Chennai', panNumber: 'EGPSM3456D', sdhwo: 'D/o V. Swaminathan', branchId: 'b-chennai', status: 'active', failedLogins: 0, lockedUntil: null, transactionPinHash: bcrypt.hashSync('123456', salt), createdAt: new Date().toISOString() },
@@ -367,7 +367,7 @@ class Database {
 
     // Seed Accounts for 10 Customers & Merchant
     this.data.accounts.push(
-      { id: 'acc-cust-1', customerId: 'u-customer', accountNumber: '1000987654', branchId: 'b-main', type: 'savings', mopType: 'Self', balance: 150000.00, status: 'active', createdAt: new Date().toISOString() },
+      { id: 'acc-cust-1', customerId: 'u-customer', accountNumber: '1000987654', branchId: 'b-delhi', type: 'savings', mopType: 'Self', balance: 150000.00, status: 'active', createdAt: new Date().toISOString() },
       { id: 'acc-cust-2', customerId: 'u-cust-2', accountNumber: '1000987655', branchId: 'b-kolkata', type: 'savings', mopType: 'Self', balance: 285000.00, status: 'active', createdAt: new Date().toISOString() },
       { id: 'acc-cust-3', customerId: 'u-cust-3', accountNumber: '1000987656', branchId: 'b-pune', type: 'current', mopType: 'Self', balance: 540000.00, status: 'active', createdAt: new Date().toISOString() },
       { id: 'acc-cust-4', customerId: 'u-cust-4', accountNumber: '1000987657', branchId: 'b-chennai', type: 'savings', mopType: 'Self', balance: 95000.00, status: 'active', createdAt: new Date().toISOString() },
@@ -450,7 +450,7 @@ class Database {
       { id: 'r-admin', name: 'Super Admin', modules: ['branch-customers', 'users', 'customer-registry', 'branches', 'ledger', 'developers', 'interest', 'disaster'], custom: false },
       { id: 'r-manager', name: 'Branch Manager', modules: ['summary', 'branch-customers', 'approvals', 'employees', 'treasury', 'ledger'], custom: false },
       { id: 'r-employee', name: 'Employee', modules: ['summary', 'customers', 'transactions', 'crm', 'tickets', 'dms'], custom: false },
-      { id: 'r-customer', name: 'Customer', modules: ['summary', 'transfers', 'beneficiaries', 'products', 'dms', 'assistant', 'settings'], custom: false },
+      { id: 'r-customer', name: 'Customer', modules: ['summary', 'transfers', 'products', 'dms', 'assistant', 'settings'], custom: false },
       { id: 'r-merchant', name: 'Merchant', modules: ['summary', 'qr', 'settlements', 'developers'], custom: false },
       { id: 'r-auditor', name: 'Auditor', modules: ['summary', 'ledger', 'disaster'], custom: false },
       { id: 'r-compliance', name: 'Compliance Officer', modules: ['summary', 'ledger', 'dms'], custom: false },

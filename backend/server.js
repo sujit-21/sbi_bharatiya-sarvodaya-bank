@@ -57,12 +57,17 @@ app.get('/api/status', systemController.getStatus);
 app.get('/api/version', systemController.getVersion);
 
 // Root Level Authentication URL Route mappings
-app.post('/admin/login', (req, res, next) => { req.body.role = 'Super Admin'; next(); }, authController.login);
-app.post('/manager/login', (req, res, next) => { req.body.role = 'Branch Manager'; next(); }, authController.login);
-app.post('/employee/login', (req, res, next) => { req.body.role = 'Employee'; next(); }, authController.login);
-app.post('/customer/login', (req, res, next) => { req.body.role = 'Customer'; next(); }, authController.login);
+app.post('/admin/login', (req, res, next) => { req.portalType = 'headquarter'; req.body.role = 'Super Admin'; next(); }, authController.login);
+app.post('/api/hq/login', (req, res, next) => { req.portalType = 'headquarter'; next(); }, authController.login);
+app.post('/manager/login', (req, res, next) => { req.portalType = 'branch'; req.body.role = 'Branch Manager'; next(); }, authController.login);
+app.post('/employee/login', (req, res, next) => { req.portalType = 'branch'; req.body.role = 'Employee'; next(); }, authController.login);
+app.post('/api/branch/login', (req, res, next) => { req.portalType = 'branch'; next(); }, authController.login);
+app.post('/api/employee/login', (req, res, next) => { req.portalType = 'branch'; next(); }, authController.login);
+app.post('/customer/login', (req, res, next) => { req.portalType = 'customer'; req.body.role = 'Customer'; next(); }, authController.login);
+app.post('/api/customer/login', (req, res, next) => { req.portalType = 'customer'; req.body.role = 'Customer'; next(); }, authController.login);
 app.post('/customer/signup', authController.customerSignup);
-app.post('/merchant/login', (req, res, next) => { req.body.role = 'Merchant'; next(); }, authController.login);
+app.post('/api/customer/signup', authController.customerSignup);
+app.post('/merchant/login', (req, res, next) => { req.portalType = 'customer'; req.body.role = 'Merchant'; next(); }, authController.login);
 app.post('/merchant/signup', authController.merchantSignup);
 
 const kycRoutes = require('./routes/kycRoutes');

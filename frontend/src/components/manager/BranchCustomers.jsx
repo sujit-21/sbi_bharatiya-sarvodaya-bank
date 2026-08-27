@@ -194,7 +194,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid var(--border-color)', paddingBottom: '14px' }}>
         <div>
           <h2 style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: 0, fontSize: '1.3rem', fontWeight: 800 }}>
-            🏢 Branch Customer Database
+            Branch Customer Database
           </h2>
           <p style={{ margin: '3px 0 0 0', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>
             Scoped Customer Registry & Accounts for <strong>{currentBranchName}</strong>
@@ -203,7 +203,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
 
         <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
           <button className="btn btn-primary" onClick={() => setShowOnboardForm(!showOnboardForm)} style={{ padding: '8px 16px', fontWeight: 700, borderRadius: '8px', background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', color: '#ffffff', boxShadow: '0 4px 12px rgba(37,99,235,0.25)', border: 'none', cursor: 'pointer' }}>
-            {showOnboardForm ? '✕ Hide Form' : '➕ Create Account / Onboard Customer'}
+            {showOnboardForm ? 'Hide Form' : '+ Create Account / Onboard Customer'}
           </button>
 
           {/* Branch Switcher ONLY for Super Admin */}
@@ -224,7 +224,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
 
           <input
             type="text"
-            placeholder="🔍 Search name, email, ID, PAN..."
+            placeholder="Search name, email, ID, PAN..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             style={{ padding: '7px 12px', border: '1px solid var(--border-color)', borderRadius: '8px', fontSize: '0.85rem', width: '220px', background: 'var(--bg-main)' }}
@@ -278,7 +278,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
       <div style={{ marginTop: '4px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
-            👥 Customers Managed by Branch
+            Customers Managed by Branch
           </h3>
           <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 600 }}>Showing {filteredCustomers.length} of {customers.length} records</span>
         </div>
@@ -323,8 +323,8 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
                     </td>
                     <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
                       <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                        <button style={{ padding: '4px 12px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#f0f9ff', color: '#0369a1', border: '1px solid #bae6fd', cursor: 'pointer' }} onClick={() => setViewCustomer(c)}>👁️ Profile</button>
-                        <button style={{ padding: '4px 12px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #7dd3fc', cursor: 'pointer' }} onClick={() => setViewAccountsCustomer(c)}>💳 Accounts</button>
+                        <button style={{ padding: '4px 12px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#f0f9ff', color: '#0369a1', border: '1px solid #bae6fd', cursor: 'pointer' }} onClick={() => setViewCustomer(c)}>Profile</button>
+                        <button style={{ padding: '4px 12px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#e0f2fe', color: '#0284c7', border: '1px solid #7dd3fc', cursor: 'pointer' }} onClick={() => setViewAccountsCustomer(c)}>Accounts</button>
                       </div>
                     </td>
                   </tr>
@@ -341,7 +341,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px' }}>
             <div>
               <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                👤 Register & Onboard New Customer
+                Register & Onboard New Customer
               </h3>
               <p style={{ margin: '2px 0 0 0', fontSize: '0.76rem', color: '#64748b' }}>Provide personal details, KYC identifiers & primary account settings</p>
             </div>
@@ -410,7 +410,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
 
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
               <button type="submit" style={{ padding: '8px 22px', fontSize: '0.82rem', fontWeight: 700, borderRadius: '8px', border: 'none', background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)', color: '#ffffff', cursor: 'pointer', boxShadow: '0 4px 12px rgba(16,185,129,0.25)' }}>
-                ✓ Register Customer & Open Account
+                Register Customer & Open Account
               </button>
             </div>
           </form>
@@ -422,7 +422,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h2>✏️ Edit Customer Profile</h2>
+              <h2>Edit Customer Profile</h2>
               <button className="btn-close" onClick={() => setEditCustomer(null)}>✕</button>
             </div>
             <form onSubmit={handleEditSubmit}>
@@ -458,7 +458,7 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
         <div className="modal-overlay">
           <div className="modal-card">
             <div className="modal-header">
-              <h2>➕ Open Additional Account</h2>
+              <h2>Open Additional Account</h2>
               <button className="btn-close" onClick={() => setAddAccCustomer(null)}>✕</button>
             </div>
             <form onSubmit={handleAddAccountSubmit}>
@@ -490,14 +490,14 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
         <div className="modal-overlay" onClick={e => { if(e.target === e.currentTarget) setViewCustomer(null); }}>
           <div className="modal-card" style={{ maxWidth: '650px' }}>
             <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2>👤 Customer Profile - {viewCustomer.fullName}</h2>
+              <h2>Customer Profile - {viewCustomer.fullName}</h2>
               <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                 <button
                   type="button"
                   style={{ padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#eff6ff', color: '#1d4ed8', border: '1px solid #bfdbfe', cursor: 'pointer' }}
                   onClick={() => { setEditCustomer({ ...viewCustomer }); setViewCustomer(null); }}
                 >
-                  ✏️ Edit Profile
+                  Edit Profile
                 </button>
                 <button type="button" className="btn-close" onClick={() => setViewCustomer(null)} style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#64748b', fontWeight: 'bold' }}>✕</button>
               </div>
@@ -528,61 +528,61 @@ export default function BranchCustomers({ user, apiCall, showToast }) {
       {/* Customer Accounts Modal */}
       {viewAccountsCustomer && (
         <div className="modal-overlay" onClick={e => { if(e.target === e.currentTarget) setViewAccountsCustomer(null); }}>
-          <div className="modal-card" style={{ maxWidth: '680px' }}>
-            <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px solid var(--border-color, #e2e8f0)', paddingBottom: '10px' }}>
+          <div className="modal-card" style={{ maxWidth: '820px', width: '92%', padding: '20px 24px' }}>
+            <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', borderBottom: '1px solid var(--border-color, #e2e8f0)', paddingBottom: '8px' }}>
               <div>
-                <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>💳 Branch Accounts & Balance - {viewAccountsCustomer.fullName}</h2>
-                <span style={{ fontSize: '0.76rem', color: '#64748b' }}>Customer ID: <b style={{ fontFamily: 'monospace', color: '#0284c7' }}>{viewAccountsCustomer.userId || viewAccountsCustomer.id}</b></span>
+                <h2 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#0f172a', display: 'flex', alignItems: 'center', gap: '8px' }}>Branch Accounts & Balance - {viewAccountsCustomer.fullName}</h2>
+                <span style={{ fontSize: '0.74rem', color: '#64748b' }}>Customer ID: <b style={{ fontFamily: 'monospace', color: '#0284c7' }}>{viewAccountsCustomer.userId || viewAccountsCustomer.id}</b></span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <button type="button" onClick={() => { setAddAccCustomer(viewAccountsCustomer); setViewAccountsCustomer(null); }} style={{ padding: '6px 12px', fontSize: '0.78rem', fontWeight: 700, borderRadius: '6px', background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', color: '#ffffff', border: 'none', cursor: 'pointer' }}>➕ Create Account</button>
-                <button type="button" className="btn-close" onClick={() => setViewAccountsCustomer(null)} style={{ background: 'none', border: 'none', fontSize: '1.4rem', cursor: 'pointer', color: '#64748b', fontWeight: 'bold' }}>✕</button>
+                <button type="button" onClick={() => { setAddAccCustomer(viewAccountsCustomer); setViewAccountsCustomer(null); }} style={{ padding: '5px 12px', fontSize: '0.75rem', fontWeight: 700, borderRadius: '6px', background: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)', color: '#ffffff', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap' }}>+ Create Account</button>
+                <button type="button" className="btn-close" onClick={() => setViewAccountsCustomer(null)} style={{ background: 'none', border: 'none', fontSize: '1.3rem', cursor: 'pointer', color: '#64748b', fontWeight: 'bold', lineHeight: 1 }}>✕</button>
               </div>
             </div>
 
-            <div className="modal-body" style={{ marginBottom: '20px' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
+            <div className="modal-body" style={{ marginBottom: '16px', overflowX: 'auto', border: '1px solid #e2e8f0', borderRadius: '8px' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', textAlign: 'left' }}>
-                    <th style={{ padding: '10px 12px', fontWeight: 700, color: '#475569' }}>ACCOUNT TYPE</th>
-                    <th style={{ padding: '10px 12px', fontWeight: 700, color: '#475569' }}>ACCOUNT NUMBER</th>
-                    <th style={{ padding: '10px 12px', fontWeight: 700, color: '#475569' }}>MOP</th>
-                    <th style={{ padding: '10px 12px', fontWeight: 700, color: '#475569' }}>BALANCE</th>
-                    <th style={{ padding: '10px 12px', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap' }}>ACCOUNT ACTIONS</th>
+                    <th style={{ padding: '8px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>ACCOUNT TYPE</th>
+                    <th style={{ padding: '8px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>ACCOUNT NUMBER</th>
+                    <th style={{ padding: '8px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>MOP</th>
+                    <th style={{ padding: '8px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>BALANCE</th>
+                    <th style={{ padding: '8px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#475569', whiteSpace: 'nowrap', textTransform: 'uppercase' }}>ACCOUNT ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
                   {viewAccountsCustomer.accounts && viewAccountsCustomer.accounts.length > 0 ? (
                     viewAccountsCustomer.accounts.map(a => (
                       <tr key={a.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '10px 12px' }}><span style={{ fontWeight: 700, color: '#0284c7', textTransform: 'uppercase' }}>{a.type}</span></td>
-                        <td style={{ padding: '10px 12px' }}><b style={{ fontFamily: 'monospace' }}>{a.accountNumber}</b></td>
-                        <td style={{ padding: '10px 12px' }}><span style={{ background: '#e0e7ff', color: '#4338ca', padding: '2px 8px', borderRadius: '10px', fontWeight: 600, fontSize: '0.74rem' }}>{a.mopType || 'Self'}</span></td>
-                        <td style={{ padding: '10px 12px', color: '#059669', fontWeight: 800 }}>₹{parseFloat(a.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                        <td style={{ padding: '10px 12px', whiteSpace: 'nowrap' }}>
-                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <td style={{ padding: '8px 10px', whiteSpace: 'nowrap', verticalAlign: 'middle' }}><span style={{ fontWeight: 700, color: '#0284c7', textTransform: 'uppercase', fontSize: '0.78rem' }}>{a.type}</span></td>
+                        <td style={{ padding: '8px 10px', whiteSpace: 'nowrap', verticalAlign: 'middle' }}><b style={{ fontFamily: 'monospace', fontSize: '0.82rem' }}>{a.accountNumber}</b></td>
+                        <td style={{ padding: '8px 10px', whiteSpace: 'nowrap', verticalAlign: 'middle' }}><span style={{ background: '#e0e7ff', color: '#4338ca', padding: '3px 8px', borderRadius: '6px', fontWeight: 600, fontSize: '0.72rem', display: 'inline-block', whiteSpace: 'nowrap' }}>{a.mopType || 'Self'}</span></td>
+                        <td style={{ padding: '8px 10px', color: '#059669', fontWeight: 800, fontSize: '0.85rem', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>₹{parseFloat(a.balance).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                        <td style={{ padding: '8px 10px', whiteSpace: 'nowrap', verticalAlign: 'middle' }}>
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'nowrap' }}>
                             {viewAccountsCustomer.status === 'frozen' ? (
-                              <button type="button" style={{ padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#f0fdf4', color: '#15803d', border: '1px solid #bbf7d0', cursor: 'pointer' }} onClick={() => { toggleFreeze(viewAccountsCustomer.id, 'frozen'); setViewAccountsCustomer(null); }}>🔓 Unfreeze</button>
+                              <button type="button" style={{ padding: '4px 8px', fontSize: '0.72rem', fontWeight: 600, borderRadius: '6px', background: '#f0fdf4', color: '#15803d', border: '1px solid #bbf7d0', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => { toggleFreeze(viewAccountsCustomer.id, 'frozen'); setViewAccountsCustomer(null); }}>Unfreeze</button>
                             ) : (
-                              <button type="button" style={{ padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#fffbeb', color: '#b45309', border: '1px solid #fde68a', cursor: 'pointer' }} onClick={() => { toggleFreeze(viewAccountsCustomer.id, 'active'); setViewAccountsCustomer(null); }}>🔒 Freeze</button>
+                              <button type="button" style={{ padding: '4px 8px', fontSize: '0.72rem', fontWeight: 600, borderRadius: '6px', background: '#fffbeb', color: '#b45309', border: '1px solid #fde68a', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => { toggleFreeze(viewAccountsCustomer.id, 'active'); setViewAccountsCustomer(null); }}>Freeze</button>
                             )}
-                            <button type="button" style={{ padding: '4px 10px', fontSize: '0.75rem', fontWeight: 600, borderRadius: '6px', background: '#fef2f2', color: '#b91c1c', border: '1px solid #fecaca', cursor: 'pointer' }} onClick={() => { deleteCustomer(viewAccountsCustomer.id, `Account ${a.accountNumber} (${viewAccountsCustomer.fullName})`); setViewAccountsCustomer(null); }}>🗑️ Delete</button>
+                            <button type="button" style={{ padding: '4px 8px', fontSize: '0.72rem', fontWeight: 600, borderRadius: '6px', background: '#fef2f2', color: '#b91c1c', border: '1px solid #fecaca', cursor: 'pointer', whiteSpace: 'nowrap' }} onClick={() => { deleteCustomer(viewAccountsCustomer.id, `Account ${a.accountNumber} (${viewAccountsCustomer.fullName})`); setViewAccountsCustomer(null); }}>Delete</button>
                           </div>
                         </td>
                       </tr>
                     ))
                   ) : (
-                    <tr><td colSpan="5" style={{ textAlign: 'center', padding: '18px', color: '#64748b' }}>No branch accounts linked to this customer.</td></tr>
+                    <tr><td colSpan="5" style={{ textAlign: 'center', padding: '18px', color: '#64748b', fontSize: '0.78rem' }}>No branch accounts linked to this customer.</td></tr>
                   )}
                 </tbody>
               </table>
             </div>
 
-            <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', padding: '12px 16px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-              <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>
+            <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8fafc', padding: '8px 14px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+              <div style={{ fontSize: '0.76rem', fontWeight: 600, color: '#475569' }}>
                 Account Status: <span style={{ color: viewAccountsCustomer.status === 'active' ? '#15803d' : '#b91c1c', fontWeight: 700 }}>● {(viewAccountsCustomer.status || 'active').toUpperCase()}</span>
               </div>
-              <button type="button" className="btn btn-secondary" onClick={() => setViewAccountsCustomer(null)} style={{ padding: '6px 16px', fontWeight: 600, cursor: 'pointer' }}>Close</button>
+              <button type="button" className="btn btn-secondary" onClick={() => setViewAccountsCustomer(null)} style={{ padding: '5px 16px', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer' }}>Close</button>
             </div>
           </div>
         </div>

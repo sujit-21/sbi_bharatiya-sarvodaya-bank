@@ -74,16 +74,41 @@ async function login(req, res) {
     });
   }
 
-  // Role Verification (Permissive flex verification for dashboard users)
-  if (role) {
-    const normUserRole = (user.role || '').toLowerCase();
-    const normRequestedRole = role.toLowerCase();
-    const isStaffUser = ['super admin', 'branch manager', 'employee', 'auditor', 'compliance officer', 'treasury officer', 'loan officer', 'customer support agent', 'merchant manager', 'fraud analyst', 'system administrator'].includes(normUserRole);
-    const isStaffRequested = ['super admin', 'branch manager', 'employee', 'auditor', 'compliance officer', 'treasury officer', 'loan officer', 'customer support agent', 'merchant manager', 'fraud analyst', 'system administrator'].includes(normRequestedRole);
+  // Portal & Role Separation Verification
+  const portalType = (req.portalType || req.body.portal || req.headers['x-portal-type'] || '').toString().toLowerCase().trim();
+  const userRole = (user.role || '').toString().toLowerCase().trim();
 
-    if (user.role !== role && !(isStaffUser && isStaffRequested)) {
-      logLoginAttempt('failed', `Role mismatch. Expected: ${user.role}, Requested: ${role}`);
-      return res.status(403).json({ message: 'Unauthorized role selection.' });
+  // 1. CUSTOMER PORTAL ENFORCEMENT:
+  // Staff / Admin accounts CANNOT log into Customer NetBanking login page
+  if (portalType === 'customer' || (role && role.toLowerCase() === 'customer')) {
+    if (userRole !== 'customer' && userRole !== 'merchant') {
+      logLoginAttempt('failed', `Staff/Admin attempt to login on Customer portal: ${user.role}`);
+      return res.status(403).json({
+        message: 'Access Denied: Staff and Administrator accounts cannot log into the Retail Customer NetBanking portal. Please log into the Headquarter or Branch Portal.'
+      });
+    }
+  }
+
+  // 2. HEADQUARTER PORTAL ENFORCEMENT:
+  // Only HQ staff/admins (Super Admin, Auditor, Compliance Officer, Treasury Officer, etc.) can log in
+  if (portalType === 'headquarter' || (role && role.toLowerCase() === 'super admin')) {
+    const isHQRole = ['super admin', 'admin', 'auditor', 'compliance officer', 'treasury officer', 'fraud analyst', 'system administrator'].includes(userRole);
+    if (!isHQRole) {
+      logLoginAttempt('failed', `Unauthorized attempt to login on Headquarter portal: ${user.role}`);
+      return res.status(403).json({
+        message: 'Access Denied: Only Headquarter and Executive Administrators have access to this portal.'
+      });
+    }
+  }
+
+  // 3. BRANCH & EMPLOYEE PORTAL ENFORCEMENT:
+  // Branch Managers, Employees, Loan Officers, Tellers can log in; Retail Customers CANNOT
+  if (portalType === 'branch' || (role && (role.toLowerCase() === 'branch manager' || role.toLowerCase() === 'employee'))) {
+    if (userRole === 'customer' || userRole === 'merchant') {
+      logLoginAttempt('failed', `Customer attempt to login on Branch portal: ${user.role}`);
+      return res.status(403).json({
+        message: 'Access Denied: Retail Customers cannot access the Branch & Employee Staff Terminal.'
+      });
     }
   }
 

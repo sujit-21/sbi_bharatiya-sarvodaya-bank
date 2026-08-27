@@ -101,13 +101,13 @@ export default function App() {
       <Toast toast={toast} />
       <div className="dashboard-wrapper">
         <aside className="sidebar">
-          <div className="sidebar-header" style={{ height: '68px', minHeight: '68px', padding: '0 12px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
-            <div className="sidebar-brand" style={{ padding: '6px 12px', background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', borderRadius: '10px', border: '1px solid #fed7aa', display: 'flex', flexDirection: 'column', gap: '2px', width: '100%' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <span style={{ fontSize: '1.05rem', fontWeight: 900, letterSpacing: '2.5px', color: '#ea580c' }}>BSB</span>
-                <span style={{ fontSize: '0.62rem', fontWeight: 800, padding: '2px 6px', borderRadius: '4px', background: '#ffffff', color: '#ea580c', border: '1px solid #ffedd5', letterSpacing: '0.5px', boxShadow: '0 1px 3px rgba(234,88,12,0.1)' }}>HQ</span>
+          <div className="sidebar-header" style={{ height: '60px', minHeight: '60px', padding: '0 8px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', boxSizing: 'border-box' }}>
+            <div className="sidebar-brand" style={{ padding: '5px 8px', background: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', borderRadius: '8px', border: '1px solid #fed7aa', display: 'flex', flexDirection: 'column', gap: '1px', width: '100%' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                <span style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '2px', color: '#ea580c' }}>BSB</span>
+                <span style={{ fontSize: '0.55rem', fontWeight: 800, padding: '1px 5px', borderRadius: '4px', background: '#ffffff', color: '#ea580c', border: '1px solid #ffedd5', letterSpacing: '0.5px', boxShadow: '0 1px 3px rgba(234,88,12,0.1)' }}>HQ</span>
               </div>
-              <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.8px', textTransform: 'uppercase', color: '#7c2d12', whiteSpace: 'nowrap' }}>BHARATIYA SARVODAYA BANK</span>
+              <span style={{ fontSize: '0.56rem', fontWeight: 800, letterSpacing: '0.6px', textTransform: 'uppercase', color: '#7c2d12', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>BHARATIYA SARVODAYA BANK</span>
             </div>
           </div>
 
@@ -123,8 +123,8 @@ export default function App() {
             ))}
           </nav>
 
-          <div className="sidebar-footer" style={{ padding: '16px 20px', borderTop: '1px solid var(--border-color)' }}>
-            <button className="btn btn-outline-danger btn-block" onClick={handleLogout}>
+          <div className="sidebar-footer" style={{ padding: '8px 10px', borderTop: '1px solid var(--border-color)' }}>
+            <button className="btn btn-outline-danger btn-block" onClick={handleLogout} style={{ fontSize: '0.78rem', padding: '7px 10px', borderRadius: '6px', fontWeight: 700 }}>
               Sign Out HQ
             </button>
           </div>

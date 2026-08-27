@@ -226,7 +226,7 @@ export default function UserRegistry({ apiCall, showToast }) {
 
       {/* Section 2: User Registry Table Container */}
       <div>
-        <div style={{ display: 'flex', justify-content: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
           <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800 }}>User Registry</h3>
           <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600 }}>{filteredUsers.length} Total Users</span>
         </div>
