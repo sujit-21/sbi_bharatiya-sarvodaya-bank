@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import HQLogin from './HQLogin';
 
-import UserRegistry from '../../../frontend/src/components/admin/UserRegistry';
-import BranchCustomers from '../../../frontend/src/components/manager/BranchCustomers';
-import BranchRegistry from '../../../frontend/src/components/admin/BranchRegistry';
-import RoleManager from '../../../frontend/src/components/admin/RoleManager';
-import GeneralLedger from '../../../frontend/src/components/admin/GeneralLedger';
-import KYCVerification from '../../../frontend/src/components/admin/KYCVerification';
-import SummaryDashboard from '../../../frontend/src/components/system/SummaryDashboard';
-import DeveloperPortal from '../../../frontend/src/components/system/DeveloperPortal';
-import DisasterRecovery from '../../../frontend/src/components/system/DisasterRecovery';
-import InterestEngine from '../../../frontend/src/components/banking/InterestEngine';
+// Dedicated Headquarter Sidebar Page Components (.jsx)
+import OverviewPage from './pages/OverviewPage';
+import UserRegistryPage from './pages/UserRegistryPage';
+import BranchCustomersPage from './pages/BranchCustomersPage';
+import BranchRegistryPage from './pages/BranchRegistryPage';
+import RoleManagerPage from './pages/RoleManagerPage';
+import GeneralLedgerPage from './pages/GeneralLedgerPage';
+import InterestEnginePage from './pages/InterestEnginePage';
+import DisasterRecoveryPage from './pages/DisasterRecoveryPage';
+import DeveloperPortalPage from './pages/DeveloperPortalPage';
+
 import Toast from '../../../frontend/src/components/common/Toast';
 import Header from '../../../frontend/src/components/common/Header';
 
@@ -77,22 +78,28 @@ export default function App() {
     { id: 'developers', name: 'Developer Portal', icon: '💻' }
   ];
 
-  const userName = user?.fullName || user?.name || 'Root Administrator';
-  const userRole = user?.role || 'Super Admin';
-  const initials = userName.split(' ').filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'SA';
-
+  // Route to the active sidebar tab's dedicated page .jsx component
   const renderContent = () => {
     switch (activeTab) {
-      case 'users': return <UserRegistry apiCall={apiCall} showToast={showToast} />;
-      case 'branch-customers': return <BranchCustomers apiCall={apiCall} showToast={showToast} user={user} />;
-      case 'branches': return <BranchRegistry apiCall={apiCall} showToast={showToast} />;
-      case 'role-manager': return <RoleManager apiCall={apiCall} showToast={showToast} />;
-      case 'ledger': return <GeneralLedger apiCall={apiCall} showToast={showToast} />;
-      case 'interest': return <InterestEngine apiCall={apiCall} showToast={showToast} />;
-      case 'disaster': return <DisasterRecovery apiCall={apiCall} showToast={showToast} />;
-      case 'developers': return <DeveloperPortal showToast={showToast} />;
+      case 'users':
+        return <UserRegistryPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'branch-customers':
+        return <BranchCustomersPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'branches':
+        return <BranchRegistryPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'role-manager':
+        return <RoleManagerPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'ledger':
+        return <GeneralLedgerPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'interest':
+        return <InterestEnginePage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'disaster':
+        return <DisasterRecoveryPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'developers':
+        return <DeveloperPortalPage user={user} apiCall={apiCall} showToast={showToast} />;
       case 'summary':
-      default: return <SummaryDashboard user={user} apiCall={apiCall} showToast={showToast} />;
+      default:
+        return <OverviewPage user={user} apiCall={apiCall} showToast={showToast} onNavigateTab={setActiveTab} />;
     }
   };
 

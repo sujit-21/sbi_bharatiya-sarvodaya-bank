@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import CustomerLogin from './CustomerLogin';
 
-import SummaryDashboard from '../../../frontend/src/components/system/SummaryDashboard';
+// Dedicated Customer Sidebar Page Components (.jsx)
+import AccountsSummaryPage from './pages/AccountsSummaryPage';
+import CustomerProfilePage from './pages/CustomerProfilePage';
+import ApplyServicesPage from './pages/ApplyServicesPage';
+import AccountStatementsPage from './pages/AccountStatementsPage';
+import MoneyTransferPage from './pages/MoneyTransferPage';
+import BeneficiariesPage from './pages/BeneficiariesPage';
+import ProductsLoansPage from './pages/ProductsLoansPage';
+import AIAssistantPage from './pages/AIAssistantPage';
+import SecuritySettingsPage from './pages/SecuritySettingsPage';
+
 import Toast from '../../../frontend/src/components/common/Toast';
 import Header from '../../../frontend/src/components/common/Header';
 
@@ -68,16 +78,29 @@ export default function App() {
     { id: 'settings', name: 'Security & Transaction PIN', icon: '⚙️' }
   ];
 
-  const userName = user?.fullName || user?.name || 'Valued Customer';
-  const userRole = user?.role || 'Customer';
-  const initials = userName.split(' ').filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'CU';
-
+  // Route to the active sidebar tab's dedicated page .jsx component
   const renderContent = () => {
-    return (
-      <div>
-        <SummaryDashboard user={user} apiCall={apiCall} showToast={showToast} />
-      </div>
-    );
+    switch (activeTab) {
+      case 'profile':
+        return <CustomerProfilePage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'apply-services':
+        return <ApplyServicesPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'statements':
+        return <AccountStatementsPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'transfers':
+        return <MoneyTransferPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'beneficiaries':
+        return <BeneficiariesPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'products':
+        return <ProductsLoansPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'assistant':
+        return <AIAssistantPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'settings':
+        return <SecuritySettingsPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'summary':
+      default:
+        return <AccountsSummaryPage user={user} apiCall={apiCall} showToast={showToast} onNavigateTab={setActiveTab} />;
+    }
   };
 
   return (

@@ -4,7 +4,7 @@
       "id": "u-admin",
       "userId": "NX@SHARMA01",
       "email": "admin@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau0b6On9U.VKBHGPNBDdiiPFiBNCmQOBG",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.bn4bStycgqtjOIRFQzRO3XHS4RWWMfO",
       "role": "Super Admin",
       "fullName": "Rajesh Sharma",
       "dob": "1980-01-01",
@@ -15,17 +15,17 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-27T11:30:32.181Z"
+      "updatedAt": "2026-08-27T11:28:38.289Z"
     },
     {
       "id": "u-mum-02",
       "userId": "NX@MUMEMP02",
       "email": "mumbai.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Aarav Shah",
       "dob": "1991-03-12",
@@ -36,8 +36,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -45,7 +45,7 @@
       "id": "u-mum-03",
       "userId": "NX@MUMEMP03",
       "email": "mumbai.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Priyanka Kulkarni",
       "dob": "1993-07-25",
@@ -56,8 +56,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -65,7 +65,7 @@
       "id": "u-mum-04",
       "userId": "NX@MUMEMP04",
       "email": "mumbai.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Aditya Jadhav",
       "dob": "1989-11-04",
@@ -76,8 +76,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -85,7 +85,7 @@
       "id": "u-mum-05",
       "userId": "NX@MUMEMP05",
       "email": "mumbai.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Snehal Shinde",
       "dob": "1987-02-18",
@@ -96,8 +96,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -105,7 +105,7 @@
       "id": "u-mum-06",
       "userId": "NX@MUMEMP06",
       "email": "mumbai.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Rohan Sawant",
       "dob": "1994-09-30",
@@ -116,8 +116,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -125,7 +125,7 @@
       "id": "u-mum-07",
       "userId": "NX@MUMEMP07",
       "email": "mumbai.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Tanvi More",
       "dob": "1995-04-14",
@@ -136,8 +136,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -145,7 +145,7 @@
       "id": "u-mum-08",
       "userId": "NX@MUMEMP08",
       "email": "mumbai.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Compliance Officer",
       "fullName": "Nikhil Patil",
       "dob": "1986-08-22",
@@ -156,8 +156,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -165,7 +165,7 @@
       "id": "u-mum-09",
       "userId": "NX@MUMEMP09",
       "email": "mumbai.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Riya Salunkhe",
       "dob": "1992-12-09",
@@ -176,8 +176,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -185,7 +185,7 @@
       "id": "u-mum-10",
       "userId": "NX@MUMEMP10",
       "email": "mumbai.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Harshvardhan Bhosale",
       "dob": "1988-06-17",
@@ -196,8 +196,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.455Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.537Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -205,7 +205,7 @@
       "id": "u-manager",
       "userId": "NX@PATEL002",
       "email": "manager@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauE1P802qwkMvlta0qaQoRiJpO8gdM4yK",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.cmuMkSmDRUYALDKwP/7laERTkXJxG2u",
       "role": "Branch Manager",
       "fullName": "Priya Patel",
       "dob": "1985-05-12",
@@ -216,8 +216,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -225,7 +225,7 @@
       "id": "u-del-02",
       "userId": "NX@DELEMP02",
       "email": "delhi.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Gaurav Kapoor",
       "dob": "1990-01-15",
@@ -236,8 +236,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -245,7 +245,7 @@
       "id": "u-del-03",
       "userId": "NX@DELEMP03",
       "email": "delhi.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Meenakshi Sharma",
       "dob": "1992-06-20",
@@ -256,8 +256,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -265,7 +265,7 @@
       "id": "u-del-04",
       "userId": "NX@DELEMP04",
       "email": "delhi.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Abhinav Malhotra",
       "dob": "1988-10-10",
@@ -276,8 +276,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -285,7 +285,7 @@
       "id": "u-del-05",
       "userId": "NX@DELEMP05",
       "email": "delhi.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Neha Aggarwal",
       "dob": "1994-03-28",
@@ -296,8 +296,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -305,7 +305,7 @@
       "id": "u-del-06",
       "userId": "NX@DELEMP06",
       "email": "delhi.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Kunal Khurana",
       "dob": "1991-08-05",
@@ -316,8 +316,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -325,7 +325,7 @@
       "id": "u-del-07",
       "userId": "NX@DELEMP07",
       "email": "delhi.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Divya Bhasin",
       "dob": "1993-11-19",
@@ -336,8 +336,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -345,7 +345,7 @@
       "id": "u-del-08",
       "userId": "NX@DELEMP08",
       "email": "delhi.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Compliance Officer",
       "fullName": "Tarun Sethi",
       "dob": "1987-04-11",
@@ -356,8 +356,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -365,7 +365,7 @@
       "id": "u-del-09",
       "userId": "NX@DELEMP09",
       "email": "delhi.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Radhika Tandon",
       "dob": "1995-09-02",
@@ -376,8 +376,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -385,7 +385,7 @@
       "id": "u-del-10",
       "userId": "NX@DELEMP10",
       "email": "delhi.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Alok Rastogi",
       "dob": "1989-12-14",
@@ -396,8 +396,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.539Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.628Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -405,7 +405,7 @@
       "id": "u-auditor",
       "userId": "NX@VERMA003",
       "email": "auditor@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXaugOZYigk3iBv4NhCSEkt82q.mma9Oe0.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.ofZIUrejjywvOkyKm9QcRS2ZI3xfh4C",
       "role": "Auditor",
       "fullName": "Amit Verma",
       "dob": "1983-09-18",
@@ -416,8 +416,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -425,7 +425,7 @@
       "id": "u-blr-02",
       "userId": "NX@BLREMP02",
       "email": "bangalore.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "Karthik Rao",
       "dob": "1986-04-23",
@@ -436,8 +436,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -445,7 +445,7 @@
       "id": "u-blr-03",
       "userId": "NX@BLREMP03",
       "email": "bangalore.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Deepa Hegde",
       "dob": "1992-08-11",
@@ -456,8 +456,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -465,7 +465,7 @@
       "id": "u-blr-04",
       "userId": "NX@BLREMP04",
       "email": "bangalore.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Ashwin Murthy",
       "dob": "1990-02-19",
@@ -476,8 +476,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -485,7 +485,7 @@
       "id": "u-blr-05",
       "userId": "NX@BLREMP05",
       "email": "bangalore.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Lavanya Gowda",
       "dob": "1994-06-30",
@@ -496,8 +496,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -505,7 +505,7 @@
       "id": "u-blr-06",
       "userId": "NX@BLREMP06",
       "email": "bangalore.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Varun Kamath",
       "dob": "1988-11-15",
@@ -516,8 +516,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -525,7 +525,7 @@
       "id": "u-blr-07",
       "userId": "NX@BLREMP07",
       "email": "bangalore.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Swathi Bhat",
       "dob": "1993-01-27",
@@ -536,8 +536,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -545,7 +545,7 @@
       "id": "u-blr-08",
       "userId": "NX@BLREMP08",
       "email": "bangalore.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Praveen Shetty",
       "dob": "1987-10-09",
@@ -556,8 +556,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -565,7 +565,7 @@
       "id": "u-blr-09",
       "userId": "NX@BLREMP09",
       "email": "bangalore.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Keerthi Prasad",
       "dob": "1995-05-18",
@@ -576,8 +576,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -585,7 +585,7 @@
       "id": "u-blr-10",
       "userId": "NX@BLREMP10",
       "email": "bangalore.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Chethan Reddy",
       "dob": "1991-07-04",
@@ -596,8 +596,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.622Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.712Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -605,7 +605,7 @@
       "id": "u-teller",
       "userId": "NX@REDDY004",
       "email": "teller@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sunita Reddy",
       "dob": "1992-09-21",
@@ -616,17 +616,17 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-27T11:30:32.449Z"
+      "updatedAt": "2026-08-27T11:28:38.527Z"
     },
     {
       "id": "u-che-02",
       "userId": "NX@CHEEMP02",
       "email": "chennai.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "K. Sundaram",
       "dob": "1984-03-14",
@@ -637,8 +637,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -646,7 +646,7 @@
       "id": "u-che-03",
       "userId": "NX@CHEEMP03",
       "email": "chennai.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Revathi Raman",
       "dob": "1990-11-28",
@@ -657,8 +657,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -666,7 +666,7 @@
       "id": "u-che-04",
       "userId": "NX@CHEEMP04",
       "email": "chennai.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Venkatesh Iyer",
       "dob": "1987-05-09",
@@ -677,8 +677,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -686,7 +686,7 @@
       "id": "u-che-05",
       "userId": "NX@CHEEMP05",
       "email": "chennai.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Malini Balaji",
       "dob": "1993-02-22",
@@ -697,8 +697,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -706,7 +706,7 @@
       "id": "u-che-06",
       "userId": "NX@CHEEMP06",
       "email": "chennai.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Senthil Kumar",
       "dob": "1989-10-16",
@@ -717,8 +717,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -726,7 +726,7 @@
       "id": "u-che-07",
       "userId": "NX@CHEEMP07",
       "email": "chennai.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Nithya Natarajan",
       "dob": "1994-08-01",
@@ -737,8 +737,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -746,7 +746,7 @@
       "id": "u-che-08",
       "userId": "NX@CHEEMP08",
       "email": "chennai.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Vijay Ranganathan",
       "dob": "1986-12-12",
@@ -757,8 +757,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -766,7 +766,7 @@
       "id": "u-che-09",
       "userId": "NX@CHEEMP09",
       "email": "chennai.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Preeti Subramanian",
       "dob": "1995-04-05",
@@ -777,8 +777,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -786,7 +786,7 @@
       "id": "u-che-10",
       "userId": "NX@CHEEMP10",
       "email": "chennai.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Dinesh Kannan",
       "dob": "1991-06-25",
@@ -797,8 +797,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.707Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.795Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -806,7 +806,7 @@
       "id": "u-cashier",
       "userId": "NX@SINGH005",
       "email": "cashier@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauJj.P5pU1fzTMfOti0.XY5sqzzGSaov2",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.CB9USlw8pGDiVzQl1jnBMl4/ktVrOkC",
       "role": "Employee",
       "fullName": "Vikram Singh",
       "dob": "1989-04-11",
@@ -817,8 +817,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.788Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -826,7 +826,7 @@
       "id": "u-kol-02",
       "userId": "NX@KOLEMP02",
       "email": "kolkata.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "Sourav Ganguly",
       "dob": "1982-07-08",
@@ -837,8 +837,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.788Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -846,7 +846,7 @@
       "id": "u-kol-03",
       "userId": "NX@KOLEMP03",
       "email": "kolkata.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Joyeeta Sen",
       "dob": "1992-01-19",
@@ -857,8 +857,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.788Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -866,7 +866,7 @@
       "id": "u-kol-04",
       "userId": "NX@KOLEMP04",
       "email": "kolkata.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Arnab Mukherjee",
       "dob": "1988-09-14",
@@ -877,8 +877,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.788Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -886,7 +886,7 @@
       "id": "u-kol-05",
       "userId": "NX@KOLEMP05",
       "email": "kolkata.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Poulomi Das",
       "dob": "1993-05-26",
@@ -897,8 +897,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.788Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -906,7 +906,7 @@
       "id": "u-kol-06",
       "userId": "NX@KOLEMP06",
       "email": "kolkata.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Subhashish Roy",
       "dob": "1990-12-03",
@@ -917,8 +917,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.789Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -926,7 +926,7 @@
       "id": "u-kol-07",
       "userId": "NX@KOLEMP07",
       "email": "kolkata.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sanchita Bose",
       "dob": "1995-03-10",
@@ -937,8 +937,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.789Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -946,7 +946,7 @@
       "id": "u-kol-08",
       "userId": "NX@KOLEMP08",
       "email": "kolkata.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Debabrata Ghosh",
       "dob": "1987-08-21",
@@ -957,8 +957,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.789Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -966,7 +966,7 @@
       "id": "u-kol-09",
       "userId": "NX@KOLEMP09",
       "email": "kolkata.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Rimpa Dutta",
       "dob": "1994-10-15",
@@ -977,8 +977,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.789Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -986,7 +986,7 @@
       "id": "u-kol-10",
       "userId": "NX@KOLEMP10",
       "email": "kolkata.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Amitabha Bhattacharya",
       "dob": "1986-06-30",
@@ -997,8 +997,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.789Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.879Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1006,7 +1006,7 @@
       "id": "u-mgr-hyd",
       "userId": "NX@IYER0007",
       "email": "suresh.i@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauE1P802qwkMvlta0qaQoRiJpO8gdM4yK",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.cmuMkSmDRUYALDKwP/7laERTkXJxG2u",
       "role": "Branch Manager",
       "fullName": "Suresh Iyer",
       "dob": "1984-07-24",
@@ -1017,8 +1017,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1026,7 +1026,7 @@
       "id": "u-hyd-02",
       "userId": "NX@HYDEMP02",
       "email": "hyderabad.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Srilatha Varma",
       "dob": "1991-04-18",
@@ -1037,8 +1037,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1046,7 +1046,7 @@
       "id": "u-hyd-03",
       "userId": "NX@HYDEMP03",
       "email": "hyderabad.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Madhav Naidu",
       "dob": "1989-09-02",
@@ -1057,8 +1057,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1066,7 +1066,7 @@
       "id": "u-hyd-04",
       "userId": "NX@HYDEMP04",
       "email": "hyderabad.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Bhavana Raju",
       "dob": "1993-11-12",
@@ -1077,8 +1077,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1086,7 +1086,7 @@
       "id": "u-hyd-05",
       "userId": "NX@HYDEMP05",
       "email": "hyderabad.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Tarun Teja",
       "dob": "1987-01-25",
@@ -1097,8 +1097,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1106,7 +1106,7 @@
       "id": "u-hyd-06",
       "userId": "NX@HYDEMP06",
       "email": "hyderabad.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Haritha Reddy",
       "dob": "1994-06-08",
@@ -1117,8 +1117,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1126,7 +1126,7 @@
       "id": "u-hyd-07",
       "userId": "NX@HYDEMP07",
       "email": "hyderabad.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Mahesh Chowdary",
       "dob": "1990-03-31",
@@ -1137,8 +1137,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1146,7 +1146,7 @@
       "id": "u-hyd-08",
       "userId": "NX@HYDEMP08",
       "email": "hyderabad.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Anusha Kulkarni",
       "dob": "1992-10-14",
@@ -1157,8 +1157,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1166,7 +1166,7 @@
       "id": "u-hyd-09",
       "userId": "NX@HYDEMP09",
       "email": "hyderabad.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sravan Kumar",
       "dob": "1988-08-20",
@@ -1177,8 +1177,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1186,7 +1186,7 @@
       "id": "u-hyd-10",
       "userId": "NX@HYDEMP10",
       "email": "hyderabad.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Pradeep Goud",
       "dob": "1995-12-05",
@@ -1197,8 +1197,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.870Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:35.964Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1206,7 +1206,7 @@
       "id": "u-teller-amd",
       "userId": "NX@JOSHI008",
       "email": "kavita.j@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Kavita Joshi",
       "dob": "1993-02-14",
@@ -1217,8 +1217,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1226,7 +1226,7 @@
       "id": "u-amd-02",
       "userId": "NX@AMDEMP02",
       "email": "ahmedabad.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "Jayesh Patel",
       "dob": "1983-05-19",
@@ -1237,8 +1237,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1246,7 +1246,7 @@
       "id": "u-amd-03",
       "userId": "NX@AMDEMP03",
       "email": "ahmedabad.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Hiral Shah",
       "dob": "1991-09-08",
@@ -1257,8 +1257,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1266,7 +1266,7 @@
       "id": "u-amd-04",
       "userId": "NX@AMDEMP04",
       "email": "ahmedabad.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Chirag Mehta",
       "dob": "1989-11-23",
@@ -1277,8 +1277,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1286,7 +1286,7 @@
       "id": "u-amd-05",
       "userId": "NX@AMDEMP05",
       "email": "ahmedabad.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Kinjal Parikh",
       "dob": "1994-01-30",
@@ -1297,8 +1297,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1306,7 +1306,7 @@
       "id": "u-amd-06",
       "userId": "NX@AMDEMP06",
       "email": "ahmedabad.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Nimesh Trivedi",
       "dob": "1987-07-15",
@@ -1317,8 +1317,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1326,7 +1326,7 @@
       "id": "u-amd-07",
       "userId": "NX@AMDEMP07",
       "email": "ahmedabad.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Falak Pandya",
       "dob": "1992-04-03",
@@ -1337,8 +1337,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1346,7 +1346,7 @@
       "id": "u-amd-08",
       "userId": "NX@AMDEMP08",
       "email": "ahmedabad.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Bhavesh Solanki",
       "dob": "1990-10-17",
@@ -1357,8 +1357,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1366,7 +1366,7 @@
       "id": "u-amd-09",
       "userId": "NX@AMDEMP09",
       "email": "ahmedabad.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Purvi Vora",
       "dob": "1995-08-21",
@@ -1377,8 +1377,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1386,7 +1386,7 @@
       "id": "u-amd-10",
       "userId": "NX@AMDEMP10",
       "email": "ahmedabad.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Darshan Choksi",
       "dob": "1988-12-11",
@@ -1397,8 +1397,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:29.951Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.048Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1406,7 +1406,7 @@
       "id": "u-mgr-pune",
       "userId": "NX@DESH0006",
       "email": "ananya.d@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauE1P802qwkMvlta0qaQoRiJpO8gdM4yK",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.cmuMkSmDRUYALDKwP/7laERTkXJxG2u",
       "role": "Branch Manager",
       "fullName": "Ananya Deshmukh",
       "dob": "1986-12-05",
@@ -1417,8 +1417,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1426,7 +1426,7 @@
       "id": "u-pun-02",
       "userId": "NX@PUNEMP02",
       "email": "pune.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sachin Gadgil",
       "dob": "1989-03-24",
@@ -1437,8 +1437,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1446,7 +1446,7 @@
       "id": "u-pun-03",
       "userId": "NX@PUNEMP03",
       "email": "pune.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Rutuja Jagtap",
       "dob": "1992-07-16",
@@ -1457,8 +1457,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1466,7 +1466,7 @@
       "id": "u-pun-04",
       "userId": "NX@PUNEMP04",
       "email": "pune.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Omkar Barve",
       "dob": "1990-11-09",
@@ -1477,8 +1477,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1486,7 +1486,7 @@
       "id": "u-pun-05",
       "userId": "NX@PUNEMP05",
       "email": "pune.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Loan Officer",
       "fullName": "Sayali Kakade",
       "dob": "1994-05-02",
@@ -1497,8 +1497,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1506,7 +1506,7 @@
       "id": "u-pun-06",
       "userId": "NX@PUNEMP06",
       "email": "pune.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Tushar Mahajan",
       "dob": "1987-09-18",
@@ -1517,8 +1517,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1526,7 +1526,7 @@
       "id": "u-pun-07",
       "userId": "NX@PUNEMP07",
       "email": "pune.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Asmita Phadke",
       "dob": "1993-04-11",
@@ -1537,8 +1537,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1546,7 +1546,7 @@
       "id": "u-pun-08",
       "userId": "NX@PUNEMP08",
       "email": "pune.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Prasad Dhage",
       "dob": "1988-01-29",
@@ -1557,8 +1557,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1566,7 +1566,7 @@
       "id": "u-pun-09",
       "userId": "NX@PUNEMP09",
       "email": "pune.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sneha Nene",
       "dob": "1995-10-07",
@@ -1577,8 +1577,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1586,7 +1586,7 @@
       "id": "u-pun-10",
       "userId": "NX@PUNEMP10",
       "email": "pune.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Siddhesh Bapat",
       "dob": "1991-08-20",
@@ -1597,8 +1597,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.032Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.130Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1606,7 +1606,7 @@
       "id": "u-loan-jai",
       "userId": "NX@AGAR0010",
       "email": "pooja.a@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauFtYvd/Oeg/1Ct.z7Qwkhj89JMTNY632",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.9GPMkMMNUcJaVOOfdb9or6AtbzFxp32",
       "role": "Loan Officer",
       "fullName": "Pooja Agarwal",
       "dob": "1991-08-16",
@@ -1617,8 +1617,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1626,7 +1626,7 @@
       "id": "u-jai-02",
       "userId": "NX@JAIEMP02",
       "email": "jaipur.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "Vikramaditya Rathore",
       "dob": "1985-02-17",
@@ -1637,8 +1637,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1646,7 +1646,7 @@
       "id": "u-jai-03",
       "userId": "NX@JAIEMP03",
       "email": "jaipur.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Sunita Shekhawat",
       "dob": "1992-06-25",
@@ -1657,8 +1657,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1666,7 +1666,7 @@
       "id": "u-jai-04",
       "userId": "NX@JAIEMP04",
       "email": "jaipur.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Harshwardhan Singh",
       "dob": "1988-10-31",
@@ -1677,8 +1677,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1686,7 +1686,7 @@
       "id": "u-jai-05",
       "userId": "NX@JAIEMP05",
       "email": "jaipur.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Kirti Kanwar",
       "dob": "1994-04-12",
@@ -1697,8 +1697,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1706,7 +1706,7 @@
       "id": "u-jai-06",
       "userId": "NX@JAIEMP06",
       "email": "jaipur.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Lokendra Chouhan",
       "dob": "1990-09-08",
@@ -1717,8 +1717,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1726,7 +1726,7 @@
       "id": "u-jai-07",
       "userId": "NX@JAIEMP07",
       "email": "jaipur.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Yashoda Sharma",
       "dob": "1993-11-20",
@@ -1737,8 +1737,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1746,7 +1746,7 @@
       "id": "u-jai-08",
       "userId": "NX@JAIEMP08",
       "email": "jaipur.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Digvijay Mina",
       "dob": "1987-12-03",
@@ -1757,8 +1757,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1766,7 +1766,7 @@
       "id": "u-jai-09",
       "userId": "NX@JAIEMP09",
       "email": "jaipur.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Shweta Mathur",
       "dob": "1995-07-14",
@@ -1777,8 +1777,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1786,7 +1786,7 @@
       "id": "u-jai-10",
       "userId": "NX@JAIEMP10",
       "email": "jaipur.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Jitendra Saini",
       "dob": "1991-01-22",
@@ -1797,8 +1797,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.114Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.213Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1806,7 +1806,7 @@
       "id": "u-comp-lko",
       "userId": "NX@GUPTA009",
       "email": "rahul.g@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauMwMT6mU8jsyZkpS8dE50.vHKGkflZUq",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.3tJ.0sQEO/K/9XDa8O5VefMj0NS6.kS",
       "role": "Compliance Officer",
       "fullName": "Rahul Gupta",
       "dob": "1987-10-30",
@@ -1817,8 +1817,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1826,7 +1826,7 @@
       "id": "u-lko-02",
       "userId": "NX@LKOEMP02",
       "email": "lucknow.emp2@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Branch Manager",
       "fullName": "Shailendra Srivastava",
       "dob": "1984-06-18",
@@ -1837,8 +1837,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1846,7 +1846,7 @@
       "id": "u-lko-03",
       "userId": "NX@LKOEMP03",
       "email": "lucknow.emp3@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Archana Tripathi",
       "dob": "1992-02-09",
@@ -1857,8 +1857,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1866,7 +1866,7 @@
       "id": "u-lko-04",
       "userId": "NX@LKOEMP04",
       "email": "lucknow.emp4@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Alok Pandey",
       "dob": "1989-11-27",
@@ -1877,8 +1877,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1886,7 +1886,7 @@
       "id": "u-lko-05",
       "userId": "NX@LKOEMP05",
       "email": "lucknow.emp5@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Pragya Mishra",
       "dob": "1994-08-15",
@@ -1897,8 +1897,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1906,7 +1906,7 @@
       "id": "u-lko-06",
       "userId": "NX@LKOEMP06",
       "email": "lucknow.emp6@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Devesh Shukla",
       "dob": "1990-04-03",
@@ -1917,8 +1917,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1926,7 +1926,7 @@
       "id": "u-lko-07",
       "userId": "NX@LKOEMP07",
       "email": "lucknow.emp7@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Shalini Yadav",
       "dob": "1993-10-21",
@@ -1937,8 +1937,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1946,7 +1946,7 @@
       "id": "u-lko-08",
       "userId": "NX@LKOEMP08",
       "email": "lucknow.emp8@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Vivek Nigam",
       "dob": "1987-03-12",
@@ -1957,8 +1957,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1966,7 +1966,7 @@
       "id": "u-lko-09",
       "userId": "NX@LKOEMP09",
       "email": "lucknow.emp9@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Garima Bajpai",
       "dob": "1995-01-07",
@@ -1977,8 +1977,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -1986,7 +1986,7 @@
       "id": "u-lko-10",
       "userId": "NX@LKOEMP10",
       "email": "lucknow.emp10@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauOIEpdaiesh5HV2mRoEItjokMpLnnP3.",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.B9lgk.r9mVLIuW6CxeRgCp4KGFzfIeu",
       "role": "Employee",
       "fullName": "Rakesh Tiwari",
       "dob": "1991-09-29",
@@ -1997,8 +1997,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.198Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.294Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2006,7 +2006,7 @@
       "id": "u-customer",
       "userId": "NX@MEHTA001",
       "email": "customer@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Aarav Mehta",
       "dob": "1990-05-14",
@@ -2019,17 +2019,17 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXaui8XlJ8I2/8hK2p7rHksnh9gufytbcda",
-      "createdAt": "2026-08-27T11:30:30.381Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.mPnluqTRW52YI23xfUPTj/gfPYOeYyS",
+      "createdAt": "2026-08-27T11:28:36.457Z",
       "forcePasswordChange": false,
       "tempPassword": null,
-      "updatedAt": "2026-08-27T11:30:32.289Z"
+      "updatedAt": "2026-08-27T11:28:38.384Z"
     },
     {
       "id": "u-cust-2",
       "userId": "NX@BANE0002",
       "email": "diya.banerjee@yahoo.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Diya Banerjee",
       "dob": "1992-08-22",
@@ -2042,8 +2042,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.565Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.625Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2051,7 +2051,7 @@
       "id": "u-cust-3",
       "userId": "NX@KULK0003",
       "email": "rohan.kulkarni@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Rohan Kulkarni",
       "dob": "1985-11-03",
@@ -2064,8 +2064,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.729Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.825Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2073,7 +2073,7 @@
       "id": "u-cust-4",
       "userId": "NX@SWAM0004",
       "email": "ananya.swami@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Ananya Swaminathan",
       "dob": "1996-03-19",
@@ -2086,8 +2086,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:30.892Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:36.990Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2095,7 +2095,7 @@
       "id": "u-cust-5",
       "userId": "NX@MALH0005",
       "email": "kabir.malhotra@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Kabir Malhotra",
       "dob": "1988-07-30",
@@ -2108,8 +2108,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.056Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.154Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2117,7 +2117,7 @@
       "id": "u-cust-6",
       "userId": "NX@NAIR0006",
       "email": "sneha.nair@outlook.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Sneha Nair",
       "dob": "1994-01-12",
@@ -2130,8 +2130,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.219Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.318Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2139,7 +2139,7 @@
       "id": "u-cust-7",
       "userId": "NX@CHAW0007",
       "email": "aditya.chawla@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Aditya Chawla",
       "dob": "1983-09-05",
@@ -2152,8 +2152,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.384Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.485Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2161,7 +2161,7 @@
       "id": "u-cust-8",
       "userId": "NX@DESH0008",
       "email": "meera.deshpande@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Meera Deshpande",
       "dob": "1991-12-25",
@@ -2174,8 +2174,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.546Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.651Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2183,7 +2183,7 @@
       "id": "u-cust-9",
       "userId": "NX@RAO00009",
       "email": "siddharth.rao@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Siddharth Rao",
       "dob": "1987-04-17",
@@ -2196,8 +2196,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.709Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.816Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2205,7 +2205,7 @@
       "id": "u-cust-10",
       "userId": "NX@SAXE0010",
       "email": "ishita.saxena@gmail.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauETjk80yLQinaBUBLr4/ZsQb2U5kvbvi",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.DLdmMA/0qJNYigOd7cOfsxaQbX8cVau",
       "role": "Customer",
       "fullName": "Ishita Saxena",
       "dob": "1993-06-08",
@@ -2218,8 +2218,8 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:31.875Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:37.981Z",
       "forcePasswordChange": false,
       "tempPassword": null
     },
@@ -2227,7 +2227,7 @@
       "id": "u-merchant",
       "userId": "NX@MERCH01",
       "email": "merchant@bank.com",
-      "passwordHash": "$2a$10$UjvneNAlgjFCIBcVgkwXauDvqtyjEVDlH2MQpsMGfOIONgiA0168u",
+      "passwordHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.1tt1tVUDDiFuQwBV/Qvf2uKSvGsBuwO",
       "role": "Merchant",
       "fullName": "Rajesh Retail Traders",
       "dob": "1988-11-30",
@@ -2237,82 +2237,53 @@
       "status": "active",
       "failedLogins": 0,
       "lockedUntil": null,
-      "transactionPinHash": "$2a$10$UjvneNAlgjFCIBcVgkwXau9dbPd95IhGBQohoyKAJxHGdF9.db34i",
-      "createdAt": "2026-08-27T11:30:32.040Z",
+      "transactionPinHash": "$2a$10$BmnACKT6GdN2xljIkzu3Q.piR97Pcx15xv2tMrZeE9s2XX4Emfrdq",
+      "createdAt": "2026-08-27T11:28:38.147Z",
       "forcePasswordChange": false,
       "tempPassword": null
-    },
-    {
-      "id": "BSB@63WR6L4",
-      "userId": "BSB@63WR6L4",
-      "email": "auditor_test@bank.com",
-      "passwordHash": "$2a$10$8lU4BRkbA/2LcGJ2dcKCTubIhwdD9lh2AJNct5fYlh1btwtVj/2fa",
-      "role": "Auditor",
-      "fullName": "Test Auditor Agent",
-      "branchId": "b-main",
-      "status": "active",
-      "forcePasswordChange": false,
-      "tempPassword": null,
-      "failedLogins": 0,
-      "lockedUntil": null,
-      "twoFactorEnabled": false,
-      "createdAt": "2026-08-27T11:30:32.922Z",
-      "updatedAt": "2026-08-27T11:30:33.293Z"
     }
   ],
   "sessions": [
     {
-      "id": "ses-745e543c",
+      "id": "ses-4e79cf2f",
       "userId": "u-admin",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3ODMwMjMyLCJleHAiOjE3ODg0MzUwMzJ9.L7tY92kS_a_uraJPLZBCelDsB5hNRu--Xz8rSPXWYGY",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtYWRtaW4iLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3ODMwMTE4LCJleHAiOjE3ODg0MzQ5MTh9.jQirqzeLq-BJxxLINoaghokyTsXcEsHztQZuBA-u5ho",
       "deviceId": "test-runner-id",
       "deviceName": "Browser Session",
       "ipAddress": "::1",
       "userAgent": "unknown",
       "active": true,
-      "expiresAt": "2026-09-03T11:30:32.185Z",
-      "createdAt": "2026-08-27T11:30:32.185Z"
+      "expiresAt": "2026-09-03T11:28:38.294Z",
+      "createdAt": "2026-08-27T11:28:38.294Z"
     },
     {
-      "id": "ses-df78eff3",
+      "id": "ses-3c929f5f",
       "userId": "u-customer",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3ODMwMjMyLCJleHAiOjE3ODg0MzUwMzJ9.WmN06phC41HXfhn8HNTxWC9JNCL0swSLvyqmcee1CDY",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtY3VzdG9tZXIiLCJkZXZpY2VJZCI6InRlc3QtcnVubmVyLWlkIiwiaWF0IjoxNzg3ODMwMTE4LCJleHAiOjE3ODg0MzQ5MTh9.DQyN_RDUylMXDeN_giXUWaGjF2rk-bP57sIfqmONHok",
       "deviceId": "test-runner-id",
       "deviceName": "Browser Session",
       "ipAddress": "::1",
       "userAgent": "unknown",
       "active": true,
-      "expiresAt": "2026-09-03T11:30:32.291Z",
-      "createdAt": "2026-08-27T11:30:32.291Z"
+      "expiresAt": "2026-09-03T11:28:38.386Z",
+      "createdAt": "2026-08-27T11:28:38.386Z"
     },
     {
-      "id": "ses-51fe9512",
+      "id": "ses-0f949998",
       "userId": "u-teller",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtdGVsbGVyIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4NzgzMDIzMiwiZXhwIjoxNzg4NDM1MDMyfQ.48OeFXBpwT95rynA_ZqEe6NIErls0G2ScP-Kwh2-OPU",
+      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUtdGVsbGVyIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4NzgzMDExOCwiZXhwIjoxNzg4NDM0OTE4fQ.zZeVujMV_P1QvGI5nrECKQL5NfXoeJEXAvEqt2jH4Ck",
       "deviceId": "test-runner-id",
       "deviceName": "Browser Session",
       "ipAddress": "::1",
       "userAgent": "unknown",
       "active": true,
-      "expiresAt": "2026-09-03T11:30:32.450Z",
-      "createdAt": "2026-08-27T11:30:32.450Z"
-    },
-    {
-      "id": "ses-2ad4bd0c",
-      "userId": "BSB@63WR6L4",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkJTQkA2M1dSNkw0IiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4NzgzMDIzMywiZXhwIjoxNzg4NDM1MDMzfQ.noPRxZDK5di2KJBeRQAErwsVE1lXGsfjVSYlL1QCg2M",
-      "deviceId": "test-runner-id",
-      "deviceName": "Browser Session",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "active": true,
-      "expiresAt": "2026-09-03T11:30:33.296Z",
-      "createdAt": "2026-08-27T11:30:33.296Z"
+      "expiresAt": "2026-09-03T11:28:38.529Z",
+      "createdAt": "2026-08-27T11:28:38.529Z"
     }
   ],
   "loginHistory": [
     {
-      "id": "log-0230a00c",
+      "id": "log-a0ebb5f9",
       "userId": "u-admin",
       "email": "admin@bank.com",
       "ipAddress": "::1",
@@ -2320,11 +2291,11 @@
       "deviceFingerprint": "unknown",
       "status": "success",
       "failureReason": null,
-      "timestamp": "2026-08-27T11:30:32.186Z",
-      "createdAt": "2026-08-27T11:30:32.186Z"
+      "timestamp": "2026-08-27T11:28:38.295Z",
+      "createdAt": "2026-08-27T11:28:38.295Z"
     },
     {
-      "id": "log-549e818d",
+      "id": "log-f2664d33",
       "userId": "u-customer",
       "email": "customer@bank.com",
       "ipAddress": "::1",
@@ -2332,11 +2303,11 @@
       "deviceFingerprint": "unknown",
       "status": "success",
       "failureReason": null,
-      "timestamp": "2026-08-27T11:30:32.293Z",
-      "createdAt": "2026-08-27T11:30:32.293Z"
+      "timestamp": "2026-08-27T11:28:38.387Z",
+      "createdAt": "2026-08-27T11:28:38.387Z"
     },
     {
-      "id": "log-b5258a53",
+      "id": "log-0c05fa61",
       "userId": "u-admin",
       "email": "admin@bank.com",
       "ipAddress": "::1",
@@ -2344,11 +2315,11 @@
       "deviceFingerprint": "unknown",
       "status": "failed",
       "failureReason": "Staff/Admin attempt to login on Customer portal: Super Admin",
-      "timestamp": "2026-08-27T11:30:32.313Z",
-      "createdAt": "2026-08-27T11:30:32.313Z"
+      "timestamp": "2026-08-27T11:28:38.402Z",
+      "createdAt": "2026-08-27T11:28:38.402Z"
     },
     {
-      "id": "log-cbdab966",
+      "id": "log-aeccd505",
       "userId": "u-customer",
       "email": "customer@bank.com",
       "ipAddress": "::1",
@@ -2356,11 +2327,11 @@
       "deviceFingerprint": "unknown",
       "status": "failed",
       "failureReason": "Unauthorized attempt to login on Headquarter portal: Customer",
-      "timestamp": "2026-08-27T11:30:32.325Z",
-      "createdAt": "2026-08-27T11:30:32.325Z"
+      "timestamp": "2026-08-27T11:28:38.412Z",
+      "createdAt": "2026-08-27T11:28:38.412Z"
     },
     {
-      "id": "log-f35daf4f",
+      "id": "log-098f1281",
       "userId": "u-customer",
       "email": "customer@bank.com",
       "ipAddress": "::1",
@@ -2368,11 +2339,11 @@
       "deviceFingerprint": "unknown",
       "status": "failed",
       "failureReason": "Customer attempt to login on Branch portal: Customer",
-      "timestamp": "2026-08-27T11:30:32.334Z",
-      "createdAt": "2026-08-27T11:30:32.334Z"
+      "timestamp": "2026-08-27T11:28:38.420Z",
+      "createdAt": "2026-08-27T11:28:38.420Z"
     },
     {
-      "id": "log-155ee322",
+      "id": "log-d725e1cc",
       "userId": "u-teller",
       "email": "teller@bank.com",
       "ipAddress": "::1",
@@ -2380,32 +2351,8 @@
       "deviceFingerprint": "unknown",
       "status": "success",
       "failureReason": null,
-      "timestamp": "2026-08-27T11:30:32.451Z",
-      "createdAt": "2026-08-27T11:30:32.451Z"
-    },
-    {
-      "id": "log-aee7414f",
-      "userId": "BSB@63WR6L4",
-      "email": "auditor_test@bank.com",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "deviceFingerprint": "unknown",
-      "status": "success",
-      "failureReason": null,
-      "timestamp": "2026-08-27T11:30:33.055Z",
-      "createdAt": "2026-08-27T11:30:33.055Z"
-    },
-    {
-      "id": "log-ef0084ea",
-      "userId": "BSB@63WR6L4",
-      "email": "auditor_test@bank.com",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "deviceFingerprint": "unknown",
-      "status": "success",
-      "failureReason": null,
-      "timestamp": "2026-08-27T11:30:33.298Z",
-      "createdAt": "2026-08-27T11:30:33.298Z"
+      "timestamp": "2026-08-27T11:28:38.530Z",
+      "createdAt": "2026-08-27T11:28:38.530Z"
     }
   ],
   "branches": [
@@ -2420,7 +2367,7 @@
       "minVaultLimit": 2000000,
       "maxVaultLimit": 50000000,
       "cashInHand": 500000,
-      "createdAt": "2026-08-27T11:30:29.202Z"
+      "createdAt": "2026-08-27T11:28:35.219Z"
     },
     {
       "id": "b-delhi",
@@ -2433,7 +2380,7 @@
       "minVaultLimit": 1500000,
       "maxVaultLimit": 40000000,
       "cashInHand": 400000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-blr",
@@ -2446,7 +2393,7 @@
       "minVaultLimit": 1000000,
       "maxVaultLimit": 35000000,
       "cashInHand": 350000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-chennai",
@@ -2459,7 +2406,7 @@
       "minVaultLimit": 1000000,
       "maxVaultLimit": 30000000,
       "cashInHand": 300000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-kolkata",
@@ -2472,7 +2419,7 @@
       "minVaultLimit": 800000,
       "maxVaultLimit": 25000000,
       "cashInHand": 250000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-hyd",
@@ -2485,7 +2432,7 @@
       "minVaultLimit": 1000000,
       "maxVaultLimit": 30000000,
       "cashInHand": 300000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-ahmedabad",
@@ -2498,7 +2445,7 @@
       "minVaultLimit": 900000,
       "maxVaultLimit": 28000000,
       "cashInHand": 280000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-pune",
@@ -2511,7 +2458,7 @@
       "minVaultLimit": 1000000,
       "maxVaultLimit": 32000000,
       "cashInHand": 320000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-jaipur",
@@ -2524,7 +2471,7 @@
       "minVaultLimit": 700000,
       "maxVaultLimit": 20000000,
       "cashInHand": 200000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     },
     {
       "id": "b-lucknow",
@@ -2537,7 +2484,7 @@
       "minVaultLimit": 750000,
       "maxVaultLimit": 22000000,
       "cashInHand": 220000,
-      "createdAt": "2026-08-27T11:30:29.203Z"
+      "createdAt": "2026-08-27T11:28:35.221Z"
     }
   ],
   "cashVaults": [
@@ -2546,7 +2493,7 @@
       "branchId": "b-main",
       "type": "main",
       "balance": 15000000,
-      "lastReconciledAt": "2026-08-27T11:30:32.040Z"
+      "lastReconciledAt": "2026-08-27T11:28:38.147Z"
     }
   ],
   "cashPositions": [
@@ -2557,7 +2504,7 @@
       "cashInHand": 55000,
       "limit": 100000,
       "status": "active",
-      "updatedAt": "2026-08-27T11:30:32.466Z"
+      "updatedAt": "2026-08-27T11:28:38.543Z"
     }
   ],
   "accounts": [
@@ -2570,8 +2517,8 @@
       "mopType": "Self",
       "balance": 155387.5,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.495Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.566Z"
     },
     {
       "id": "acc-cust-2",
@@ -2582,8 +2529,8 @@
       "mopType": "Self",
       "balance": 285712.5,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.505Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.573Z"
     },
     {
       "id": "acc-cust-3",
@@ -2594,7 +2541,7 @@
       "mopType": "Self",
       "balance": 540000,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     },
     {
       "id": "acc-cust-4",
@@ -2605,8 +2552,8 @@
       "mopType": "Self",
       "balance": 95237.5,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.512Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.581Z"
     },
     {
       "id": "acc-cust-5",
@@ -2617,8 +2564,8 @@
       "mopType": "Either or Survivor",
       "balance": 421050,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.518Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.588Z"
     },
     {
       "id": "acc-cust-6",
@@ -2629,8 +2576,8 @@
       "mopType": "Self",
       "balance": 180450,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.526Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.596Z"
     },
     {
       "id": "acc-cust-7",
@@ -2641,7 +2588,7 @@
       "mopType": "Self",
       "balance": 890000,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     },
     {
       "id": "acc-cust-8",
@@ -2652,8 +2599,8 @@
       "mopType": "Self",
       "balance": 315787.5,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.597Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.604Z"
     },
     {
       "id": "acc-cust-9",
@@ -2664,8 +2611,8 @@
       "mopType": "Either or Survivor",
       "balance": 676687.5,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.608Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.613Z"
     },
     {
       "id": "acc-cust-10",
@@ -2676,8 +2623,8 @@
       "mopType": "Self",
       "balance": 210525,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z",
-      "updatedAt": "2026-08-27T11:30:32.619Z"
+      "createdAt": "2026-08-27T11:28:38.147Z",
+      "updatedAt": "2026-08-27T11:28:38.624Z"
     },
     {
       "id": "acc-merch-1",
@@ -2688,12 +2635,12 @@
       "mopType": "Self",
       "balance": 1000000,
       "status": "active",
-      "createdAt": "2026-08-27T11:30:32.040Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     }
   ],
   "transactions": [
     {
-      "id": "tra-86f86a39",
+      "id": "tra-fcb8b0ef",
       "fromAccountId": "CASH",
       "toAccountId": "acc-cust-1",
       "amount": 5000,
@@ -2703,10 +2650,10 @@
       "description": "Test Verification Deposit",
       "fraudScore": 5,
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.465Z"
+      "createdAt": "2026-08-27T11:28:38.542Z"
     },
     {
-      "id": "tra-3aa32c54",
+      "id": "tra-abce3373",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-1",
       "amount": 387.5,
@@ -2715,10 +2662,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.496Z"
+      "createdAt": "2026-08-27T11:28:38.567Z"
     },
     {
-      "id": "tra-fd7c5349",
+      "id": "tra-67a35f11",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-2",
       "amount": 712.5,
@@ -2727,10 +2674,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.506Z"
+      "createdAt": "2026-08-27T11:28:38.574Z"
     },
     {
-      "id": "tra-689abf19",
+      "id": "tra-40e3c23b",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-4",
       "amount": 237.5,
@@ -2739,10 +2686,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.513Z"
+      "createdAt": "2026-08-27T11:28:38.582Z"
     },
     {
-      "id": "tra-c9fce708",
+      "id": "tra-1533c6e7",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-5",
       "amount": 1050,
@@ -2751,10 +2698,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.519Z"
+      "createdAt": "2026-08-27T11:28:38.589Z"
     },
     {
-      "id": "tra-f788f1a1",
+      "id": "tra-e11d4841",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-6",
       "amount": 450,
@@ -2763,10 +2710,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.589Z"
+      "createdAt": "2026-08-27T11:28:38.598Z"
     },
     {
-      "id": "tra-10624f06",
+      "id": "tra-78cf92a9",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-8",
       "amount": 787.5,
@@ -2775,10 +2722,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.598Z"
+      "createdAt": "2026-08-27T11:28:38.605Z"
     },
     {
-      "id": "tra-f6dc5dae",
+      "id": "tra-53dc392a",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-9",
       "amount": 1687.5,
@@ -2787,10 +2734,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.609Z"
+      "createdAt": "2026-08-27T11:28:38.614Z"
     },
     {
-      "id": "tra-b597d456",
+      "id": "tra-805dd139",
       "fromAccountId": "SYSTEM",
       "toAccountId": "acc-cust-10",
       "amount": 525,
@@ -2799,10 +2746,10 @@
       "status": "completed",
       "description": "Monthly Savings Interest Credited",
       "reconciliationStatus": "reconciled",
-      "createdAt": "2026-08-27T11:30:32.620Z"
+      "createdAt": "2026-08-27T11:28:38.625Z"
     },
     {
-      "id": "tra-f7516dfc",
+      "id": "tra-2ad7d593",
       "fromAccountId": "acc-cust-1",
       "toAccountId": "acc-merch-1",
       "amount": 60000,
@@ -2812,7 +2759,7 @@
       "description": "Blocked: Fraud Risk Score too high (80). Fraud Test transfer",
       "fraudScore": 80,
       "reconciliationStatus": "failed",
-      "createdAt": "2026-08-27T11:30:32.756Z"
+      "createdAt": "2026-08-27T11:28:38.736Z"
     }
   ],
   "cards": [],
@@ -2826,187 +2773,106 @@
   "notifications": [],
   "auditLogs": [
     {
-      "id": "aud-738fa181",
+      "id": "aud-ada44c79",
       "userId": "u-customer",
       "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
       "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"reason\":\"Role 'Customer' lacks module permission for 'users, employees'\",\"userRole\":\"Customer\"}",
       "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.353Z",
-      "createdAt": "2026-08-27T11:30:32.353Z"
+      "timestamp": "2026-08-27T11:28:38.433Z",
+      "createdAt": "2026-08-27T11:28:38.433Z"
     },
     {
-      "id": "aud-0eda6b69",
+      "id": "aud-c11d5d7d",
       "userId": "u-teller",
       "action": "POST_/API/DASHBOARD/TRANSACTIONS",
       "details": "{\"body\":{\"toAccountNumber\":\"1000987654\",\"amount\":5000,\"type\":\"deposit\",\"description\":\"Test Verification Deposit\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
       "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.473Z",
-      "createdAt": "2026-08-27T11:30:32.473Z"
+      "timestamp": "2026-08-27T11:28:38.550Z",
+      "createdAt": "2026-08-27T11:28:38.550Z"
     },
     {
-      "id": "aud-6a447cb3",
+      "id": "aud-43575cae",
       "userId": "u-admin",
       "action": "POST_/API/INTEREST/POST",
       "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
       "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.630Z",
-      "createdAt": "2026-08-27T11:30:32.630Z"
-    },
-    {
-      "id": "aud-d4f765be",
-      "userId": "u-admin",
-      "action": "POST_/API/SYSTEM/BACKUPS",
-      "details": "{\"body\":{\"type\":\"manual\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.791Z",
-      "createdAt": "2026-08-27T11:30:32.791Z"
-    },
-    {
-      "id": "aud-5e6ffcbc",
-      "userId": "u-admin",
-      "action": "USER_PROVISIONED",
-      "details": "{\"provisionedUserId\":\"BSB@63WR6L4\",\"email\":\"auditor_test@bank.com\",\"role\":\"Auditor\",\"branchId\":\"b-main\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.926Z",
-      "createdAt": "2026-08-27T11:30:32.926Z"
-    },
-    {
-      "id": "aud-ec964c1b",
-      "userId": "u-admin",
-      "action": "POST_/API/AUTH/PROVISION",
-      "details": "{\"body\":{\"email\":\"auditor_test@bank.com\",\"fullName\":\"Test Auditor Agent\",\"role\":\"Auditor\",\"branchId\":\"b-main\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:32.928Z",
-      "createdAt": "2026-08-27T11:30:32.928Z"
-    },
-    {
-      "id": "aud-86c61c5b",
-      "userId": "BSB@63WR6L4",
-      "action": "ACCOUNT_ACTIVATED",
-      "details": "{\"email\":\"auditor_test@bank.com\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.186Z",
-      "createdAt": "2026-08-27T11:30:33.186Z"
-    },
-    {
-      "id": "aud-e181b81b",
-      "userId": "anonymous",
-      "action": "POST_/API/AUTH/ACTIVATE-PROVISIONED",
-      "details": "{\"body\":{\"email\":\"auditor_test@bank.com\",\"tempPassword\":\"Temp8801!\",\"newPassword\":\"AuditorNewMaster123!\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.188Z",
-      "createdAt": "2026-08-27T11:30:33.188Z"
-    },
-    {
-      "id": "aud-b77175e6",
-      "userId": "BSB@63WR6L4",
-      "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
-      "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"reason\":\"Role 'Auditor' lacks module permission for 'users, employees'\",\"userRole\":\"Auditor\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.335Z",
-      "createdAt": "2026-08-27T11:30:33.335Z"
-    },
-    {
-      "id": "aud-f5bc5e52",
-      "userId": "u-admin",
-      "action": "POST_/API/BRANCHES",
-      "details": "{\"body\":{\"name\":\"Automated Test Branch\",\"code\":\"TEST999\",\"address\":\"999 Sandbox Ave, Test City, TS\",\"vaultBalance\":2500000,\"minVaultLimit\":500000,\"maxVaultLimit\":10000000,\"cashInHand\":100000},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.358Z",
-      "createdAt": "2026-08-27T11:30:33.358Z"
-    },
-    {
-      "id": "aud-a03dfb2f",
-      "userId": "u-admin",
-      "action": "PUT_/API/BRANCHES/BRA-AFBE71A6",
-      "details": "{\"body\":{\"name\":\"Automated Test Branch Updated\",\"code\":\"TEST999\",\"address\":\"888 Updated St, Test City, TS\",\"vaultBalance\":3000000,\"minVaultLimit\":500000,\"maxVaultLimit\":10000000,\"cashInHand\":150000},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.381Z",
-      "createdAt": "2026-08-27T11:30:33.381Z"
-    },
-    {
-      "id": "aud-01dc7982",
-      "userId": "u-admin",
-      "action": "DELETE_/API/BRANCHES/BRA-AFBE71A6",
-      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-27T11:30:33.390Z",
-      "createdAt": "2026-08-27T11:30:33.390Z"
+      "timestamp": "2026-08-27T11:28:38.632Z",
+      "createdAt": "2026-08-27T11:28:38.632Z"
     }
   ],
   "treasuryTransfers": [],
   "interestPostings": [
     {
-      "id": "int-8e43007b",
+      "id": "int-9363bda1",
       "accountId": "acc-cust-1",
       "amount": 387.5,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.497Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.568Z"
     },
     {
-      "id": "int-e4ca9259",
+      "id": "int-7fb43bb2",
       "accountId": "acc-cust-2",
       "amount": 712.5,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.507Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.575Z"
     },
     {
-      "id": "int-f606e63a",
+      "id": "int-4baaa305",
       "accountId": "acc-cust-4",
       "amount": 237.5,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.514Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.583Z"
     },
     {
-      "id": "int-55d0d0f0",
+      "id": "int-36f974c4",
       "accountId": "acc-cust-5",
       "amount": 1050,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.521Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.590Z"
     },
     {
-      "id": "int-489f2fbb",
+      "id": "int-4f8a4c6a",
       "accountId": "acc-cust-6",
       "amount": 450,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.590Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.599Z"
     },
     {
-      "id": "int-e8c681a6",
+      "id": "int-4ccf34f0",
       "accountId": "acc-cust-8",
       "amount": 787.5,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.599Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.607Z"
     },
     {
-      "id": "int-72a91e78",
+      "id": "int-a8138f0f",
       "accountId": "acc-cust-9",
       "amount": 1687.5,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.610Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.616Z"
     },
     {
-      "id": "int-1fd5e85b",
+      "id": "int-3d303a04",
       "accountId": "acc-cust-10",
       "amount": 525,
       "type": "savings",
       "period": "Monthly Accrual",
-      "postedAt": "2026-08-27T11:30:32.495Z",
-      "createdAt": "2026-08-27T11:30:32.622Z"
+      "postedAt": "2026-08-27T11:28:38.566Z",
+      "createdAt": "2026-08-27T11:28:38.626Z"
     }
   ],
   "interestSchedules": [],
@@ -3024,7 +2890,7 @@
       "name": "Cash in Hand (Tellers)",
       "type": "asset",
       "balance": 55000,
-      "updatedAt": "2026-08-27T11:30:32.468Z"
+      "updatedAt": "2026-08-27T11:28:38.545Z"
     },
     {
       "id": "gl-2010",
@@ -3032,7 +2898,7 @@
       "name": "Customer Savings Deposits",
       "type": "liability",
       "balance": 160837.5,
-      "updatedAt": "2026-08-27T11:30:32.627Z"
+      "updatedAt": "2026-08-27T11:28:38.629Z"
     },
     {
       "id": "gl-2020",
@@ -3061,227 +2927,227 @@
       "name": "Interest Expense on Savings",
       "type": "expense",
       "balance": 5837.5,
-      "updatedAt": "2026-08-27T11:30:32.624Z"
+      "updatedAt": "2026-08-27T11:28:38.628Z"
     }
   ],
   "journalEntries": [
     {
-      "id": "jou-5b827092",
+      "id": "jou-7ea3dfa1",
       "date": "2026-08-27",
       "description": "Deposit to Account 1000987654",
       "status": "posted",
       "createdBy": "u-teller",
-      "createdAt": "2026-08-27T11:30:32.467Z"
+      "createdAt": "2026-08-27T11:28:38.544Z"
     },
     {
-      "id": "jou-76d771fd",
+      "id": "jou-be8f1cf8",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987654",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.498Z"
+      "createdAt": "2026-08-27T11:28:38.569Z"
     },
     {
-      "id": "jou-0ebe0005",
+      "id": "jou-8300c3d1",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987655",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.508Z"
+      "createdAt": "2026-08-27T11:28:38.576Z"
     },
     {
-      "id": "jou-342104ac",
+      "id": "jou-9aee738b",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987657",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.514Z"
+      "createdAt": "2026-08-27T11:28:38.584Z"
     },
     {
-      "id": "jou-cfd6ddf9",
+      "id": "jou-5ba722b7",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987658",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.521Z"
+      "createdAt": "2026-08-27T11:28:38.592Z"
     },
     {
-      "id": "jou-66327b47",
+      "id": "jou-cd615e61",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987659",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.591Z"
+      "createdAt": "2026-08-27T11:28:38.600Z"
     },
     {
-      "id": "jou-0dbddec8",
+      "id": "jou-8a293762",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987661",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.600Z"
+      "createdAt": "2026-08-27T11:28:38.608Z"
     },
     {
-      "id": "jou-ae3e29e3",
+      "id": "jou-5c38541f",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987662",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.612Z"
+      "createdAt": "2026-08-27T11:28:38.617Z"
     },
     {
-      "id": "jou-5eec8cca",
+      "id": "jou-37aba736",
       "date": "2026-08-27",
       "description": "Savings Interest Posting for 1000987663",
       "status": "posted",
       "createdBy": "u-admin",
-      "createdAt": "2026-08-27T11:30:32.623Z"
+      "createdAt": "2026-08-27T11:28:38.627Z"
     }
   ],
   "journalLines": [
     {
-      "id": "jou-0e154a76",
-      "journalEntryId": "jou-5b827092",
+      "id": "jou-de4f8045",
+      "journalEntryId": "jou-7ea3dfa1",
       "glCode": "1020",
       "type": "debit",
       "amount": 5000,
-      "createdAt": "2026-08-27T11:30:32.468Z"
+      "createdAt": "2026-08-27T11:28:38.545Z"
     },
     {
-      "id": "jou-ee3c17c3",
-      "journalEntryId": "jou-5b827092",
+      "id": "jou-af44abe3",
+      "journalEntryId": "jou-7ea3dfa1",
       "glCode": "2010",
       "type": "credit",
       "amount": 5000,
-      "createdAt": "2026-08-27T11:30:32.470Z"
+      "createdAt": "2026-08-27T11:28:38.547Z"
     },
     {
-      "id": "jou-182635bd",
-      "journalEntryId": "jou-76d771fd",
+      "id": "jou-b46944f8",
+      "journalEntryId": "jou-be8f1cf8",
       "glCode": "5010",
       "type": "debit",
       "amount": 387.5,
-      "createdAt": "2026-08-27T11:30:32.500Z"
+      "createdAt": "2026-08-27T11:28:38.570Z"
     },
     {
-      "id": "jou-1b994f15",
-      "journalEntryId": "jou-76d771fd",
+      "id": "jou-680cfbbf",
+      "journalEntryId": "jou-be8f1cf8",
       "glCode": "2010",
       "type": "credit",
       "amount": 387.5,
-      "createdAt": "2026-08-27T11:30:32.502Z"
+      "createdAt": "2026-08-27T11:28:38.571Z"
     },
     {
-      "id": "jou-fefd36ec",
-      "journalEntryId": "jou-0ebe0005",
+      "id": "jou-75ca5a9e",
+      "journalEntryId": "jou-8300c3d1",
       "glCode": "5010",
       "type": "debit",
       "amount": 712.5,
-      "createdAt": "2026-08-27T11:30:32.509Z"
+      "createdAt": "2026-08-27T11:28:38.577Z"
     },
     {
-      "id": "jou-c6e4d7dc",
-      "journalEntryId": "jou-0ebe0005",
+      "id": "jou-fd742e21",
+      "journalEntryId": "jou-8300c3d1",
       "glCode": "2010",
       "type": "credit",
       "amount": 712.5,
-      "createdAt": "2026-08-27T11:30:32.510Z"
+      "createdAt": "2026-08-27T11:28:38.579Z"
     },
     {
-      "id": "jou-12d55dc5",
-      "journalEntryId": "jou-342104ac",
+      "id": "jou-2edd61ec",
+      "journalEntryId": "jou-9aee738b",
       "glCode": "5010",
       "type": "debit",
       "amount": 237.5,
-      "createdAt": "2026-08-27T11:30:32.515Z"
+      "createdAt": "2026-08-27T11:28:38.585Z"
     },
     {
-      "id": "jou-e2882309",
-      "journalEntryId": "jou-342104ac",
+      "id": "jou-3c6e5cfd",
+      "journalEntryId": "jou-9aee738b",
       "glCode": "2010",
       "type": "credit",
       "amount": 237.5,
-      "createdAt": "2026-08-27T11:30:32.517Z"
+      "createdAt": "2026-08-27T11:28:38.586Z"
     },
     {
-      "id": "jou-00e1509a",
-      "journalEntryId": "jou-cfd6ddf9",
+      "id": "jou-a5cee1fb",
+      "journalEntryId": "jou-5ba722b7",
       "glCode": "5010",
       "type": "debit",
       "amount": 1050,
-      "createdAt": "2026-08-27T11:30:32.522Z"
+      "createdAt": "2026-08-27T11:28:38.593Z"
     },
     {
-      "id": "jou-7a23a612",
-      "journalEntryId": "jou-cfd6ddf9",
+      "id": "jou-bdfdf208",
+      "journalEntryId": "jou-5ba722b7",
       "glCode": "2010",
       "type": "credit",
       "amount": 1050,
-      "createdAt": "2026-08-27T11:30:32.524Z"
+      "createdAt": "2026-08-27T11:28:38.594Z"
     },
     {
-      "id": "jou-b8084904",
-      "journalEntryId": "jou-66327b47",
+      "id": "jou-5b9e5f89",
+      "journalEntryId": "jou-cd615e61",
       "glCode": "5010",
       "type": "debit",
       "amount": 450,
-      "createdAt": "2026-08-27T11:30:32.592Z"
+      "createdAt": "2026-08-27T11:28:38.601Z"
     },
     {
-      "id": "jou-016d6f2c",
-      "journalEntryId": "jou-66327b47",
+      "id": "jou-4cac28bc",
+      "journalEntryId": "jou-cd615e61",
       "glCode": "2010",
       "type": "credit",
       "amount": 450,
-      "createdAt": "2026-08-27T11:30:32.595Z"
+      "createdAt": "2026-08-27T11:28:38.603Z"
     },
     {
-      "id": "jou-02d344be",
-      "journalEntryId": "jou-0dbddec8",
+      "id": "jou-63338c78",
+      "journalEntryId": "jou-8a293762",
       "glCode": "5010",
       "type": "debit",
       "amount": 787.5,
-      "createdAt": "2026-08-27T11:30:32.601Z"
+      "createdAt": "2026-08-27T11:28:38.609Z"
     },
     {
-      "id": "jou-eab6f6e1",
-      "journalEntryId": "jou-0dbddec8",
+      "id": "jou-898dde85",
+      "journalEntryId": "jou-8a293762",
       "glCode": "2010",
       "type": "credit",
       "amount": 787.5,
-      "createdAt": "2026-08-27T11:30:32.604Z"
+      "createdAt": "2026-08-27T11:28:38.611Z"
     },
     {
-      "id": "jou-f9bba742",
-      "journalEntryId": "jou-ae3e29e3",
+      "id": "jou-5bc6ea5d",
+      "journalEntryId": "jou-5c38541f",
       "glCode": "5010",
       "type": "debit",
       "amount": 1687.5,
-      "createdAt": "2026-08-27T11:30:32.613Z"
+      "createdAt": "2026-08-27T11:28:38.618Z"
     },
     {
-      "id": "jou-44c24792",
-      "journalEntryId": "jou-ae3e29e3",
+      "id": "jou-f356f18e",
+      "journalEntryId": "jou-5c38541f",
       "glCode": "2010",
       "type": "credit",
       "amount": 1687.5,
-      "createdAt": "2026-08-27T11:30:32.616Z"
+      "createdAt": "2026-08-27T11:28:38.622Z"
     },
     {
-      "id": "jou-3a96488d",
-      "journalEntryId": "jou-5eec8cca",
+      "id": "jou-85b23280",
+      "journalEntryId": "jou-37aba736",
       "glCode": "5010",
       "type": "debit",
       "amount": 525,
-      "createdAt": "2026-08-27T11:30:32.624Z"
+      "createdAt": "2026-08-27T11:28:38.628Z"
     },
     {
-      "id": "jou-11848d86",
-      "journalEntryId": "jou-5eec8cca",
+      "id": "jou-6fe80263",
+      "journalEntryId": "jou-37aba736",
       "glCode": "2010",
       "type": "credit",
       "amount": 525,
-      "createdAt": "2026-08-27T11:30:32.627Z"
+      "createdAt": "2026-08-27T11:28:38.629Z"
     }
   ],
   "trialBalances": [],
@@ -3291,15 +3157,7 @@
   "customerScores": [],
   "knowledgeBase": [],
   "scheduledJobs": [],
-  "backups": [
-    {
-      "id": "bac-e9791b2f",
-      "filename": "db_backup_1787830232786.json",
-      "size": 129262,
-      "type": "manual",
-      "createdAt": "2026-08-27T11:30:32.788Z"
-    }
-  ],
+  "backups": [],
   "systemMetrics": [],
   "workflowDefinitions": [
     {
@@ -3310,7 +3168,7 @@
         "Employee review",
         "Manager approval"
       ],
-      "createdAt": "2026-08-27T11:30:32.041Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     },
     {
       "id": "wf-loan",
@@ -3321,7 +3179,7 @@
         "Manager approval",
         "Treasury allocation"
       ],
-      "createdAt": "2026-08-27T11:30:32.041Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     },
     {
       "id": "wf-merchant",
@@ -3331,7 +3189,7 @@
         "Document validation",
         "Manager approval"
       ],
-      "createdAt": "2026-08-27T11:30:32.041Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     }
   ],
   "workflowExecutions": [],
@@ -4011,12 +3869,6 @@
       "id": "ur-5",
       "userId": "u-merchant",
       "roleId": "r-merchant"
-    },
-    {
-      "id": "use-b186c37a",
-      "userId": "BSB@63WR6L4",
-      "roleId": "r-auditor",
-      "createdAt": "2026-08-27T11:30:32.923Z"
     }
   ],
   "branchAssignments": [
@@ -4024,19 +3876,13 @@
       "id": "ba-2",
       "userId": "u-manager",
       "branchId": "b-delhi",
-      "createdAt": "2026-08-27T11:30:32.041Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     },
     {
       "id": "ba-3",
       "userId": "u-teller",
       "branchId": "b-main",
-      "createdAt": "2026-08-27T11:30:32.041Z"
-    },
-    {
-      "id": "bra-04c6b4d2",
-      "userId": "BSB@63WR6L4",
-      "branchId": "b-main",
-      "createdAt": "2026-08-27T11:30:32.925Z"
+      "createdAt": "2026-08-27T11:28:38.147Z"
     }
   ],
   "departmentAssignments": [],
@@ -4262,14 +4108,14 @@
       "createdAt": "2026-08-19T22:56:55.671Z"
     },
     {
-      "id": "frd-1787830232746",
+      "id": "frd-1787830118734",
       "userId": "u-customer",
       "type": "Suspicious Transaction Activity",
       "severity": "critical",
       "description": "Transaction of $60000 from Account 1000987654 flagged. Reasons: Extremely large amount",
       "status": "pending",
-      "timestamp": "2026-08-27T11:30:32.746Z",
-      "createdAt": "2026-08-27T11:30:32.746Z"
+      "timestamp": "2026-08-27T11:28:38.734Z",
+      "createdAt": "2026-08-27T11:28:38.734Z"
     }
   ]
 }

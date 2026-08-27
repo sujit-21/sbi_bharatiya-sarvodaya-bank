@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import BranchLogin from './BranchLogin';
 
-import BranchCustomers from '../../../frontend/src/components/manager/BranchCustomers';
-import CustomerOnboarding from '../../../frontend/src/components/employee/CustomerOnboarding';
-import CounterOperations from '../../../frontend/src/components/banking/CounterOperations';
-import TreasuryVault from '../../../frontend/src/components/banking/TreasuryVault';
-import KYCVerification from '../../../frontend/src/components/admin/KYCVerification';
-import SummaryDashboard from '../../../frontend/src/components/system/SummaryDashboard';
+// Dedicated Branch & Employee Sidebar Page Components (.jsx)
+import BranchOverviewPage from './pages/BranchOverviewPage';
+import DepositWithdrawPage from './pages/DepositWithdrawPage';
+import BranchCustomersPage from './pages/BranchCustomersPage';
+import CustomerOnboardingPage from './pages/CustomerOnboardingPage';
+import TreasuryVaultPage from './pages/TreasuryVaultPage';
+import KYCVerificationPage from './pages/KYCVerificationPage';
+import EmployeeApprovalsPage from './pages/EmployeeApprovalsPage';
+import BranchEmployeesPage from './pages/BranchEmployeesPage';
+
 import Toast from '../../../frontend/src/components/common/Toast';
 import Header from '../../../frontend/src/components/common/Header';
 
@@ -16,7 +20,7 @@ export default function App() {
     return saved ? JSON.parse(saved) : null;
   });
   const [token, setToken] = useState(() => localStorage.getItem('branch_token') || '');
-  const [activeTab, setActiveTab] = useState('branch-customers');
+  const [activeTab, setActiveTab] = useState('deposit-withdraw');
   const [toast, setToast] = useState(null);
 
   const showToast = (message, type = 'info') => {
@@ -67,23 +71,32 @@ export default function App() {
     { id: 'branch-customers', name: 'Branch Customers', icon: '👥' },
     { id: 'customer-onboarding', name: 'Onboard Customer', icon: '👤' },
     { id: 'treasury', name: 'Vault & Cash Limits', icon: '💰' },
-    { id: 'kyc', name: 'KYC Verification', icon: '🪪' }
+    { id: 'kyc', name: 'KYC Verification', icon: '🪪' },
+    { id: 'approvals', name: 'Manager Approvals', icon: '🗳️' },
+    { id: 'employees', name: 'Branch Staff', icon: '👥' }
   ];
 
-  const userName = user?.fullName || user?.name || 'Branch Staff';
-  const userRole = user?.role || 'Branch Staff';
-  const initials = userName.split(' ').filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'BS';
-
+  // Route to the active sidebar tab's dedicated page .jsx component
   const renderContent = () => {
     switch (activeTab) {
       case 'deposit-withdraw':
-      case 'transactions': return <CounterOperations apiCall={apiCall} showToast={showToast} />;
-      case 'branch-customers': return <BranchCustomers user={user} apiCall={apiCall} showToast={showToast} />;
-      case 'customer-onboarding': return <CustomerOnboarding user={user} apiCall={apiCall} showToast={showToast} />;
-      case 'treasury': return <TreasuryVault apiCall={apiCall} showToast={showToast} />;
-      case 'kyc': return <KYCVerification apiCall={apiCall} showToast={showToast} />;
+      case 'transactions':
+        return <DepositWithdrawPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'branch-customers':
+        return <BranchCustomersPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'customer-onboarding':
+        return <CustomerOnboardingPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'treasury':
+        return <TreasuryVaultPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'kyc':
+        return <KYCVerificationPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'approvals':
+        return <EmployeeApprovalsPage user={user} apiCall={apiCall} showToast={showToast} />;
+      case 'employees':
+        return <BranchEmployeesPage user={user} apiCall={apiCall} showToast={showToast} />;
       case 'summary':
-      default: return <SummaryDashboard user={user} apiCall={apiCall} showToast={showToast} />;
+      default:
+        return <BranchOverviewPage user={user} apiCall={apiCall} showToast={showToast} onNavigateTab={setActiveTab} />;
     }
   };
 
