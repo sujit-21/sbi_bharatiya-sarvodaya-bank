@@ -61,7 +61,7 @@
       <form id="login-form" class="auth-form" onsubmit="handleLogin(event)" style="margin-top: 10px;">
         <!-- Email / User ID Field -->
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Email Address or User ID</label>
+          <label for="login-email" style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Email Address or User ID</label>
           <div style="position: relative;">
             <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #94a3b8; z-index: 10; pointer-events: none; line-height: 1;">👤</span>
             <input type="text" id="login-email" required placeholder="admin@bank.com or User ID" value="admin@bank.com" style="width: 100%; padding: 11px 14px 11px 38px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 0.92rem; transition: all 0.2s;">
@@ -70,7 +70,7 @@
 
         <!-- Password Field with Eye Toggle -->
         <div class="form-group" style="margin-bottom: 14px;">
-          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Security Password</label>
+          <label for="login-password" style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #334155;">Security Password</label>
           <div class="password-input-wrapper" style="position: relative;">
             <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #94a3b8; z-index: 10; pointer-events: none; line-height: 1;">🔒</span>
             <input type="password" id="login-password" required placeholder="••••••••" value="Admin123!" style="width: 100%; padding: 11px 42px 11px 38px; border-radius: 10px; border: 1px solid #cbd5e1; background: #f8fafc; font-size: 0.92rem; transition: all 0.2s;">
@@ -83,7 +83,7 @@
 
         <!-- Remember Me & Forgot Links Row -->
         <div class="auth-options-row">
-          <label class="remember-me-label">
+          <label for="remember-me" class="remember-me-label">
             <input type="checkbox" id="remember-me" checked>
             <span>Remember me</span>
           </label>
@@ -131,7 +131,7 @@
         </p>
         <form onsubmit="handleForgotUserId(event)">
           <div class="form-group" style="margin-bottom: 14px;">
-            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">Official Registered Email</label>
+            <label for="forgot-id-email" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">Official Registered Email</label>
             <input type="email" id="forgot-id-email" required placeholder="admin@bank.com" value="admin@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
           </div>
           <div id="forgot-id-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #eff6ff; border: 1px solid #bfdbfe; font-size: 0.84rem; color: #1d4ed8;"></div>
@@ -149,7 +149,7 @@
         </p>
         <form onsubmit="handleForgotPassword(event)">
           <div class="form-group" style="margin-bottom: 14px;">
-            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">HQ User ID or Email</label>
+            <label for="forgot-pass-user" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #334155;">HQ User ID or Email</label>
             <input type="text" id="forgot-pass-user" required placeholder="admin@bank.com" value="admin@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.88rem;">
           </div>
           <div id="forgot-pass-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.84rem; color: #15803d;"></div>

@@ -82,7 +82,7 @@
       <!-- Search Bar -->
       <div class="bank-search-bar">
         <span class="bank-search-sparkle">✨</span>
-        <input type="text" class="bank-search-input" placeholder="What are you looking for today?" onkeydown="if(event.key==='Enter') showToast('Searching bank services for: ' + this.value, 'info')">
+        <input type="text" id="bank-search-input" aria-label="Search bank services" class="bank-search-input" placeholder="What are you looking for today?" onkeydown="if(event.key==='Enter') showToast('Searching bank services for: ' + this.value, 'info')">
         <button type="button" class="bank-search-mic" title="Voice Search">🎙️</button>
       </div>
 
@@ -298,18 +298,18 @@
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <div>
               <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
-                <span>Deposit Amount (₹)</span>
+                <label for="fd-amt-slider">Deposit Amount (₹)</label>
                 <span id="fd-amt-val" style="color: #51061b; font-weight: 800;">₹1,00,000</span>
               </div>
-              <input type="range" id="fd-amt-slider" min="10000" max="1000000" step="10000" value="100000" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
+              <input type="range" id="fd-amt-slider" aria-label="Deposit Amount Slider" min="10000" max="1000000" step="10000" value="100000" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
             </div>
 
             <div>
               <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
-                <span>Tenure (Months)</span>
+                <label for="fd-tenure-slider">Tenure (Months)</label>
                 <span id="fd-tenure-val" style="color: #51061b; font-weight: 800;">24 Months (7.35% APR)</span>
               </div>
-              <input type="range" id="fd-tenure-slider" min="6" max="60" step="6" value="24" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
+              <input type="range" id="fd-tenure-slider" aria-label="Tenure Slider" min="6" max="60" step="6" value="24" style="width: 100%; accent-color: #51061b;" oninput="updateFdCalculator()">
             </div>
 
             <div style="background: #fef8f2; border: 1px solid #f8dfc5; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
@@ -334,18 +334,18 @@
           <div style="display: flex; flex-direction: column; gap: 14px;">
             <div>
               <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
-                <span>Loan Amount (₹)</span>
+                <label for="emi-amt-slider">Loan Amount (₹)</label>
                 <span id="emi-amt-val" style="color: #059669; font-weight: 800;">₹5,00,000</span>
               </div>
-              <input type="range" id="emi-amt-slider" min="50000" max="5000000" step="50000" value="500000" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
+              <input type="range" id="emi-amt-slider" aria-label="Loan Amount Slider" min="50000" max="5000000" step="50000" value="500000" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
             </div>
 
             <div>
               <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: #51061b; margin-bottom: 4px;">
-                <span>Tenure (Years)</span>
+                <label for="emi-tenure-slider">Tenure (Years)</label>
                 <span id="emi-tenure-val" style="color: #059669; font-weight: 800;">5 Years (@ 8.40% p.a.)</span>
               </div>
-              <input type="range" id="emi-tenure-slider" min="1" max="25" step="1" value="5" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
+              <input type="range" id="emi-tenure-slider" aria-label="Tenure in Years Slider" min="1" max="25" step="1" value="5" style="width: 100%; accent-color: #059669;" oninput="updateEmiCalculator()">
             </div>
 
             <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
@@ -496,7 +496,7 @@
       <form id="login-form" class="auth-form" onsubmit="handleLogin(event)" style="margin-top: 10px;">
         <!-- User ID Field -->
         <div class="form-group" style="margin-bottom: 16px;">
-          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">Customer ID or Registered Email</label>
+          <label for="login-email" style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">Customer ID or Registered Email</label>
           <div style="position: relative;">
             <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #51061b; z-index: 10; pointer-events: none; line-height: 1;">👤</span>
             <input type="text" id="login-email" required placeholder="Customer ID or Email" value="customer@bank.com" style="width: 100%; padding: 11px 14px 11px 38px; border-radius: 10px; border: 1px solid #f8dfc5; background: #fef8f2; font-size: 0.92rem; transition: all 0.2s;">
@@ -505,7 +505,7 @@
 
         <!-- Password Field with Eye Toggle -->
         <div class="form-group" style="margin-bottom: 14px;">
-          <label style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">NetBanking Password</label>
+          <label for="login-password" style="font-size: 0.84rem; font-weight: 600; margin-bottom: 6px; display: block; color: #51061b;">NetBanking Password</label>
           <div class="password-input-wrapper" style="position: relative;">
             <span class="input-leading-icon" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #51061b; z-index: 10; pointer-events: none; line-height: 1;">🔒</span>
             <input type="password" id="login-password" required placeholder="••••••••" value="Customer123!" style="width: 100%; padding: 11px 42px 11px 38px; border-radius: 10px; border: 1px solid #f8dfc5; background: #fef8f2; font-size: 0.92rem; transition: all 0.2s;">
@@ -518,7 +518,7 @@
 
         <!-- Remember Me & Forgot Links Row -->
         <div class="auth-options-row">
-          <label class="remember-me-label">
+          <label for="remember-me" class="remember-me-label">
             <input type="checkbox" id="remember-me" checked>
             <span>Remember me</span>
           </label>
@@ -550,16 +550,16 @@
         <form id="customer-register-form" onsubmit="handleCustomerRegister(event)">
           <div style="display: flex; flex-direction: column; gap: 7px;">
             <div>
-              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Full Name (As per Aadhaar/PAN)</label>
+              <label for="cust-name" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Full Name (As per Aadhaar/PAN)</label>
               <input type="text" id="cust-name" required placeholder="Aarav Sharma" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
               <div>
-                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Date of Birth</label>
+                <label for="cust-dob" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Date of Birth</label>
                 <input type="date" id="cust-dob" required value="1995-05-15" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
               </div>
               <div>
-                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Gender</label>
+                <label for="cust-gender" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Gender</label>
                 <select id="cust-gender" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -568,24 +568,24 @@
               </div>
             </div>
             <div>
-              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Email Address</label>
+              <label for="cust-email" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Email Address</label>
               <input type="email" id="cust-email" required placeholder="name@example.com" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
             </div>
             <div>
-              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Mobile Number</label>
+              <label for="cust-mobile" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Mobile Number</label>
               <input type="text" id="cust-mobile" required placeholder="+91 9820123456" value="+91 9820123456" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
             </div>
             <div>
-              <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Residential Address</label>
+              <label for="cust-address" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Residential Address</label>
               <input type="text" id="cust-address" required placeholder="Flat 402, Mumbai" value="Bandra West, Mumbai" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 7px;">
               <div>
-                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Password</label>
+                <label for="cust-password" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Password</label>
                 <input type="password" id="cust-password" required value="Customer123!" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
               </div>
               <div>
-                <label style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Confirm Password</label>
+                <label for="cust-confirm" style="font-size: 0.74rem; font-weight: 600; display: block; margin-bottom: 2px;">Confirm Password</label>
                 <input type="password" id="cust-confirm" required value="Customer123!" style="width: 100%; padding: 7px 10px; border-radius: 7px; border: 1px solid #f8dfc5; font-size: 0.83rem;">
               </div>
             </div>
@@ -604,12 +604,12 @@
           <input type="hidden" id="otp-user-id">
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <div>
-              <label style="font-size: 0.78rem; font-weight: 600;">Email OTP</label>
+              <label for="otp-email-val" style="font-size: 0.78rem; font-weight: 600;">Email OTP</label>
               <input type="text" id="otp-email-val" required placeholder="123456" value="123456" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
               <span id="otp-email-hint" style="font-size: 0.72rem; color: #51061b;"></span>
             </div>
             <div id="mobile-otp-group">
-              <label style="font-size: 0.78rem; font-weight: 600;">Mobile SMS OTP</label>
+              <label for="otp-mobile-val" style="font-size: 0.78rem; font-weight: 600;">Mobile SMS OTP</label>
               <input type="text" id="otp-mobile-val" required placeholder="123456" value="123456" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
               <span id="otp-mobile-hint" style="font-size: 0.72rem; color: #51061b;"></span>
             </div>
@@ -628,7 +628,7 @@
           <input type="hidden" id="kyc-user-id">
           <div style="display: flex; flex-direction: column; gap: 10px;">
             <div>
-              <label style="font-size: 0.78rem; font-weight: 600;">Document Type</label>
+              <label for="kyc-doc-type" style="font-size: 0.78rem; font-weight: 600;">Document Type</label>
               <select id="kyc-doc-type" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
                 <option value="aadhaar">Aadhaar Card (UIDAI Verified)</option>
                 <option value="pan">PAN Card (Income Tax Dept)</option>
@@ -636,7 +636,7 @@
               </select>
             </div>
             <div>
-              <label style="font-size: 0.78rem; font-weight: 600;">Document Number</label>
+              <label for="kyc-doc-number" style="font-size: 0.78rem; font-weight: 600;">Document Number</label>
               <input type="text" id="kyc-doc-number" required placeholder="XXXX-XXXX-XXXX" value="9876-5432-1098" style="width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.85rem;">
             </div>
             <button type="submit" style="margin-top: 10px; padding: 11px; border-radius: 8px; border: none; background: #059669; color: #fff; font-weight: 700; font-size: 0.88rem; cursor: pointer;">
@@ -679,7 +679,7 @@
         </p>
         <form onsubmit="handleForgotUserId(event)">
           <div class="form-group" style="margin-bottom: 14px;">
-            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Registered Mobile / Email</label>
+            <label for="forgot-id-email" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Registered Mobile / Email</label>
             <input type="text" id="forgot-id-email" required placeholder="customer@bank.com" value="customer@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.88rem;">
           </div>
           <div id="forgot-id-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #fef8f2; border: 1px solid #f8dfc5; font-size: 0.84rem; color: #51061b;"></div>
@@ -697,7 +697,7 @@
         </p>
         <form onsubmit="handleForgotPassword(event)">
           <div class="form-group" style="margin-bottom: 14px;">
-            <label style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Customer ID or Email</label>
+            <label for="forgot-pass-user" style="font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; display: block; color: #51061b;">Customer ID or Email</label>
             <input type="text" id="forgot-pass-user" required placeholder="customer@bank.com" value="customer@bank.com" style="width: 100%; padding: 9px 12px; border-radius: 8px; border: 1px solid #f8dfc5; font-size: 0.88rem;">
           </div>
           <div id="forgot-pass-result" class="hidden" style="margin-bottom: 14px; padding: 12px; border-radius: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; font-size: 0.84rem; color: #15803d;"></div>

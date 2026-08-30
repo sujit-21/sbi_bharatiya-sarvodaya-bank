@@ -2241,23 +2241,6 @@
       "createdAt": "2026-08-30T17:36:16.308Z",
       "forcePasswordChange": false,
       "tempPassword": null
-    },
-    {
-      "id": "BSB@ZXKFAEQ",
-      "userId": "BSB@ZXKFAEQ",
-      "email": "auditor_test@bank.com",
-      "passwordHash": "$2a$10$FpVzm3x/szcdgNzSZyHrC.74JHNxdPNvjXsQ6Zw8y6mAA/EjnJiQ2",
-      "role": "Auditor",
-      "fullName": "Test Auditor Agent",
-      "branchId": "b-main",
-      "status": "active",
-      "forcePasswordChange": false,
-      "tempPassword": null,
-      "failedLogins": 0,
-      "lockedUntil": null,
-      "twoFactorEnabled": false,
-      "createdAt": "2026-08-30T17:36:21.114Z",
-      "updatedAt": "2026-08-30T17:36:24.763Z"
     }
   ],
   "sessions": [
@@ -2296,18 +2279,6 @@
       "active": true,
       "expiresAt": "2026-09-06T17:36:18.152Z",
       "createdAt": "2026-08-30T17:36:18.152Z"
-    },
-    {
-      "id": "ses-12e529d0",
-      "userId": "BSB@ZXKFAEQ",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkJTQkBaWEtGQUVRIiwiZGV2aWNlSWQiOiJ0ZXN0LXJ1bm5lci1pZCIsImlhdCI6MTc4ODExMTM4NCwiZXhwIjoxNzg4NzE2MTg0fQ.MQZRX6vmg-AAKHVfiYbmWLwYy_W9ZJLIH-Pcgdx8su0",
-      "deviceId": "test-runner-id",
-      "deviceName": "Browser Session",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "active": true,
-      "expiresAt": "2026-09-06T17:36:24.874Z",
-      "createdAt": "2026-08-30T17:36:24.875Z"
     }
   ],
   "loginHistory": [
@@ -2382,30 +2353,6 @@
       "failureReason": null,
       "timestamp": "2026-08-30T17:36:18.154Z",
       "createdAt": "2026-08-30T17:36:18.154Z"
-    },
-    {
-      "id": "log-71f17999",
-      "userId": "BSB@ZXKFAEQ",
-      "email": "auditor_test@bank.com",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "deviceFingerprint": "unknown",
-      "status": "success",
-      "failureReason": null,
-      "timestamp": "2026-08-30T17:36:22.353Z",
-      "createdAt": "2026-08-30T17:36:22.353Z"
-    },
-    {
-      "id": "log-4d67ff90",
-      "userId": "BSB@ZXKFAEQ",
-      "email": "auditor_test@bank.com",
-      "ipAddress": "::1",
-      "userAgent": "unknown",
-      "deviceFingerprint": "unknown",
-      "status": "success",
-      "failureReason": null,
-      "timestamp": "2026-08-30T17:36:24.918Z",
-      "createdAt": "2026-08-30T17:36:24.918Z"
     }
   ],
   "branches": [
@@ -2851,87 +2798,6 @@
       "ipAddress": "::1",
       "timestamp": "2026-08-30T17:36:18.860Z",
       "createdAt": "2026-08-30T17:36:18.860Z"
-    },
-    {
-      "id": "aud-5bd8b396",
-      "userId": "u-admin",
-      "action": "POST_/API/SYSTEM/BACKUPS",
-      "details": "{\"body\":{\"type\":\"manual\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:20.525Z",
-      "createdAt": "2026-08-30T17:36:20.525Z"
-    },
-    {
-      "id": "aud-1aa790c6",
-      "userId": "u-admin",
-      "action": "USER_PROVISIONED",
-      "details": "{\"provisionedUserId\":\"BSB@ZXKFAEQ\",\"email\":\"auditor_test@bank.com\",\"role\":\"Auditor\",\"branchId\":\"b-main\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:21.237Z",
-      "createdAt": "2026-08-30T17:36:21.237Z"
-    },
-    {
-      "id": "aud-df0471ad",
-      "userId": "u-admin",
-      "action": "POST_/API/AUTH/PROVISION",
-      "details": "{\"body\":{\"email\":\"auditor_test@bank.com\",\"fullName\":\"Test Auditor Agent\",\"role\":\"Auditor\",\"branchId\":\"b-main\"},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:21.240Z",
-      "createdAt": "2026-08-30T17:36:21.240Z"
-    },
-    {
-      "id": "aud-e2cc6969",
-      "userId": "BSB@ZXKFAEQ",
-      "action": "ACCOUNT_ACTIVATED",
-      "details": "{\"email\":\"auditor_test@bank.com\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:23.588Z",
-      "createdAt": "2026-08-30T17:36:23.588Z"
-    },
-    {
-      "id": "aud-d28f0043",
-      "userId": "anonymous",
-      "action": "POST_/API/AUTH/ACTIVATE-PROVISIONED",
-      "details": "{\"body\":{\"email\":\"auditor_test@bank.com\",\"tempPassword\":\"Temp8026!\",\"newPassword\":\"AuditorNewMaster123!\"},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:23.600Z",
-      "createdAt": "2026-08-30T17:36:23.600Z"
-    },
-    {
-      "id": "aud-1652ea1e",
-      "userId": "BSB@ZXKFAEQ",
-      "action": "UNAUTHORIZED_ACCESS_ATTEMPT",
-      "details": "{\"attemptedPath\":\"/api/dashboard/users\",\"reason\":\"Role 'Auditor' lacks module permission for 'users, employees'\",\"userRole\":\"Auditor\"}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:25.536Z",
-      "createdAt": "2026-08-30T17:36:25.536Z"
-    },
-    {
-      "id": "aud-bb54dfb6",
-      "userId": "u-admin",
-      "action": "POST_/API/BRANCHES",
-      "details": "{\"body\":{\"name\":\"Automated Test Branch\",\"code\":\"TEST999\",\"address\":\"999 Sandbox Ave, Test City, TS\",\"vaultBalance\":2500000,\"minVaultLimit\":500000,\"maxVaultLimit\":10000000,\"cashInHand\":100000},\"status\":\"SUCCESS\",\"statusCode\":201}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:25.885Z",
-      "createdAt": "2026-08-30T17:36:25.885Z"
-    },
-    {
-      "id": "aud-c7aa5ad2",
-      "userId": "u-admin",
-      "action": "PUT_/API/BRANCHES/BRA-9A9F55D1",
-      "details": "{\"body\":{\"name\":\"Automated Test Branch Updated\",\"code\":\"TEST999\",\"address\":\"888 Updated St, Test City, TS\",\"vaultBalance\":3000000,\"minVaultLimit\":500000,\"maxVaultLimit\":10000000,\"cashInHand\":150000},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:26.348Z",
-      "createdAt": "2026-08-30T17:36:26.348Z"
-    },
-    {
-      "id": "aud-a2a9a8c1",
-      "userId": "u-admin",
-      "action": "DELETE_/API/BRANCHES/BRA-9A9F55D1",
-      "details": "{\"body\":{},\"status\":\"SUCCESS\",\"statusCode\":200}",
-      "ipAddress": "::1",
-      "timestamp": "2026-08-30T17:36:26.362Z",
-      "createdAt": "2026-08-30T17:36:26.362Z"
     }
   ],
   "treasuryTransfers": [],
@@ -3291,15 +3157,7 @@
   "customerScores": [],
   "knowledgeBase": [],
   "scheduledJobs": [],
-  "backups": [
-    {
-      "id": "bac-cc96d26e",
-      "filename": "db_backup_1788111380494.json",
-      "size": 120747,
-      "type": "manual",
-      "createdAt": "2026-08-30T17:36:20.523Z"
-    }
-  ],
+  "backups": [],
   "workflowDefinitions": [
     {
       "id": "wf-kyc",
@@ -4010,12 +3868,6 @@
       "id": "ur-5",
       "userId": "u-merchant",
       "roleId": "r-merchant"
-    },
-    {
-      "id": "use-71082dbe",
-      "userId": "BSB@ZXKFAEQ",
-      "roleId": "r-auditor",
-      "createdAt": "2026-08-30T17:36:21.117Z"
     }
   ],
   "branchAssignments": [
@@ -4030,12 +3882,6 @@
       "userId": "u-teller",
       "branchId": "b-main",
       "createdAt": "2026-08-30T17:36:16.309Z"
-    },
-    {
-      "id": "bra-b32b7d08",
-      "userId": "BSB@ZXKFAEQ",
-      "branchId": "b-main",
-      "createdAt": "2026-08-30T17:36:21.119Z"
     }
   ],
   "departmentAssignments": [],
