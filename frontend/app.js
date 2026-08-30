@@ -3001,7 +3001,8 @@ async function renderManager(tab, container) {
 
 function loadManagerWorkflows(items, containerId = 'manager-approvals-list') {
   const container = document.getElementById(containerId);
-  if (items.length === 0) {
+  if (!container) return;
+  if (!items || !Array.isArray(items) || items.length === 0) {
     container.innerHTML = `<p class="empty-notif">No approval workflows pending.</p>`;
     return;
   }

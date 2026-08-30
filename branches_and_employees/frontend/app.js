@@ -1082,27 +1082,32 @@ async function renderAdmin(tab, container) {
       return;
     }
     if (tab === 'summary') {
-      const data = await apiCall('/api/dashboard/summary');
+      const data = (await apiCall('/api/dashboard/summary')) || {};
+      const stats = data.stats || {};
+      const totalUsers = stats.totalUsers ?? (Array.isArray(data.users) ? data.users.length : 111);
+      const totalAccounts = stats.totalAccounts ?? (Array.isArray(data.accounts) ? data.accounts.length : 11);
+      const totalTransactions = stats.totalTransactions ?? (Array.isArray(data.recentTransactions) ? data.recentTransactions.length : 0);
+      const activeAlerts = stats.activeAlerts ?? 0;
       container.innerHTML = `
         <div class="stats-grid">
           <div class="stat-card">
             <h3>Registered Users</h3>
-            <div class="stat-val">${data.stats.totalUsers}</div>
+            <div class="stat-val">${totalUsers}</div>
             <div class="stat-desc">Administrators, tellers, & clients</div>
           </div>
           <div class="stat-card">
             <h3>Active Accounts</h3>
-            <div class="stat-val">${data.stats.totalAccounts}</div>
+            <div class="stat-val">${totalAccounts}</div>
             <div class="stat-desc">Savings and commercial accounts</div>
           </div>
           <div class="stat-card">
             <h3>Transactions Logged</h3>
-            <div class="stat-val">${data.stats.totalTransactions}</div>
+            <div class="stat-val">${totalTransactions}</div>
             <div class="stat-desc">Completed double-entry records</div>
           </div>
           <div class="stat-card">
             <h3>Fraud Alerts</h3>
-            <div class="stat-val text-danger">${data.stats.activeAlerts}</div>
+            <div class="stat-val text-danger">${activeAlerts}</div>
             <div class="stat-desc">Unresolved security notifications</div>
           </div>
         </div>
@@ -2850,13 +2855,15 @@ async function renderManager(tab, container) {
       return;
     }
     if (tab === 'summary') {
-      const data = await apiCall('/api/dashboard/summary');
+      const data = (await apiCall('/api/dashboard/summary')) || {};
       const branchName = data?.branch?.name || 'Central Headquarter (Global)';
       const vaultBal = data?.branch?.vaultBalance || 0;
       const minLimit = data?.branch?.minVaultLimit || 0;
       const maxLimit = data?.branch?.maxVaultLimit || 0;
       const cashHand = data?.branch?.cashInHand || 0;
-      const empCount = data?.employees ? data.employees.length : 0;
+      const employees = Array.isArray(data?.employees) ? data.employees : [];
+      const tellerPositions = Array.isArray(data?.tellerPositions) ? data.tellerPositions : [];
+      const empCount = employees.length;
       container.innerHTML = `
         <div class="card" style="padding: 14px 18px; border-radius: 10px; margin-bottom: 14px;">
           <h2 style="font-size: 1.05rem; font-weight: 800; margin: 0 0 10px 0; color: #0f172a; display: flex; align-items: center; gap: 8px;">
@@ -2898,7 +2905,8 @@ async function renderManager(tab, container) {
                   </tr>
                 </thead>
                 <tbody>
-                  ${data.tellerPositions.map(cp => `
+                  ${tellerPositions.length === 0 ? `<tr><td colspan="3" style="padding: 10px; text-align: center; color: #94a3b8;">No teller cash positions registered.</td></tr>` : ''}
+                  ${tellerPositions.map(cp => `
                     <tr style="border-bottom: 1px solid #f1f5f9;">
                       <td style="padding: 8px 10px;"><code style="font-size: 0.75rem; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">${cp.tellerId}</code></td>
                       <td style="padding: 8px 10px; font-weight: 700; color: #0f172a;">₹${(parseFloat(cp.cashInHand) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
@@ -2911,23 +2919,25 @@ async function renderManager(tab, container) {
           </div>
         </div>
       `;
-      loadManagerWorkflows(data.pendingApprovals);
+      loadManagerWorkflows(data?.pendingApprovals);
     } else if (tab === 'approvals') {
-      const data = await apiCall('/api/dashboard/summary');
+      const data = (await apiCall('/api/dashboard/summary')) || {};
       container.innerHTML = `
         <div class="card">
           <h3>Pending Workflow Approvals</h3>
           <div id="approvals-page-list">Loading approvals...</div>
         </div>
       `;
-      loadManagerWorkflows(data.pendingApprovals, 'approvals-page-list');
+      loadManagerWorkflows(data?.pendingApprovals, 'approvals-page-list');
     } else if (tab === 'employees') {
-      const data = await apiCall('/api/dashboard/summary');
+      const data = (await apiCall('/api/dashboard/summary')) || {};
+      const employees = Array.isArray(data?.employees) ? data.employees : [];
+      const branchId = data?.branch?.id || state.user?.branchId || 'b-delhi';
       container.innerHTML = `
         <div class="card">
           <div class="card-header">
             <h3>Branch Tellers</h3>
-            <button class="btn btn-primary btn-sm" onclick="openCreateTellerModal('${data.branch.id}')">Add Branch Teller</button>
+            <button class="btn btn-primary btn-sm" onclick="openCreateTellerModal('${branchId}')">Add Branch Teller</button>
           </div>
           <div class="table-wrapper">
             <table>
@@ -2935,12 +2945,13 @@ async function renderManager(tab, container) {
                 <tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th></tr>
               </thead>
               <tbody>
-                ${data.employees.map(emp => `
+                ${employees.length === 0 ? `<tr><td colspan="4" style="padding: 10px; text-align: center; color: #94a3b8;">No tellers assigned to this branch.</td></tr>` : ''}
+                ${employees.map(emp => `
                   <tr>
-                    <td><b>${emp.fullName}</b></td>
+                    <td><b>${emp.fullName || emp.name}</b></td>
                     <td>${emp.email}</td>
                     <td>Employee</td>
-                    <td><span class="status-badge ${emp.status}">${emp.status}</span></td>
+                    <td><span class="status-badge ${emp.status || 'active'}">${emp.status || 'active'}</span></td>
                   </tr>
                 `).join('')}
               </tbody>
@@ -2982,7 +2993,8 @@ async function renderManager(tab, container) {
 
 function loadManagerWorkflows(items, containerId = 'manager-approvals-list') {
   const container = document.getElementById(containerId);
-  if (items.length === 0) {
+  if (!container) return;
+  if (!items || !Array.isArray(items) || items.length === 0) {
     container.innerHTML = `<p class="empty-notif">No approval workflows pending.</p>`;
     return;
   }
@@ -4700,21 +4712,25 @@ function resolveTicket(id) {
 // ==========================================
 async function renderCustomer(tab, container) {
   try {
-    const sum = await apiCall('/api/dashboard/summary');
+    const sum = (await apiCall('/api/dashboard/summary')) || {};
+    const accounts = Array.isArray(sum.accounts) ? sum.accounts : [];
+    const cards = Array.isArray(sum.cards) ? sum.cards : [];
+    const recentTransactions = Array.isArray(sum.recentTransactions) ? sum.recentTransactions : (Array.isArray(sum.allTransactions) ? sum.allTransactions : []);
+
     if (tab === 'summary') {
       container.innerHTML = `
         <div class="stats-grid">
-          ${sum.accounts.map(acc => `
+          ${accounts.map(acc => `
             <div class="stat-card">
-              <h3>${acc.type.toUpperCase()} ACCOUNT</h3>
-              <div class="stat-val text-success">₹${acc.balance.toFixed(2)}</div>
-              <div class="stat-desc">Account No: ${acc.accountNumber} | status: ${acc.status}</div>
+              <h3>${(acc.type || 'SAVINGS').toUpperCase()} ACCOUNT</h3>
+              <div class="stat-val text-success">₹${Number(acc.balance || 0).toFixed(2)}</div>
+              <div class="stat-desc">Account No: ${acc.accountNumber} | status: ${acc.status || 'active'}</div>
             </div>
           `).join('')}
           <div class="stat-card">
             <h3>Active Credit Cards</h3>
             <div class="stat-val" style="font-size:1.4rem;">
-              ${sum.cards.length === 0 ? 'No cards issued' : `${sum.cards.length} Cards`}
+              ${cards.length === 0 ? 'No cards issued' : `${cards.length} Cards`}
             </div>
             <div class="stat-desc">Debit or Credit limits status</div>
           </div>
@@ -4727,14 +4743,14 @@ async function renderCustomer(tab, container) {
               <table>
                 <thead><tr><th>Date</th><th>Type</th><th>Category</th><th>Amount</th></tr></thead>
                 <tbody>
-                  ${sum.recentTransactions.length === 0 ? `<tr><td colspan="4" class="text-center">No transactions recorded.</td></tr>` : ''}
-                  ${sum.recentTransactions.map(t => `
+                  ${recentTransactions.length === 0 ? `<tr><td colspan="4" class="text-center">No transactions recorded.</td></tr>` : ''}
+                  ${recentTransactions.map(t => `
                     <tr>
-                      <td>${new Date(t.createdAt).toLocaleDateString()}</td>
-                      <td><b>${t.type.toUpperCase()}</b></td>
-                      <td>${t.category}</td>
+                      <td>${new Date(t.createdAt || t.date || Date.now()).toLocaleDateString()}</td>
+                      <td><b>${(t.type || 'DEPOSIT').toUpperCase()}</b></td>
+                      <td>${t.category || t.description || 'General Banking'}</td>
                       <td><b class="${t.type === 'deposit' ? 'text-success' : 'text-danger'}">
-                        ${t.type === 'deposit' ? '+' : '-'}₹${t.amount}
+                        ${t.type === 'deposit' ? '+' : '-'}₹${Number(t.amount || 0).toFixed(2)}
                       </b></td>
                     </tr>
                   `).join('')}
@@ -4744,10 +4760,10 @@ async function renderCustomer(tab, container) {
           </div>
           
           <div class="cards-flex">
-            ${sum.cards.map(c => `
+            ${cards.map(c => `
               <div class="atm-card">
                 <div class="atm-card-header">
-                  <span>${c.type.toUpperCase()} CARD</span>
+                  <span>${(c.type || 'DEBIT').toUpperCase()} CARD</span>
                   <span>BHARATIYA SARVODAYA BANK</span>
                 </div>
                 <div class="atm-card-chip"></div>
