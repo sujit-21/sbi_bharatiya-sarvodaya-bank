@@ -6634,7 +6634,6 @@ window.openAccountTransactionHistory = async function(accountNumber, customerId)
         txList = data.transactions || [];
       }
     } catch (apiErr) {
-      console.warn('Direct account transactions endpoint fallback:', apiErr.message);
       const activeBranchId = state.selectedBranchId || state.user?.branchId || 'b-delhi';
       const custData = await apiCall(`/api/branches/${activeBranchId}/customers`, 'GET', null, true).catch(() => apiCall('/api/branch-customers', 'GET', null, true)).catch(() => ({ customers: [] }));
       const foundCust = (custData.customers || []).find(c => (c.accounts || []).some(a => a.accountNumber === accountNumber || a.id === accountNumber) || c.id === customerId || c.userId === customerId);

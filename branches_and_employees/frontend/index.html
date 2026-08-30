@@ -17,8 +17,15 @@
   <!-- Custom Style Sheet -->
   <link rel="stylesheet" href="style.css">
   <script>
+    // Safeguard against Chrome React DevTools extension (installHook.js overrideMethod warnings)
+    try {
+      if (typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ === 'object' && window.__REACT_DEVTOOLS_GLOBAL_HOOK__) {
+        window.__REACT_DEVTOOLS_GLOBAL_HOOK__.inject = function () {};
+      }
+    } catch (e) {}
+
     window.BSB_CONFIG = {
-      PORTAL_NAME: 'BRANCH_OPERATIONS',
+      PORTAL_NAME: 'BRANCHES',
       API_BASE: 'http://localhost:5002',
       DEFAULT_ROLE: 'Branch Manager'
     };
