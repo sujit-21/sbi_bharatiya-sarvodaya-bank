@@ -11,8 +11,11 @@ const state = {
 const getApiUrl = (endpoint) => {
   if (!endpoint) return '';
   if (endpoint.startsWith('http')) return endpoint;
-  if (endpoint.startsWith('/')) return endpoint;
-  return `/${endpoint}`;
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (window.location.port !== '3003' && window.BSB_CONFIG && window.BSB_CONFIG.API_BASE) {
+    return `${window.BSB_CONFIG.API_BASE}${path}`;
+  }
+  return path;
 };
 
 // Device fingerprinting configurations

@@ -7,7 +7,7 @@ export default function InterestEngine({ apiCall, showToast }) {
   const triggerInterestCalculation = async () => {
     try {
       setRunning(true);
-      const res = await apiCall('/api/interest/calculate', 'POST');
+      const res = await apiCall('/api/interest/post', 'POST');
       setLastLog(res);
       showToast(`Interest calculation batch completed. Postings: ${res.postings || res.processedCount || 1}`, 'success');
     } catch (e) {

@@ -38,7 +38,7 @@ export default function CustomerProfilePage({ user, apiCall, showToast }) {
     setSaving(true);
     try {
       if (apiCall) {
-        await apiCall('/api/customers/update-profile', 'POST', profileData).catch(() => {});
+        await apiCall(`/api/customers/${user?.id || user?.userId}`, 'PUT', profileData).catch(() => {});
       }
       showToast('Profile details updated successfully!', 'success');
       setIsEditing(false);

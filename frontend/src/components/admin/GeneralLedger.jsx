@@ -7,7 +7,7 @@ export default function GeneralLedger({ apiCall, showToast }) {
   const loadGL = async () => {
     try {
       setLoading(true);
-      const data = await apiCall('/api/ledger/gl-accounts');
+      const data = await apiCall('/api/accounting/ledger');
       setGlAccounts(data.accounts || data || []);
     } catch (e) {
       showToast(e.message || 'Failed to load GL accounts', 'danger');

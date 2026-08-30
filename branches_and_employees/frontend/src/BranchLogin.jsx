@@ -23,7 +23,7 @@ export default function BranchLogin({ onLoginSuccess, showToast }) {
           email: email.trim(),
           password: password.trim(),
           branchCode: branchCode.trim(),
-          portal: 'BRANCH_AND_EMPLOYEES'
+          portal: 'branch'
         })
       });
 

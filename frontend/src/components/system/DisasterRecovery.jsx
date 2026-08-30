@@ -7,7 +7,7 @@ export default function DisasterRecovery({ apiCall, showToast }) {
   const createSnapshot = async () => {
     try {
       setCreating(true);
-      const res = await apiCall('/api/system/backup', 'POST');
+      const res = await apiCall('/api/system/backups', 'POST');
       setSnapshotLog(res);
       showToast('Disaster recovery database snapshot created.', 'success');
     } catch (e) {

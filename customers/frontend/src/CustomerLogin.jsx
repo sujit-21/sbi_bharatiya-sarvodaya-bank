@@ -30,7 +30,7 @@ export default function CustomerLogin({ onLoginSuccess, showToast }) {
           email: email.trim(),
           password: password.trim(),
           otp: otp.trim(),
-          portal: 'CUSTOMERS'
+          portal: 'customer'
         })
       });
 

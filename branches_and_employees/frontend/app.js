@@ -11,8 +11,11 @@ const state = {
 const getApiUrl = (endpoint) => {
   if (!endpoint) return '';
   if (endpoint.startsWith('http')) return endpoint;
-  if (endpoint.startsWith('/')) return endpoint;
-  return `/${endpoint}`;
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  if (window.location.port !== '3002' && window.BSB_CONFIG && window.BSB_CONFIG.API_BASE) {
+    return `${window.BSB_CONFIG.API_BASE}${path}`;
+  }
+  return path;
 };
 
 // Device fingerprinting configurations
@@ -162,13 +165,13 @@ function checkAuthSession() {
 // Switch auth views
 // Switch auth views
 function showLoginForm() {
-  document.getElementById('login-form').classList.remove('hidden');
-  document.getElementById('customer-signup-flow').classList.add('hidden');
-  document.getElementById('merchant-signup-flow').classList.add('hidden');
-  document.getElementById('otp-verify-pane').classList.add('hidden');
-  document.getElementById('kyc-submit-pane').classList.add('hidden');
-  document.getElementById('force-password-pane').classList.add('hidden');
-  document.getElementById('auth-signin-text').classList.add('hidden');
+  document.getElementById('login-form')?.classList.remove('hidden');
+  document.getElementById('customer-signup-flow')?.classList.add('hidden');
+  document.getElementById('merchant-signup-flow')?.classList.add('hidden');
+  document.getElementById('otp-verify-pane')?.classList.add('hidden');
+  document.getElementById('kyc-submit-pane')?.classList.add('hidden');
+  document.getElementById('force-password-pane')?.classList.add('hidden');
+  document.getElementById('auth-signin-text')?.classList.add('hidden');
 
   const emailInput = document.getElementById('login-email');
   const passInput = document.getElementById('login-password');
@@ -2848,25 +2851,31 @@ async function renderManager(tab, container) {
     }
     if (tab === 'summary') {
       const data = await apiCall('/api/dashboard/summary');
+      const branchName = data?.branch?.name || 'Central Headquarter (Global)';
+      const vaultBal = data?.branch?.vaultBalance || 0;
+      const minLimit = data?.branch?.minVaultLimit || 0;
+      const maxLimit = data?.branch?.maxVaultLimit || 0;
+      const cashHand = data?.branch?.cashInHand || 0;
+      const empCount = data?.employees ? data.employees.length : 0;
       container.innerHTML = `
         <div class="card" style="padding: 14px 18px; border-radius: 10px; margin-bottom: 14px;">
           <h2 style="font-size: 1.05rem; font-weight: 800; margin: 0 0 10px 0; color: #0f172a; display: flex; align-items: center; gap: 8px;">
-            🏦 Branch Metrics: ${data.branch.name}
+            🏦 Branch Metrics: ${branchName}
           </h2>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
             <div style="background: rgba(37, 99, 235, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(37, 99, 235, 0.15);">
               <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Vault Balance</div>
-              <div style="font-size: 1.25rem; font-weight: 800; color: #1e40af; margin-top: 3px;">₹${(data.branch.vaultBalance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
-              <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Min ₹${(data.branch.minVaultLimit || 0).toLocaleString('en-IN')} / Max ₹${(data.branch.maxVaultLimit || 0).toLocaleString('en-IN')}</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #1e40af; margin-top: 3px;">₹${vaultBal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+              <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Min ₹${minLimit.toLocaleString('en-IN')} / Max ₹${maxLimit.toLocaleString('en-IN')}</div>
             </div>
             <div style="background: rgba(16, 185, 129, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.15);">
               <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Cash in Hand</div>
-              <div style="font-size: 1.25rem; font-weight: 800; color: #047857; margin-top: 3px;">₹${(data.branch.cashInHand || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #047857; margin-top: 3px;">₹${cashHand.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
               <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Distributed inside teller drawers</div>
             </div>
             <div style="background: rgba(99, 102, 241, 0.04); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(99, 102, 241, 0.15);">
               <div style="font-size: 0.7rem; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Active Tellers</div>
-              <div style="font-size: 1.25rem; font-weight: 800; color: #4338ca; margin-top: 3px;">${data.employees.length}</div>
+              <div style="font-size: 1.25rem; font-weight: 800; color: #4338ca; margin-top: 3px;">${empCount}</div>
               <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">Assigned branch personnel</div>
             </div>
           </div>
@@ -3209,8 +3218,8 @@ async function renderEmployee(tab, container) {
           </div>
           <div class="stat-card">
             <h3>My Branch</h3>
-            <div class="stat-val" style="font-size:1.2rem;">${summary.branch.name}</div>
-            <div class="stat-desc">Assigned node ID: ${summary.branch.id}</div>
+            <div class="stat-val" style="font-size:1.2rem;">${summary?.branch?.name || 'Assigned Branch'}</div>
+            <div class="stat-desc">Assigned node ID: ${summary?.branch?.id || 'Central Scope'}</div>
           </div>
         </div>
 

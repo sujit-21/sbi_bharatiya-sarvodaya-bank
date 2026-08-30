@@ -1,0 +1,21 @@
+{
+  "watch": [
+    "backend",
+    "headquarter",
+    "branches_and_employees",
+    "customers",
+    "frontend"
+  ],
+  "ext": "js,jsx,html,css",
+  "ignore": [
+    "backend/db/db.json",
+    "backend/db/backups/**",
+    "*.json",
+    "*.log",
+    "node_modules/**",
+    ".git/**",
+    "dist/**",
+    "build/**"
+  ],
+  "delay": 1500
+}

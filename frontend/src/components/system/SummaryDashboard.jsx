@@ -14,7 +14,7 @@ export default function SummaryDashboard({ user, apiCall, showToast }) {
       setLoading(true);
       const users = await apiCall('/api/dashboard/users').catch(() => []);
       const branches = await apiCall('/api/branches').catch(() => []);
-      const ledger = await apiCall('/api/ledger/gl-accounts').catch(() => ({ accounts: [] }));
+      const ledger = await apiCall('/api/accounting/ledger').catch(() => ({ accounts: [] }));
 
       setStats({
         totalUsers: users.length || 6,

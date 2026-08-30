@@ -61,7 +61,7 @@ export default function UserRegistry({ apiCall, showToast }) {
   const handleProvisionSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await apiCall('/api/auth/provision', 'POST', {
+      const result = await apiCall('/api/users/provision', 'POST', {
         fullName: provFullName,
         email: provEmail,
         role: provRole,

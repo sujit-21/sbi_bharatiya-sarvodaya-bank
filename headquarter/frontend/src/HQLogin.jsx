@@ -23,7 +23,7 @@ export default function HQLogin({ onLoginSuccess, showToast }) {
           email: email.trim(),
           password: password.trim(),
           masterKey: masterKey.trim(),
-          portal: 'HEADQUARTER'
+          portal: 'headquarter'
         })
       });
 

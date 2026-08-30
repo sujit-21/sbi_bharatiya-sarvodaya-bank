@@ -20,17 +20,7 @@ const PORT = process.env.PORT || 5000;
 
 // Express Security middlewares (Helmet config)
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      // Allow scripts, stylesheets, fonts and images from CDNs for charts and styles
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
-      imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
-      connectSrc: ["'self'"]
-    }
-  }
+  contentSecurityPolicy: false
 }));
 
 // CORS Configuration
@@ -104,26 +94,9 @@ if (require.main === module) {
 
   server.on('error', (error) => {
     if (error.code === 'EADDRINUSE') {
-      console.log(`[CORE SERVER] Port ${PORT} in use. Freeing port and restarting...`);
-      try {
-        const { execSync } = require('child_process');
-        execSync(
-          `for /f "tokens=5" %a in ('netstat -ano ^| findstr :${PORT} ^| findstr LISTENING') do taskkill /F /PID %a`,
-          { shell: 'cmd.exe', stdio: 'pipe' }
-        );
-      } catch (e) {}
-      setTimeout(() => {
-        server.close();
-        app.listen(PORT, () => {
-          console.log(`=================================================`);
-          console.log(`BHARATIYA SARVODAYA BANK (BSB) ENTERPRISE ENGINE ACTIVE`);
-          console.log(`Port: ${PORT}`);
-          console.log(`Status: ONLINE & MONITORING`);
-          console.log(`=================================================`);
-        });
-      }, 1500);
+      console.error(`\n[CORE SERVER ERROR] Port ${PORT} is already in use. Please terminate existing instance or use another port.`);
     } else {
-      throw error;
+      console.error('[CORE SERVER ERROR]', error);
     }
   });
 }

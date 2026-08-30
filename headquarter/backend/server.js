@@ -21,7 +21,7 @@ const dashboardController = require(path.join(rootBackend, 'controllers/dashboar
 const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = 5001;
 
 app.use(helmet({
   contentSecurityPolicy: false
@@ -47,11 +47,8 @@ app.get('/api/health', systemController.getHealth);
 app.get('/api/status', systemController.getStatus);
 app.get('/api/version', systemController.getVersion);
 
-// Dedicated HQ Login Route
-app.post('/api/hq/login', (req, res, next) => {
-  req.body.role = 'Super Admin';
-  next();
-}, authController.login);
+// Dedicated HQ Login Route (portalType already set to 'headquarter' by global middleware)
+app.post('/api/hq/login', authController.login);
 
 // Account Transactions History Endpoint
 app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
@@ -83,25 +80,9 @@ if (require.main === module) {
 
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-      console.log(`[HQ SERVER] Port ${PORT} in use. Freeing port and restarting...`);
-      try {
-        execSync(
-          `for /f "tokens=5" %a in ('netstat -ano ^| findstr :${PORT} ^| findstr LISTENING') do taskkill /F /PID %a`,
-          { shell: 'cmd.exe', stdio: 'pipe' }
-        );
-      } catch (e) {}
-      setTimeout(() => {
-        server.close();
-        app.listen(PORT, () => {
-          console.log(`=================================================`);
-          console.log(`🏛️ HEADQUARTER CORE API SERVER RUNNING ON PORT ${PORT}`);
-          console.log(`Shared Database: ${process.env.MONGODB_URI}`);
-          console.log(`=================================================`);
-        });
-      }, 1500);
+      console.error(`\n[HQ SERVER ERROR] Port ${PORT} is already in use. Please terminate existing instance or use another port.`);
     } else {
       console.error('[HQ SERVER ERROR]', err);
-      process.exit(1);
     }
   });
 }

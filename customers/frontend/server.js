@@ -1,14 +1,25 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const net = require('net');
 const app = express();
 
-const FRONTEND_PORT = process.env.VITE_PORT || 3003;
-const BACKEND_PORT = process.env.PORT || 5003;
+const FRONTEND_PORT = 3003;
+const BACKEND_PORT = 5003;
 
-// Auto-boot Customer Backend Server (Port 5003)
+// Auto-boot Customer Backend Server (Port 5003) if not already active
 try {
-  require('../backend/server.js');
+  const backendApp = require('../backend/server.js');
+  const bServer = backendApp.listen(BACKEND_PORT, () => {
+    console.log(`[CUSTOMER BACKEND] Automatically started on port ${BACKEND_PORT}`);
+  });
+  bServer.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`[CUSTOMER BACKEND] Port ${BACKEND_PORT} already active.`);
+    } else {
+      console.error('[CUSTOMER BACKEND ERROR]', err.message);
+    }
+  });
 } catch (e) {
   console.log('[CUSTOMER BACKEND AUTOSTART]', e.message);
 }
@@ -25,33 +36,45 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/api/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 app.get('/api/dashboard/accounts/:accountNumber/transactions', authenticate, dashboardController.getAccountTransactions);
 
-// Proxy API requests directly to Customer Backend Engine (5003)
-app.use(['/api', '/admin', '/manager', '/employee', '/customer', '/customers', '/merchant'], (req, res) => {
+// Proxy API requests directly to Customer Backend Engine (5003) with clean stream forwarding
+app.use(['/api', '/admin', '/manager', '/employee', '/customer', '/customers', '/merchant', '/auth'], (req, res) => {
+  const bodyData = (req.body && Object.keys(req.body).length > 0) ? JSON.stringify(req.body) : null;
+  
+  const headers = {};
+  for (const [k, v] of Object.entries(req.headers)) {
+    if (!['host', 'content-length'].includes(k.toLowerCase())) {
+      headers[k] = v;
+    }
+  }
+  if (bodyData) {
+    headers['content-length'] = Buffer.byteLength(bodyData);
+    headers['content-type'] = 'application/json';
+  }
+
   const options = {
     hostname: 'localhost',
     port: BACKEND_PORT,
     path: req.originalUrl,
     method: req.method,
-    headers: {
-      ...req.headers,
-      host: `localhost:${BACKEND_PORT}`
-    }
+    headers: headers
   };
 
   const proxyReq = http.request(options, (proxyRes) => {
-    res.writeHead(proxyRes.statusCode, proxyRes.headers);
-    proxyRes.pipe(res, { end: true });
+    res.status(proxyRes.statusCode);
+    for (const [hk, hv] of Object.entries(proxyRes.headers)) {
+      res.setHeader(hk, hv);
+    }
+    proxyRes.pipe(res);
   });
 
   proxyReq.on('error', (err) => {
     res.status(502).json({ message: 'Customer Backend engine service is temporarily offline.', error: err.message });
   });
 
-  if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
-    req.pipe(proxyReq, { end: true });
-  } else {
-    proxyReq.end();
+  if (bodyData) {
+    proxyReq.write(bodyData);
   }
+  proxyReq.end();
 });
 
 // Explicit Static Files for CSS & JS

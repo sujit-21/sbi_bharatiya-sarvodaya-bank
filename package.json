@@ -2,17 +2,26 @@
   "name": "ag10-banking",
   "version": "1.0.0",
   "description": "Enterprise Banking Ecosystem Simulator (3 Independent Portals with Tailwind CSS v4)",
-  "main": "backend/server.js",
+  "main": "start-all.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js",
+    "start": "node start-all.js",
+    "dev": "nodemon start-all.js",
+    "start:all": "node start-all.js",
+    "dev:all": "nodemon start-all.js",
     "hq:backend": "nodemon headquarter/backend/server.js",
     "hq:frontend": "nodemon headquarter/frontend/server.js",
     "branch:backend": "nodemon branches_and_employees/backend/server.js",
     "branch:frontend": "nodemon branches_and_employees/frontend/server.js",
     "customer:backend": "nodemon customers/backend/server.js",
     "customer:frontend": "nodemon customers/frontend/server.js",
+    "clean-ports": "node kill-ports.js",
     "test": "node verify.js"
+  },
+  "nodemonConfig": {
+    "watch": ["backend", "headquarter", "branches_and_employees", "customers", "frontend"],
+    "ext": "js,jsx,html,css",
+    "ignore": ["**/db.json", "**/backups/**", "**/*.json", "**/*.log", "node_modules/**"],
+    "delay": 1500
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

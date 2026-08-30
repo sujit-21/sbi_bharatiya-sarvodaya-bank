@@ -19,7 +19,7 @@ const dashboardController = require(path.join(rootBackend, 'controllers/dashboar
 const { authenticate } = require(path.join(rootBackend, 'middleware/auth'));
 
 const app = express();
-const PORT = process.env.PORT || 5003;
+const PORT = 5003;
 
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: true, credentials: true }));
@@ -77,25 +77,9 @@ if (require.main === module) {
 
   server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-      console.log(`[CUSTOMER SERVER] Port ${PORT} in use. Freeing port and restarting...`);
-      try {
-        execSync(
-          `for /f "tokens=5" %a in ('netstat -ano ^| findstr :${PORT} ^| findstr LISTENING') do taskkill /F /PID %a`,
-          { shell: 'cmd.exe', stdio: 'pipe' }
-        );
-      } catch (e) {}
-      setTimeout(() => {
-        server.close();
-        app.listen(PORT, () => {
-          console.log(`=================================================`);
-          console.log(`👤 CUSTOMER NETBANKING API SERVER RUNNING ON PORT ${PORT}`);
-          console.log(`Shared Database: ${process.env.MONGODB_URI}`);
-          console.log(`=================================================`);
-        });
-      }, 1500);
+      console.error(`\n[CUSTOMER SERVER ERROR] Port ${PORT} is already in use. Please terminate existing instance or use another port.`);
     } else {
       console.error('[CUSTOMER SERVER ERROR]', err);
-      process.exit(1);
     }
   });
 }

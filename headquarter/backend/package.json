@@ -6,6 +6,9 @@
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
+  "nodemonConfig": {
+    "ignore": ["**/db.json", "**/backups/**", "**/*.json", "**/*.log"]
+  },
   "devDependencies": {
     "nodemon": "^3.1.14"
   }
