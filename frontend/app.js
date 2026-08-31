@@ -232,11 +232,8 @@ function showMerchantSignupForm() {
   document.getElementById('auth-signin-text').classList.remove('hidden');
 }
 
-// API Fetch Helper
+// API Fetch Helper (Clean, Non-Blinking)
 async function apiCall(endpoint, method = 'GET', body = null, suppressToast = false) {
-  const loadingEl = document.getElementById('app-loading');
-  if (loadingEl) loadingEl.classList.remove('hidden');
-
   try {
     const headers = {
       'Content-Type': 'application/json',
@@ -298,8 +295,6 @@ async function apiCall(endpoint, method = 'GET', body = null, suppressToast = fa
       showToast(err.message, 'danger');
     }
     throw err;
-  } finally {
-    if (loadingEl) loadingEl.classList.add('hidden');
   }
 }
 
@@ -881,7 +876,8 @@ function renderSidebarMenu() {
   links.forEach(link => {
     const btn = document.createElement('button');
     btn.className = `menu-item ${state.activeTab === link.id ? 'active' : ''}`;
-    btn.innerHTML = `<span class="icon">${link.icon}</span> ${link.name}`;
+    btn.dataset.tabId = link.id;
+    btn.innerHTML = `<span>${link.name}</span>`;
     btn.addEventListener('click', () => switchTab(link.id));
     menu.appendChild(btn);
   });
@@ -891,19 +887,21 @@ function renderSidebarMenu() {
 function switchTab(tabId) {
   state.activeTab = tabId;
   
-  // Highlight active menu item
+  // Highlight active menu item by data-tab-id attribute
   const menuItems = document.querySelectorAll('.menu-item');
-  const menuLinks = getRoleLinks();
-  menuItems.forEach((btn, index) => {
-    if (menuLinks[index] && menuLinks[index].id === tabId) {
+  menuItems.forEach((btn) => {
+    if (btn.dataset.tabId === tabId) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
     }
   });
 
-  // Set Workspace Title
-  document.getElementById('page-title').innerText = tabId.toUpperCase() + ' Workspace';
+  // Set Workspace Title from role links name
+  const menuLinks = getRoleLinks();
+  const activeLink = menuLinks.find(l => l.id === tabId);
+  const pageTitle = document.getElementById('page-title');
+  if (pageTitle) pageTitle.innerText = activeLink ? activeLink.name : tabId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
   // Render workspace layout depending on role
   renderWorkspace(tabId);
@@ -911,34 +909,34 @@ function switchTab(tabId) {
 
 function getRoleLinks() {
   const allAvailableLinks = [
-    { id: 'summary', name: 'Core Summary', icon: '🏦' },
-    { id: 'deposit-withdraw', name: 'Deposits & Withdrawals', icon: '💳' },
-    { id: 'profile', name: 'My Profile', icon: '👤' },
-    { id: 'apply-services', name: 'Apply (Cards & Cheques)', icon: '💳' },
-    { id: 'statements', name: 'Account Statements', icon: '📄' },
-    { id: 'customer-onboarding', name: 'Onboard Customer', icon: '👤' },
-    { id: 'branch-customers', name: 'Branch Customers', icon: '👥' },
-    { id: 'users', name: 'User Registry', icon: '👥' },
-    { id: 'role-manager', name: 'Role Manager', icon: '🛡️' },
-    { id: 'branches', name: 'Branch Registry', icon: '🏢' },
-    { id: 'ledger', name: 'General Ledger', icon: '📈' },
-    { id: 'developers', name: 'API Developer Portal', icon: '💻' },
-    { id: 'interest', name: 'Interest Engine', icon: '⚙️' },
-    { id: 'disaster', name: 'Backup & Recovery', icon: '💾' },
-    { id: 'approvals', name: 'Pending Approvals', icon: '🗳️' },
-    { id: 'employees', name: 'Branch Tellers', icon: '👥' },
-    { id: 'treasury', name: 'Vault & Cash', icon: '💰' },
-    { id: 'customers', name: 'Accounts Assistance', icon: '👥' },
-    { id: 'transactions', name: 'Deposits & Withdrawals', icon: '💵' },
-    { id: 'crm', name: 'Leads & Sales', icon: '🎯' },
-    { id: 'tickets', name: 'Customer Tickets', icon: '🎫' },
-    { id: 'dms', name: 'Document Vault', icon: '📁' },
-    { id: 'transfers', name: 'Send Money', icon: '💸' },
-    { id: 'products', name: 'Apply Loans/FD', icon: '🌱' },
-    { id: 'assistant', name: 'AI Financial Agent', icon: '🤖' },
-    { id: 'settings', name: 'Security Controls', icon: '⚙️' },
-    { id: 'qr', name: 'Merchant QR Payments', icon: '📱' },
-    { id: 'settlements', name: 'Settlements', icon: '🏦' }
+    { id: 'summary', name: 'Core Summary' },
+    { id: 'deposit-withdraw', name: 'Deposits & Withdrawals' },
+    { id: 'profile', name: 'My Profile' },
+    { id: 'apply-services', name: 'Apply (Cards & Cheques)' },
+    { id: 'statements', name: 'Account Statements' },
+    { id: 'customer-onboarding', name: 'Onboard Customer' },
+    { id: 'branch-customers', name: 'Branch Customers' },
+    { id: 'users', name: 'User Registry' },
+    { id: 'role-manager', name: 'Role Manager' },
+    { id: 'branches', name: 'Branch Registry' },
+    { id: 'ledger', name: 'General Ledger' },
+    { id: 'developers', name: 'API Developer Portal' },
+    { id: 'interest', name: 'Interest Engine' },
+    { id: 'disaster', name: 'Backup & Recovery' },
+    { id: 'approvals', name: 'Pending Approvals' },
+    { id: 'employees', name: 'Branch Tellers' },
+    { id: 'treasury', name: 'Vault & Cash' },
+    { id: 'customers', name: 'Accounts Assistance' },
+    { id: 'transactions', name: 'Deposits & Withdrawals' },
+    { id: 'crm', name: 'Leads & Sales' },
+    { id: 'tickets', name: 'Customer Tickets' },
+    { id: 'dms', name: 'Document Vault' },
+    { id: 'transfers', name: 'Send Money' },
+    { id: 'products', name: 'Apply Loans/FD' },
+    { id: 'assistant', name: 'AI Financial Agent' },
+    { id: 'settings', name: 'Security Controls' },
+    { id: 'qr', name: 'Merchant QR Payments' },
+    { id: 'settlements', name: 'Settlements' }
   ];
 
   if (!state.user) return [];
@@ -1023,51 +1021,32 @@ function animateWorkspaceEntrance(container) {
     const tl = gsap.timeline();
 
     if (statsCards.length > 0) {
-      tl.from(statsCards, {
-        duration: 0.5,
-        y: 20,
-        opacity: 0,
-        stagger: 0.08,
-        ease: 'power2.out'
-      }, 0);
+      tl.fromTo(statsCards, 
+        { y: 10, opacity: 0 },
+        { duration: 0.3, y: 0, opacity: 1, stagger: 0.05, ease: 'power2.out', clearProps: 'all' }, 
+        0
+      );
     }
 
     if (cards.length > 0) {
-      tl.from(cards, {
-        duration: 0.5,
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        ease: 'power2.out'
-      }, statsCards.length > 0 ? 0.15 : 0);
-    }
-
-    if (rows.length > 0) {
-      tl.from(rows, {
-        duration: 0.4,
-        y: 10,
-        opacity: 0,
-        stagger: 0.03,
-        ease: 'power1.out'
-      }, 0.2);
-    }
-
-    if (strips.length > 0) {
-      tl.from(strips, {
-        duration: 0.5,
-        y: 15,
-        opacity: 0,
-        stagger: 0.08,
-        ease: 'power2.out'
-      }, 0.2);
+      tl.fromTo(cards, 
+        { y: 10, opacity: 0 },
+        { duration: 0.3, y: 0, opacity: 1, stagger: 0.06, ease: 'power2.out', clearProps: 'all' }, 
+        0.05
+      );
     }
   }
 }
 
-// Workspace Renderer Router
-async function renderWorkspace(tabId) {
+// Workspace Renderer Router (Smooth In-Place Rendering)
+async function renderWorkspace(tabId, animate = false) {
   const target = document.getElementById('workspace-target');
-  target.innerHTML = `<div class="loading-overlay" style="position:relative; background:none; height:200px;"><div class="spinner"></div></div>`;
+  if (!target) return;
+
+  // Only show a loader if workspace is completely empty
+  if (!target.innerHTML.trim()) {
+    target.innerHTML = `<div style="display:flex; justify-content:center; align-items:center; height:200px;"><div class="spinner"></div></div>`;
+  }
 
   try {
     const role = normalizeRole(state.user?.role);
@@ -1085,8 +1064,10 @@ async function renderWorkspace(tabId) {
       await renderAdmin(tabId, target);
     }
     
-    // Animate workspace elements once loaded
-    animateWorkspaceEntrance(target);
+    // Only animate on explicit tab switch
+    if (animate) {
+      animateWorkspaceEntrance(target);
+    }
   } catch (err) {
     console.error('Workspace rendering failed:', err);
     target.innerHTML = `<div class="card" style="padding: 20px;"><h3 style="color: var(--danger-color);">Error Loading Workspace</h3><p>${err.message || 'An error occurred while loading this view.'}</p></div>`;

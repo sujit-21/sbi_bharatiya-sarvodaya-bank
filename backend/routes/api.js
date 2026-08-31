@@ -153,4 +153,14 @@ router.post('/branches', authenticate, requirePermission('Create', 'branches'), 
 router.put('/branches/:id', authenticate, requirePermission('Update', 'branches'), dashboard.updateBranch);
 router.delete('/branches/:id', authenticate, requirePermission('Delete', 'branches'), dashboard.deleteBranch);
 
+// 22. Customer Service Requests (Debit Cards, Credit Cards, Cheque Books, Demand Drafts, UPI Channels)
+router.get('/customer-requests', authenticate, dashboard.getCustomerRequests);
+router.post('/customer-requests', authenticate, dashboard.postCustomerRequest);
+router.put('/customer-requests/:id/action', authenticate, dashboard.actionCustomerRequest);
+router.post('/customer-requests/:id/action', authenticate, dashboard.actionCustomerRequest);
+router.get('/dashboard/customer-requests', authenticate, dashboard.getCustomerRequests);
+router.post('/dashboard/customer-requests', authenticate, dashboard.postCustomerRequest);
+router.put('/dashboard/customer-requests/:id/action', authenticate, dashboard.actionCustomerRequest);
+router.post('/dashboard/customer-requests/:id/action', authenticate, dashboard.actionCustomerRequest);
+
 module.exports = router;

@@ -564,9 +564,9 @@ html, body {
   background: #f8fafc;
 }
 .sidebar {
-  width: 215px;
-  min-width: 215px;
-  max-width: 215px;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
   height: 100vh;
   max-height: 100vh;
   background: var(--bg-surface, #ffffff);
@@ -579,9 +579,9 @@ html, body {
   z-index: 100;
 }
 .sidebar-header {
-  height: 60px;
-  min-height: 60px;
-  padding: 0 8px;
+  height: 64px;
+  min-height: 64px;
+  padding: 0 14px;
   border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
@@ -614,7 +614,7 @@ html, body {
 .user-info p { font-size: 0.7rem; color: var(--text-secondary); }
  
 .sidebar-menu {
-  padding: 8px 8px;
+  padding: 10px 10px;
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -629,21 +629,24 @@ html, body {
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--text-primary);
   opacity: 1;
-  padding: 7px 10px;
+  padding: 8px 12px;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.82rem;
+  font-size: 0.81rem;
   background: none;
   border: none;
   text-align: left;
   cursor: pointer;
   font-family: var(--font-primary);
   transition: var(--transition-smooth);
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.35;
+  box-sizing: border-box;
+  width: 100%;
 }
 .menu-item:hover {
   color: var(--accent-primary);
@@ -656,7 +659,7 @@ html, body {
   border-left: 3px solid var(--accent-primary);
 }
 .sidebar-footer {
-  padding: 8px 10px;
+  padding: 10px 12px;
   border-top: 1px solid var(--border-color, #e2e8f0);
   margin-top: auto;
   background: #ffffff;
@@ -664,10 +667,12 @@ html, body {
   box-sizing: border-box;
 }
 .sidebar-footer .btn {
-  font-size: 0.78rem;
-  padding: 6px 10px;
+  font-size: 0.80rem;
+  padding: 7px 12px;
   border-radius: 6px;
   font-weight: 700;
+  width: 100%;
+  text-align: center;
 }
 
 .main-content {

@@ -235,11 +235,8 @@ function showMerchantSignupForm() {
   document.getElementById('auth-signin-text').classList.remove('hidden');
 }
 
-// API Fetch Helper
+// API Fetch Helper (Clean, Non-Blinking)
 async function apiCall(endpoint, method = 'GET', body = null, suppressToast = false) {
-  const loadingEl = document.getElementById('app-loading');
-  if (loadingEl) loadingEl.classList.remove('hidden');
-
   try {
     const headers = {
       'Content-Type': 'application/json',
@@ -301,8 +298,6 @@ async function apiCall(endpoint, method = 'GET', body = null, suppressToast = fa
       showToast(err.message, 'danger');
     }
     throw err;
-  } finally {
-    if (loadingEl) loadingEl.classList.add('hidden');
   }
 }
 
@@ -864,7 +859,8 @@ function renderSidebarMenu() {
   links.forEach(link => {
     const btn = document.createElement('button');
     btn.className = `menu-item ${state.activeTab === link.id ? 'active' : ''}`;
-    btn.innerHTML = link.name;
+    btn.dataset.tabId = link.id;
+    btn.innerHTML = `<span>${link.name}</span>`;
     btn.addEventListener('click', () => switchTab(link.id));
     menu.appendChild(btn);
   });
@@ -874,19 +870,21 @@ function renderSidebarMenu() {
 function switchTab(tabId) {
   state.activeTab = tabId;
   
-  // Highlight active menu item
+  // Highlight active menu item by data-tab-id attribute
   const menuItems = document.querySelectorAll('.menu-item');
-  const menuLinks = getRoleLinks();
-  menuItems.forEach((btn, index) => {
-    if (menuLinks[index] && menuLinks[index].id === tabId) {
+  menuItems.forEach((btn) => {
+    if (btn.dataset.tabId === tabId) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
     }
   });
 
-  // Set Workspace Title
-  document.getElementById('page-title').innerText = tabId.toUpperCase() + ' Workspace';
+  // Set Workspace Title from role links name
+  const menuLinks = getRoleLinks();
+  const activeLink = menuLinks.find(l => l.id === tabId);
+  const pageTitle = document.getElementById('page-title');
+  if (pageTitle) pageTitle.innerText = activeLink ? activeLink.name : tabId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
   // Render workspace layout depending on role
   renderWorkspace(tabId);
@@ -894,31 +892,32 @@ function switchTab(tabId) {
 
 function getRoleLinks() {
   const allAvailableLinks = [
-    { id: 'summary', name: 'Core Summary', icon: '🏦' },
-    { id: 'deposit-withdraw', name: 'Deposits & Withdrawals', icon: '💳' },
-    { id: 'branch-customers', name: 'Branch Customers', icon: '👥' },
-    { id: 'customer-onboarding', name: 'Onboard Customer', icon: '👤' },
-    { id: 'users', name: 'User Registry', icon: '👥' },
-    { id: 'role-manager', name: 'Role Manager', icon: '🛡️' },
-    { id: 'branches', name: 'Branch Registry', icon: '🏢' },
-    { id: 'ledger', name: 'General Ledger', icon: '📈' },
-    { id: 'developers', name: 'API Developer Portal', icon: '💻' },
-    { id: 'interest', name: 'Interest Engine', icon: '⚙️' },
-    { id: 'disaster', name: 'Backup & Recovery', icon: '💾' },
-    { id: 'approvals', name: 'Pending Approvals', icon: '🗳️' },
-    { id: 'employees', name: 'Branch Tellers', icon: '👥' },
-    { id: 'treasury', name: 'Vault & Cash', icon: '💰' },
-    { id: 'customers', name: 'Accounts Assistance', icon: '👥' },
-    { id: 'transactions', name: 'Deposits & Withdrawals', icon: '💵' },
-    { id: 'crm', name: 'Leads & Sales', icon: '🎯' },
-    { id: 'tickets', name: 'Customer Tickets', icon: '🎫' },
-    { id: 'dms', name: 'Document Vault', icon: '📁' },
-    { id: 'transfers', name: 'Send Money', icon: '💸' },
-    { id: 'products', name: 'Apply Loans/FD', icon: '🌱' },
-    { id: 'assistant', name: 'AI Financial Agent', icon: '🤖' },
-    { id: 'settings', name: 'Security Controls', icon: '⚙️' },
-    { id: 'qr', name: 'Merchant QR Payments', icon: '📱' },
-    { id: 'settlements', name: 'Settlements', icon: '🏦' }
+    { id: 'summary', name: 'Branch Summary & Metrics' },
+    { id: 'deposit-withdraw', name: 'Cash Desk (Deposits & Withdrawals)' },
+    { id: 'branch-customers', name: 'Branch Customers' },
+    { id: 'customer-onboarding', name: 'Customer Account Opening' },
+    { id: 'customer-requests', name: 'Customers Request' },
+    { id: 'users', name: 'User Registry' },
+    { id: 'role-manager', name: 'Role Manager' },
+    { id: 'branches', name: 'Branch Registry' },
+    { id: 'ledger', name: 'Branch General Ledger' },
+    { id: 'developers', name: 'API Developer Portal' },
+    { id: 'interest', name: 'Interest Engine' },
+    { id: 'disaster', name: 'Backup & Recovery' },
+    { id: 'approvals', name: 'Manager Approvals Queue' },
+    { id: 'employees', name: 'Branch Tellers & Staff' },
+    { id: 'treasury', name: 'Vault & Cash Treasury' },
+    { id: 'customers', name: 'Accounts Assistance' },
+    { id: 'transactions', name: 'Deposits & Withdrawals' },
+    { id: 'crm', name: 'Leads & Sales CRM' },
+    { id: 'tickets', name: 'Customer Service Tickets' },
+    { id: 'dms', name: 'Document Vault' },
+    { id: 'transfers', name: 'Send Money' },
+    { id: 'products', name: 'Apply Loans/FD' },
+    { id: 'assistant', name: 'AI Financial Agent' },
+    { id: 'settings', name: 'Security Controls' },
+    { id: 'qr', name: 'Merchant QR Payments' },
+    { id: 'settlements', name: 'Settlements' }
   ];
 
   if (!state.user) return [];
@@ -934,24 +933,21 @@ function getRoleLinks() {
       userModules.unshift('summary');
     }
 
-    if (normRole === 'Super Admin') {
-      if (!userModules.includes('branch-customers')) userModules.push('branch-customers');
-      if (!userModules.includes('customer-registry')) userModules.push('customer-registry');
-    }
     if (normRole === 'Branch Manager') {
       if (!userModules.includes('deposit-withdraw')) userModules.splice(1, 0, 'deposit-withdraw');
       if (!userModules.includes('branch-customers')) userModules.push('branch-customers');
-      const idx = userModules.indexOf('customer-registry');
-      if (idx !== -1) userModules.splice(idx, 1);
+      if (!userModules.includes('customer-onboarding')) userModules.push('customer-onboarding');
+      if (!userModules.includes('customer-requests')) userModules.push('customer-requests');
+      if (!userModules.includes('approvals')) userModules.push('approvals');
+      if (!userModules.includes('employees')) userModules.push('employees');
+      if (!userModules.includes('treasury')) userModules.push('treasury');
+      if (!userModules.includes('ledger')) userModules.push('ledger');
     }
     if (normRole === 'Employee') {
       if (!userModules.includes('deposit-withdraw')) userModules.splice(1, 0, 'deposit-withdraw');
       if (!userModules.includes('customer-onboarding')) userModules.push('customer-onboarding');
       if (!userModules.includes('branch-customers')) userModules.push('branch-customers');
-      const idx = userModules.indexOf('customer-registry');
-      if (idx !== -1) userModules.splice(idx, 1);
-      const accAssistIdx = userModules.indexOf('customers');
-      if (accAssistIdx !== -1) userModules.splice(accAssistIdx, 1);
+      if (!userModules.includes('customer-requests')) userModules.push('customer-requests');
     }
 
     const matchedLinks = allAvailableLinks.filter(link => userModules.includes(link.id.toLowerCase()));
@@ -959,29 +955,25 @@ function getRoleLinks() {
   }
 
   // Fallback to static rules based on normalized role
-  if (normRole === 'Super Admin') {
+  if (normRole === 'Branch Manager') {
     return allAvailableLinks.filter(link => 
-      ['summary', 'deposit-withdraw', 'branch-customers', 'users', 'customer-registry', 'role-manager', 'branches', 'ledger', 'developers', 'interest', 'disaster'].includes(link.id)
-    );
-  } else if (normRole === 'Branch Manager') {
-    return allAvailableLinks.filter(link => 
-      ['summary', 'deposit-withdraw', 'branch-customers', 'users', 'kyc', 'approvals', 'employees', 'treasury', 'ledger'].includes(link.id)
+      ['summary', 'deposit-withdraw', 'branch-customers', 'customer-onboarding', 'customer-requests', 'employees', 'approvals', 'treasury', 'ledger', 'crm', 'tickets', 'dms'].includes(link.id)
     );
   } else if (normRole === 'Employee') {
     return allAvailableLinks.filter(link => 
-      ['summary', 'deposit-withdraw', 'branch-customers', 'customer-onboarding', 'crm', 'tickets', 'dms'].includes(link.id)
+      ['summary', 'deposit-withdraw', 'branch-customers', 'customer-onboarding', 'customer-requests', 'crm', 'tickets', 'dms'].includes(link.id)
+    );
+  } else if (normRole === 'Super Admin') {
+    return allAvailableLinks.filter(link => 
+      ['summary', 'deposit-withdraw', 'branch-customers', 'customer-requests', 'users', 'role-manager', 'branches', 'ledger', 'developers', 'interest', 'disaster'].includes(link.id)
     );
   } else if (normRole === 'Customer') {
     return allAvailableLinks.filter(link => 
       ['summary', 'transfers', 'beneficiaries', 'products', 'dms', 'assistant', 'settings'].includes(link.id)
     );
-  } else if (normRole === 'Merchant') {
-    return allAvailableLinks.filter(link => 
-      ['summary', 'qr', 'settlements', 'developers'].includes(link.id)
-    );
   }
 
-  return allAvailableLinks.filter(link => ['summary', 'deposit-withdraw'].includes(link.id));
+  return allAvailableLinks.filter(link => ['summary', 'deposit-withdraw', 'customer-requests'].includes(link.id));
 }
 
 // Centralized workspace GSAP transitions
@@ -998,53 +990,40 @@ function animateWorkspaceEntrance(container) {
     const tl = gsap.timeline();
 
     if (statsCards.length > 0) {
-      tl.from(statsCards, {
-        duration: 0.5,
-        y: 20,
-        opacity: 0,
-        stagger: 0.08,
-        ease: 'power2.out'
-      }, 0);
+      tl.fromTo(statsCards, 
+        { y: 10, opacity: 0 },
+        { duration: 0.3, y: 0, opacity: 1, stagger: 0.05, ease: 'power2.out', clearProps: 'all' }, 
+        0
+      );
     }
 
     if (cards.length > 0) {
-      tl.from(cards, {
-        duration: 0.5,
-        y: 20,
-        opacity: 0,
-        stagger: 0.1,
-        ease: 'power2.out'
-      }, statsCards.length > 0 ? 0.15 : 0);
-    }
-
-    if (rows.length > 0) {
-      tl.from(rows, {
-        duration: 0.4,
-        y: 10,
-        opacity: 0,
-        stagger: 0.03,
-        ease: 'power1.out'
-      }, 0.2);
-    }
-
-    if (strips.length > 0) {
-      tl.from(strips, {
-        duration: 0.5,
-        y: 15,
-        opacity: 0,
-        stagger: 0.08,
-        ease: 'power2.out'
-      }, 0.2);
+      tl.fromTo(cards, 
+        { y: 10, opacity: 0 },
+        { duration: 0.3, y: 0, opacity: 1, stagger: 0.06, ease: 'power2.out', clearProps: 'all' }, 
+        0.05
+      );
     }
   }
 }
 
-// Workspace Renderer Router
-async function renderWorkspace(tabId) {
+// Workspace Renderer Router (Smooth In-Place Rendering)
+async function renderWorkspace(tabId, animate = false) {
   const target = document.getElementById('workspace-target');
-  target.innerHTML = `<div class="loading-overlay" style="position:relative; background:none; height:200px;"><div class="spinner"></div></div>`;
+  if (!target) return;
+
+  // Only show a loader if workspace is completely empty
+  if (!target.innerHTML.trim()) {
+    target.innerHTML = `<div style="display:flex; justify-content:center; align-items:center; height:200px;"><div class="spinner"></div></div>`;
+  }
 
   try {
+    if (tabId === 'customer-requests') {
+      await renderCustomerRequestsWorkspace(target);
+      if (animate) animateWorkspaceEntrance(target);
+      return;
+    }
+
     const role = normalizeRole(state.user?.role);
     if (role === 'Super Admin') {
       await renderAdmin(tabId, target);
@@ -1060,8 +1039,10 @@ async function renderWorkspace(tabId) {
       await renderAdmin(tabId, target);
     }
     
-    // Animate workspace elements once loaded
-    animateWorkspaceEntrance(target);
+    // Only animate on explicit tab switch
+    if (animate) {
+      animateWorkspaceEntrance(target);
+    }
   } catch (err) {
     console.error('Workspace rendering failed:', err);
     target.innerHTML = `<div class="card" style="padding: 20px;"><h3 style="color: var(--danger-color);">Error Loading Workspace</h3><p>${err.message || 'An error occurred while loading this view.'}</p></div>`;
@@ -2971,6 +2952,8 @@ async function renderManager(tab, container) {
       loadVaultManagementTab();
     } else if (tab === 'ledger') {
       loadGlBalanceTab();
+    } else if (tab === 'customer-onboarding' || tab === 'crm' || tab === 'tickets' || tab === 'dms') {
+      await renderEmployee(tab, container);
     }
   } catch (err) {
     console.error('Manager render error:', err);
@@ -6350,5 +6333,464 @@ window.deleteCustomerAction = async function(customerId, customerName) {
     renderBranchCustomersView(document.getElementById('workspace-target'));
   } catch (err) {
     showToast(err.message || 'Failed to delete customer', 'danger');
+  }
+};
+
+// =========================================================================
+// CUSTOMER REQUESTS MANAGEMENT (Debit Cards, Credit Cards, Cheques, DD, UPI)
+// =========================================================================
+window._branchCustomerRequestsList = [];
+window._reqCategoryFilter = 'all';
+window._reqStatusFilter = 'all';
+window._reqSearchQuery = '';
+
+async function renderCustomerRequestsWorkspace(container) {
+  try {
+    const rawRequests = await apiCall('/api/customer-requests') || [];
+    window._branchCustomerRequestsList = Array.isArray(rawRequests) ? rawRequests : [];
+    
+    renderCustomerRequestsUI(container);
+  } catch (err) {
+    console.error('Failed to load customer requests:', err);
+    container.innerHTML = `<div class="card" style="padding: 20px;"><h3 style="color: var(--danger-color);">Error Loading Customer Requests</h3><p>${err.message || 'Error occurred while loading requests.'}</p></div>`;
+  }
+}
+
+function renderCustomerRequestsUI(container) {
+  const requests = window._branchCustomerRequestsList || [];
+  
+  // Calculate counts
+  const totalCount = requests.length;
+  const dcCount = requests.filter(r => r.type === 'Debit Card').length;
+  const ccCount = requests.filter(r => r.type === 'Credit Card').length;
+  const chqCount = requests.filter(r => r.type === 'Cheque Book').length;
+  const ddCount = requests.filter(r => r.type === 'Demand Draft').length;
+  const upiCount = requests.filter(r => r.type === 'UPI Channel').length;
+
+  const pendingCount = requests.filter(r => r.status === 'pending').length;
+  const approvedCount = requests.filter(r => r.status === 'approved').length;
+  const rejectedCount = requests.filter(r => r.status === 'rejected').length;
+
+  // Filter requests
+  let filtered = requests.filter(r => {
+    // Category filter
+    if (window._reqCategoryFilter !== 'all') {
+      if (r.type !== window._reqCategoryFilter) return false;
+    }
+    // Status filter
+    if (window._reqStatusFilter !== 'all') {
+      if (r.status !== window._reqStatusFilter) return false;
+    }
+    // Search query filter
+    if (window._reqSearchQuery) {
+      const q = window._reqSearchQuery.toLowerCase();
+      const match = (r.customerName && r.customerName.toLowerCase().includes(q)) ||
+                    (r.accountNumber && r.accountNumber.includes(q)) ||
+                    (r.id && r.id.toLowerCase().includes(q)) ||
+                    (r.variant && r.variant.toLowerCase().includes(q)) ||
+                    (r.details && r.details.toLowerCase().includes(q)) ||
+                    (r.vpa && r.vpa.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  const branchName = state.user?.branchName || 'Connaught Place Branch';
+
+  container.innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      
+      <!-- Top Header Row -->
+      <div class="card" style="padding: 14px 18px; border-radius: 10px; border: 1px solid #e2e8f0; background: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 style="font-size: 1.12rem; font-weight: 800; color: #1e293b; margin: 0;">Customers Request Management</h2>
+              <span style="background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">
+                ${branchName} Desk
+              </span>
+            </div>
+            <p style="color: #64748b; font-size: 0.76rem; margin: 3px 0 0 0;">
+              Review, verify, and approve customer applications for Debit Cards, Credit Cards, Cheque Books, Demand Drafts, and UPI Channels.
+            </p>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" onclick="openWalkinRequestModal()" class="btn btn-primary" style="font-size: 0.76rem; font-weight: 700; padding: 7px 14px; border-radius: 6px; display: flex; align-items: center; gap: 6px;">
+              <span>+</span> New Walk-in Request
+            </button>
+            <button type="button" onclick="renderCustomerRequestsWorkspace(document.getElementById('workspace-target'))" class="btn btn-outline-primary" style="font-size: 0.76rem; font-weight: 700; padding: 7px 12px; border-radius: 6px;">
+              ↻ Refresh Queue
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics Stat Cards (4 Cards) -->
+      <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); gap: 12px;">
+        <div class="stat-card" style="border-left: 4px solid #3b82f6; padding: 14px 16px;">
+          <h3 style="font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase;">Total Requests</h3>
+          <div class="stat-val" style="font-size: 1.45rem; font-weight: 800; color: #1e293b; margin-top: 4px;">${totalCount}</div>
+          <div class="stat-desc" style="font-size: 0.7rem; color: #64748b;">Cards, Cheques, DD & UPI channels</div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid #f59e0b; padding: 14px 16px; background: #fffdfa;">
+          <h3 style="font-size: 0.72rem; font-weight: 700; color: #b45309; text-transform: uppercase;">Pending Staff Approvals</h3>
+          <div class="stat-val" style="font-size: 1.45rem; font-weight: 800; color: #d97706; margin-top: 4px;">${pendingCount}</div>
+          <div class="stat-desc" style="font-size: 0.7rem; color: #b45309;">Requires Manager or Teller review</div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid #10b981; padding: 14px 16px; background: #f0fdf4;">
+          <h3 style="font-size: 0.72rem; font-weight: 700; color: #15803d; text-transform: uppercase;">Approved & Dispatched</h3>
+          <div class="stat-val" style="font-size: 1.45rem; font-weight: 800; color: #16a34a; margin-top: 4px;">${approvedCount}</div>
+          <div class="stat-desc" style="font-size: 0.7rem; color: #15803d;">Active cards & delivered instruments</div>
+        </div>
+
+        <div class="stat-card" style="border-left: 4px solid #ef4444; padding: 14px 16px; background: #fef2f2;">
+          <h3 style="font-size: 0.72rem; font-weight: 700; color: #b91c1c; text-transform: uppercase;">Rejected / On Hold</h3>
+          <div class="stat-val" style="font-size: 1.45rem; font-weight: 800; color: #dc2626; margin-top: 4px;">${rejectedCount}</div>
+          <div class="stat-desc" style="font-size: 0.7rem; color: #b91c1c;">KYC or limit verification rejections</div>
+        </div>
+      </div>
+
+      <!-- Filter Controls & Category Tabs -->
+      <div class="card" style="padding: 12px 16px; border-radius: 10px; border: 1px solid #e2e8f0; background: #ffffff;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+          
+          <!-- Category Filter Pills -->
+          <div style="display: flex; gap: 4px; overflow-x: auto; padding: 2px;">
+            <button type="button" onclick="setCustomerRequestCategoryFilter('all')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'all' ? '#1d4ed8' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'all' ? '#1d4ed8' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'all' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              All Requests (${totalCount})
+            </button>
+            <button type="button" onclick="setCustomerRequestCategoryFilter('Debit Card')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'Debit Card' ? '#2563eb' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'Debit Card' ? '#2563eb' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'Debit Card' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              Debit Cards (${dcCount})
+            </button>
+            <button type="button" onclick="setCustomerRequestCategoryFilter('Credit Card')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'Credit Card' ? '#9333ea' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'Credit Card' ? '#9333ea' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'Credit Card' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              Credit Cards (${ccCount})
+            </button>
+            <button type="button" onclick="setCustomerRequestCategoryFilter('Cheque Book')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'Cheque Book' ? '#0d9488' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'Cheque Book' ? '#0d9488' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'Cheque Book' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              Cheque Books (${chqCount})
+            </button>
+            <button type="button" onclick="setCustomerRequestCategoryFilter('Demand Draft')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'Demand Draft' ? '#ea580c' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'Demand Draft' ? '#ea580c' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'Demand Draft' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              Demand Drafts (${ddCount})
+            </button>
+            <button type="button" onclick="setCustomerRequestCategoryFilter('UPI Channel')" class="btn" style="padding: 6px 12px; font-size: 0.76rem; font-weight: 700; border-radius: 6px; border: 1px solid ${window._reqCategoryFilter === 'UPI Channel' ? '#4f46e5' : '#e2e8f0'}; background: ${window._reqCategoryFilter === 'UPI Channel' ? '#4f46e5' : '#f8fafc'}; color: ${window._reqCategoryFilter === 'UPI Channel' ? '#ffffff' : '#475569'}; cursor: pointer;">
+              UPI Channels (${upiCount})
+            </button>
+          </div>
+
+          <!-- Status Filters & Search Box -->
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <div style="display: flex; gap: 3px; background: #f1f5f9; padding: 2px; border-radius: 6px;">
+              <button type="button" onclick="setCustomerRequestStatusFilter('all')" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; border-radius: 4px; border: none; background: ${window._reqStatusFilter === 'all' ? '#ffffff' : 'transparent'}; color: ${window._reqStatusFilter === 'all' ? '#1e293b' : '#64748b'}; cursor: pointer; box-shadow: ${window._reqStatusFilter === 'all' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none'};">All</button>
+              <button type="button" onclick="setCustomerRequestStatusFilter('pending')" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; border-radius: 4px; border: none; background: ${window._reqStatusFilter === 'pending' ? '#ffffff' : 'transparent'}; color: ${window._reqStatusFilter === 'pending' ? '#d97706' : '#64748b'}; cursor: pointer; box-shadow: ${window._reqStatusFilter === 'pending' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none'};">Pending (${pendingCount})</button>
+              <button type="button" onclick="setCustomerRequestStatusFilter('approved')" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; border-radius: 4px; border: none; background: ${window._reqStatusFilter === 'approved' ? '#ffffff' : 'transparent'}; color: ${window._reqStatusFilter === 'approved' ? '#16a34a' : '#64748b'}; cursor: pointer; box-shadow: ${window._reqStatusFilter === 'approved' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none'};">Approved (${approvedCount})</button>
+              <button type="button" onclick="setCustomerRequestStatusFilter('rejected')" style="padding: 4px 8px; font-size: 0.72rem; font-weight: 700; border-radius: 4px; border: none; background: ${window._reqStatusFilter === 'rejected' ? '#ffffff' : 'transparent'}; color: ${window._reqStatusFilter === 'rejected' ? '#dc2626' : '#64748b'}; cursor: pointer; box-shadow: ${window._reqStatusFilter === 'rejected' ? '0 1px 2px rgba(0,0,0,0.05)' : 'none'};">Rejected</button>
+            </div>
+
+            <div style="position: relative;">
+              <input 
+                type="text" 
+                placeholder="Search requests / accounts..." 
+                value="${window._reqSearchQuery}" 
+                oninput="handleCustomerRequestSearch(this.value)" 
+                style="padding: 5px 10px 5px 28px; font-size: 0.75rem; border-radius: 6px; border: 1px solid #cbd5e1; width: 200px;"
+              />
+              <span style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font-size: 0.75rem; color: #94a3b8;">🔍</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Requests Table Card -->
+      <div class="card" style="padding: 0; border-radius: 10px; border: 1px solid #e2e8f0; background: #ffffff; overflow: hidden;">
+        <div style="padding: 12px 18px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background: #fafbfc;">
+          <h3 style="font-size: 0.88rem; font-weight: 800; color: #1e293b; margin: 0;">
+            Customer Applications & Requests Queue (${filtered.length})
+          </h3>
+          <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;">
+            Authorized for Branch Manager & Branch Employees
+          </span>
+        </div>
+
+        <div class="table-wrapper" style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.78rem;">
+            <thead>
+              <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: left; text-transform: uppercase;">Ref ID & Date</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: left; text-transform: uppercase;">Customer & Account</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: left; text-transform: uppercase;">Request Category</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: left; text-transform: uppercase;">Specifications / Details</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: left; text-transform: uppercase;">Delivery / Channel</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: center; text-transform: uppercase;">Status</th>
+                <th style="padding: 9px 12px; font-size: 0.7rem; font-weight: 700; color: #64748b; text-align: right; text-transform: uppercase;">Staff Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${filtered.length === 0 ? `
+                <tr>
+                  <td colspan="7" style="padding: 24px; text-align: center; color: #94a3b8;">
+                    No customer requests matching the selected filters.
+                  </td>
+                </tr>
+              ` : filtered.map(r => {
+                const isPending = r.status === 'pending';
+                const isApproved = r.status === 'approved';
+                const isRejected = r.status === 'rejected';
+
+                let typeBadgeColor = '#eff6ff';
+                let typeTextColor = '#1d4ed8';
+                let typeBorderColor = '#bfdbfe';
+
+                if (r.type === 'Debit Card') {
+                  typeBadgeColor = '#eff6ff'; typeTextColor = '#1d4ed8'; typeBorderColor = '#bfdbfe';
+                } else if (r.type === 'Credit Card') {
+                  typeBadgeColor = '#faf5ff'; typeTextColor = '#7e22ce'; typeBorderColor = '#e9d5ff';
+                } else if (r.type === 'Cheque Book') {
+                  typeBadgeColor = '#f0fdfa'; typeTextColor = '#0f766e'; typeBorderColor = '#99f6e4';
+                } else if (r.type === 'Demand Draft') {
+                  typeBadgeColor = '#fff7ed'; typeTextColor = '#c2410c'; typeBorderColor = '#fed7aa';
+                } else if (r.type === 'UPI Channel') {
+                  typeBadgeColor = '#eef2ff'; typeTextColor = '#4338ca'; typeBorderColor = '#c7d2fe';
+                }
+
+                return `
+                  <tr style="border-bottom: 1px solid #f1f5f9;">
+                    <td style="padding: 10px 12px; vertical-align: top;">
+                      <strong style="font-family: monospace; color: #1e293b; font-size: 0.8rem;">${r.id}</strong>
+                      <div style="font-size: 0.68rem; color: #64748b; margin-top: 2px;">
+                        ${new Date(r.createdAt || Date.now()).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      </div>
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top;">
+                      <div style="font-weight: 700; color: #1e293b;">${r.customerName || 'Kabir Malhotra'}</div>
+                      <div style="font-size: 0.72rem; color: #475569; margin-top: 1px;">
+                        A/C: <span style="font-family: monospace; font-weight: 700; color: #1d4ed8;">${r.accountNumber}</span>
+                      </div>
+                      <div style="font-size: 0.68rem; color: #64748b;">${r.branchName || branchName}</div>
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top;">
+                      <span style="display: inline-block; background: ${typeBadgeColor}; color: ${typeTextColor}; border: 1px solid ${typeBorderColor}; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">
+                        ${r.type}
+                      </span>
+                      <div style="font-size: 0.72rem; font-weight: 600; color: #334155; margin-top: 3px;">
+                        ${r.variant || r.type}
+                      </div>
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top; max-width: 240px;">
+                      <div style="font-size: 0.72rem; color: #334155; line-height: 1.35;">
+                        ${r.details || 'Customer application processed via portal.'}
+                      </div>
+                      ${r.amount ? `<div style="font-size: 0.72rem; font-weight: 700; color: #15803d; margin-top: 2px;">Amount: ₹${Number(r.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>` : ''}
+                      ${r.vpa ? `<div style="font-size: 0.7rem; font-weight: 700; color: #4f46e5; margin-top: 2px;">VPA: ${r.vpa}</div>` : ''}
+                      ${r.beneficiaryName ? `<div style="font-size: 0.7rem; color: #64748b;">Favor: ${r.beneficiaryName}</div>` : ''}
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top; max-width: 180px;">
+                      <div style="font-size: 0.7rem; color: #475569;">
+                        ${r.deliveryAddress || 'Registered Address'}
+                      </div>
+                      <div style="font-size: 0.68rem; color: #64748b; margin-top: 2px;">
+                        📞 ${r.mobileNumber || '+91 9810199881'}
+                      </div>
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top; text-align: center;">
+                      ${isPending ? `
+                        <span style="background: #fef3c7; color: #b45309; border: 1px solid #fde68a; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block;">
+                          ● Pending Review
+                        </span>
+                      ` : isApproved ? `
+                        <span style="background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block;">
+                          ✓ Approved
+                        </span>
+                        <div style="font-size: 0.66rem; color: #15803d; margin-top: 3px; font-weight: 600;">
+                          ${r.trackingNumber || 'Active'}
+                        </div>
+                      ` : `
+                        <span style="background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; display: inline-block;">
+                          ✕ Rejected
+                        </span>
+                      `}
+                    </td>
+
+                    <td style="padding: 10px 12px; vertical-align: top; text-align: right;">
+                      ${isPending ? `
+                        <div style="display: flex; justify-content: flex-end; gap: 4px;">
+                          <button 
+                            type="button" 
+                            onclick="handleApproveCustomerRequest('${r.id}')" 
+                            style="background: #16a34a; color: #ffffff; border: none; font-size: 0.72rem; font-weight: 700; padding: 5px 10px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(22,163,74,0.2);"
+                          >
+                            ✓ Approve
+                          </button>
+                          <button 
+                            type="button" 
+                            onclick="handleRejectCustomerRequest('${r.id}')" 
+                            style="background: #ffffff; color: #dc2626; border: 1px solid #fca5a5; font-size: 0.72rem; font-weight: 700; padding: 5px 8px; border-radius: 5px; cursor: pointer;"
+                          >
+                            ✕ Reject
+                          </button>
+                        </div>
+                      ` : `
+                        <div style="font-size: 0.68rem; color: #64748b; text-align: right;">
+                          <div>By: <strong>${r.processedBy || 'Branch Staff'}</strong></div>
+                          ${r.remarks ? `<div style="color: #475569; font-style: italic; margin-top: 2px;">"${r.remarks}"</div>` : ''}
+                        </div>
+                      `}
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+window.setCustomerRequestCategoryFilter = function(cat) {
+  window._reqCategoryFilter = cat;
+  const container = document.getElementById('workspace-target');
+  if (container) renderCustomerRequestsUI(container);
+};
+
+window.setCustomerRequestStatusFilter = function(stat) {
+  window._reqStatusFilter = stat;
+  const container = document.getElementById('workspace-target');
+  if (container) renderCustomerRequestsUI(container);
+};
+
+window.handleCustomerRequestSearch = function(query) {
+  window._reqSearchQuery = query;
+  const container = document.getElementById('workspace-target');
+  if (container) renderCustomerRequestsUI(container);
+};
+
+window.handleApproveCustomerRequest = async function(reqId) {
+  try {
+    const res = await apiCall('/api/customer-requests/' + reqId + '/action', 'PUT', { action: 'approve' });
+    showToast(`✓ Request ${reqId} approved successfully! Card / Instrument activated & customer notified.`, 'success');
+    
+    // Refresh list
+    const container = document.getElementById('workspace-target');
+    if (container) renderCustomerRequestsWorkspace(container);
+  } catch (err) {
+    showToast(err.message || 'Failed to approve request', 'danger');
+  }
+};
+
+window.handleRejectCustomerRequest = async function(reqId) {
+  const reason = prompt('Enter rejection remark / reason for customer notification:', 'KYC verification pending / Account review required');
+  if (reason === null) return; // Cancelled
+
+  try {
+    const res = await apiCall('/api/customer-requests/' + reqId + '/action', 'PUT', { action: 'reject', remarks: reason });
+    showToast(`Customer request ${reqId} rejected. Reason logged and customer notified.`, 'warning');
+    
+    // Refresh list
+    const container = document.getElementById('workspace-target');
+    if (container) renderCustomerRequestsWorkspace(container);
+  } catch (err) {
+    showToast(err.message || 'Failed to reject request', 'danger');
+  }
+};
+
+window.openWalkinRequestModal = function() {
+  const modalHtml = `
+    <div id="walkin-req-modal" class="modal-overlay" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px);">
+      <div class="card" style="width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto; background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 14px;">
+          <h3 style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin: 0;">Submit Walk-in Customer Request</h3>
+          <button type="button" onclick="document.getElementById('walkin-req-modal').remove()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #64748b;">✕</button>
+        </div>
+
+        <form onsubmit="handleWalkinRequestSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
+          <div class="form-group">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #475569; display: block; margin-bottom: 3px;">Customer Account Number *</label>
+            <input type="text" id="walkin-acc" required placeholder="e.g. 1000987658" style="width: 100%; padding: 7px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.8rem;" />
+          </div>
+
+          <div class="form-group">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #475569; display: block; margin-bottom: 3px;">Service Request Category *</label>
+            <select id="walkin-type" onchange="updateWalkinFields(this.value)" style="width: 100%; padding: 7px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.8rem;">
+              <option value="Debit Card">Debit Card (RuPay Platinum / Visa / Mastercard)</option>
+              <option value="Credit Card">Credit Card (Titanium Rewards)</option>
+              <option value="Cheque Book">Cheque Book (25 / 50 / 100 Leaves)</option>
+              <option value="Demand Draft">Demand Draft (DD Issue)</option>
+              <option value="UPI Channel">UPI Channel & Limit Activation</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="walkin-variant-group">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #475569; display: block; margin-bottom: 3px;">Variant / Specification</label>
+            <input type="text" id="walkin-variant" value="RuPay Platinum Contactless" style="width: 100%; padding: 7px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.8rem;" />
+          </div>
+
+          <div class="form-group">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #475569; display: block; margin-bottom: 3px;">Delivery Address / Branch Pickup</label>
+            <input type="text" id="walkin-address" placeholder="e.g. Branch Counter Pickup or Registered Address" value="Branch Counter Pickup" style="width: 100%; padding: 7px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.8rem;" />
+          </div>
+
+          <div class="form-group">
+            <label style="font-size: 0.74rem; font-weight: 700; color: #475569; display: block; margin-bottom: 3px;">Officer Remarks / Verification Notes</label>
+            <textarea id="walkin-remarks" rows="2" style="width: 100%; padding: 7px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.8rem;">Walk-in counter request verified by branch staff.</textarea>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px;">
+            <button type="button" onclick="document.getElementById('walkin-req-modal').remove()" class="btn btn-secondary" style="padding: 7px 14px; font-size: 0.78rem;">Cancel</button>
+            <button type="submit" class="btn btn-primary" style="padding: 7px 16px; font-size: 0.78rem; font-weight: 700;">Submit Request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+
+  const existing = document.getElementById('walkin-req-modal');
+  if (existing) existing.remove();
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+};
+
+window.updateWalkinFields = function(type) {
+  const varInput = document.getElementById('walkin-variant');
+  if (!varInput) return;
+  if (type === 'Debit Card') varInput.value = 'RuPay Platinum Contactless';
+  else if (type === 'Credit Card') varInput.value = 'BSB Titanium Rewards Credit Card';
+  else if (type === 'Cheque Book') varInput.value = 'CTS-2010 High Security Cheque Book (25 Leaves)';
+  else if (type === 'Demand Draft') varInput.value = 'Demand Draft (DD) Payable at Branch';
+  else if (type === 'UPI Channel') varInput.value = 'UPI VPA Channel Activation & Limit Increase';
+};
+
+window.handleWalkinRequestSubmit = async function(e) {
+  e.preventDefault();
+  const accNo = document.getElementById('walkin-acc').value;
+  const type = document.getElementById('walkin-type').value;
+  const variant = document.getElementById('walkin-variant').value;
+  const address = document.getElementById('walkin-address').value;
+  const remarks = document.getElementById('walkin-remarks').value;
+
+  try {
+    await apiCall('/api/customer-requests', 'POST', {
+      accountNumber: accNo,
+      type,
+      variant,
+      deliveryAddress: address,
+      remarks,
+      details: `${variant} requested by walk-in customer.`
+    });
+
+    showToast(`✓ Walk-in request for ${type} submitted successfully.`, 'success');
+    const modal = document.getElementById('walkin-req-modal');
+    if (modal) modal.remove();
+
+    const container = document.getElementById('workspace-target');
+    if (container) renderCustomerRequestsWorkspace(container);
+  } catch (err) {
+    showToast(err.message || 'Failed to submit request', 'danger');
   }
 };

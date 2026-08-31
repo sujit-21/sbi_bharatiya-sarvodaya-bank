@@ -64,7 +64,8 @@ const COLLECTIONS = [
   'rolePermissions',
   'userRoles',
   'branchAssignments',
-  'departmentAssignments'
+  'departmentAssignments',
+  'customerRequests'
 ];
 
 class Database {
@@ -74,13 +75,32 @@ class Database {
     this.mongoDb = null;
     this.wasSeeded = false;
     this.syncQueue = {};
+    this.lastLoadedMtime = 0;
     this.init();
+  }
+
+  reloadIfModified() {
+    try {
+      if (fs.existsSync(DB_FILE)) {
+        const stat = fs.statSync(DB_FILE);
+        if (stat.mtimeMs > this.lastLoadedMtime) {
+          const fileContent = fs.readFileSync(DB_FILE, 'utf8');
+          const parsed = JSON.parse(fileContent);
+          if (parsed && typeof parsed === 'object') {
+            this.data = parsed;
+            this.lastLoadedMtime = stat.mtimeMs;
+          }
+        }
+      }
+    } catch(e) {}
   }
 
   init() {
     // If database file exists, load it
     if (fs.existsSync(DB_FILE)) {
       try {
+        const stat = fs.statSync(DB_FILE);
+        this.lastLoadedMtime = stat.mtimeMs;
         const fileContent = fs.readFileSync(DB_FILE, 'utf8');
         this.data = JSON.parse(fileContent);
         // Ensure all collections exist
@@ -97,6 +117,13 @@ class Database {
       this.createEmptyDb();
     }
 
+    // Set up file watcher for cross-server instant sync
+    try {
+      fs.watch(DB_FILE, () => {
+        this.reloadIfModified();
+      });
+    } catch(e) {}
+
     // If db.json does not have the 10 Indian branches or 100 staff employees, re-seed
     if (!this.data.branches || this.data.branches.length < 10 || !this.data.users || this.data.users.length < 100) {
       console.log('[DATABASE] Re-seeding 10 Indian Branches & 100 Staff Users (10 per branch)...');
@@ -112,6 +139,155 @@ class Database {
           u.lockedUntil = null;
         }
       });
+    }
+
+    // Seed customerRequests if empty
+    if (!this.data.customerRequests || this.data.customerRequests.length === 0) {
+      this.data.customerRequests = [];
+      const seededRequests = [
+        {
+          id: 'REQ-DC-88121',
+          customerId: 'u-cust-5',
+          customerName: 'Kabir Malhotra',
+          accountNumber: '1000987658',
+          branchId: 'b-delhi',
+          branchName: 'Connaught Place Branch',
+          type: 'Debit Card',
+          variant: 'RuPay Platinum Contactless',
+          status: 'pending',
+          statusClass: 'pending',
+          deliveryAddress: 'Flat 402, Barakhamba Road, Connaught Place, New Delhi',
+          mobileNumber: '+91 9810199881',
+          details: 'Emboss Name: KABIR MALHOTRA • Daily ATM Limit: ₹50,000 • Contactless NFC Enabled',
+          trackingNumber: null,
+          processedBy: null,
+          remarks: 'Customer requested RuPay Platinum card upgrade via NetBanking portal.',
+          createdAt: '2026-08-31T09:15:00Z',
+          updatedAt: '2026-08-31T09:15:00Z'
+        },
+        {
+          id: 'REQ-CC-90412',
+          customerId: 'u-cust-3',
+          customerName: 'Rohan Kulkarni',
+          accountNumber: '1000987656',
+          branchId: 'b-main',
+          branchName: 'Mumbai Main HQ Branch',
+          type: 'Credit Card',
+          variant: 'BSB Titanium Rewards Credit Card',
+          status: 'pending',
+          statusClass: 'pending',
+          deliveryAddress: 'Tower 3, Dadar West, Mumbai 400028',
+          mobileNumber: '+91 9820011226',
+          details: 'Credit Limit Requested: ₹3,00,000 • Fuel Surcharge Waiver • Airport Lounge Access',
+          trackingNumber: null,
+          processedBy: null,
+          remarks: 'Salary account customer, verified 3-month credit turnover.',
+          createdAt: '2026-08-31T10:30:00Z',
+          updatedAt: '2026-08-31T10:30:00Z'
+        },
+        {
+          id: 'REQ-CHQ-67210',
+          customerId: 'u-cust-5',
+          customerName: 'Kabir Malhotra',
+          accountNumber: '1000987658',
+          branchId: 'b-delhi',
+          branchName: 'Connaught Place Branch',
+          type: 'Cheque Book',
+          variant: 'CTS-2010 High Security Cheque Book (25 Leaves)',
+          status: 'pending',
+          statusClass: 'pending',
+          deliveryAddress: 'Flat 402, Barakhamba Road, Connaught Place, New Delhi',
+          mobileNumber: '+91 9810199881',
+          details: '25 Leaves Personalized • Multi-city CTS-2010 Standard • Home Delivery',
+          trackingNumber: null,
+          processedBy: null,
+          remarks: 'Standard cheque book request for personal savings account.',
+          createdAt: '2026-08-31T11:00:00Z',
+          updatedAt: '2026-08-31T11:00:00Z'
+        },
+        {
+          id: 'REQ-DD-45190',
+          customerId: 'u-cust-4',
+          customerName: 'Ananya Swami',
+          accountNumber: '1000987657',
+          branchId: 'b-chennai',
+          branchName: 'Anna Salai Branch',
+          type: 'Demand Draft',
+          variant: 'Demand Draft (DD) in favor of University Registrar',
+          status: 'pending',
+          statusClass: 'pending',
+          deliveryAddress: 'Anna Salai Main Branch Counter Pickup',
+          mobileNumber: '+91 9845011992',
+          details: 'Amount: ₹45,000.00 • Payable at: Chennai • In Favor of: Registrar, Anna University',
+          trackingNumber: 'DD-OTP-8821',
+          processedBy: null,
+          remarks: 'Counter collection requested with OTP verification.',
+          createdAt: '2026-08-31T08:45:00Z',
+          updatedAt: '2026-08-31T08:45:00Z'
+        },
+        {
+          id: 'REQ-UPI-33019',
+          customerId: 'u-cust-5',
+          customerName: 'Kabir Malhotra',
+          accountNumber: '1000987658',
+          branchId: 'b-delhi',
+          branchName: 'Connaught Place Branch',
+          type: 'UPI Channel',
+          variant: 'UPI VPA Channel Activation & Limit Increase',
+          status: 'pending',
+          statusClass: 'pending',
+          deliveryAddress: 'Digital Channel Activation',
+          mobileNumber: '+91 9810199881',
+          details: 'VPA: kabir.malhotra@bsb • Daily Channel Limit: ₹1,00,000 • P2P & P2M Active',
+          trackingNumber: null,
+          processedBy: null,
+          remarks: 'Digital Banking channel activation for NPCI UPI 2.0 network.',
+          createdAt: '2026-08-31T11:30:00Z',
+          updatedAt: '2026-08-31T11:30:00Z'
+        },
+        {
+          id: 'REQ-DC-10929',
+          customerId: 'u-cust-1',
+          customerName: 'Aarav Mehta',
+          accountNumber: '1000987654',
+          branchId: 'b-main',
+          branchName: 'Mumbai Main HQ Branch',
+          type: 'Debit Card',
+          variant: 'Visa Platinum International Contactless',
+          status: 'approved',
+          statusClass: 'active',
+          deliveryAddress: 'Marine Lines, Mumbai, Maharashtra 400020',
+          mobileNumber: '+91 9820011223',
+          details: 'Emboss Name: AARAV MEHTA • Daily ATM Limit: ₹1,00,000 • Zero Forex Markup',
+          trackingNumber: 'Speed Post #IN98124501',
+          processedBy: 'Priya Patel (Branch Manager)',
+          remarks: 'Approved after KYC verification.',
+          createdAt: '2026-08-28T14:30:00Z',
+          updatedAt: '2026-08-28T16:00:00Z'
+        },
+        {
+          id: 'REQ-CHQ-12001',
+          customerId: 'u-cust-2',
+          customerName: 'Diya Banerjee',
+          accountNumber: '1000987655',
+          branchId: 'b-kolkata',
+          branchName: 'Park Street Branch',
+          type: 'Cheque Book',
+          variant: 'Personal CTS-2010 Cheque Book (50 Leaves)',
+          status: 'approved',
+          statusClass: 'active',
+          deliveryAddress: 'Salt Lake Sector 5, Kolkata 700091',
+          mobileNumber: '+91 9830022334',
+          details: '50 Leaves Personalized CTS-2010 Cheque Book',
+          trackingNumber: 'Speed Post #IN77192834',
+          processedBy: 'Vikram Singh (Cashier/Employee)',
+          remarks: 'Dispatched to registered mailing address.',
+          createdAt: '2026-08-26T10:00:00Z',
+          updatedAt: '2026-08-26T12:30:00Z'
+        }
+      ];
+      this.data.customerRequests.push(...seededRequests);
+      this.save('customerRequests');
     }
 
     // Connect to MongoDB in the background
@@ -380,6 +556,87 @@ class Database {
       { id: 'acc-merch-1', customerId: 'u-merchant', accountNumber: '2000123456', branchId: 'b-main', type: 'current', mopType: 'Self', balance: 1000000.00, status: 'active', createdAt: new Date().toISOString() }
     );
 
+    // Seed Active Debit Cards for Customers & Merchant
+    const seededCards = indianCustomers.map((c, i) => {
+      const acc = this.data.accounts[i];
+      const last4 = (acc.accountNumber || '1000').slice(-4);
+      return {
+        id: `card-${c.id}`,
+        customerId: c.id,
+        userId: c.userId,
+        accountId: acc.id,
+        accountNumber: acc.accountNumber,
+        cardNumber: `4532${last4}8821${last4}`,
+        cardHolder: c.fullName,
+        type: 'Debit',
+        name: 'RuPay Platinum Contactless',
+        status: 'active',
+        expiryDate: '12/29',
+        cvv: '321',
+        dailyLimit: 50000.00,
+        createdAt: new Date().toISOString()
+      };
+    });
+    this.data.cards.push(...seededCards);
+
+    // Seed Initial Transactions for Customers
+    const now = Date.now();
+    const seededTx = [];
+    indianCustomers.forEach((c, i) => {
+      const acc = this.data.accounts[i];
+      seededTx.push(
+        {
+          id: `tx-${acc.accountNumber}-1`,
+          type: 'deposit',
+          amount: 85000.00,
+          toAccountId: acc.id,
+          toAccountNumber: acc.accountNumber,
+          accountNumber: acc.accountNumber,
+          category: 'Salary NEFT Credit',
+          description: 'Monthly Corporate Salary NEFT - Payroll Credit',
+          status: 'completed',
+          createdAt: new Date(now - 7 * 86400000).toISOString()
+        },
+        {
+          id: `tx-${acc.accountNumber}-2`,
+          type: 'withdrawal',
+          amount: 3200.00,
+          fromAccountId: acc.id,
+          fromAccountNumber: acc.accountNumber,
+          accountNumber: acc.accountNumber,
+          category: 'ATM Cash Withdrawal',
+          description: 'Cash Dispense - BSB Branch ATM Terminal',
+          status: 'completed',
+          createdAt: new Date(now - 4 * 86400000).toISOString()
+        },
+        {
+          id: `tx-${acc.accountNumber}-3`,
+          type: 'withdrawal',
+          amount: 1450.00,
+          fromAccountId: acc.id,
+          fromAccountNumber: acc.accountNumber,
+          accountNumber: acc.accountNumber,
+          category: 'UPI Merchant Payment',
+          description: 'UPI / BharatPe Grocery Store Payment',
+          status: 'completed',
+          createdAt: new Date(now - 2 * 86400000).toISOString()
+        },
+        {
+          id: `tx-${acc.accountNumber}-4`,
+          type: 'deposit',
+          amount: 2845.50,
+          toAccountId: acc.id,
+          toAccountNumber: acc.accountNumber,
+          accountNumber: acc.accountNumber,
+          category: 'Savings Interest',
+          description: 'Quarterly Savings Bank Interest Credit (7.25% p.a.)',
+          status: 'completed',
+          createdAt: new Date(now - 1 * 86400000).toISOString()
+        }
+      );
+    });
+    this.data.transactions.push(...seededTx);
+
     // Seed Cash Vaults
     this.data.cashVaults.push({
       id: 'cv-main',
@@ -598,6 +855,151 @@ class Database {
       u.tempPassword = null;
     });
 
+    // Seed Customer Service Requests (Debit Cards, Credit Cards, Cheque Books, Demand Drafts, UPI Channels)
+    const seededRequests = [
+      {
+        id: 'REQ-DC-88121',
+        customerId: 'u-cust-5',
+        customerName: 'Kabir Malhotra',
+        accountNumber: '1000987658',
+        branchId: 'b-delhi',
+        branchName: 'Connaught Place Branch',
+        type: 'Debit Card',
+        variant: 'RuPay Platinum Contactless',
+        status: 'pending',
+        statusClass: 'pending',
+        deliveryAddress: 'Flat 402, Barakhamba Road, Connaught Place, New Delhi',
+        mobileNumber: '+91 9810199881',
+        details: 'Emboss Name: KABIR MALHOTRA • Daily ATM Limit: ₹50,000 • Contactless NFC Enabled',
+        trackingNumber: null,
+        processedBy: null,
+        remarks: 'Customer requested RuPay Platinum card upgrade via NetBanking portal.',
+        createdAt: '2026-08-31T09:15:00Z',
+        updatedAt: '2026-08-31T09:15:00Z'
+      },
+      {
+        id: 'REQ-CC-90412',
+        customerId: 'u-cust-3',
+        customerName: 'Rohan Kulkarni',
+        accountNumber: '1000987656',
+        branchId: 'b-main',
+        branchName: 'Mumbai Main HQ Branch',
+        type: 'Credit Card',
+        variant: 'BSB Titanium Rewards Credit Card',
+        status: 'pending',
+        statusClass: 'pending',
+        deliveryAddress: 'Tower 3, Dadar West, Mumbai 400028',
+        mobileNumber: '+91 9820011226',
+        details: 'Credit Limit Requested: ₹3,00,000 • Fuel Surcharge Waiver • Airport Lounge Access',
+        trackingNumber: null,
+        processedBy: null,
+        remarks: 'Salary account customer, verified 3-month credit turnover.',
+        createdAt: '2026-08-31T10:30:00Z',
+        updatedAt: '2026-08-31T10:30:00Z'
+      },
+      {
+        id: 'REQ-CHQ-67210',
+        customerId: 'u-cust-5',
+        customerName: 'Kabir Malhotra',
+        accountNumber: '1000987658',
+        branchId: 'b-delhi',
+        branchName: 'Connaught Place Branch',
+        type: 'Cheque Book',
+        variant: 'CTS-2010 High Security Cheque Book (25 Leaves)',
+        status: 'pending',
+        statusClass: 'pending',
+        deliveryAddress: 'Flat 402, Barakhamba Road, Connaught Place, New Delhi',
+        mobileNumber: '+91 9810199881',
+        details: '25 Leaves Personalized • Multi-city CTS-2010 Standard • Home Delivery',
+        trackingNumber: null,
+        processedBy: null,
+        remarks: 'Standard cheque book request for personal savings account.',
+        createdAt: '2026-08-31T11:00:00Z',
+        updatedAt: '2026-08-31T11:00:00Z'
+      },
+      {
+        id: 'REQ-DD-45190',
+        customerId: 'u-cust-4',
+        customerName: 'Ananya Swami',
+        accountNumber: '1000987657',
+        branchId: 'b-chennai',
+        branchName: 'Anna Salai Branch',
+        type: 'Demand Draft',
+        variant: 'Demand Draft (DD) in favor of University Registrar',
+        status: 'pending',
+        statusClass: 'pending',
+        deliveryAddress: 'Anna Salai Main Branch Counter Pickup',
+        mobileNumber: '+91 9845011992',
+        details: 'Amount: ₹45,000.00 • Payable at: Chennai • In Favor of: Registrar, Anna University',
+        trackingNumber: 'DD-OTP-8821',
+        processedBy: null,
+        remarks: 'Counter collection requested with OTP verification.',
+        createdAt: '2026-08-31T08:45:00Z',
+        updatedAt: '2026-08-31T08:45:00Z'
+      },
+      {
+        id: 'REQ-UPI-33019',
+        customerId: 'u-cust-5',
+        customerName: 'Kabir Malhotra',
+        accountNumber: '1000987658',
+        branchId: 'b-delhi',
+        branchName: 'Connaught Place Branch',
+        type: 'UPI Channel',
+        variant: 'UPI VPA Channel Activation & Limit Increase',
+        status: 'pending',
+        statusClass: 'pending',
+        deliveryAddress: 'Digital Channel Activation',
+        mobileNumber: '+91 9810199881',
+        details: 'VPA: kabir.malhotra@bsb • Daily Channel Limit: ₹1,00,000 • P2P & P2M Active',
+        trackingNumber: null,
+        processedBy: null,
+        remarks: 'Digital Banking channel activation for NPCI UPI 2.0 network.',
+        createdAt: '2026-08-31T11:30:00Z',
+        updatedAt: '2026-08-31T11:30:00Z'
+      },
+      {
+        id: 'REQ-DC-10929',
+        customerId: 'u-cust-1',
+        customerName: 'Aarav Mehta',
+        accountNumber: '1000987654',
+        branchId: 'b-main',
+        branchName: 'Mumbai Main HQ Branch',
+        type: 'Debit Card',
+        variant: 'Visa Platinum International Contactless',
+        status: 'approved',
+        statusClass: 'active',
+        deliveryAddress: 'Marine Lines, Mumbai, Maharashtra 400020',
+        mobileNumber: '+91 9820011223',
+        details: 'Emboss Name: AARAV MEHTA • Daily ATM Limit: ₹1,00,000 • Zero Forex Markup',
+        trackingNumber: 'Speed Post #IN98124501',
+        processedBy: 'Priya Patel (Branch Manager)',
+        remarks: 'Approved after KYC verification.',
+        createdAt: '2026-08-28T14:30:00Z',
+        updatedAt: '2026-08-28T16:00:00Z'
+      },
+      {
+        id: 'REQ-CHQ-12001',
+        customerId: 'u-cust-2',
+        customerName: 'Diya Banerjee',
+        accountNumber: '1000987655',
+        branchId: 'b-kolkata',
+        branchName: 'Park Street Branch',
+        type: 'Cheque Book',
+        variant: 'Personal CTS-2010 Cheque Book (50 Leaves)',
+        status: 'approved',
+        statusClass: 'active',
+        deliveryAddress: 'Salt Lake Sector 5, Kolkata 700091',
+        mobileNumber: '+91 9830022334',
+        details: '50 Leaves Personalized CTS-2010 Cheque Book',
+        trackingNumber: 'Speed Post #IN77192834',
+        processedBy: 'Vikram Singh (Cashier/Employee)',
+        remarks: 'Dispatched to registered mailing address.',
+        createdAt: '2026-08-26T10:00:00Z',
+        updatedAt: '2026-08-26T12:30:00Z'
+      }
+    ];
+    this.data.customerRequests.push(...seededRequests);
+
     console.log('Seeding completed successfully!');
   }
 
@@ -615,6 +1017,10 @@ class Database {
   save(collectionName) {
     try {
       fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf8');
+      try {
+        const stat = fs.statSync(DB_FILE);
+        this.lastLoadedMtime = stat.mtimeMs;
+      } catch(e) {}
       if (this.mongoDb) {
         if (collectionName) {
           this.queueSync(collectionName);
@@ -640,6 +1046,7 @@ class Database {
 
   // Repository Methods
   find(collectionName, filterFn) {
+    this.reloadIfModified();
     if (!this.data[collectionName]) return [];
     const results = filterFn ? this.data[collectionName].filter(filterFn) : this.data[collectionName];
     if (collectionName === 'users') return results.map(u => this._sanitizeUser(u));
@@ -647,6 +1054,7 @@ class Database {
   }
 
   findOne(collectionName, filterFn) {
+    this.reloadIfModified();
     if (!this.data[collectionName]) return null;
     const result = this.data[collectionName].find(filterFn) || null;
     if (collectionName === 'users') return this._sanitizeUser(result);
@@ -654,6 +1062,7 @@ class Database {
   }
 
   insert(collectionName, document) {
+    this.reloadIfModified();
     if (!this.data[collectionName]) {
       this.data[collectionName] = [];
     }
@@ -699,6 +1108,7 @@ class Database {
   }
 
   update(collectionName, filterFn, updateObjOrFn) {
+    this.reloadIfModified();
     if (!this.data[collectionName]) return [];
     const updated = [];
     this.data[collectionName].forEach((doc, index) => {
@@ -724,6 +1134,7 @@ class Database {
   }
 
   delete(collectionName, filterFn) {
+    this.reloadIfModified();
     if (!this.data[collectionName]) return 0;
     const initialCount = this.data[collectionName].length;
     this.data[collectionName] = this.data[collectionName].filter(doc => !filterFn(doc));
